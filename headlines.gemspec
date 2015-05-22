@@ -20,8 +20,13 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.1"
   s.add_dependency "rubyzip", ">= 1.0.0"
   s.add_dependency "faraday", ">= 0.9.1"
+  s.add_dependency "interactor-rails", ">= 2.0"
+  s.add_dependency "upsert", ">= 2.1"
 
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "rubocop"
+  s.add_development_dependency "rspec-rails"
   s.add_development_dependency "webmock"
+  s.add_development_dependency "database_cleaner"
+  s.add_development_dependency "pg"
+  s.add_development_dependency "rubocop"
+  s.add_development_dependency "byebug"
 end
