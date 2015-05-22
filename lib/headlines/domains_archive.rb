@@ -1,5 +1,4 @@
 require 'tempfile'
-require 'rails_helper'
 
 module Headlines
   class DomainsArchive

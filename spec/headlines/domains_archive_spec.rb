@@ -1,5 +1,3 @@
-require 'stringio'
-
 module Headlines
   describe DomainsArchive do
     let(:top_domains_zip) { open_fixture('top_domains.csv.zip') }
