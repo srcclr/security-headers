@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2.1"
+  s.add_dependency 'faraday', '~> 0.9.1'
+  s.add_dependency 'faraday_middleware', '~> 0.9.0'
 
   s.add_development_dependency "sqlite3"
 end
