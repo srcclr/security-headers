@@ -1,9 +1,12 @@
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
+require "spec_helper"
+require "rspec/rails"
 
-require File.expand_path("../../test/dummy/config/environment.rb",  __FILE__)
-ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
+ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../spec/dummy/db/migrate", __FILE__)]
 ActiveRecord::Migrator.migrations_paths << File.expand_path("../../db/migrate", __FILE__)
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+RSpec.configure do |config|
+  config.use_transactional_fixtures = false
+  config.infer_spec_type_from_file_location!
+end
