@@ -1,4 +1,4 @@
-require 'tempfile'
+require "tempfile"
 
 module Headlines
   class DomainsArchive

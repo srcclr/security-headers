@@ -33,7 +33,7 @@ module Headlines
     end
 
     def normalized_row(row)
-      DOMAIN.new(*row.split(','))
+      DOMAIN.new(*row.split(","))
     end
 
     def connection(&block)
