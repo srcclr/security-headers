@@ -1,0 +1,6 @@
+{
+  "strict-transport-security": "max-age=631138519",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "sameorigin",
+  "x-xss-protection": "1; mode=block"
+}
