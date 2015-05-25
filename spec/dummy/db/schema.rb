@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525153421) do
+ActiveRecord::Schema.define(version: 20150522101222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-
-  create_table "headers", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "headlines_domains", force: :cascade do |t|
     t.string   "name",       default: "", null: false
@@ -30,14 +24,5 @@ ActiveRecord::Schema.define(version: 20150525153421) do
   end
 
   add_index "headlines_domains", ["name"], name: "index_headlines_domains_on_name", unique: true, using: :btree
-
-  create_table "headlines_headers", force: :cascade do |t|
-    t.string   "name"
-    t.hstore   "parameters"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "headlines_headers", ["parameters"], name: "index_headlines_headers_on_parameters", using: :gin
 
 end
