@@ -1,0 +1,16 @@
+<ALEXA VER="0.9" URL="flipkart.com/" HOME="0" AID="=" IDN="flipkart.com/">
+  <DMOZ>
+    <SITE BASE="flipkart.com/" TITLE="Flipkart" DESC="Flipkart is a leading destination for online shopping in India.">
+      <CATS>
+        <CAT ID="Top/Regional/Asia/India/Business_and_Economy/Shopping" TITLE="Business and Economy/Shopping" CID="498976"/>
+        <CAT ID="Top/Regional/Asia/India/Shopping" TITLE="Business and Economy" CID="498921"/>
+      </CATS>
+    </SITE>
+  </DMOZ>
+  <SD>
+    <POPULARITY URL="flipkart.com/" TEXT="92" SOURCE="panel"/>
+    <REACH RANK="105"/>
+    <RANK DELTA="+7"/>
+    <COUNTRY CODE="IN" NAME="India" RANK="6"/>
+  </SD>
+</ALEXA>
