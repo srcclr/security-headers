@@ -2,29 +2,25 @@ module Headlines
   module SecurityHeaders
     describe XContentTypeOptions do
       describe "#parse" do
-        subject(:parsed_header) { described_class.new(header).parse }
+        subject(:params) { described_class.new(header).params }
 
         context "with full header" do
           let(:header) { ["x-content-type-options", "nosniff"] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:nosniff]).to be_truthy
-          end
+          its([:nosniff]) { is_expected.to be_truthy }
         end
 
         context "without nosniff parameter" do
           let(:header) { ["x-content-type-options", ""] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:nosniff]).to be_falsey
-          end
+          its([:nosniff]) { is_expected.to be_falsey }
         end
       end
 
       describe "#score" do
-        let(:parsed_header) { described_class.new(header).parse }
+        let(:analyzed_header) { described_class.new(header) }
 
-        subject { parsed_header.score }
+        subject { analyzed_header.score }
 
         context "with full header" do
           let(:header) { ["x-content-type-options", "nosniff"] }

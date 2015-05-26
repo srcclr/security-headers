@@ -2,22 +2,18 @@ module Headlines
   module SecurityHeaders
     describe XFrameOptions do
       describe "#parse" do
-        subject(:parsed_header) { described_class.new(header).parse }
+        subject(:params) { described_class.new(header).params }
 
         context "with full header" do
           let(:header) { ["x-frame-options", "sameorigin"] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:sameorigin]).to be_truthy
-          end
+          its([:sameorigin]) { is_expected.to be_truthy }
         end
 
         context "without any parameters" do
           let(:header) { ["x-frame-options", ""] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:sameorigin]).to be_falsey
-          end
+          its([:sameorigin]) { is_expected.to be_falsey }
         end
       end
     end

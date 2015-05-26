@@ -2,13 +2,14 @@ module Headlines
   module SecurityHeaders
     class ContentSecurityPolicy < SecurityHeader
       def parse
-        @header.split(";").each do |parameter|
+        results = { enabled: true }
+        @value.split(";").each do |parameter|
           key = parameter.split(" ")[0].gsub("-", "_")
           value = parameter.split(" ")[1..-1].join(" ")
-          @params[key.to_sym] = value
+          results[key.to_sym] = value
         end
 
-        self
+        results
       end
     end
   end

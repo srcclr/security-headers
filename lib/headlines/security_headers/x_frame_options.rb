@@ -2,8 +2,10 @@ module Headlines
   module SecurityHeaders
     class XFrameOptions < SecurityHeader
       def parse
-        @params[:sameorigin] = @header.scan("sameorigin").any?
-        self
+        {}.tap do |results|
+          results[:enabled] = true
+          results[:sameorigin] = @value.scan("sameorigin").any?
+        end
       end
     end
   end

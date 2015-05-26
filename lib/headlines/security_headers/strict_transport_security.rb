@@ -2,9 +2,11 @@ module Headlines
   module SecurityHeaders
     class StrictTransportSecurity < SecurityHeader
       def parse
-        @params[:includeSubDomains] = @header.scan("includeSubDomains").any?
-        @params[:max_age] = Regexp.last_match[1] if @header =~ /max-age=(\d+)/
-        self
+        {}.tap do |results|
+          results[:enabled] = true
+          results[:includeSubDomains] = @value.scan("includeSubDomains").any?
+          results[:max_age] = Regexp.last_match[1] if @value =~ /max-age=(\d+)/
+        end
       end
     end
   end

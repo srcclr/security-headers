@@ -16,7 +16,7 @@ module Headlines
 
     def parse_headers(headers)
       headers.slice(*SECURITY_HEADERS).map do |header|
-        header_class(header).new(header).parse
+        header_class(header).new(header).params
       end
     end
 

@@ -2,24 +2,20 @@ module Headlines
   module SecurityHeaders
     describe ContentSecurityPolicy do
       describe "#parse" do
-        subject(:parsed_header) { described_class.new(header).parse }
+        subject(:params) { described_class.new(header).params }
 
         context "with full header" do
           let(:header) { ["content-security-policy", "default-src https:; font-src https: data:"] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:default_src]).to eq "https:"
-            expect(parsed_header.params[:font_src]).to eq "https: data:"
-          end
+          its([:default_src]) { is_expected.to eq "https:" }
+          its([:font_src]) { is_expected.to eq "https: data:" }
         end
 
         context "without any parameters" do
           let(:header) { ["content-security-policy", ""] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:default_src]).to be_nil
-            expect(parsed_header.params[:font_src]).to be_nil
-          end
+          its([:default_src]) { is_expected.to be_nil }
+          its([:font_src]) { is_expected.to be_nil }
         end
       end
     end

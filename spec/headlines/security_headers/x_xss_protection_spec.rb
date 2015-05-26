@@ -2,32 +2,26 @@ module Headlines
   module SecurityHeaders
     describe XXssProtection do
       describe "#parse" do
-        subject(:parsed_header) { described_class.new(header).parse }
+        subject(:params) { described_class.new(header).params }
 
         context "with full header" do
           let(:header) { ["x-xss-protection", "1; mode=block"] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:enabled]).to be_truthy
-            expect(parsed_header.params[:mode]).to eq "block"
-          end
+          its([:enabled]) { is_expected.to be_truthy }
+          its([:mode]) { is_expected.to eq "block" }
         end
 
         context "without mode property" do
           let(:header) { ["x-xss-protection", "1"] }
 
-          it "set parameters" do
-            expect(parsed_header.params[:enabled]).to be_truthy
-            expect(parsed_header.params[:mode]).to be_nil
-          end
+          its([:enabled]) { is_expected.to be_truthy }
+          its([:mode]) { is_expected.to be_nil }
         end
 
         context "with disabled header" do
           let(:header) { ["x-xss-protection", "0"] }
 
-          it "set enabled parameter to false" do
-            expect(parsed_header.params[:enabled]).to eq false
-          end
+          its([:enabled]) { is_expected.to eq false }
         end
       end
     end
