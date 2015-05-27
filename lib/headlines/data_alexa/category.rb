@@ -18,6 +18,10 @@ module Headlines
       def path
         @node["ID"]
       end
+
+      def to_h
+        { id: id, title: title, path: path }
+      end
     end
   end
 end
