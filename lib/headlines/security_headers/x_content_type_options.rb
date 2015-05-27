@@ -3,13 +3,8 @@ module Headlines
     class XContentTypeOptions < SecurityHeader
       def parse
         {}.tap do |results|
-          results[:enabled] = true
-          results[:nosniff] = @value.scan("nosniff").any?
+          results[:enabled] = @value.eql?("nosniff")
         end
-      end
-
-      def score
-        params[:enabled] && params[:nosniff] ? 1 : 0
       end
     end
   end

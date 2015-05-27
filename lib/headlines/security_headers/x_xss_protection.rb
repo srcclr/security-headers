@@ -4,7 +4,10 @@ module Headlines
       def parse
         {}.tap do |results|
           results[:enabled] = @value.start_with?("1")
-          results[:mode] = Regexp.last_match[1] if @value =~ /mode=(\w+)/
+          if results[:enabled]
+            results[:mode] = "block" if @value.gsub(" ", "").scan(";mode=block").any?
+            results[:report_url] = Regexp.last_match[1] if @value =~ /report=(.+)/
+          end
         end
       end
     end

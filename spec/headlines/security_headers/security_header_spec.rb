@@ -2,29 +2,19 @@ module Headlines
   module SecurityHeaders
     describe SecurityHeader do
       describe "#initialize" do
-        subject(:params) { described_class.new(header).params }
+        subject(:params) { described_class.new(value).params }
 
-        context "with header" do
-          let(:header) { ["some-security-header", "at least one parameter"] }
+        context "with header value" do
+          let(:value) { "at least one parameter" }
 
-          its([:name]) { is_expected.to eq "some-security-header" }
           its([:value]) { is_expected.to eq "at least one parameter" }
         end
 
-        context "without header" do
-          let(:header) { ["some-security-header"] }
+        context "without header value" do
+          let(:value) { "" }
 
-          its([:name]) { is_expected.to eq "some-security-header" }
-          its([:value]) { is_expected.to be_nil }
+          its([:value]) { is_expected.to eq "" }
         end
-      end
-
-      describe "#score" do
-        let(:header) { ["some-security-header", "at least one parameter"] }
-
-        subject(:score) { described_class.new(header).score }
-
-        it { is_expected.to eq 0 }
       end
     end
   end

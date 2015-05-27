@@ -15,13 +15,13 @@ module Headlines
     private
 
     def parse_headers(headers)
-      headers.slice(*SECURITY_HEADERS).map do |header|
-        header_class(header).new(header).params
+      headers.slice(*SECURITY_HEADERS).map do |(header, value)|
+        header_class(header).new(value).params
       end
     end
 
     def header_class(header)
-      "Headlines::SecurityHeaders::#{header[0].titleize.gsub(' ', '')}".constantize
+      "Headlines::SecurityHeaders::#{header.titleize.gsub(' ', '')}".constantize
     end
 
     def connection

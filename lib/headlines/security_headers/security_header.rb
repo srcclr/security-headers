@@ -1,21 +1,16 @@
 module Headlines
   module SecurityHeaders
     class SecurityHeader
-      def initialize(header)
-        @name = header[0]
-        @value = header[1]
+      def initialize(value)
+        @value = value
       end
 
       def params
-        @params ||= parse.merge!(name: @name, value: @value)
+        @params ||= parse.merge!(value: @value)
       end
 
       def parse
         {}
-      end
-
-      def score
-        params[:enabled] ? 1 : 0
       end
     end
   end
