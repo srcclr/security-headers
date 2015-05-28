@@ -7,13 +7,25 @@ module Headlines
 
     before do
       allow(file).to receive(:fetch_in_batches).and_yield(domains)
-      described_class.call(file: file)
     end
 
+    subject { described_class.call(file: file).domains }
+
     describe ".call" do
-      it "creates domains from file" do
-        expect(Domain.where(name: "google.com")).to be_exists
+      it "builds one item for each input line" do
+        expect(subject.size).to eq 2
       end
+    end
+
+    describe "domain instances" do
+      subject { described_class.call(file: file).domains.first }
+
+      it "represents instances of domains" do
+        expect(subject).to be_kind_of(Domain)
+      end
+
+      its(:name) { is_expected.to eq "google.com" }
+      its(:rank) { is_expected.to eq 1 }
     end
   end
 end

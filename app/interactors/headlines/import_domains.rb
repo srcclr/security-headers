@@ -2,42 +2,31 @@ module Headlines
   class ImportDomains
     include Interactor
 
-    DOMAIN = Struct.new(:rank, :name) do
-      def key
-        { name: name }
-      end
+    ATTRIBUTES = %i(rank name)
 
-      def to_h
-        time = Time.zone.now
-        { rank: rank, created_at: time, updated_at: time }
-      end
+    before do
+      context.domains ||= []
     end
 
     def call
       context.file.fetch_in_batches(
         batch_size: 1000,
-        &method(:upsert)
+        &method(:read_domains)
       )
     end
 
     private
 
-    def upsert(rows)
-      connection do |upsert|
-        rows.each { |row| add_row(upsert, normalized_row(row)) }
-      end
+    def read_domains(rows)
+      context.domains.concat(rows.map { |row| row_to_domain(row) })
     end
 
-    def add_row(upsert, domain)
-      upsert.row(domain.key, domain.to_h)
+    def row_to_domain(row)
+      Domain.new(row_to_attributes(row))
     end
 
-    def normalized_row(row)
-      DOMAIN.new(*row.split(","))
-    end
-
-    def connection(&block)
-      Upsert.batch(Domain.connection, Domain.table_name, &block)
+    def row_to_attributes(row)
+      Hash[ATTRIBUTES.zip(row.split(","))]
     end
   end
 end
