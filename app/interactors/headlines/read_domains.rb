@@ -1,5 +1,5 @@
 module Headlines
-  class ImportDomains
+  class ReadDomains
     include Interactor
 
     ATTRIBUTES = %i(rank name)
