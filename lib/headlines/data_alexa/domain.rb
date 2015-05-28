@@ -2,7 +2,7 @@ module Headlines
   class DataAlexa
     class Domain
 
-      attr_reader :domain, :document
+      attr_reader :document
 
       def initialize(document)
         @document = Nokogiri.XML(document)
