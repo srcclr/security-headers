@@ -6,6 +6,7 @@ module Headlines
 
     before do
       context.domains ||= []
+      context.handler ||= context.domains.method(:concat)
     end
 
     def call
@@ -18,7 +19,7 @@ module Headlines
     private
 
     def read_domains(rows)
-      context.domains.concat(rows.map { |row| row_to_domain(row) })
+      context.handler.call(rows.map { |row| row_to_domain(row) })
     end
 
     def row_to_domain(row)

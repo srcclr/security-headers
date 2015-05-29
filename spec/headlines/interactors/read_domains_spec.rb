@@ -9,11 +9,21 @@ module Headlines
       allow(file).to receive(:fetch_in_batches).and_yield(domains)
     end
 
-    subject { described_class.call(file: file).domains }
-
     describe ".call" do
-      it "builds one item for each input line" do
-        expect(subject.size).to eq 2
+      subject { described_class.call(file: file).domains }
+
+      context "when handler is not given" do
+        it "collects items in domains" do
+          expect(subject.size).to eq 2
+        end
+      end
+
+      context "when handler is given" do
+        it "sends batches to handler" do
+          expect do |block|
+            described_class.call(file: file, handler: block.to_proc)
+          end.to yield_control
+        end
       end
     end
 
