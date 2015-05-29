@@ -13,7 +13,7 @@ module Headlines
     private
 
     def add_domain(upsert, domain)
-      upsert.row({name: domain.name }, slice_attributes(domain))
+      upsert.row({ name: domain.name }, slice_attributes(domain))
     end
 
     def slice_attributes(domain, curret_time: Time.zone.now)
