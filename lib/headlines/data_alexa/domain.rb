@@ -12,11 +12,11 @@ module Headlines
       end
 
       def country_name
-        coutry["NAME"]
+        country["NAME"]
       end
 
       def country_code
-        coutry["CODE"]
+        country["CODE"]
       end
 
       def categories
@@ -27,8 +27,8 @@ module Headlines
 
       private
 
-      def coutry
-        @coutry ||= document.search("SD COUNTRY").first || {}
+      def country
+        @country ||= document.search("SD COUNTRY").first || {}
       end
     end
   end
