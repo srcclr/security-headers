@@ -1,43 +1,20 @@
 module Headlines
   class ImportDomains
-    include Interactor
+    include Interactor::Organizer
 
-    DOMAIN = Struct.new(:rank, :name) do
-      def key
-        { name: name }
-      end
+    organize CollectDomainsDataAlexa, UpsertDomains
 
-      def to_h
-        time = Time.zone.now
-        { rank: rank, created_at: time, updated_at: time }
-      end
+    def call_with_import
+      ReadDomains.call(file: context.file, handler: method(:handler))
     end
 
-    def call
-      context.file.fetch_in_batches(
-        batch_size: 1000,
-        &method(:upsert)
-      )
-    end
+    alias_method_chain :call, :import
 
     private
 
-    def upsert(rows)
-      connection do |upsert|
-        rows.each { |row| add_row(upsert, normalized_row(row)) }
-      end
-    end
-
-    def add_row(upsert, domain)
-      upsert.row(domain.key, domain.to_h)
-    end
-
-    def normalized_row(row)
-      DOMAIN.new(*row.split(","))
-    end
-
-    def connection(&block)
-      Upsert.batch(Domain.connection, Domain.table_name, &block)
+    def handler(domains)
+      context.domains = domains
+      call_without_import
     end
   end
 end
