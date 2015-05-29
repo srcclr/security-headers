@@ -5,7 +5,6 @@ module Headlines
     let(:domains) { [build_stubbed(:domain, :with_data_alexa)] }
 
     describe ".call" do
-
       subject(:upsert_categories) { described_class.call(domains: domains) }
 
       it "inserts categories" do
@@ -13,7 +12,6 @@ module Headlines
       end
 
       context "when category with the same id presents" do
-
         before { create(:category, id: "498976") }
 
         it "skips inserting categories for duplicated ones" do

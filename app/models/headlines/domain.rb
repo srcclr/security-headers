@@ -2,6 +2,8 @@ module Headlines
   class Domain < ActiveRecord::Base
     validates :name, presence: true
 
+    delegate :categories, to: :data_alexa, prefix: true
+
     def data_alexa=(value)
       self[:data_alexa] = value
       update_country_code
