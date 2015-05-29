@@ -7,14 +7,14 @@ module Headlines
       update_country_code
     end
 
+    def data_alexa
+      DataAlexa::Domain.new(self[:data_alexa])
+    end
+
     private
 
     def update_country_code
       self[:country_code] = data_alexa.country_code
-    end
-
-    def data_alexa
-      DataAlexa::Domain.new(self[:data_alexa])
     end
   end
 end

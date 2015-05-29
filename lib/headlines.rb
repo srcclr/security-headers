@@ -14,7 +14,5 @@ require "headlines/security_headers/x_frame_options"
 require "headlines/security_headers/x_xss_protection"
 require "headlines/data_alexa"
 
-require_relative "../app/interactors/headlines/import_domains"
-
 module Headlines
 end

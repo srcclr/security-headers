@@ -1,7 +1,6 @@
 module Headlines
   class DataAlexa
     class Domain
-
       attr_reader :document
 
       def initialize(document)
@@ -29,7 +28,7 @@ module Headlines
       private
 
       def coutry
-        @coutry ||= document.search("SD COUNTRY").first
+        @coutry ||= document.search("SD COUNTRY").first || {}
       end
     end
   end
