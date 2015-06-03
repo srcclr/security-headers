@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "byebug"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec-its"
-  s.add_development_dependency "webmock"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "pg"
   s.add_development_dependency "rubocop"
