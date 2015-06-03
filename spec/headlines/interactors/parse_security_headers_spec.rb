@@ -6,14 +6,10 @@ module Headlines
 
     subject(:context) { described_class.call(url: url) }
 
-    before do
-      stub_request(:get, "google.com").to_return(status: 200, headers: headers)
-      stub_request(:get, "fakesitedomainname.com").to_raise(Faraday::ConnectionFailed)
-      stub_request(:get, "serverwith500respondstatus.com").to_return(status: 500)
-    end
-
     describe ".call" do
       context "with existing site name" do
+        before { stub_request(:get, "google.com").to_return(status: 200, headers: headers) }
+
         let(:url) { "google.com" }
 
         it { is_expected.to be_a_success }
@@ -24,6 +20,8 @@ module Headlines
       end
 
       context "with fake site name" do
+        before { stub_request(:get, "fakesitedomainname.com").to_raise(Faraday::ConnectionFailed) }
+
         let(:url) { "fakesitedomainname.com" }
 
         it { is_expected.to be_a_failure }
@@ -32,13 +30,10 @@ module Headlines
       end
 
       context "with server error status" do
+        before { stub_request(:get, "serverwith500respondstatus.com").to_return(status: 500) }
         let(:url) { "serverwith500respondstatus.com" }
 
         it { is_expected.to be_a_failure }
-
-        its(:message) do
-          is_expected.to eq "We can't parse serverwith500respondstatus.com headers. Server respond with status: 500."
-        end
       end
     end
   end

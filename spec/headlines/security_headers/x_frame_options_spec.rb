@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe XFrameOptions do
       describe "#parse" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "x-frame-options" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         context "header with DENY value" do
           let(:value) { "DENY" }

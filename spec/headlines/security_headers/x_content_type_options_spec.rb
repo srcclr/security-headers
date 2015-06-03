@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe XContentTypeOptions do
       describe "#parse" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "x-content-type-options" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         context "header with nosniff value" do
           let(:value) { "nosniff" }

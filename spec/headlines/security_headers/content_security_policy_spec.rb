@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe ContentSecurityPolicy do
       describe "#parse" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "content-security-policy" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         context "header with some parameters" do
           let(:value) { "default-src https:; font-src https: data:" }

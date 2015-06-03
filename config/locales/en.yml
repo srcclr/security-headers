@@ -1,0 +1,4 @@
+en:
+  connection:
+    failed: "Couldn't connect to site: %{url}."
+    response_error: "We can't parse %{url} headers. Server respond with status: %{status}."

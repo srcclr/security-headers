@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe SecurityHeader do
       describe "#initialize" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "x-frame-options" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         context "with header value" do
           let(:value) { "at least one parameter" }

@@ -4,10 +4,10 @@ module Headlines
 
     def perform
       Domain.find_each do |domain|
-        result = ParseSecurityHeaders.call(url: domain.name)
-        if result.success?
-          domain.update(tests: result.tests)
-        end
+        result = AnalyzeDomainHeaders.call(url: domain.name)
+        Scan.create(headers: result.params,
+                    results: result.scan_results,
+                    headlines_domain_id: domain.id) if result.success?
       end
     end
   end

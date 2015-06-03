@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522101222) do
+ActiveRecord::Schema.define(version: 20150602161833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "headlines_domains", force: :cascade do |t|
     t.string   "name",       default: "", null: false
@@ -25,4 +26,15 @@ ActiveRecord::Schema.define(version: 20150522101222) do
 
   add_index "headlines_domains", ["name"], name: "index_headlines_domains_on_name", unique: true, using: :btree
 
+  create_table "headlines_scans", force: :cascade do |t|
+    t.json     "headers",             default: {}, null: false
+    t.hstore   "results",             default: {}, null: false
+    t.integer  "headlines_domain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "headlines_scans", ["headlines_domain_id"], name: "index_headlines_scans_on_headlines_domain_id", using: :btree
+
+  add_foreign_key "headlines_scans", "headlines_domains"
 end
