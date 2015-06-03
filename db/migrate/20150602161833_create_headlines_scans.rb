@@ -3,9 +3,11 @@ class CreateHeadlinesScans < ActiveRecord::Migration
     create_table :headlines_scans do |t|
       t.json :headers, default: {}, null: false
       t.hstore :results, default: {}, null: false, using: :gin
-      t.references :headlines_domain, index: true, foreign_key: true
+      t.belongs_to :domain
 
       t.timestamps
     end
+
+    add_index :headlines_scans, :domain_id
   end
 end
