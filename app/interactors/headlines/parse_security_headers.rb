@@ -9,14 +9,22 @@ module Headlines
                           content-security-policy)
 
     def call
-      context.headers = parse_headers(connection.get("/").headers)
+      context.fail! unless response.success?
+
+      context.headers = parse_headers(response.headers)
+    rescue Faraday::ConnectionFailed
+      context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
     private
 
+    def response
+      @response ||= connection.get("/")
+    end
+
     def parse_headers(headers)
       headers.slice(*SECURITY_HEADERS).map do |(header, value)|
-        header_class(header).new(value).params
+        header_class(header).new(header, value)
       end
     end
 

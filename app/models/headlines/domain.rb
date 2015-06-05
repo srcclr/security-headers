@@ -2,6 +2,8 @@ module Headlines
   class Domain < ActiveRecord::Base
     validates :name, presence: true
 
+    has_many :scans
+
     delegate :categories, to: :data_alexa, prefix: true
 
     def data_alexa=(value)

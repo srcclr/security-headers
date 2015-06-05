@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe StrictTransportSecurity do
       describe "#parse" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "strict-transport-security" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         context "header with right max-age parameter" do
           let(:value) { "max-age=631138519" }

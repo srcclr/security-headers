@@ -2,7 +2,9 @@ module Headlines
   module SecurityHeaders
     describe XXssProtection do
       describe "#parse" do
-        subject(:params) { described_class.new(value).params }
+        let(:name) { "x-xss-protection" }
+
+        subject(:params) { described_class.new(name, value).params }
 
         describe "header with enable status" do
           context "without extra parameter" do
