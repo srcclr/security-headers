@@ -3,6 +3,8 @@ module Headlines
     validates :name, presence: true
 
     has_many :scans
+    has_many :domains_categories
+    has_many :categories, through: :domains_categories
 
     delegate :categories, to: :data_alexa, prefix: true
 

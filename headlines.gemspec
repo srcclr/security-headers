@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", ">= 1.5"
   s.add_dependency "responders", ">= 2.1"
   s.add_development_dependency "active_model_serializers", ">= 0.9"
+  s.add_development_dependency "schema_plus", ">= 2.0"
 
   s.add_development_dependency "byebug"
   s.add_development_dependency "rspec-rails"
