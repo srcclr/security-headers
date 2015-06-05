@@ -11,12 +11,10 @@ module Headlines
     describe ".call" do
       it { is_expected.to be_a_success }
 
-      it "provides scan results" do
-        expect(context.scan_results).to be_present
-        expect(context.scan_results.size).to eq 2
-        expect(context.scan_results).to have_key("x-xss-protection")
-        expect(context.scan_results).to have_key("x-frame-options")
-      end
+      its(:scan_results) { is_expected.to be_present }
+      its("scan_results.size") { is_expected.to eq 2 }
+      its(:scan_results) { is_expected.to have_key("x-xss-protection") }
+      its(:scan_results) { is_expected.to have_key("x-frame-options") }
     end
   end
 end

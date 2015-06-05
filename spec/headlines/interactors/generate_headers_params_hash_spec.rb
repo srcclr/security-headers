@@ -11,10 +11,8 @@ module Headlines
     describe ".call" do
       it { is_expected.to be_a_success }
 
-      it "provides params hash" do
-        expect(context.params).to be_present
-        expect(context.params.size).to eq 2
-      end
+      its(:params) { is_expected.to be_present }
+      its("params.size") { is_expected.to eq 2 }
     end
   end
 end
