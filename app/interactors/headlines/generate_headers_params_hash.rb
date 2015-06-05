@@ -3,13 +3,13 @@ module Headlines
     include Interactor
 
     def call
-      context.params = headers_hash(context.headers)
+      context.params = headers_hash
     end
 
     private
 
-    def headers_hash(headers)
-      Hash[headers.map { |header| [header.name, header.params] }]
+    def headers_hash
+      Hash[context.headers.map { |header| [header.name, header.params] }]
     end
   end
 end
