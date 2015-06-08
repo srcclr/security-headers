@@ -12,6 +12,7 @@ module Headlines
     def call
       context.file.fetch_in_batches(
         batch_size: 1000,
+        limit: 10_000,
         &method(:read_domains)
       )
     end
@@ -27,7 +28,7 @@ module Headlines
     end
 
     def row_to_attributes(row)
-      Hash[ATTRIBUTES.zip(row.split(","))]
+      Hash[ATTRIBUTES.zip(row.split(",").map(&:chomp))]
     end
   end
 end

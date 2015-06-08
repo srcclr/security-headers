@@ -8,7 +8,7 @@ module Headlines
     attr_reader :tmp_archive, :tmp_domains
     private :tmp_archive, :tmp_domains
 
-    delegate :each_line, to: :extract_domains
+    delegate :each_line, :eof?, :lineno, to: :archive
 
     def initialize
       @tmp_archive = Tempfile.new("#{BASENAME}.zip")
@@ -16,6 +16,10 @@ module Headlines
     end
 
     private
+
+    def archive
+      @archive ||= extract_domains
+    end
 
     def extract_domains
       download_archive
@@ -30,7 +34,7 @@ module Headlines
 
     def download_archive
       response = ::Faraday.get(URL)
-      tmp_archive.write(response.body)
+      tmp_archive.write(response.body.force_encoding("utf-8"))
 
       tmp_archive.rewind
     end

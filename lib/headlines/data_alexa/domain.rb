@@ -12,11 +12,11 @@ module Headlines
       end
 
       def country_name
-        country["NAME"]
+        country["NAME"] || ""
       end
 
       def country_code
-        country["CODE"]
+        country["CODE"] || ""
       end
 
       def categories
