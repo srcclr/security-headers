@@ -3,11 +3,14 @@ FactoryGirl.define do
     ignore { category nil }
 
     name  { FFaker::Internet.domain_name }
-    rank "1"
+    sequence(:rank)
+
     country_code "US"
 
     after(:create) do |domain, evaluator|
-      if category = evaluator.category
+      category = evaluator.category
+
+      if category
         FactoryGirl.create(
           :domains_category,
           domain: domain,

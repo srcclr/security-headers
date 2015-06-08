@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "active_model_serializers", ">= 0.9"
   s.add_development_dependency "schema_plus", ">= 2.0"
 
-  s.add_development_dependency "byebug"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "database_cleaner"
