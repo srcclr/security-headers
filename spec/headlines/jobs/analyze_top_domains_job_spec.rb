@@ -2,8 +2,8 @@ require "rails_helper"
 
 module Headlines
   describe AnalyzeTopDomainsJob do
-    let!(:google_domain) { create :domain }
-    let!(:twitter_domain) { create :domain, name: "twitter.com", rank: 2 }
+    let!(:google_domain) { create(:domain, name: "google.com") }
+    let!(:twitter_domain) { create(:domain, name: "twitter.com", rank: 2) }
     let(:headers) { JSON.parse(open_fixture("headers.json").read) }
 
     subject(:job) { described_class.new.perform }

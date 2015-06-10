@@ -6,7 +6,7 @@ PATH
       faraday_middleware (~> 0.9.0)
       interactor-rails (>= 2.0)
       nokogiri (>= 1.5)
-      rails (~> 4.2.1)
+      rails (~> 4.1)
       responders (>= 2.1)
       rubyzip (>= 1.0.0)
       upsert (>= 2.1)
