@@ -7,11 +7,11 @@ require "headlines/version"
 Gem::Specification.new do |s|
   s.name        = "headlines"
   s.version     = Headlines::VERSION
-  s.authors     = [""]
-  s.email       = [""]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Headlines."
-  s.description = "TODO: Description of Headlines."
+  s.authors     = ["Securonauts"]
+  s.email       = ["support@securonauts.com"]
+  s.homepage    = "https://www.securonauts.com"
+  s.summary     = "Security vulnerabilities scanner"
+  s.description = "Security vulnerabilities scanner"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

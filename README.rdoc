@@ -1,3 +1,11 @@
 = Headlines
 
-This project rocks and uses MIT-LICENSE.
+Security vulnerabilities scanner.
+
+## Contributing
+
+- Fork it (https://github.com/Securonauts/headlines/fork )
+- Create your feature branch (`git checkout -b my-new-feature`)
+- Commit your changes (`git commit -am 'Add some feature'`)
+- Push to the branch (`git push origin my-new-feature`)
+- Create a new Pull Request
