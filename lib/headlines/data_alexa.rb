@@ -1,5 +1,5 @@
-require "headlines/data_alexa/category"
-require "headlines/data_alexa/domain"
+require_relative "data_alexa/category"
+require_relative "data_alexa/domain"
 
 module Headlines
   class DataAlexa

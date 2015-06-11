@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - bin/**/*
     - db/**/*
+    - gems/**/*
     - lib/templates/**/*
     - vendor/**/*
     - spec/dummy/**/*
