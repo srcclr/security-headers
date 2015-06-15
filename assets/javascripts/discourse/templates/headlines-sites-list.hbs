@@ -17,9 +17,7 @@
   <div class="container row">
     <aside class="headlines-filters">
       <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
-      <select name="country" id="country">
-        <option value="1">Afganistan</option>
-      </select>
+      {{combo-box valueAttribute="value" content=countries value=country_code}}
 
       <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
       <ul>
