@@ -39,3 +39,4 @@ en:
       chart_type:
         pie: "Pie"
         mosaic: "Mosaic"
+      test: "TESTS"

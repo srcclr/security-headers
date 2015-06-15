@@ -209,17 +209,19 @@ h3.industry-title {
   }
 }
 
-.site-name {
-  font-size: 30px;
-  text-transform: uppercase;
-}
-
 .site-details {
   h4 {
     text-transform: uppercase;
     font-size: 14px;
     color: #464646;
     font-weight: 400;
+  }
+
+  .site-name {
+    margin-bottom: 0;
+    line-height: normal;
+    font-size: 30px;
+    text-transform: uppercase;
   }
 }
 
@@ -243,9 +245,9 @@ h3.industry-title {
 
 .site-notes {
   color: #85959e;
-  font-size: 16px;
+  font-size: 18px;
   border-bottom: solid 1px #e0e0e0;
-  padding: 15px 0;
+  padding: 10px 0 15px;
   margin-bottom: 20px;
 
   .site-status {
