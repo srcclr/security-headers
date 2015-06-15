@@ -3,13 +3,19 @@ import AboutSite from 'discourse/views/static'
 export default AboutSite.extend({
   templateName: 'headlines-charts',
   showCharts: function() {
-    var site_1 = new Chart("site_1", {percents:[60, 22, 18]});
-    var site_2 = new Chart("site_2", {percents:[60, 22, 18], cells:[1, 2, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 2, 0, 1, 0, 0, 0, 2, 1, 0, 1, 1, 2, 2, 0, 0, 2, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 2, 1, 0, 2, 1, 0, 0, 0, 1, 1, 2, 0, 0, 0, 2, 2, 0, 2, 1, 0, 0, 1, 2, 0, 1, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0]});
-    var site_3 = new Chart("site_3", {percents:[60, 22, 18]});
+    var mosaicCharts = ['site_1', 'site_2', 'site_3'];
+    var pieCharts = ['site_4', 'site_5', 'site_6'];
 
-    site_1.drawPie();
-    site_2.drawMozaic();
-    site_3.drawPie();
+    pieCharts.forEach(function(el, i) {
+      var chart = new Chart(el, {percents:[60, 22, 18]});
+      chart.drawPie();
+    });
+
+    mosaicCharts.forEach(function(el, i) {
+      var chart = new Chart(el, {percents:[60, 22, 18], cells:[1, 2, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 2, 0, 1, 0, 0, 0, 2, 1, 0, 1, 1, 2, 2, 0, 0, 2, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 2, 1, 0, 2, 1, 0, 0, 0, 1, 1, 2, 0, 0, 0, 2, 2, 0, 2, 1, 0, 0, 1, 2, 0, 1, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0]});
+      chart.drawMozaic();
+    });
+
   }.on('didInsertElement')
 });
 

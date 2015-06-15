@@ -49,6 +49,22 @@
   margin-right: 35px;
   float: left;
 
+  .select2-container {
+    margin-bottom: 15px;
+    border: 1px solid #999;
+
+    .select2-choice {
+      height: 36px;
+      line-height: 36px;
+
+      .select2-arrow b { background-position-y: 7px; }
+    }
+  }
+
+  .select2-dropdown-open .select2-choice {
+    .select2-arrow b { background-position-y: 7px; }
+  }
+
   ul {
     margin: 0;
     padding: 0;
@@ -69,6 +85,7 @@
   color: #999;
   font-size: 14px;
   padding-top: 5px;
+  margin-bottom: 10px;
   display: block;
 }
 
@@ -84,6 +101,7 @@
 
   h3 {
     font-size: 18px;
+    font-weight: 400;
     margin: 0 0 15px;
   }
 

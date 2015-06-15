@@ -17,9 +17,7 @@
   <div class="container row">
     <aside class="headlines-filters">
       <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
-      <select name="country" id="country">
-        <option value="1">Afganistan</option>
-      </select>
+      {{combo-box valueAttribute="value" content=countries value=country_code}}
 
       <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
       <ul>
@@ -63,84 +61,162 @@
     </aside>
     <section class="industries-list">
       <nav>
-        <a href="#" class="switch-control" {{action "changeChartType" "mosaic"}}>
+        <a href="#" class="switch-control" id="switch-mosaic" {{action "changeChartType" "mosaic"}}>
           {{fa-icon "th"}}
           {{{i18n 'headlines.chart_type.mosaic'}}}
         </a>
-        <a href="#" class="switch-control active-switch" {{action "changeChartType" "pie"}}>
+        <a href="#" class="switch-control active-switch" id="switch-pie" {{action "changeChartType" "pie"}}>
           {{fa-icon "pie-chart"}}
           {{{i18n 'headlines.chart_type.pie'}}}
         </a>
       </nav>
-      <ul>
-        <li class="industry-card">
-          <h3>Industry Name 1</h3>
-          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
-          <div class="chart">
-            <canvas id="site_1" width="208" height="85"></canvas>
-            <ul class="pie-chart-labels">
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
-                <span class="chart-value value-excellent">60%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
-                <span class="chart-value value-poor">22%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
-                <span class="chart-value value-bad">18%</span>
-              </li>
-            </ul>
-          </div>
+      <div id='mosaic' class='hidden chart-cards'>
+        <ul>
+          <li class="industry-card">
+            <h3>Industry Name 1</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_1" width="208" height="90"></canvas>
+              <ul class="mozaic-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
 
-          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
-        </li>
-        <li class="industry-card">
-          <h3>Industry Name 2</h3>
-          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
-          <div class="chart">
-            <canvas id="site_2" width="208" height="85"></canvas>
-            <ul class="mozaic-chart-labels">
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
-                <span class="chart-value value-excellent">60%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
-                <span class="chart-value value-poor">22%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
-                <span class="chart-value value-bad">18%</span>
-              </li>
-            </ul>
-          </div>
-          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
-        </li>
-        <li class="industry-card">
-          <h3>Industry Name 3</h3>
-          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
-          <div class="chart">
-            <canvas id="site_3" width="208" height="85"></canvas>
-            <ul class="pie-chart-labels">
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
-                <span class="chart-value value-excellent">60%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
-                <span class="chart-value value-poor">22%</span>
-              </li>
-              <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
-                <span class="chart-value value-bad">18%</span>
-              </li>
-            </ul>
-          </div>
-          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
-        </li>
-      </ul>
+          <li class="industry-card">
+            <h3>Industry Name 2</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_2" width="208" height="90"></canvas>
+              <ul class="mozaic-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
+
+          <li class="industry-card">
+            <h3>Industry Name 3</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_3" width="208" height="90"></canvas>
+              <ul class="mozaic-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
+        </ul>
+      </div>
+      <div id='pie' class='chart-cards'>
+        <ul>
+          <li class="industry-card">
+            <h3>Industry Name 1</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_4" width="208" height="90"></canvas>
+              <ul class="pie-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
+
+          <li class="industry-card">
+            <h3>Industry Name 2</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_5" width="208" height="90"></canvas>
+              <ul class="pie-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
+
+          <li class="industry-card">
+            <h3>Industry Name 3</h3>
+            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+            <div class="chart">
+              <canvas id="site_6" width="208" height="90"></canvas>
+              <ul class="pie-chart-labels">
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                  <span class="chart-value value-excellent">60%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                  <span class="chart-value value-poor">22%</span>
+                </li>
+                <li>
+                  <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                  <span class="chart-value value-bad">18%</span>
+                </li>
+              </ul>
+            </div>
+            <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+          </li>
+        </ul>
+      </div>
+
     </section>
   </div>
 </article>
