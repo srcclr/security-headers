@@ -19,6 +19,34 @@
       <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
       {{combo-box valueAttribute="value" content=countries value=country_code}}
 
+      <label class='filter-type' for='rating'>{{i18n 'headlines.rating.label'}}</label>
+      <ul>
+        <li>
+          <label for="r_all">
+            <input type="checkbox" id="r_all">
+            {{i18n 'headlines.rating.all'}}
+          </label>
+        </li>
+        <li>
+          <label for="r_exc">
+            <input type="checkbox" id="r_exc">
+            {{i18n 'headlines.rating.excellent'}}
+          </label>
+        </li>
+        <li>
+          <label for="r_poor">
+            <input type="checkbox" id="r_poor">
+            {{i18n 'headlines.rating.poor'}}
+          </label>
+        </li>
+        <li>
+          <label for="r_bad">
+            <input type="checkbox" id="r_bad">
+            {{i18n 'headlines.rating.bad'}}
+          </label>
+        </li>
+      </ul>
+
       <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
       <ul>
         <li>

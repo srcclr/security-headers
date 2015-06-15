@@ -21,6 +21,12 @@ en:
       similar_urls: "% of similar urls that contain"
       tests: Tests
       passed_tests: "Passed Tests"
+      rating:
+        label: "Rating"
+        all: "All"
+        excellent: "Excellent"
+        poor: "Poor"
+        bad: "Bad"
       issues:
         all: "All"
         hsts: "HSTS"
