@@ -1,0 +1,146 @@
+<article class="static-page headlines-page">
+  <header class="container">
+    <h2 class="page-title">{{i18n 'headlines.title'}}</h2>
+    <p>
+      {{{i18n 'headlines.description'}}}
+    </p>
+  </header>
+  <section class="container">
+    <form action="#" class="check-site">
+      <label for="scan">{{i18n 'headlines.check_form.label'}}</label>
+      <input type="url" placeholder="{{i18n 'headlines.check_form.field'}}">
+      <button type="submit" class="btn-primary">
+        {{i18n 'headlines.check_form.action'}}
+      </button>
+    </form>
+  </section>
+  <div class="container row">
+    <aside class="headlines-filters">
+      <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+      <select name="country" id="country">
+        <option value="1">Afganistan</option>
+      </select>
+
+      <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+      <ul>
+        <li>
+          <label for="all">
+            <input type="checkbox" id="all">
+            {{i18n 'headlines.issues.all'}}
+          </label>
+        </li>
+        <li>
+          <label for="HSTS">
+            <input type="checkbox" id="HSTS">
+            {{i18n 'headlines.issues.hsts'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-XSS">
+            <input type="checkbox" id="X-XSS">
+            {{i18n 'headlines.issues.x_xss'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Content-Type">
+            <input type="checkbox" id="X-Content-Type">
+            {{i18n 'headlines.issues.x_content_type'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Frame-Options">
+            <input type="checkbox" id="X-Frame-Options">
+            {{i18n 'headlines.issues.x_frame_options'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Content-Security-Options">
+            <input type="checkbox" id="X-Content-Security-Options">
+            {{i18n 'headlines.issues.x_content_security_options'}}
+          </label>
+        </li>
+      </ul>
+    </aside>
+    <section class="industries-list">
+      <nav>
+        <a href="#" class="switch-control" {{action "changeChartType" "mosaic"}}>
+          {{fa-icon "th"}}
+          {{{i18n 'headlines.chart_type.mosaic'}}}
+        </a>
+        <a href="#" class="switch-control active-switch" {{action "changeChartType" "pie"}}>
+          {{fa-icon "pie-chart"}}
+          {{{i18n 'headlines.chart_type.pie'}}}
+        </a>
+      </nav>
+      <ul>
+        <li class="industry-card">
+          <h3>Industry Name 1</h3>
+          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+          <div class="chart">
+            <canvas id="site_1" width="208" height="85"></canvas>
+            <ul class="pie-chart-labels">
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                <span class="chart-value value-excellent">60%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                <span class="chart-value value-poor">22%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                <span class="chart-value value-bad">18%</span>
+              </li>
+            </ul>
+          </div>
+
+          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+        </li>
+        <li class="industry-card">
+          <h3>Industry Name 2</h3>
+          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+          <div class="chart">
+            <canvas id="site_2" width="208" height="85"></canvas>
+            <ul class="mozaic-chart-labels">
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                <span class="chart-value value-excellent">60%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                <span class="chart-value value-poor">22%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                <span class="chart-value value-bad">18%</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+        </li>
+        <li class="industry-card">
+          <h3>Industry Name 3</h3>
+          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+          <div class="chart">
+            <canvas id="site_3" width="208" height="85"></canvas>
+            <ul class="pie-chart-labels">
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                <span class="chart-value value-excellent">60%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                <span class="chart-value value-poor">22%</span>
+              </li>
+              <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                <span class="chart-value value-bad">18%</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</article>

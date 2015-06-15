@@ -1,0 +1,125 @@
+<article class="static-page headlines-page">
+  <header class="container">
+    <h2 class="page-title">{{i18n 'headlines.title'}}</h2>
+    <p>
+      {{{i18n 'headlines.description'}}}
+    </p>
+  </header>
+  <section class="container">
+    <form action="#" class="check-site">
+      <label for="scan">{{i18n 'headlines.check_form.label'}}</label>
+      <input type="url" placeholder="{{i18n 'headlines.check_form.field'}}">
+      <button type="submit" class="btn-primary">
+        {{i18n 'headlines.check_form.action'}}
+      </button>
+    </form>
+  </section>
+  <div class="container row">
+    <aside class="headlines-filters">
+      <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+      <select name="country" id="country">
+        <option value="1">Afganistan</option>
+      </select>
+
+      <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+      <ul>
+        <li>
+          <label for="all">
+            <input type="checkbox" id="all">
+            {{i18n 'headlines.issues.all'}}
+          </label>
+        </li>
+        <li>
+          <label for="HSTS">
+            <input type="checkbox" id="HSTS">
+            {{i18n 'headlines.issues.hsts'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-XSS">
+            <input type="checkbox" id="X-XSS">
+            {{i18n 'headlines.issues.x_xss'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Content-Type">
+            <input type="checkbox" id="X-Content-Type">
+            {{i18n 'headlines.issues.x_content_type'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Frame-Options">
+            <input type="checkbox" id="X-Frame-Options">
+            {{i18n 'headlines.issues.x_frame_options'}}
+          </label>
+        </li>
+        <li>
+          <label for="X-Content-Security-Options">
+            <input type="checkbox" id="X-Content-Security-Options">
+            {{i18n 'headlines.issues.x_content_security_options'}}
+          </label>
+        </li>
+      </ul>
+    </aside>
+    <section class="sites-list">
+      <div class="pull-right last-scan">
+        {{fa-icon "clock-o"}}
+        {{i18n 'headlines.last_scan'}}: 17 Dec 2014
+      </div>
+      <a href="#" class="nav-back">{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}</a>
+      <h3 class="industry-title industry-status-excellent">Industry Name 1</h3>
+      <ul class="compact-labels">
+        <li>
+          <span class="chart-value value-excellent">60%</span>
+        </li>
+        <li>
+          <span class="chart-value value-poor">22%</span>
+        </li>
+        <li>
+          <span class="chart-value value-bad">18%</span>
+        </li>
+      </ul>
+      <div class="table-search">
+        <input class="col-6" placeholder="Filter by URL" type="search">
+        <i class="fa fa-search"></i>
+      </div>
+      <table class="topic-list">
+        <thead>
+          <tr>
+            <th data-sort-order="default" class="default">
+              {{i18n 'headlines.url'}}
+            </th>
+            <th data-sort-order="category" class="category sortable">
+              {{i18n 'headlines.country'}}
+            </th>
+            <th data-sort-order="posters" class="posters">
+              {{i18n 'headlines.passed_tests'}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="topic-list-item">
+            <td class="main-link clearfix">
+              <a href="/t/#" class="title">
+                mostsecuresiteintheworld.com
+                {{fa-icon "external-link"}}
+              </a>
+            </td>
+            <td class="category">USA</td>
+            <td><div class="value-excellent">100%</div></td>
+          </tr>
+          <tr class="topic-list-item">
+            <td class="main-link clearfix">
+              <a href="/t/#" class="title">
+                securesiteintheworld.com
+                {{fa-icon "external-link"}}
+              </a>
+            </td>
+            <td class="category">USA</td>
+            <td><div class="value-poor">60%</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</article>

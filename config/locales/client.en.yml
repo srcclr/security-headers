@@ -1,0 +1,41 @@
+en:
+  js:
+    headlines:
+      title: "Headlines"
+      description:
+          Do the sites you visit use the best security practices online?
+          <br>
+          Do they keep you safe while you visit their sites?
+          <br>
+          Also scan your site to see how you are doing.
+
+      country: "Country"
+      issue_type: "Issue Type"
+      view_all_sites: "View All Sites"
+      statistic_by_sites: "Statistic by sites"
+      issue: "Issue"
+      status: "Status"
+      back: "Back"
+      url: "URL"
+      last_scan: Last Scan
+      similar_urls: "% of similar urls that contain"
+      tests: Tests
+      passed_tests: "Passed Tests"
+      issues:
+        all: "All"
+        hsts: "HSTS"
+        x_xss: "X-XSS"
+        x_content_type: "X-Content-Type"
+        x_frame_options: "X-Frame-Options"
+        x_content_security_options: "X-Content-Security-Options"
+      check_form:
+        label: "Check the site"
+        field: "Paste or type the URL"
+        action: "Scan"
+      test_result:
+        excellent: "Excellent"
+        poor: "Poor"
+        bad: "Bad"
+      chart_type:
+        pie: "Pie"
+        mosaic: "Mosaic"
