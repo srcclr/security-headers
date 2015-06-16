@@ -21,70 +21,26 @@
 
       <label class='filter-type' for='rating'>{{i18n 'headlines.rating.label'}}</label>
       <ul>
-        <li>
-          <label for="r_all">
-            <input type="checkbox" id="r_all">
-            {{i18n 'headlines.rating.all'}}
-          </label>
-        </li>
-        <li>
-          <label for="r_exc">
-            <input type="checkbox" id="r_exc">
-            {{i18n 'headlines.rating.excellent'}}
-          </label>
-        </li>
-        <li>
-          <label for="r_poor">
-            <input type="checkbox" id="r_poor">
-            {{i18n 'headlines.rating.poor'}}
-          </label>
-        </li>
-        <li>
-          <label for="r_bad">
-            <input type="checkbox" id="r_bad">
-            {{i18n 'headlines.rating.bad'}}
-          </label>
-        </li>
+        {{#each rating in ratings}}
+          <li>
+            <label for="r_{{rating}}">
+              <input type="checkbox" id="r_{{rating}}">
+              {{localeInterpolation 'headlines.rating' rating}}
+            </label>
+          </li>
+        {{/each}}
       </ul>
 
       <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
       <ul>
-        <li>
-          <label for="all">
-            <input type="checkbox" id="all">
-            {{i18n 'headlines.issues.all'}}
-          </label>
-        </li>
-        <li>
-          <label for="HSTS">
-            <input type="checkbox" id="HSTS">
-            {{i18n 'headlines.issues.hsts'}}
-          </label>
-        </li>
-        <li>
-          <label for="X-XSS">
-            <input type="checkbox" id="X-XSS">
-            {{i18n 'headlines.issues.x_xss'}}
-          </label>
-        </li>
-        <li>
-          <label for="X-Content-Type">
-            <input type="checkbox" id="X-Content-Type">
-            {{i18n 'headlines.issues.x_content_type'}}
-          </label>
-        </li>
-        <li>
-          <label for="X-Frame-Options">
-            <input type="checkbox" id="X-Frame-Options">
-            {{i18n 'headlines.issues.x_frame_options'}}
-          </label>
-        </li>
-        <li>
-          <label for="X-Content-Security-Options">
-            <input type="checkbox" id="X-Content-Security-Options">
-            {{i18n 'headlines.issues.x_content_security_options'}}
-          </label>
-        </li>
+        {{#each type in issueTypes}}
+          <li>
+            <label for="{{type}}">
+              <input type="checkbox" id="{{type}}">
+              {{localeInterpolation 'headlines.issues' type}}
+            </label>
+          </li>
+        {{/each}}
       </ul>
     </aside>
     <section class="sites-list">

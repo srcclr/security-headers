@@ -3,39 +3,62 @@ import AboutSite from 'discourse/views/static'
 export default AboutSite.extend({
   templateName: 'headlines-charts',
   showCharts: function() {
-    var mosaicCharts = ['site_1', 'site_2', 'site_3'];
-    var pieCharts = ['site_4', 'site_5', 'site_6'];
+    var mosaicCharts = ['mosaic_1', 'mosaic_2', 'mosaic_3'];
+    var pieCharts = ['pie_1', 'pie_2', 'pie_3'];
 
-    pieCharts.forEach(function(el, i) {
-      var chart = new Chart(el, {percents:[60, 22, 18]});
+    pieCharts.forEach(function(element) {
+      let chart = new Chart(element, { percents: [60, 22, 18] });
       chart.drawPie();
     });
 
-    mosaicCharts.forEach(function(el, i) {
-      var chart = new Chart(el, {percents:[60, 22, 18], cells:[1, 2, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 2, 0, 1, 0, 0, 0, 2, 1, 0, 1, 1, 2, 2, 0, 0, 2, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 2, 1, 0, 2, 1, 0, 0, 0, 1, 1, 2, 0, 0, 0, 2, 2, 0, 2, 1, 0, 0, 1, 2, 0, 1, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0]});
+    mosaicCharts.forEach(function(element) {
+      let chart = new Chart(element, { cells: generateDomainScores() });
       chart.drawMozaic();
     });
 
   }.on('didInsertElement')
 });
 
+function degreesToRadians(degrees) {
+  return (degrees * Math.PI)/180;
+}
+
+function sumTo(a, i) {
+  var sum = 0;
+  for (let j = 0; j < i; j++) {
+    sum += a[j];
+  }
+  return sum;
+}
+
+function generateDomainScores() {
+  var scores = [];
+
+  for(let i = 100; i > 0; i--) {
+    scores.push(Math.floor((Math.random() * 3)));
+  }
+
+  return scores;
+}
 
 function Chart(id, o) {
-  this.percents = o.percents ? o.percents : [60, 22, 18]; // in percents
-  this.colors = o.colors ? o.colors : ["#80cd85", "#f9c352", "#fd8365"];
-  this.cells = o.cells ? o.cells : [0, 1, 2, 0, 2, 1, 1, 2, 1, 0];
+  this.percents = o.percents;
+  this.colors = ["#80cd85", "#f9c352", "#fd8365"];
+  this.cells = o.cells;
 
   var data = [];
-  for (var i = 0; i < this.percents.length; i++) {
-    data.push(this.percents[i]*360/100);
-  };
-  this.data = data;
 
+  if(this.percents) {
+    for (let i = 0; i < this.percents.length; i++) {
+      data.push(this.percents[i]*360/100);
+    };
+  }
+
+  this.data = data;
   this.canvas = document.getElementById(id);
 }
 
 Chart.prototype = {
-
   select: function(segment) {
     var self = this;
     var context = this.canvas.getContext("2d");
@@ -48,19 +71,19 @@ Chart.prototype = {
     var cellSize = 10;
     var rowSize = 20;
     var margin = 1;
-    var x = 0;
-    var y = (cellSize + margin) * -1;
+    var posX = 0;
+    var posY = (cellSize + margin) * -1;
 
-    for (var i = 0; i < this.cells.length; i++) {
+    for (let i = 0; i < this.cells.length; i++) {
       if(i % rowSize == 0) {
-        y =+ y + cellSize + margin;
-        x = 0;
+        posY =+ posY + cellSize + margin;
+        posX = 0;
       }
 
       context.fillStyle = this.colors[this.cells[i]];
-      context.fillRect(x, y, cellSize, cellSize);
+      context.fillRect(posX, posY, cellSize, cellSize);
 
-      x =+ x + cellSize + margin;
+      posX =+ posX + cellSize + margin;
     }
   },
 
@@ -68,7 +91,7 @@ Chart.prototype = {
     var self = this;
     var context = this.canvas.getContext("2d");
 
-    for (var i = 0; i < this.data.length; i++) {
+    for (let i = 0; i < this.data.length; i++) {
       this.drawSegment(this.canvas, context, i, this.data[i], false);
     }
 
@@ -76,7 +99,6 @@ Chart.prototype = {
     context.arc(35, 35, 25, 0,2*Math.PI);
     context.fillStyle = "#fff";
     context.fill();
-
   },
 
   drawSegment: function(canvas, context, i, size, isSelected) {
@@ -88,8 +110,8 @@ Chart.prototype = {
 
     var degree = (self.data[i]/100)*360;
 
-    var startingAngle = self.degreesToRadians(self.sumTo(self.data, i));
-    var arcSize = self.degreesToRadians(size);
+    var startingAngle = degreesToRadians(sumTo(self.data, i));
+    var arcSize = degreesToRadians(size);
     var endingAngle = startingAngle + arcSize;
 
     context.beginPath();
@@ -101,20 +123,5 @@ Chart.prototype = {
 
     context.fill();
     context.restore();
-  },
-
-
-  // helper functions
-  degreesToRadians: function(degrees) {
-    return (degrees * Math.PI)/180;
-  },
-
-  sumTo: function(a, i) {
-    var sum = 0;
-    for (var j = 0; j < i; j++) {
-      sum += a[j];
-    }
-    return sum;
   }
 }
-
