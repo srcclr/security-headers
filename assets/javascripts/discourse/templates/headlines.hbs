@@ -1,1 +1,79 @@
-<h1>Headlines</h1>
+<article class="static-page headlines-page">
+  <header class="container">
+    <h2 class="page-title">{{i18n 'headlines.title'}}</h2>
+    <p>
+      {{{i18n 'headlines.description'}}}
+    </p>
+  </header>
+  <section class="container">
+    <form action="#" class="check-site">
+      <label for="scan">{{i18n 'headlines.check_form.label'}}</label>
+      <input type="url" placeholder="{{i18n 'headlines.check_form.field'}}">
+      <button type="submit" class="btn-primary">
+        {{i18n 'headlines.check_form.action'}}
+      </button>
+    </form>
+  </section>
+  <div class="container row">
+    <aside class="headlines-filters">
+      <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+      {{combo-box valueAttribute="value" content=countries value=country_code}}
+
+      <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+      <ul>
+        {{#each type in issueTypes}}
+          <li>
+            <label for="{{type}}">
+              <input type="checkbox" id="{{type}}">
+              {{localeInterpolation 'headlines.issues' type}}
+            </label>
+          </li>
+        {{/each}}
+      </ul>
+    </aside>
+    <section class="industries-list">
+      <nav class="switch-controls">
+        <a href="#" {{action "showMosaic"}} {{bind-attr class="showMosaicChart:active-switch"}}>
+          {{fa-icon "th"}}
+          {{{i18n 'headlines.chart_type.mosaic'}}}
+        </a>
+        <a href="#" {{action "showPie"}} {{bind-attr class="showMosaicChart::active-switch"}}>
+          {{fa-icon "pie-chart"}}
+          {{{i18n 'headlines.chart_type.pie'}}}
+        </a>
+      </nav>
+        <div>
+          <ul>
+            {{#each industry in industries}}
+              <li class="industry-card">
+                <h3>{{industry.name}}</h3>
+
+                <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+
+                <div class="chart">
+                  {{industry-chart model=industry type=chartType}}
+
+                  <ul class="pie-chart-labels">
+                    <li>
+                    <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                    <span class="chart-value value-excellent">{{industry.excellent}}</span>
+                    </li>
+                    <li>
+                    <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                    <span class="chart-value value-poor">{{industry.poor}}</span>
+                    </li>
+                    <li>
+                    <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                    <span class="chart-value value-bad">{{industry.bad}}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <a href="#" class="btn btn-primary">{{i18n 'headlines.view_all_sites'}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+    </section>
+  </div>
+</article>

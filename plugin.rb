@@ -19,20 +19,6 @@ gem("schema_plus_views", "0.2.0", require_name: "schema_plus/views")
 
 require(File.expand_path("../lib/headlines", __FILE__))
 
-register_asset('stylesheets/components/switch.css.scss')
-register_asset('stylesheets/components/charts.css.scss')
-register_asset('stylesheets/components/breadcrumb.css.scss')
-
-register_asset('stylesheets/views/headlines.css.scss')
-
-register_asset('javascripts/discourse/controllers/headlines.js.es6')
-
-register_asset('javascripts/discourse/templates/headlines-charts.hbs')
-register_asset('javascripts/discourse/templates/headlines-sites-list.hbs')
-register_asset('javascripts/discourse/templates/headlines-site.hbs')
-
-register_asset('javascripts/discourse/routes/headlines.js.es6')
-
 Discourse::Application.routes.append do
   mount Headlines::Engine, at: "/headlines"
 end
