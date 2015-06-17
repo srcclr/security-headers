@@ -1,3 +1,21 @@
+function testResult(score) {
+  if (score > 66) {
+    return 'Excellent';
+  } else if (score < 33) {
+    return 'Bad';
+  } else {
+    return 'Poor';
+  }
+};
+
+function testScore() {
+  var i, sum = 0;
+  for (i = 0; i < arguments.length; i++) {
+      sum += arguments[i];
+  }
+  return sum / arguments.length;
+};
+
 export default Ember.Controller.extend({
   strict_transport_security: Em.computed('model.results', function() {
     return parseInt(this.get('model.results.strict-transport-security')) || 0;
@@ -32,55 +50,31 @@ export default Ember.Controller.extend({
     return this.get('totalScore') / this.get('totalTests');
   }),
 
-  domainStatus: Em.computed(function() {
-    if (this.get('domainScore') > 66) {
-      return 'Excellent';
-    } else if (this.get('domainScore') < 33) {
-      return 'Bad';
-    } else {
-      return 'Poor';
-    }
+  domainStatus: Em.computed('domainScore', function() {
+    return testResult(this.get('domainScore'));
   }),
 
-  test1Score: Em.computed(function() {
-    return this.get('strict_transport_security');
+  spyingCommunicationsTestScore: Em.computed(function() {
+    return testScore(this.get('strict_transport_security'));
   }),
 
-  test2Score: Em.computed(function() {
-    return (this.get('strict_transport_security') + this.get('x_frame_options')) / 2;
+  ensuresSiteTestScore: Em.computed(function() {
+    return testScore(this.get('strict_transport_security'), this.get('x_frame_options'));
   }),
 
-  test3Score: Em.computed(function() {
-    return (this.get('x_xss_protection') + this.get('x_content_type_options') + this.get('content_security_policy')) / 3;
+  launchMalwareTestScore: Em.computed(function() {
+    return testScore(this.get('x_xss_protection'), this.get('x_content_type_options'), this.get('content_security_policy'));
   }),
 
-  test1Result: Em.computed(function() {
-    if (this.get('test1Score') > 66) {
-      return 'Excellent';
-    } else if (this.get('test1Score') < 33) {
-      return 'Bad';
-    } else {
-      return 'Poor';
-    }
+  spyingCommunicationsTest: Em.computed('spyingCommunicationsTestScore', function() {
+    return testResult(this.get('spyingCommunicationsTestScore'));
   }),
 
-  test2Result: Em.computed(function() {
-    if (this.get('test2Score') > 66) {
-      return 'Excellent';
-    } else if (this.get('test2Score') < 33) {
-      return 'Bad';
-    } else {
-      return 'Poor';
-    }
+  ensuresSiteTest: Em.computed('ensuresSiteTestScore', function() {
+    return testResult(this.get('ensuresSiteTestScore'));
   }),
 
-  test3Result: Em.computed(function() {
-    if (this.get('test3Score') > 66) {
-      return 'Excellent';
-    } else if (this.get('test3Score') < 33) {
-      return 'Bad';
-    } else {
-      return 'Poor';
-    }
+  launchMalwareTest: Em.computed('launchMalwareTestScore', function() {
+    return testResult(this.get('launchMalwareTestScore'));
   })
-})
+});

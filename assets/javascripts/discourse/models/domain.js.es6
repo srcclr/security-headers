@@ -5,7 +5,7 @@ Headlines.Domain.reopenClass({
     return Discourse.ajax('/headlines/domains/' + id).then(function(result) {
       return Headlines.Domain.create({
         name: result.name,
-        country_code: result.country_code,
+        country: result.country,
         results: result.scan.results
       });
     })
