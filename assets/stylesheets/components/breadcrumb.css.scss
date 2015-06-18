@@ -1,0 +1,26 @@
+.breadcrumb-item {
+  display: inline-block;
+
+  &:after {
+    content: "/";
+    margin: 0 5px;
+    color: #999;
+  }
+
+  &:last-child {
+    a {
+      color: #999;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.site-details {
+  .breadcrumb {
+    list-style-type: none;
+    margin: 0 0 -10px;
+  }
+}
