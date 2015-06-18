@@ -7,11 +7,19 @@ module Headlines
     def index
       respond_to do |format|
         format.json { render(json: industries) }
-        format.html { render "default/empty" }
+
+        format.html do
+          store_preloaded("industries", industries_as_json)
+          render "default/empty"
+        end
       end
     end
 
     private
+
+    def industries_as_json
+      MultiJson.dump(serialize_data(industries, IndustrySerializer))
+    end
 
     def industries
       Industry.joins(:industry_ranked_domains)
