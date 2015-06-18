@@ -3,5 +3,6 @@ module Headlines
     self.primary_key = "id"
 
     belongs_to :category
+    has_one :scan
   end
 end
