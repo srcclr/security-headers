@@ -23,7 +23,7 @@ module Headlines
 
     def industries
       Industry.joins(:industry_ranked_domains)
-        .includes(:industry_ranked_domains)
+        .includes(industry_ranked_domains: :scan)
         .where(["industry_rank <= ?", domains_per_industry])
     end
 

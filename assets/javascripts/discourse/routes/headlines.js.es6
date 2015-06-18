@@ -1,12 +1,28 @@
 import Industry from '../models/industry';
+import Domain from '../models/domain';
 
 function industries() {
   return Discourse.ajax(Discourse.getURL("/headlines"))
                   .then((industries) => { return industries; });
 }
 
+function industryDomains(industry) {
+  return _.map(industry.industry_ranked_domains, (domain) => {
+    return Doman.create({
+      name: domain.name,
+      rank: domain.rank,
+      scanResults: doman.scan_results
+    });
+  })
+}
+
 function wrappedIndustries(industries) {
-  return _.map(industries, (industry) => { return Industry.create(industry); })
+  return _.map(industries, (industry) => {
+    return Industry.create({
+      name: industry.name,
+      domains: industryDomains(industry)
+    });
+  });
 }
 
 export default Discourse.Route.reopen({

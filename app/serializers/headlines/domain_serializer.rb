@@ -1,6 +1,5 @@
 module Headlines
   class DomainSerializer < ActiveModel::Serializer
-    has_one :scan
-    attributes :name, :rank
+    attributes :name, :rank, :scan_results
   end
 end

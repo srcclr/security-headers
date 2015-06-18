@@ -4,5 +4,7 @@ module Headlines
 
     belongs_to :category
     has_one :scan
+
+    delegate :results, to: :scan, prefix: true
   end
 end

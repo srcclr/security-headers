@@ -9,8 +9,8 @@ export default Ember.Component.extend({
   height: 90,
 
   draw: function() {
-    this.set('pie', new ChartPie(this.get('element'), { percents: this.model.scores() }));
-    this.set('mosaic', new ChartMosaic(this.get('element'), { cells: this.model.domainScores() }));
+    this.set('pie', new ChartPie(this.get('element'), { percents: this.model.scores }));
+    this.set('mosaic', new ChartMosaic(this.get('element'), { cells: this.model.domainScores }));
 
     this.drawChart();
   }.on('didInsertElement'),
