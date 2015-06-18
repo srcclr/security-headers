@@ -15,7 +15,7 @@ module Headlines
     end
 
     def vulnerabilities_report
-      GenerateVulnerabilityReport.call().report
+      GenerateVulnerabilityReport.call.report
     end
   end
 end
