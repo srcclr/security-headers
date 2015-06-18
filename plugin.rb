@@ -17,6 +17,11 @@ gem("schema_monkey", "2.1.0")
 gem("schema_plus_core", "0.5.0", require_name: "schema_plus/core")
 gem("schema_plus_views", "0.2.0", require_name: "schema_plus/views")
 
+register_asset("stylesheets/components/breadcrumb.css.scss")
+register_asset("stylesheets/components/charts.css.scss")
+register_asset("stylesheets/components/switch.css.scss")
+register_asset("stylesheets/views/headlines.css.scss")
+
 require(File.expand_path("../lib/headlines", __FILE__))
 
 Discourse::Application.routes.append do

@@ -53,7 +53,7 @@
                 <div class="chart">
                   {{industry-chart model=industry type=chartType}}
 
-                  <ul class="pie-chart-labels">
+                  <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
                     <li>
                     <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
                     <span class="chart-value value-excellent">{{industry.excellent}}</span>
