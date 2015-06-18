@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618150352) do
+ActiveRecord::Schema.define(version: 20150618152145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20150618150352) do
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
   add_index "headlines_domains_categories", ["domain_id"], name: "index_headlines_domains_categories_on_domain_id", using: :btree
 
-  create_view "headlines_domain_ranked_by_categories", " SELECT headlines_domains.id,\n    headlines_domains.name,\n    headlines_domains.rank,\n    headlines_domains.created_at,\n    headlines_domains.updated_at,\n    headlines_domains.country_code,\n    headlines_domains.data_alexa,\n    headlines_domains_categories.category_id,\n    dense_rank() OVER (PARTITION BY headlines_domains_categories.category_id ORDER BY headlines_domains.rank) AS rank_by_category\n   FROM (headlines_domains\n     JOIN headlines_domains_categories ON ((headlines_domains_categories.domain_id = headlines_domains.id)))", :force => true
   create_table "headlines_industries", force: :cascade do |t|
     t.string   "name",       default: "", null: false
     t.string   "categories", default: [], null: false, array: true
