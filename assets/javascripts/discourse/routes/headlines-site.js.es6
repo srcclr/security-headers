@@ -1,5 +1,5 @@
 export default Discourse.Route.extend({
   model(params) {
-    return Headlines.Domain.find(params.id);
+    return Headlines.Site.find(params.id);
   }
 })

@@ -6,8 +6,8 @@ export default {
   initialize: function(container) {
     window.Headlines = {};
 
-    Headlines.Domain = require(PREFIX + 'models/domain').default;
+    Headlines.Site = require(PREFIX + 'models/site').default;
 
-    require(PREFIX + 'routes/domains').default;
+    require(PREFIX + 'routes/headlines-site').default;
   }
 };

@@ -19,7 +19,17 @@ en:
       url: "URL"
       last_scan: Last Scan
       similar_urls: "% of similar urls that contain"
-      tests: Tests
+      tests:
+        title: Tests
+        spying_communications:
+          title: Stops others from spying or modifying your communications
+          issues: HSTS
+        ensures_site:
+          title: Ensures you're talking to who you think you are
+          issues: HSTS and X-Frame-Options
+        launch_malware:
+          title: Protects you from common vulnerabilities used to launch malware
+          issues: X-XSS, X-Content-Type-Options and CSP
       passed_tests: "Passed Tests"
       rating:
         label: "Rating"
