@@ -17,28 +17,28 @@ function testScore() {
 };
 
 export default Ember.Controller.extend({
-  strict_transport_security: Em.computed('model.results', function() {
-    return parseInt(this.get('model.results.strict-transport-security')) || 0;
+  strict_transport_security: Em.computed('model.scan.results', function() {
+    return parseInt(this.get('model.scan.results.strict-transport-security')) || 0;
   }),
 
-  x_xss_protection: Em.computed('model.results', function() {
-    return parseInt(this.get('model.results.x-xss-protection')) || 0;
+  x_xss_protection: Em.computed('model.scan.results', function() {
+    return parseInt(this.get('model.scan.results.x-xss-protection')) || 0;
   }),
 
-  x_content_type_options: Em.computed('model.results', function() {
-    return parseInt(this.get('model.results.x-content-type-options')) || 0;
+  x_content_type_options: Em.computed('model.scan.results', function() {
+    return parseInt(this.get('model.scan.results.x-content-type-options')) || 0;
   }),
 
-  x_frame_options: Em.computed('model.results', function() {
-    return parseInt(this.get('model.results.x-frame-options')) || 0;
+  x_frame_options: Em.computed('model.scan.results', function() {
+    return parseInt(this.get('model.scan.results.x-frame-options')) || 0;
   }),
 
-  content_security_policy: Em.computed('model.results', function() {
-    return parseInt(this.get('model.results.content-security-policy')) || 0;
+  content_security_policy: Em.computed('model.scan.results', function() {
+    return parseInt(this.get('model.scan.results.content-security-policy')) || 0;
   }),
 
-  scores: Ember.computed('model.results', function() {
-    return _.map(this.get('model.results'), function(score) {
+  scores: Ember.computed('model.scan.results', function() {
+    return _.map(this.get('model.scan.results'), function(score) {
       return parseInt(score);
     })
   }),

@@ -1,6 +1,6 @@
 module Headlines
   class DomainScanSerializer < ActiveModel::Serializer
-    attributes :name, :country
+    attributes :name, :country, :vulnerabilities_report
 
     has_one :scan
 
@@ -12,6 +12,10 @@ module Headlines
 
     def scan
       object.scans.last
+    end
+
+    def vulnerabilities_report
+      GenerateVulnerabilityReport.call().report
     end
   end
 end

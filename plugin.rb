@@ -20,11 +20,6 @@ gem("schema_plus_views", "0.2.0", require_name: "schema_plus/views")
 
 require(File.expand_path("../lib/headlines", __FILE__))
 
-register_asset('javascripts/discourse/routes/domains.js.es6')
-
-register_asset('javascripts/discourse/models/domain.js.es6')
-register_asset('javascripts/discourse/models/scan.js.es6')
-
 Discourse::Application.routes.append do
   mount Headlines::Engine, at: "/headlines"
 end
