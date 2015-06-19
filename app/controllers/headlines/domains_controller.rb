@@ -5,9 +5,14 @@ module Headlines
     respond_to :html, :json
 
     def show
+      serialized = serialize_data(domain, DomainScanSerializer, root: false)
+
       respond_to do |format|
-        format.json { render(json: domain, serializer: DomainScanSerializer, root: false) }
-        format.html { render "default/empty" }
+        format.html do
+          store_preloaded("domain_scan", MultiJson.dump(serialized))
+          render "default/empty"
+        end
+        format.json { render(json: serialized) }
       end
     end
 
