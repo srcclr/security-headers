@@ -1,5 +1,12 @@
 namespace :headlines do
   desc "Seed some test data for industries and their domains"
+  task update_domain_ranks: :environment do
+    Headlines::TopMillion.new(file: Headlines::DomainsArchive.new).fetch_in_batches do |rows|
+      Headlines::ImportDomains.call(rows: rows)
+    end
+  end
+
+  desc "Seed some test data for industries and their domains"
   task seed_industries: :environment do
     create_industries
     categories = Headlines::Category.where(industry_id: Headlines::Industry.pluck(:id))
