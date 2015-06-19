@@ -14,7 +14,12 @@ module Headlines
     private
 
     def domain
-      Domain.includes(:scans).find(params[:id])
+      Domain
+        .joins(:industries)
+        .includes(:industries, :scans)
+        .where("headlines_industries.id = ?", params[:industry_id])
+        .where(id: params[:id])
+        .first
     end
   end
 end
