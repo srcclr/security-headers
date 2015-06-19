@@ -5,7 +5,7 @@ module Headlines
     respond_to :html, :json
 
     def show
-      serialized = serialize_data(domain, DomainScanSerializer, root: false)
+      serialized = serialize_data(domain, DomainScanSerializer, root: false, industry: industry)
 
       respond_to do |format|
         format.html do
@@ -18,13 +18,12 @@ module Headlines
 
     private
 
+    def industry
+      @industry = Industry.includes(industry_ranked_domains: :scan).find(params[:industry_id])
+    end
+
     def domain
-      Domain
-        .joins(:industries)
-        .includes(:industries, :scans)
-        .where("headlines_industries.id = ?", params[:industry_id])
-        .where(id: params[:id])
-        .first
+      industry.industry_ranked_domains.find(params[:id])
     end
   end
 end

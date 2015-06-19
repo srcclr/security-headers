@@ -1,17 +1,13 @@
 module Headlines
   class DomainScanSerializer < ActiveModel::Serializer
-    attributes :name, :country, :industry, :vulnerabilities_report
+    attributes :name, :country, :scan_results, :vulnerabilities_report
 
-    has_one :scan
+    has_one :industry, serializer: BaseIndustrySerializer
 
     private
 
-    def scan
-      object.scans.last
-    end
-
     def industry
-      Industry.first
+      options[:industry]
     end
 
     def country
