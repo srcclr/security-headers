@@ -18,7 +18,7 @@
     <section class="site-details">
       <ul class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">{{i18n 'headlines.issues.all'}}</a>
+          {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
         </li>
         <li class="breadcrumb-item"><a href="#">Industry Name 1</a></li>
         <li class="breadcrumb-item"><a href="http://{{ model.name }}">{{ model.name }}</a></li>
