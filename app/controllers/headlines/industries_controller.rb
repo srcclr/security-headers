@@ -6,10 +6,10 @@ module Headlines
 
     def index
       respond_to do |format|
-        format.json { render(json: industries) }
+        format.json { render(json: industries_as_json) }
 
         format.html do
-          store_preloaded("industries", industries_as_json)
+          store_preloaded("industries", MultiJson.dump(industries_as_json))
           render "default/empty"
         end
       end
@@ -18,11 +18,11 @@ module Headlines
     private
 
     def industries_as_json
-      MultiJson.dump(serialize_data(industries, IndustrySerializer))
+      serialize_data(industries, IndustrySerializer)
     end
 
     def industries
-      Industry.joins(:industry_ranked_domains)
+      Industry.joins(industry_ranked_domains: :scan)
         .includes(industry_ranked_domains: :scan)
         .where(["industry_rank <= ?", domains_per_industry])
     end

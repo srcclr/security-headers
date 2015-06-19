@@ -8,10 +8,10 @@ function industries() {
 
 function industryDomains(industry) {
   return _.map(industry.industry_ranked_domains, (domain) => {
-    return Doman.create({
+    return Domain.create({
       name: domain.name,
       rank: domain.rank,
-      scanResults: doman.scan_results
+      scanResults: domain.scan_results
     });
   })
 }

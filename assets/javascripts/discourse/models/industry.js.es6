@@ -1,29 +1,31 @@
 function scoreIs(score) {
   if (score > 0 && score < 20) {
-    return 'bad';
+    return 0;
   } else if (score > 20 && score < 70) {
-    return 'poor';
+    return 1;
   }
 
-  return 'excellent';
+  return 2;
 }
 
 export default Discourse.Model.extend({
   scores: function() {
-    let stats = { excellent: 0, poor: 0, bad: 0 };
+    let stats = [0, 0, 0];
     let domains = this.get('domains');
-    let incrementOn = (1 / domains.size) * 100;
+    let incrementOn = (1 / domains.length) * 100;
 
     domains.forEach((domain) => {
-      stats[scoreIs(domain.score)] += incrementOn;
+      stats[scoreIs(domain.get('score'))] += incrementOn;
     });
 
-    return [stats.excellent, stats.poor, stats.bad];
+    let [excellent, poor, bad] = stats;
+
+    return [excellent, poor, bad];
   }.property('domains'),
 
   domainScores: function() {
     return _.map(this.get('domains'), (domain) => {
-      return domain.score
-    }).property('domains')
-  }
+      return scoreIs(domain.get('score'));
+    });
+  }.property('domains')
 })

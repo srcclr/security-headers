@@ -9,7 +9,7 @@ export default Discourse.Model.extend({
     let sum = 0;
 
     this.get('headers').forEach((header) => {
-      sum += this.get('scanResults')[header] || 0;
+      sum += parseInt(this.get('scanResults')[header]) || 0;
     });
 
     return (sum / this.get('headers').length) || 0;
