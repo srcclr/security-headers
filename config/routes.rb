@@ -1,6 +1,6 @@
 Headlines::Engine.routes.draw do
-  resources :categories, only: %i(index)
   resources :domains, only: %i(show)
+  resources :industries, only: %i(index)
 
-  root to: "categories#index"
+  root to: "industries#index"
 end
