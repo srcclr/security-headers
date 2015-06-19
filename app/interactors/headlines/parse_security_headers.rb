@@ -12,7 +12,7 @@ module Headlines
       context.fail! unless response.success?
 
       context.headers = parse_headers(response.headers)
-    rescue Faraday::ConnectionFailed
+    rescue Faraday::ClientError
       context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
