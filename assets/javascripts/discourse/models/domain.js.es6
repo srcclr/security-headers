@@ -12,6 +12,6 @@ export default Discourse.Model.extend({
       sum += parseInt(this.get('scanResults')[header]) || 0;
     });
 
-    return (sum / this.get('headers').length) || 0;
+    return Math.ceil((sum / this.get('headers').length) || 0);
   }.property('scanResults')
 })

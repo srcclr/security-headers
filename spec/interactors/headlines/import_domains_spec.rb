@@ -3,7 +3,7 @@ require "rails_helper"
 module Headlines
   describe ImportDomains do
     describe ".call" do
-      let(:file) { open_fixture("top_domains.csv") }
+      let(:rows) { ["1,google.com", "2,facebook.com"] }
       let(:data_alexa) { open_fixture("alexa_data.xml").read }
 
       before do
@@ -11,11 +11,11 @@ module Headlines
       end
 
       subject(:imported_domains) do
-        described_class.call(file: TopMillionDomain.new(file: file)).domains
+        described_class.call(rows: rows).domains
       end
 
       it "creates domains with appropriate country codes" do
-        expect(imported_domains.map(&:country_code)).to eq(4.times.map { "IN" })
+        expect(imported_domains.map(&:country_code)).to eq(2.times.map { "IN" })
       end
     end
   end
