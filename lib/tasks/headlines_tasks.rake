@@ -1,7 +1,16 @@
 namespace :headlines do
-  desc "Seed some test data for industries and their domains"
+  desc "Scan existing domains for security vulnerabilities"
+  task scan_domains: :environment do
+    Headlines::Domain.order("rank").find_each do |domain|
+      results = Headlines::AnalyzeDomainHeaders.call(url: domain.name).scan_results
+
+      domain.scans.create!(results: results) if results
+    end
+  end
+
+  desc "Parse Alexa 1m domains and update rank of domains"
   task update_domain_ranks: :environment do
-    Headlines::TopMillion.new(file: Headlines::DomainsArchive.new).fetch_in_batches do |rows|
+    Headlines::TopMillionDomain.new(file: Headlines::DomainsArchive.new).fetch_in_batches(limit: 10_000) do |rows|
       Headlines::ImportDomains.call(rows: rows)
     end
   end
@@ -11,10 +20,16 @@ namespace :headlines do
     create_industries
     categories = Headlines::Category.where(industry_id: Headlines::Industry.pluck(:id))
 
-    categories_have_domains?(categories) || categories.each do |category|
-      Headlines::Domain.order("rank").find_in_batches(batch_size: 100) do |domains|
-        domains.each { |domain| domain.categories << category }
-      end
+    categories_have_domains?(categories) || create_domains_categories(categories.to_ary)
+  end
+
+  def create_domains_categories(categories)
+    Headlines::Domain
+      .order("rank")
+      .find_in_batches(batch_size: 100) do |domains|
+      category = categories.shift
+
+      domains.each { |domain| domain.categories << category }
     end
   end
 

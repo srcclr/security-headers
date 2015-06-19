@@ -33,7 +33,7 @@ module Headlines
     end
 
     def connection
-      Faraday.new(url: "http://#{context.url}") do |builder|
+      Faraday.new(url: "http://#{context.url}", headers: { accept_encoding: "none" }) do |builder|
         builder.request :url_encoded
         builder.response :logger
         builder.use FaradayMiddleware::FollowRedirects, limit: 10

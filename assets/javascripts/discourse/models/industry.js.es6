@@ -32,7 +32,7 @@ export default Discourse.Model.extend({
 
     let [excellent, poor, bad] = stats;
 
-    return [excellent, poor, bad];
+    return _.map([excellent, poor, bad], (value) => { return Math.floor(value) });
   }.property('domains'),
 
   domainScores: function() {
