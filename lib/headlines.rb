@@ -24,3 +24,5 @@ module Headlines
                         x-frame-options
                         content-security-policy)
 end
+
+require_relative "headlines/vulnerabilities_report"

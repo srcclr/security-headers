@@ -1,6 +1,6 @@
 module Headlines
   class DomainScanSerializer < ActiveModel::Serializer
-    attributes :name, :country, :scan_results, :vulnerabilities_report
+    attributes :id, :name, :country, :scan_results, :vulnerabilities_report
 
     has_one :industry, serializer: BaseIndustrySerializer
 
@@ -11,11 +11,15 @@ module Headlines
     end
 
     def country
-      IsoCountryCodes.find(object.country_code).name || object.country_code
+      if object.country_code.present?
+        IsoCountryCodes.find(object.country_code).name
+      else
+        object.country_code
+      end
     end
 
     def vulnerabilities_report
-      GenerateVulnerabilityReport.call(industry: industry).report
+      VulnerabilitiesReport.new(industry.industry_ranked_domains.map(&:scan).map(&:results)).report
     end
   end
 end

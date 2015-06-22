@@ -1,0 +1,14 @@
+[
+  {
+    "x-frame-options":"10",
+    "x-xss-protection":"100",
+    "x-content-type-options":"0",
+    "content-security-policy":"50",
+    "strict-transport-security":"0"
+  },
+  {
+    "x-frame-options":"100",
+    "x-xss-protection":"100",
+    "x-content-type-options":"0"
+  }
+]

@@ -1,5 +1,5 @@
 module Headlines
   class BaseIndustrySerializer < ActiveModel::Serializer
-    attributes :name
+    attributes :id, :name
   end
 end
