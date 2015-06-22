@@ -11,7 +11,7 @@ function industryDomains(industry) {
     return Domain.create({
       name: domain.name,
       rank: domain.rank,
-      scanResults: domain.scan_results
+      scanResults: domain.scan_results || {}
     });
   })
 }

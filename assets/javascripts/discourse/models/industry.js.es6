@@ -9,6 +9,18 @@ function scoreIs(score) {
 }
 
 export default Discourse.Model.extend({
+  excellent: function() {
+    return this.get('scores')[0];
+  }.property('scores'),
+
+  poor: function() {
+    return this.get('scores')[1];
+  }.property('scores'),
+
+  bad: function() {
+    return this.get('scores')[2];
+  }.property('scores'),
+
   scores: function() {
     let stats = [0, 0, 0];
     let domains = this.get('domains');
@@ -20,7 +32,7 @@ export default Discourse.Model.extend({
 
     let [excellent, poor, bad] = stats;
 
-    return [excellent, poor, bad];
+    return _.map([excellent, poor, bad], (value) => { return Math.floor(value) });
   }.property('domains'),
 
   domainScores: function() {

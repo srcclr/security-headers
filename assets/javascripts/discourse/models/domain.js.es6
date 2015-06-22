@@ -16,7 +16,7 @@ export default Discourse.Model.extend({
       sum += parseInt(this.get('scanResults')[header]) || 0;
     });
 
-    return (sum / headers.length) || 0;
+    return Math.ceil((sum / headers.length) || 0);
   },
 
   score: Em.computed(function() {
