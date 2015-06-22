@@ -1,7 +1,7 @@
 function testResult(score) {
-  if (score > 66) {
+  if (score > 70) {
     return 'excellent';
-  } else if (score < 33) {
+  } else if (score < 20) {
     return 'bad';
   } else {
     return 'poor';
