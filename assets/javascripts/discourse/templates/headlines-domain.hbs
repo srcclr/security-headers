@@ -27,7 +27,7 @@
       <div class="site-notes">
         <span class="site-status">
           <i class="fa fa-check-circle value-{{ domainStatus }}"/>
-          {{localeInterpolation 'headlines.test_result' domainStatus}} - {{ domainScore }}%
+          {{localeInterpolation 'headlines.test_result' domainStatus}} - {{ model.score }}%
         </span>
         <span class="site-location">
           {{fa-icon "globe"}}
@@ -39,23 +39,23 @@
       <ul class="test-results">
         <li>
           {{i18n 'headlines.issues.hsts'}}
-          <div class="value">{{ model.vulnerabilities_report.strict_transport_security }}%</div>
+          <div class="value">{{ model.vulnerabilitiesReport.strict_transport_security }}%</div>
         </li>
         <li>
           {{i18n 'headlines.issues.x_xss'}}
-          <div class="value">{{ model.vulnerabilities_report.x_xss_protection }}%</div>
+          <div class="value">{{ model.vulnerabilitiesReport.x_xss_protection }}%</div>
         </li>
         <li>
           {{i18n 'headlines.issues.x_content_type'}}
-          <div class="value">{{ model.vulnerabilities_report.x_content_type_options }}%</div>
+          <div class="value">{{ model.vulnerabilitiesReport.x_content_type_options }}%</div>
         </li>
         <li>
           {{i18n 'headlines.issues.x_frame_options'}}
-          <div class="value">{{ model.vulnerabilities_report.x_frame_options }}%</div>
+          <div class="value">{{ model.vulnerabilitiesReport.x_frame_options }}%</div>
         </li>
         <li>
           {{i18n 'headlines.issues.x_content_security_options'}}
-          <div class="value">{{ model.vulnerabilities_report.content_security_policy }}%</div>
+          <div class="value">{{ model.vulnerabilitiesReport.content_security_policy }}%</div>
         </li>
       </ul>
 

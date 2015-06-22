@@ -1,6 +1,6 @@
 module Headlines
   class DomainScanSerializer < ActiveModel::Serializer
-    attributes :id, :name, :country, :scan_results, :vulnerabilities_report
+    attributes :name, :country, :scan_results, :vulnerabilities_report
 
     has_one :industry, serializer: BaseIndustrySerializer
 
