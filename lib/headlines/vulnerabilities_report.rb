@@ -5,17 +5,17 @@ module Headlines
     end
 
     def report
-      Hash[SECURITY_HEADERS.map { |h| [h, domains_percent_by(h)] }]
+      Hash[SECURITY_HEADERS.map { |h| [h, bad_domains_percent_by(h)] }]
     end
 
     private
 
-    def domains_count_by(vulnerability)
-      @scan_results.count { |s| s[vulnerability].to_i < 33 }
+    def bad_domains_count_by(header)
+      @scan_results.count { |s| s[header].to_i < 33 }
     end
 
-    def domains_percent_by(vulnerability)
-      ((domains_count_by(vulnerability).to_f / @scan_results.size) * 100).round
+    def bad_domains_percent_by(header)
+      ((bad_domains_count_by(header).to_f / @scan_results.size) * 100).round
     end
   end
 end
