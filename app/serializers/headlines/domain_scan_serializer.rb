@@ -19,7 +19,7 @@ module Headlines
     end
 
     def vulnerabilities_report
-      VulnerabilitiesReport.new(industry.industry_ranked_domains.map(&:scan).map(&:results)).report
+      VulnerabilitiesReport.new(industry.industry_ranked_domains.map(&:scan_results)).report
     end
   end
 end
