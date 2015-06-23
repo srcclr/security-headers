@@ -39,11 +39,11 @@ en:
         bad: "Bad"
       issues:
         all: "All"
-        hsts: "HSTS"
-        x_xss: "X-XSS"
-        x_content_type: "X-Content-Type"
+        strict_transport_security: "HSTS"
+        x_xss_protection: "X-XSS"
+        x_content_type_options: "X-Content-Type"
         x_frame_options: "X-Frame-Options"
-        x_content_security_options: "X-Content-Security-Options"
+        content_security_policy: "X-Content-Security-Options"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
