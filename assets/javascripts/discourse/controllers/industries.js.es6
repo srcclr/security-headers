@@ -10,11 +10,11 @@ export default Discourse.HeadlinesController = Discourse.Controller.extend({
   industries: [],
 
   issueTypes: ['all',
-               'strict_transport_security',
-               'x_xss_protection',
-               'x_content_type_options',
-               'x_frame_options',
-               'content_security_policy'],
+               'strict-transport-security',
+               'x-xss-protection',
+               'x-content-type-options',
+               'x-frame-options',
+               'content-security-policy'],
 
   ratings: [ 'excellent', 'bad', 'poor' ],
 

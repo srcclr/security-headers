@@ -21,13 +21,13 @@ en:
       similar_urls: "% of similar urls that contain"
       tests:
         title: Tests
-        spying_communications:
+        spying-communications:
           title: Stops others from spying or modifying your communications
           issues: HSTS
-        ensures_site:
+        ensures-site:
           title: Ensures you're talking to who you think you are
           issues: HSTS and X-Frame-Options
-        launch_malware:
+        launch-malware:
           title: Protects you from common vulnerabilities used to launch malware
           issues: X-XSS, X-Content-Type-Options and CSP
       passed_tests: "Passed Tests"
@@ -39,11 +39,11 @@ en:
         bad: "Bad"
       issues:
         all: "All"
-        strict_transport_security: "HSTS"
-        x_xss_protection: "X-XSS"
-        x_content_type_options: "X-Content-Type"
-        x_frame_options: "X-Frame-Options"
-        content_security_policy: "X-Content-Security-Options"
+        strict-transport-security: "HSTS"
+        x-xss-protection: "X-XSS"
+        x-content-type-options: "X-Content-Type"
+        x-frame-options: "X-Frame-Options"
+        content-security-policy: "X-Content-Security-Options"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"

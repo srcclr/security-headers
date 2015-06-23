@@ -5,9 +5,7 @@ module Headlines
     end
 
     def report
-      Hash[
-        Headlines::SECURITY_HEADERS.map { |v| [v.gsub("-", "_"), send("domains_percent_by", v)] }
-      ]
+      Hash[Headlines::SECURITY_HEADERS.map { |h| [h, domains_percent_by(h)] }]
     end
 
     private
