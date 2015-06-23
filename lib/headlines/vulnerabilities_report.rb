@@ -5,7 +5,7 @@ module Headlines
     end
 
     def report
-      Hash[Headlines::SECURITY_HEADERS.map { |h| [h, domains_percent_by(h)] }]
+      Hash[SECURITY_HEADERS.map { |h| [h, domains_percent_by(h)] }]
     end
 
     private
