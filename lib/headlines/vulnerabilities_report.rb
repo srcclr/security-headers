@@ -11,7 +11,7 @@ module Headlines
     private
 
     def bad_domains_count_by(header)
-      @scan_results.count { |s| s[header].to_i < 33 }
+      @scan_results.count { |s| s[header].to_i < 20 }
     end
 
     def bad_domains_percent_by(header)

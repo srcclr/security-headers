@@ -19,7 +19,7 @@ module Headlines
     private
 
     def industry
-      @industry = Industry.includes(industry_ranked_domains: :scan).find(params[:industry_id])
+      @industry ||= Industry.includes(industry_ranked_domains: :scan).find(params[:industry_id])
     end
 
     def domain

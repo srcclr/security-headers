@@ -5,11 +5,11 @@ module Headlines
     describe "#report" do
       subject(:report) { described_class.new(scan_results).report }
 
-      its(["x_frame_options"]) { is_expected.to eq 50 }
-      its(["x_xss_protection"]) { is_expected.to eq 0 }
-      its(["x_content_type_options"]) { is_expected.to eq 100 }
-      its(["content_security_policy"]) { is_expected.to eq 50 }
-      its(["strict_transport_security"]) { is_expected.to eq 100 }
+      its(["x-frame-options"]) { is_expected.to eq 50 }
+      its(["x-xss-protection"]) { is_expected.to eq 0 }
+      its(["x-content-type-options"]) { is_expected.to eq 100 }
+      its(["content-security-policy"]) { is_expected.to eq 50 }
+      its(["strict-transport-security"]) { is_expected.to eq 100 }
     end
   end
 end
