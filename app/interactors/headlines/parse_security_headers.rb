@@ -2,12 +2,6 @@ module Headlines
   class ParseSecurityHeaders
     include Interactor
 
-    SECURITY_HEADERS = %w(strict-transport-security
-                          x-xss-protection
-                          x-content-type-options
-                          x-frame-options
-                          content-security-policy)
-
     def call
       context.fail! unless response.success?
 

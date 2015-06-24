@@ -2,7 +2,7 @@ import Industry from '../models/industry';
 import Domain from '../models/domain';
 
 function industries() {
-  return Discourse.ajax(Discourse.getURL("/headlines"))
+  return Discourse.ajax(Discourse.getURL("/headlines/industries"))
                   .then((industries) => { return industries; });
 }
 

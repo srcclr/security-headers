@@ -1,17 +1,37 @@
 export default Discourse.Model.extend({
   scanResults: {},
 
-  headers: function() {
-    return Object.keys(this.get('scanResults'));
-  }.property('scanResults'),
+  spyingTestHeaders: ['strict-transport-security'],
+  ensuresSiteTestHeaders: ['strict-transport-security', 'x-frame-options'],
+  launchMalwareTestHeaders: ['x-xss-protection', 'x-content-type-options', 'content-security-policy'],
 
-  score: function() {
+  headers: Em.computed(function() {
+    return Object.keys(this.get('scanResults'));
+  }),
+
+  testScore(headers) {
     let sum = 0;
 
-    this.get('headers').forEach((header) => {
+    headers.forEach((header) => {
       sum += parseInt(this.get('scanResults')[header]) || 0;
     });
 
-    return Math.ceil((sum / this.get('headers').length) || 0);
-  }.property('scanResults')
-})
+    return Math.ceil((sum / headers.length) || 0);
+  },
+
+  score: Em.computed(function() {
+    return this.testScore(this.get('headers'));
+  }),
+
+  spyingTest: Em.computed(function() {
+    return this.testScore(this.get('spyingTestHeaders'));
+  }),
+
+  ensuresSiteTest: Em.computed(function() {
+    return this.testScore(this.get('ensuresSiteTestHeaders'));
+  }),
+
+  launchMalwareTest: Em.computed(function() {
+    return this.testScore(this.get('launchMalwareTestHeaders'));
+  })
+});

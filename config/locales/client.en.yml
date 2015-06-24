@@ -19,7 +19,17 @@ en:
       url: "URL"
       last_scan: Last Scan
       similar_urls: "% of similar urls that contain"
-      tests: Tests
+      tests:
+        title: Tests
+        spying-communications:
+          title: Stops others from spying or modifying your communications
+          issues: HSTS
+        ensures-site:
+          title: Ensures you're talking to who you think you are
+          issues: HSTS and X-Frame-Options
+        launch-malware:
+          title: Protects you from common vulnerabilities used to launch malware
+          issues: X-XSS, X-Content-Type-Options and CSP
       passed_tests: "Passed Tests"
       rating:
         label: "Rating"
@@ -29,11 +39,11 @@ en:
         bad: "Bad"
       issues:
         all: "All"
-        hsts: "HSTS"
-        x_xss: "X-XSS"
-        x_content_type: "X-Content-Type"
-        x_frame_options: "X-Frame-Options"
-        x_content_security_options: "X-Content-Security-Options"
+        strict-transport-security: "HSTS"
+        x-xss-protection: "X-XSS"
+        x-content-type-options: "X-Content-Type"
+        x-frame-options: "X-Frame-Options"
+        content-security-policy: "X-Content-Security-Options"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
