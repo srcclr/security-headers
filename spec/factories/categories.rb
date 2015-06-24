@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :category, class: "Headlines::Category" do
     title "Business and Economy/Shopping"
-    path "Top/Regional/Asia/India/Business_and_Economy/Shopping"
+    topic "Top/Regional/Asia/India/Business_and_Economy/Shopping"
 
     trait :with_domains do
       after(:build) do |category|
