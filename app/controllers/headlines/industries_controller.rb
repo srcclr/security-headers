@@ -20,7 +20,7 @@ module Headlines
         format.json { render(json: industry_as_json) }
 
         format.html do
-          store_preloaded("industries", MultiJson.dump(industry_as_json))
+          store_preloaded("industry", MultiJson.dump(industry_as_json))
           render "default/empty"
         end
       end

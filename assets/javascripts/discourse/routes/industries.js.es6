@@ -35,6 +35,6 @@ export default Discourse.Route.reopen({
   },
 
   setupController: function(controller, model) {
-    controller.set('industries', wrappedIndustries(model.industries))
+    controller.set('industries', wrappedIndustries(model.industries));
   }
 })
