@@ -6,6 +6,7 @@ export default Discourse.Route.extend({
     return PreloadStore.getAndRemove('domain_scan', function() {
       return Discourse.ajax('/headlines/industries/' + params.industry_id+ '/domains/' + params.id).then(function(result) {
         return Domain.create({
+          id: result.id,
           name: result.name,
           country: result.country,
           scanResults: result.scan_results,

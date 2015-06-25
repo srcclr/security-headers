@@ -1,3 +1,5 @@
+import { statusIs } from '../../lib/score';
+
 export default Discourse.Model.extend({
   scanResults: {},
 
@@ -21,6 +23,10 @@ export default Discourse.Model.extend({
 
   score: Em.computed(function() {
     return this.testScore(this.get('headers'));
+  }),
+
+  status: Em.computed(function() {
+    return statusIs(this.get('score'));
   }),
 
   spyingTest: Em.computed(function() {

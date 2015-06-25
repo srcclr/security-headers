@@ -9,6 +9,7 @@ function industries() {
 function industryDomains(industry) {
   return _.map(industry.industry_ranked_domains, (domain) => {
     return Domain.create({
+      id: domain.id,
       name: domain.name,
       rank: domain.rank,
       scanResults: domain.scan_results || {}
@@ -19,6 +20,7 @@ function industryDomains(industry) {
 function wrappedIndustries(industries) {
   return _.map(industries, (industry) => {
     return Industry.create({
+      id: industry.id,
       name: industry.name,
       domains: industryDomains(industry)
     });

@@ -1,10 +1,6 @@
-import { scoreIs, statusIs } from '../../lib/score';
+import { statusIs } from '../../lib/score';
 
 export default Ember.Controller.extend({
-  domainStatus: Em.computed(function() {
-    return statusIs(this.get('model.score'));
-  }),
-
   spyingCommunicationsTest: Em.computed(function() {
     return statusIs(this.get('model.spyingTest'));
   }),
