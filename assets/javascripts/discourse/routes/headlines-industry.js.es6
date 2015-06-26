@@ -8,7 +8,7 @@ export default Discourse.Route.extend({
         return Industry.create({
           id: industry.id,
           name: industry.name,
-          industry_ranked_domains: _.map(industry.industry_ranked_domains, (domain) => {
+          domains: _.map(industry.industry_ranked_domains, (domain) => {
             return Domain.create({
               id: domain.id,
               name: domain.name,
