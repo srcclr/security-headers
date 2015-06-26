@@ -1,6 +1,6 @@
 module Headlines
-  class DomainScanSerializer < ActiveModel::Serializer
-    attributes :name, :country, :scan_results, :vulnerabilities_report
+  class DomainScanSerializer < DomainSerializer
+    attributes :vulnerabilities_report
 
     has_one :industry, serializer: BaseIndustrySerializer
 
@@ -8,14 +8,6 @@ module Headlines
 
     def industry
       options[:industry]
-    end
-
-    def country
-      if object.country_code.present?
-        IsoCountryCodes.find(object.country_code).name
-      else
-        object.country_code
-      end
     end
 
     def vulnerabilities_report

@@ -3,14 +3,18 @@
     <li class="breadcrumb-item">
       {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
     </li>
-    <li class="breadcrumb-item"><a href="#">{{ model.industry.name }}</a></li>
+    <li class="breadcrumb-item">
+      {{#link-to 'headlines.industry' model.industry.id}}
+        {{ model.industry.name }}
+      {{/link-to}}
+    </li>
     <li class="breadcrumb-item"><a href="http://{{ model.name }}">{{ model.name }}</a></li>
   </ul>
   <h3 class="site-name">{{ model.name }}</h3>
   <div class="site-notes">
     <span class="site-status">
-      <i class="fa fa-check-circle value-{{ domainStatus }}"/>
-      {{localeInterpolation 'headlines.test_result' domainStatus}} - {{ model.score }}%
+      <i class="fa fa-check-circle value-{{ model.status }}"/>
+      {{localeInterpolation 'headlines.test_result' model.status}} - {{ model.score }}%
     </span>
     <span class="site-location">
       {{fa-icon "globe"}}
