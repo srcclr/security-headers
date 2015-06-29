@@ -1,6 +1,12 @@
 import Domain from '../models/domain';
 
 export default Discourse.Controller.extend({
+  subIndustriesHide: true,
+
+  hideIndustries: function() {
+    return this.get('subIndustriesHide') == true;
+  }.property('subIndustriesHide'),
+
   loadMore() {
     let model = this.get("model");
 
@@ -19,5 +25,12 @@ export default Discourse.Controller.extend({
         });
       }));
     });
+  },
+
+  actions: {
+    subIndustriesToggle: function() {
+      var state = this.get('subIndustriesHide');
+      this.set('subIndustriesHide', !state);
+    }
   }
 })
