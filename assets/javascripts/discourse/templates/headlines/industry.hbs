@@ -44,6 +44,72 @@
       <span class="chart-value value-bad">100%</span>
     </li>
   </ul>
+
+  <div class="sub-industries">
+    <a class="sub-industries-toggle" href="#" {{action "subIndustriesToggle"}}>
+      {{#if hideIndustries}}
+        {{fa-icon "plus-circle"}}
+        Show Sub Industries (29)
+      {{/if}}
+      {{#unless hideIndustries}}
+        {{fa-icon "minus-circle"}}
+        Hide Sub Industries
+      {{/unless}}
+    </a>
+
+    {{#unless hideIndustries}}
+      <ul class="sub-industries-list">
+        <li><a href="#">All Sub Industries</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+        <li><a href="#">Sub Industry Name 1</a></li>
+      </ul>
+    {{/unless}}
+  </div>
+
   <div class="table-search">
     <input class="col-6" placeholder="Filter by URL" type="search">
     <i class="fa fa-search"></i>

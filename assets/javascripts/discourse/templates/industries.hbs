@@ -25,38 +25,38 @@
       {{{i18n 'headlines.chart_type.pie'}}}
     </a>
   </nav>
-    <div>
-      <ul>
-        {{#each industry in industries}}
-          <li class="industry-card">
-            <h3>{{industry.name}}</h3>
+  <div>
+    <ul>
+      {{#each industry in industries}}
+        <li class="industry-card">
+          <h3>{{industry.name}}</h3>
 
-            <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
 
-            <div class="chart">
-              {{industry-chart model=industry type=chartType}}
+          <div class="chart">
+            {{industry-chart model=industry type=chartType}}
 
-              <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
-                <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
-                <span class="chart-value value-excellent">{{industry.excellent}}</span>
-                </li>
-                <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
-                <span class="chart-value value-poor">{{industry.poor}}</span>
-                </li>
-                <li>
-                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
-                <span class="chart-value value-bad">{{industry.bad}}</span>
-                </li>
-              </ul>
-            </div>
+            <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
+              <li>
+              <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+              <span class="chart-value value-excellent">{{industry.excellent}}</span>
+              </li>
+              <li>
+              <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+              <span class="chart-value value-poor">{{industry.poor}}</span>
+              </li>
+              <li>
+              <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+              <span class="chart-value value-bad">{{industry.bad}}</span>
+              </li>
+            </ul>
+          </div>
 
-            {{#link-to 'headlines.industry' industry.id class="btn btn-primary"}}
-              {{i18n 'headlines.view_all_sites'}}
-            {{/link-to}}
-          </li>
-        {{/each}}
-      </ul>
-    </div>
+          {{#link-to 'headlines.industry' industry.id class="btn btn-primary"}}
+            {{i18n 'headlines.view_all_sites'}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
 </section>
