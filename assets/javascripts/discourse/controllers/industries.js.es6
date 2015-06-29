@@ -2,10 +2,15 @@ import Industry from '../models/industry'
 
 export default Discourse.HeadlinesController = Discourse.Controller.extend({
   chartType: 'pie',
+  subIndustriesHide: true,
 
   showMosaicChart: function() {
     return this.get('chartType') == 'mosaic';
   }.property('chartType'),
+
+  hideIndustries: function() {
+    return this.get('subIndustriesHide') == true;
+  }.property('subIndustriesHide'),
 
   industries: [],
 
@@ -25,6 +30,11 @@ export default Discourse.HeadlinesController = Discourse.Controller.extend({
 
     showPie: function() {
       this.set('chartType', 'pie');
+    },
+
+    subIndustriesToggle: function() {
+      var state = this.get('subIndustriesHide');
+      this.set('subIndustriesHide', !state);
     }
   }
 });
