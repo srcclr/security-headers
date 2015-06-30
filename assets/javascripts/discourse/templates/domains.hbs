@@ -35,8 +35,11 @@
   <h4>{{i18n 'headlines.tests.title'}}</h4>
   <ul class="tests-list">
     <li>
-      {{fa-icon "plus-circle"}}
-      {{i18n 'headlines.tests.spying-communications.title'}}
+      <a class='tests-list-toggle' href='#' {{action "testToggle" "spyingTestHide" bubbles=false }}>
+        {{#if spyingTestHide}} {{fa-icon "plus-circle"}} {{/if}}
+        {{#unless spyingTestHide}} {{fa-icon "minus-circle"}} {{/unless}}
+        {{i18n 'headlines.tests.spying-communications.title'}}
+      </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
         <span class="value-{{ spyingCommunicationsTest }} test-value">
@@ -44,10 +47,32 @@
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.spying-communications.issues'}}
       </div>
+      {{#unless spyingTestHide}}
+        <div class='test-description'>
+          <h3>What Is This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>What Does This Mean?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+          <h3>How do I Fix This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>Related Articles</h3>
+          <ul>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+          </ul>
+        </div>
+      {{/unless}}
     </li>
     <li>
-      {{fa-icon "plus-circle"}}
-      {{i18n 'headlines.tests.ensures-site.title'}}
+      <a class='tests-list-toggle' href='#' {{action "testToggle" "ensuresTestHide" bubbles=false }}>
+        {{#if ensuresTestHide}} {{fa-icon "plus-circle"}} {{/if}}
+        {{#unless ensuresTestHide}} {{fa-icon "minus-circle"}} {{/unless}}
+        {{i18n 'headlines.tests.ensures-site.title'}}
+      </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
         <span class="value-{{ ensuresSiteTest }} test-value">
@@ -55,10 +80,32 @@
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.ensures-site.issues'}}
       </div>
+      {{#unless ensuresTestHide}}
+        <div class='test-description'>
+          <h3>What Is This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>What Does This Mean?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+          <h3>How do I Fix This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>Related Articles</h3>
+          <ul>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+          </ul>
+        </div>
+      {{/unless}}
     </li>
     <li>
-      {{fa-icon "plus-circle"}}
-      {{i18n 'headlines.tests.launch-malware.title'}}
+      <a class='tests-list-toggle' href='#' {{action "testToggle" "launchMalwareTestHide" bubbles=false }}>
+        {{#if launchMalwareTestHide}} {{fa-icon "plus-circle"}} {{/if}}
+        {{#unless launchMalwareTestHide}} {{fa-icon "minus-circle"}} {{/unless}}
+        {{i18n 'headlines.tests.launch-malware.title'}}
+      </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
         <span class="value-{{ launchMalwareTest }} test-value">
@@ -66,6 +113,25 @@
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.launch-malware.issues'}}
       </div>
+      {{#unless launchMalwareTestHide}}
+        <div class='test-description'>
+          <h3>What Is This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>What Does This Mean?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+          <h3>How do I Fix This?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <h3>Related Articles</h3>
+          <ul>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+            <li><a href='#'>Article on how fix works</a></li>
+          </ul>
+        </div>
+      {{/unless}}
     </li>
   </ul>
 </section>
