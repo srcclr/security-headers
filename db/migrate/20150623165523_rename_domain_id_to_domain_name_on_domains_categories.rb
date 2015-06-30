@@ -16,12 +16,12 @@ class RenameDomainIdToDomainNameOnDomainsCategories < ActiveRecord::Migration
   end
 
   def down
-    create_view(:headlines_industry_ranked_domains, industry_ranked_domains.to_sql)
     remove_index :headlines_domains_categories, :domain_name
     remove_column :headlines_domains_categories, :domain_name
 
     add_column :headlines_domains_categories, :domain_id, :integer
     add_index :headlines_domains_categories, :domain_id
+    create_view(:headlines_industry_ranked_domains, industry_ranked_domains.to_sql)
   end
 
   private
