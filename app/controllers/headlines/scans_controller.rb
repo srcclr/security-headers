@@ -17,7 +17,7 @@ module Headlines
     private
 
     def url
-      query_params[:url].start_with?("http") ? query_params[:url].gsub(/^https?:\/\//, '') : query_params[:url]
+      query_params[:url].start_with?("http") ? query_params[:url].gsub(%r{^https?://}, "") : query_params[:url]
     end
 
     def domain_as_json
