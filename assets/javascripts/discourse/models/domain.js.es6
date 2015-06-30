@@ -1,8 +1,6 @@
 import { statusIs } from '../../lib/score';
 
 export default Discourse.Model.extend({
-  scanResults: {},
-
   spyingTestHeaders: ['strict-transport-security'],
   ensuresSiteTestHeaders: ['strict-transport-security', 'x-frame-options'],
   launchMalwareTestHeaders: ['x-xss-protection', 'x-content-type-options', 'content-security-policy'],
@@ -29,15 +27,27 @@ export default Discourse.Model.extend({
     return statusIs(this.get('score'));
   }),
 
-  spyingTest: Em.computed(function() {
+  spyingTestScore: Em.computed(function() {
     return this.testScore(this.get('spyingTestHeaders'));
   }),
 
-  ensuresSiteTest: Em.computed(function() {
+  ensuresSiteTestScore: Em.computed(function() {
     return this.testScore(this.get('ensuresSiteTestHeaders'));
   }),
 
-  launchMalwareTest: Em.computed(function() {
+  launchMalwareTestScore: Em.computed(function() {
     return this.testScore(this.get('launchMalwareTestHeaders'));
+  }),
+
+  spyingCommunicationsTest: Em.computed(function() {
+    return statusIs(this.get('spyingTestScore'));
+  }),
+
+  ensuresSiteTest: Em.computed(function() {
+    return statusIs(this.get('ensuresSiteTestScore'));
+  }),
+
+  launchMalwareTest: Em.computed(function() {
+    return statusIs(this.get('launchMalwareTestScore'));
   })
 });

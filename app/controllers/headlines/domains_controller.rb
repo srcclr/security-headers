@@ -5,18 +5,20 @@ module Headlines
     respond_to :html, :json
 
     def show
-      serialized = serialize_data(domain, DomainScanSerializer, root: false, industry: industry)
-
       respond_to do |format|
         format.html do
-          store_preloaded("domain_scan", MultiJson.dump(serialized))
+          store_preloaded("domain_scan", MultiJson.dump(domain_as_json))
           render "default/empty"
         end
-        format.json { render(json: serialized) }
+        format.json { render(json: domain_as_json) }
       end
     end
 
     private
+
+    def domain_as_json
+      serialize_data(domain, DomainScanSerializer, root: false, industry: industry)
+    end
 
     def industry
       @industry ||= Industry.includes(industry_ranked_domains: :scan).find(params[:industry_id])
