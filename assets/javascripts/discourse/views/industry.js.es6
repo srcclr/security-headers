@@ -2,6 +2,7 @@ import LoadMore from "discourse/mixins/load-more";
 
 export default Discourse.View.extend(LoadMore, {
   eyelineSelector: '.topic-list-item',
+  loading: false,
 
   actions: {
     loadMore() {
