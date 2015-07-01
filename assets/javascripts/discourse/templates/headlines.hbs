@@ -6,9 +6,9 @@
     </p>
   </header>
   <section class="container">
-    <form action="#" class="check-site">
+    <form {{action "scanUrl" on="submit"}} class="check-site">
       <label for="scan">{{i18n 'headlines.check_form.label'}}</label>
-      <input type="url" placeholder="{{i18n 'headlines.check_form.field'}}">
+      {{input type="url" value=url placeholder=scanUrlPlaceholder}}
       <button type="submit" class="btn-primary">
         {{i18n 'headlines.check_form.action'}}
       </button>

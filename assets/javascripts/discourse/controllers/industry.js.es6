@@ -1,7 +1,11 @@
 import Domain from '../models/domain';
 
 export default Discourse.Controller.extend({
+  needs: ['headlines'],
   subIndustriesHide: true,
+
+  ratings: Em.computed.alias('controllers.headlines.ratings'),
+  issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
 
   hideIndustries: function() {
     return this.get('subIndustriesHide') == true;

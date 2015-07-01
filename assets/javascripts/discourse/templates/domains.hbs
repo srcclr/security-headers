@@ -1,15 +1,17 @@
 <section class="site-details">
+
   <ul class="breadcrumb">
     <li class="breadcrumb-item">
       {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
     </li>
     <li class="breadcrumb-item">
-      {{#link-to 'headlines.industry' model.industry.id}}
+      {{#link-to 'industry' model.industry.id}}
         {{ model.industry.name }}
       {{/link-to}}
     </li>
     <li class="breadcrumb-item"><a href="http://{{ model.name }}">{{ model.name }}</a></li>
   </ul>
+
   <h3 class="site-name">{{ model.name }}</h3>
   <div class="site-notes">
     <span class="site-status">
@@ -42,8 +44,8 @@
       </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ spyingCommunicationsTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' spyingCommunicationsTest}}
+        <span class="value-{{ model.spyingCommunicationsTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.spyingCommunicationsTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.spying-communications.issues'}}
       </div>
@@ -75,8 +77,8 @@
       </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ ensuresSiteTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' ensuresSiteTest}}
+        <span class="value-{{ model.ensuresSiteTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.ensuresSiteTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.ensures-site.issues'}}
       </div>
@@ -108,8 +110,8 @@
       </a>
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ launchMalwareTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' launchMalwareTest}}
+        <span class="value-{{ model.launchMalwareTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.launchMalwareTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.launch-malware.issues'}}
       </div>
@@ -134,4 +136,5 @@
       {{/unless}}
     </li>
   </ul>
+
 </section>
