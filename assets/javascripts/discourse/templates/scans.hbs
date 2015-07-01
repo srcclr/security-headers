@@ -1,38 +1,11 @@
 <section class="site-details">
-
-  <ul class="breadcrumb">
-    <li class="breadcrumb-item">
-      {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
-    </li>
-    <li class="breadcrumb-item">
-      {{#link-to 'industry' model.industry.id}}
-        {{ model.industry.name }}
-      {{/link-to}}
-    </li>
-    <li class="breadcrumb-item"><a href="http://{{ model.name }}">{{ model.name }}</a></li>
-  </ul>
-
   <h3 class="site-name">{{ model.name }}</h3>
   <div class="site-notes">
     <span class="site-status">
       <i class="fa fa-check-circle value-{{ model.status }}"/>
       {{localeInterpolation 'headlines.test_result' model.status}} - {{ model.score }}%
     </span>
-    <span class="site-location">
-      {{fa-icon "globe"}}
-      {{ model.country }}
-    </span>
   </div>
-
-  <h4>{{i18n 'headlines.similar_urls'}}</h4>
-  <ul class="test-results">
-    {{#each-keys object=model.vulnerabilitiesReport as |key value|}}
-      <li>
-        {{localeInterpolation 'headlines.issues' key}}
-        <div class="value">{{ value }}%</div>
-      </li>
-    {{/each-keys}}
-  </ul>
 
   <h4>{{i18n 'headlines.tests.title'}}</h4>
   <ul class="tests-list">

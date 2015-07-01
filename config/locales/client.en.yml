@@ -17,19 +17,19 @@ en:
       status: "Status"
       back: "Back"
       url: "URL"
-      last_scan: Last Scan
+      last_scan: "Last Scan"
       similar_urls: "% of similar urls that contain"
       tests:
-        title: Tests
+        title: "Tests"
         spying-communications:
-          title: Stops others from spying or modifying your communications
-          issues: HSTS
+          title: "Stops others from spying or modifying your communications"
+          issues: "HSTS"
         ensures-site:
-          title: Ensures you're talking to who you think you are
-          issues: HSTS and X-Frame-Options
+          title: "Ensures you're talking to who you think you are"
+          issues: "HSTS and X-Frame-Options"
         launch-malware:
-          title: Protects you from common vulnerabilities used to launch malware
-          issues: X-XSS, X-Content-Type-Options and CSP
+          title: "Protects you from common vulnerabilities used to launch malware"
+          issues: "X-XSS, X-Content-Type-Options and CSP"
       passed_tests: "Passed Tests"
       rating:
         label: "Rating"
