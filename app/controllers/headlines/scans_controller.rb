@@ -7,7 +7,7 @@ module Headlines
     def show
       respond_to do |format|
         format.html do
-          store_preloaded("url_scan", MultiJson.dump(domain_as_json))
+          store_preloaded("domain_scan", MultiJson.dump(domain_as_json))
           render "default/empty"
         end
         format.json { render(json: domain_as_json) }
@@ -17,7 +17,7 @@ module Headlines
     private
 
     def url
-      query_params[:url].start_with?("http") ? query_params[:url].gsub(%r{^https?://}, "") : query_params[:url]
+      domain_params[:url].gsub(%r{^https?://}, "")
     end
 
     def domain_as_json
@@ -31,7 +31,7 @@ module Headlines
       AnalyzeDomainHeaders.call(url: url).scan_results
     end
 
-    def query_params
+    def domain_params
       params.permit(:url)
     end
   end

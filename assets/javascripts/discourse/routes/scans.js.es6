@@ -1,5 +1,16 @@
 import Domain from '../models/domain';
 
+function scanDomain(name) {
+  return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name));
+}
+
+function wrapDomain(domain) {
+  return Domain.create({
+    name: domain.name,
+    scanResults: domain.scan_results
+  });
+}
+
 export default Discourse.Route.extend({
   queryParams: {
     url: {
@@ -8,14 +19,11 @@ export default Discourse.Route.extend({
   },
 
   model(params) {
-    return PreloadStore.getAndRemove('url_scan', () => {
-      return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + params.url)).then((result) => {
-        return Domain.create({
-          name: result.name,
-          scanResults: result.scan_results
-        });
-      })
-    })
+    return PreloadStore.getAndRemove('domain_scan', () => {
+      return scanDomain(params.url);
+    }).then((domain) => {
+      return wrapDomain(domain);
+    });
   },
 
   setupController(controller, model) {
