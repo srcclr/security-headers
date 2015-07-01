@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624144934) do
+ActiveRecord::Schema.define(version: 20150701153543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 20150624144934) do
     t.integer  "industry_id"
     t.integer  "category_id"
     t.text     "description", default: "",                    null: false
+    t.integer  "parents",     default: [],                    null: false, array: true
   end
+  add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :btree
 
   create_table "headlines_domains", force: :cascade do |t|
     t.string   "name",         default: "", null: false

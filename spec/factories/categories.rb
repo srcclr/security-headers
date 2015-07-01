@@ -8,5 +8,11 @@ FactoryGirl.define do
         FactoryGirl.create_list(:domain, 2, category: category)
       end
     end
+
+    trait :with_parents do
+      after(:create) do |category|
+        category.update_attributes!(parents: [category.id, category.category_id].compact)
+      end
+    end
   end
 end

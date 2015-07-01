@@ -18,9 +18,6 @@ gem("schema_monkey", "2.1.0")
 gem("schema_plus_core", "0.5.0", require_name: "schema_plus/core")
 gem("schema_plus_views", "0.2.0", require_name: "schema_plus/views")
 
-gem("pg_array_parser", "0.0.9")
-gem("postgres_ext", "2.4.1")
-
 register_asset("stylesheets/components/breadcrumb.css.scss")
 register_asset("stylesheets/components/charts.css.scss")
 register_asset("stylesheets/components/switch.css.scss")
