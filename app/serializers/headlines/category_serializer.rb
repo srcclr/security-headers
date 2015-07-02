@@ -1,5 +1,5 @@
 module Headlines
-  class IndustrySerializer < BaseIndustrySerializer
+  class IndustrySerializer < BaseCategorySerializer
     has_many :domains, serializer: DomainSerializer
 
     private

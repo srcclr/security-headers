@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701153543) do
+ActiveRecord::Schema.define(version: 20150702083111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20150701153543) do
     t.string   "topic",       default: "",                    null: false
     t.datetime "created_at",  default: '2015-06-24 15:35:43', null: false
     t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
-    t.integer  "industry_id"
     t.integer  "category_id"
     t.text     "description", default: "",                    null: false
     t.integer  "parents",     default: [],                    null: false, array: true
@@ -47,13 +46,6 @@ ActiveRecord::Schema.define(version: 20150701153543) do
   end
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
   add_index "headlines_domains_categories", ["domain_name"], name: "index_headlines_domains_categories_on_domain_name", using: :btree
-
-  create_table "headlines_industries", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
-    t.string   "categories", default: [], null: false, array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "headlines_scans", force: :cascade do |t|
     t.json     "headers",    default: {}, null: false

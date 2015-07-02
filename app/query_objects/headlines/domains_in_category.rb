@@ -1,6 +1,5 @@
 module Headlines
   class DomainsInCategory
-
     attr_reader :category
     private :category
 
@@ -12,7 +11,7 @@ module Headlines
 
     def all
       Domain.joins(:categories)
-            .where(["? = ANY(headlines_categories.parents)", category.id])
+        .where(["? = ANY(headlines_categories.parents)", category.id])
     end
   end
 end

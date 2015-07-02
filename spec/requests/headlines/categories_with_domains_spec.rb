@@ -14,13 +14,13 @@ module Headlines
       expect(get_categories).to be_success
     end
 
-    context "when domains_per_industry param has been sent" do
-      let(:params) { { domains_per_industry: 1 } }
+    context "when domains_per_category param has been sent" do
+      let(:params) { { domains_per_category: 1 } }
 
       subject(:categories) { JSON.parse((get_categories).body)["categories"] }
 
       it "responds with limited number of domains per category" do
-        categories.each do |cateogry|
+        categories.each do |category|
           expect(category["domains"].size).to be 1
         end
       end
