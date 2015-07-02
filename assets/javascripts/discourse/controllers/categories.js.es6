@@ -1,13 +1,11 @@
-import Industry from '../models/industry'
+import Category from '../models/category'
 
-export default Discourse.HeadlinesController = Discourse.Controller.extend({
+export default Discourse.Controller.extend({
   chartType: 'pie',
 
   showMosaicChart: function() {
     return this.get('chartType') == 'mosaic';
   }.property('chartType'),
-
-  industries: [],
 
   issueTypes: ['all',
                'strict-transport-security',

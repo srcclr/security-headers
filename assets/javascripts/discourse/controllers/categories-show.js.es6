@@ -10,7 +10,7 @@ export default Discourse.Controller.extend({
       if (data.length === 0) {
         model.set("allLoaded", true);
       }
-      model.domains.addObjects(_.map(data.industry_ranked_domains, (domain) => {
+      model.domains.addObjects(_.map(data.domains, (domain) => {
         return Domain.create({
           id: domain.id,
           name: domain.name,

@@ -17,7 +17,7 @@ $test-pass:
     }
   }
 
-  .industry-status-#{nth($test, 1)} {
+  .category-status-#{nth($test, 1)} {
     &:before {
       background: nth($test, 2);
     }

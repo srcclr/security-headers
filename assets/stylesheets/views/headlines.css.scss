@@ -89,7 +89,7 @@
   display: block;
 }
 
-.industry-card {
+.category-card {
   border: solid 1px #999;
   margin-bottom: 25px;
   min-height: 240px;
@@ -117,7 +117,7 @@
   }
 }
 
-.industries-list {
+.category-list {
   overflow: hidden;
 
   ul {
@@ -150,7 +150,7 @@
   }
 }
 
-h3.industry-title {
+h3.category-title {
   display: inline-block;
   font-size: 24px;
   font-weight: 400;

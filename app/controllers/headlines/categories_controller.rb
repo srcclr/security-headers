@@ -29,7 +29,7 @@ module Headlines
     private
 
     def categories
-      Category.where(category_id: 1)
+      Headlines::Category.where(category_id: 1)
     end
 
     def categories_as_json
@@ -37,7 +37,7 @@ module Headlines
     end
 
     def category
-      @category ||= Category.find(params[:id])
+      @category ||= Headlines::Category.find(params[:id])
     end
 
     def category_as_json(category, options = {})
@@ -51,7 +51,7 @@ module Headlines
 
     def category_domains(category, limit: 25)
       DomainsInCategory.new(category: category)
-        .includes(:scan)
+        .includes(:scans)
         .offset(offset)
         .order("rank DESC")
         .limit(limit)
