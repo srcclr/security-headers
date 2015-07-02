@@ -17,7 +17,7 @@ module Headlines
 
     def show
       respond_to do |format|
-        format.json { render(json: category_as_json) }
+        format.json { render(json: category_as_json(category)) }
 
         format.html do
           store_preloaded("category", MultiJson.dump(category_as_json(category)))
