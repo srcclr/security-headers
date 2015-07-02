@@ -8,7 +8,7 @@ module Headlines
       @category = category
     end
 
-    delegate :count, :limit, :order, to: :all
+    delegate :count, :limit, :includes, :join, :order, to: :all
 
     def all
       Domain.joins(:categories)
