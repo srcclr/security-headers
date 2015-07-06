@@ -9,7 +9,7 @@ module Headlines
 
     describe "#all" do
       it "returns list of all domains for category and all child categories" do
-        expect(domains.all.count).to eq 4
+        expect(domains.all.to_ary.count).to eq 4
       end
 
       it "responds with relationship model" do
