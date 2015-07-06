@@ -1,0 +1,62 @@
+<aside class="headlines-filters">
+  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+  {{combo-box valueAttribute="value" content=countries value=country_code}}
+
+  <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+  <ul>
+    {{#each type in issueTypes}}
+      <li>
+        <label for="{{type}}">
+          <input type="checkbox" id="{{type}}">
+          {{localeInterpolation 'headlines.issues' type}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+</aside>
+<section class="categories-list">
+  <nav class="switch-controls">
+    <a href="#" {{action "showMosaic"}} {{bind-attr class="showMosaicChart:active-switch"}}>
+      {{fa-icon "th"}}
+      {{{i18n 'headlines.chart_type.mosaic'}}}
+    </a>
+    <a href="#" {{action "showPie"}} {{bind-attr class="showMosaicChart::active-switch"}}>
+      {{fa-icon "pie-chart"}}
+      {{{i18n 'headlines.chart_type.pie'}}}
+    </a>
+  </nav>
+    <div>
+      <ul>
+        {{#each category in model}}
+          <li class="category-card">
+            <h3>{{category.title}}</h3>
+
+          <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+
+            <div class="chart">
+              {{category-chart model=category type=chartType}}
+
+              <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
+                <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.excellent'}}</span>
+                <span class="chart-value value-excellent">{{category.excellent}}</span>
+                </li>
+                <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.poor'}}</span>
+                <span class="chart-value value-poor">{{category.poor}}</span>
+                </li>
+                <li>
+                <span class="chart-label">{{i18n 'headlines.test_result.bad'}}</span>
+                <span class="chart-value value-bad">{{category.bad}}</span>
+                </li>
+              </ul>
+            </div>
+
+            {{#link-to 'headlines.categories-show' category.id class="btn btn-primary"}}
+              {{i18n 'headlines.view_all_sites'}}
+            {{/link-to}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+</section>

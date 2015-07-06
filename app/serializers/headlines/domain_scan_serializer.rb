@@ -2,16 +2,20 @@ module Headlines
   class DomainScanSerializer < DomainSerializer
     attributes :vulnerabilities_report
 
-    has_one :industry, serializer: BaseIndustrySerializer
+    has_one :category, serializer: BaseCategorySerializer
 
     private
 
-    def industry
-      options[:industry]
+    def category
+      options[:category]
+    end
+
+    def domains
+      options[:domains] || []
     end
 
     def vulnerabilities_report
-      VulnerabilitiesReport.new(industry.industry_ranked_domains.map(&:scan_results)).report
+      VulnerabilitiesReport.new(domains.map(&:scan_results)).report
     end
   end
 end

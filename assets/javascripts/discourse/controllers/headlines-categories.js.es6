@@ -1,6 +1,6 @@
-import Industry from '../models/industry'
+import Category from '../models/category'
 
-export default Discourse.HeadlinesController = Discourse.Controller.extend({
+export default Discourse.Controller.extend({
   needs: ['headlines'],
   chartType: 'pie',
 
@@ -9,6 +9,7 @@ export default Discourse.HeadlinesController = Discourse.Controller.extend({
   }.property('chartType'),
 
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
+  ratings: Em.computed.alias('controllers.headlines.ratings'),
 
   actions: {
     showMosaic: function() {

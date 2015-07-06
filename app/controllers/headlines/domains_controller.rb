@@ -10,6 +10,7 @@ module Headlines
           store_preloaded("domain", MultiJson.dump(domain_as_json))
           render "default/empty"
         end
+
         format.json { render(json: domain_as_json) }
       end
     end
@@ -17,15 +18,31 @@ module Headlines
     private
 
     def domain_as_json
-      serialize_data(domain, DomainScanSerializer, root: false, industry: industry)
+      serialize_data(
+        domain,
+        DomainScanSerializer,
+        root: false,
+        category: category,
+        domains: category_domains(category)
+      )
     end
 
-    def industry
-      @industry ||= Industry.includes(industry_ranked_domains: :scan).find(params[:industry_id])
+    def category
+      @category ||= Category.find(params[:category_id])
+    end
+
+    def category_domains(category)
+      DomainsInCategory.new(category: category)
+        .includes(:scans)
+        .order("rank DESC")
+        .limit(100)
     end
 
     def domain
-      industry.industry_ranked_domains.find(params[:id])
+      DomainsInCategory.new(category: category)
+        .includes(:scans)
+        .order("rank DESC")
+        .find(params[:id])
     end
   end
 end
