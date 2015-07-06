@@ -1,10 +1,7 @@
 export default function() {
   this.resource('headlines', function() {
-
-    this.resource('categories', { path: '/' }, function() {
-      this.route('show', { path: '/:id' });
-    });
-
-    this.resource('domains', { path: 'headlines/:category_id/domains/:id' });
+    this.route('categories', { path: '/' })
+    this.route('categories-show', { path: '/categories/:id' });
+    this.route('domains', { path: '/categories/:category_id/domains/:id' });
   });
 }

@@ -1,4 +1,4 @@
-<aside class="headlines-filters">
+<aside class="categories-filters">
   <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
   {{combo-box valueAttribute="value" content=countries value=country_code}}
 
@@ -31,8 +31,8 @@
     {{fa-icon "clock-o"}}
     {{i18n 'headlines.last_scan'}}: 17 Dec 2220
   </div>
-  {{#link-to 'industries' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  <h3 class="industry-title industry-status-excellent">{{ model.name }}</h3>
+  {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
+  <h3 class="category-title category-status-excellent">{{ model.name }}</h3>
   <ul class="compact-labels">
     <li>
       <span class="chart-value value-excellent">100%</span>
