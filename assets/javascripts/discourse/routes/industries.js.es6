@@ -18,7 +18,7 @@ function industryDomains(industry) {
 }
 
 function wrappedIndustries(industries) {
-  return _.map(industries, (industry) => {
+  return _.map(industries['industries'], (industry) => {
     return Industry.create({
       id: industry.id,
       name: industry.name,
@@ -31,10 +31,6 @@ export default Discourse.Route.reopen({
   beforeModel: function() { return this.redirectIfLoginRequired(); },
 
   model: function() {
-    return PreloadStore.getAndRemove('industries', () => { return industries() });
-  },
-
-  setupController: function(controller, model) {
-    controller.set('industries', wrappedIndustries(model.industries));
+    return PreloadStore.getAndRemove('industries', industries).then(wrappedIndustries);
   }
 })

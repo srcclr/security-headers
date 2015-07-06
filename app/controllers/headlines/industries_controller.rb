@@ -32,8 +32,18 @@ module Headlines
       @industry ||= Industry.find(params[:id])
     end
 
+    def filtered_industry_domains
+      @industry_domains = industry_domains.where(country_code: country_code) if country_code
+
+      industry_domains
+    end
+
     def industry_domains
-      industry.industry_ranked_domains.includes(:scan).offset(offset).limit(25)
+      @industry_domains ||= industry.industry_ranked_domains.includes(:scan).offset(offset).limit(25)
+    end
+
+    def country_code
+      IsoCountryCodes.search_by_name(params[:country])[0].alpha2 if params[:country]
     end
 
     def offset
@@ -41,17 +51,25 @@ module Headlines
     end
 
     def industry_as_json
-      serialize_data(industry, IndustrySerializer, root: false, industry_ranked_domains: industry_domains)
+      serialize_data(industry, IndustrySerializer, root: false, industry_ranked_domains: filtered_industry_domains)
     end
 
     def industries_as_json
-      serialize_data(industries, IndustrySerializer)
+      serialize_data(filtered_industries, IndustrySerializer)
+    end
+
+    def filtered_industries
+      if params[:country]
+        @industries = industries.where("headlines_industry_ranked_domains.country_code = ?", country_code)
+      end
+
+      industries
     end
 
     def industries
-      Industry.joins(industry_ranked_domains: :scan)
-        .includes(industry_ranked_domains: :scan)
-        .where(["industry_rank <= ?", domains_per_industry])
+      @industries ||= Industry.joins(industry_ranked_domains: :scan)
+                              .includes(industry_ranked_domains: :scan)
+                              .where(["industry_rank <= ?", domains_per_industry])
     end
 
     def domains_per_industry
