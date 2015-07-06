@@ -1,6 +1,18 @@
 import Domain from '../models/domain';
 
 export default Discourse.Controller.extend({
+  needs: ['headlines'],
+
+  hideSubCategories: true,
+
+  hideCatgegories: Em.computed('hideSubCategories', 'categoriesLength', function() {
+   return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');
+  }),
+
+  categoriesLength: Em.computed('model.categories', function() {
+  return this.get('model.categories').length;
+  }),
+
   loadMore() {
     let model = this.get("model");
 
@@ -19,5 +31,12 @@ export default Discourse.Controller.extend({
         });
       }));
     });
+  },
+
+  actions: {
+    subCategoriesToggle() {
+      var state = this.get('hideSubCategories');
+      this.set('hideSubCategories', !state);
+    }
   }
 })

@@ -1,4 +1,4 @@
-<aside class="categories-filters">
+<aside class="headlines-filters">
   <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
   {{combo-box valueAttribute="value" content=countries value=country_code}}
 
@@ -32,7 +32,7 @@
     {{i18n 'headlines.last_scan'}}: 17 Dec 2220
   </div>
   {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  <h3 class="category-title category-status-excellent">{{ model.name }}</h3>
+  <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
   <ul class="compact-labels">
     <li>
       <span class="chart-value value-excellent">100%</span>
@@ -44,6 +44,31 @@
       <span class="chart-value value-bad">100%</span>
     </li>
   </ul>
+
+  <div class="sub-categories">
+    <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
+      {{#if hideCatgegories}}
+        {{fa-icon "plus-circle"}}
+        Show Sub Industries ({{ categoriesLength }})
+      {{else}}
+        {{fa-icon "minus-circle"}}
+        Hide Sub Industries
+      {{/if}}
+    </a>
+
+    {{#unless hideCatgegories}}
+      <ul class="sub-categories-list">
+        <li>
+          <li><a href="#">All Sub Industries</a></li>
+        </li>
+
+        {{#each category in model.categories}}
+          {{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}
+        {{/each}}
+      </ul>
+    {{/unless}}
+  </div>
+
   <div class="table-search">
     <input class="col-6" placeholder="Filter by URL" type="search">
     <i class="fa fa-search"></i>

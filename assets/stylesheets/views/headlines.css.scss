@@ -117,7 +117,7 @@
   }
 }
 
-.category-list {
+.categories-list {
   overflow: hidden;
 
   ul {
@@ -292,11 +292,11 @@ h3.category-title {
   margin-right: 25px;
 }
 
-.sub-industries {
+.sub-categories {
   margin: 20px 0 30px;
 }
 
-.sub-industries-toggle {
+.sub-categories-toggle {
   color: #AD841F;
   font-weight: 300;
 
@@ -305,7 +305,7 @@ h3.category-title {
   .fa { margin-right: 5px; }
 }
 
-ul.sub-industries-list {
+ul.sub-categories-list {
   margin: 15px 0 0;
   -webkit-columns: 132px auto;
   -moz-columns: 132px auto;
