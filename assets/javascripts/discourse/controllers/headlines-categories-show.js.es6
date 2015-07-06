@@ -3,14 +3,16 @@ import Domain from '../models/domain';
 export default Discourse.Controller.extend({
   needs: ['headlines'],
 
+  issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
+  ratings: Em.computed.alias('controllers.headlines.ratings'),
   hideSubCategories: true,
 
   hideCatgegories: Em.computed('hideSubCategories', 'categoriesLength', function() {
-   return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');
+    return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');
   }),
 
   categoriesLength: Em.computed('model.categories', function() {
-  return this.get('model.categories').length;
+    return this.get('model.categories').length;
   }),
 
   loadMore() {

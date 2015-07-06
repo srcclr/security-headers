@@ -5,14 +5,9 @@ export default Discourse.View.extend(LoadMore, {
 
   actions: {
     loadMore() {
-      var self = this;
       if (this.get("loading") || this.get("model.allLoaded")) { return; }
-
       this.set("loading", true);
-
-      this.get("controller").loadMore().then(() => {
-        self.set("loading", false);
-      });
+      this.get("controller").loadMore().then(() => { this.set("loading", false); });
     }
   }
 });

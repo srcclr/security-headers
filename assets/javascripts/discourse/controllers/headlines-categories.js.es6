@@ -8,16 +8,8 @@ export default Discourse.Controller.extend({
     return this.get('chartType') == 'mosaic';
   }.property('chartType'),
 
-  issueTypes: ['all',
-               'strict-transport-security',
-               'x-xss-protection',
-               'x-content-type-options',
-               'x-frame-options',
-               'content-security-policy'],
-
-  ratings: [ 'excellent', 'bad', 'poor' ],
-
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
+  ratings: Em.computed.alias('controllers.headlines.ratings'),
 
   actions: {
     showMosaic: function() {
