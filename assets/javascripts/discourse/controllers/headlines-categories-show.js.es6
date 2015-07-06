@@ -46,7 +46,7 @@ export default Discourse.Controller.extend({
     this.set('loading', true);
 
     return Discourse.ajax(Discourse.getURL(model.id + this.searchParams())).then((data) => {
-      if (data.industry_ranked_domains.length === 0) {
+      if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }
       model.domains.addObjects(_.map(data.domains, (domain) => {

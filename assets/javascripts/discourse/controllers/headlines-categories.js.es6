@@ -28,11 +28,11 @@ export default Discourse.Controller.extend({
     this.set('loading', true);
 
     return Discourse.ajax(Discourse.getURL(this.searchParams())).then((data) => {
-      this.set('model', _.map(data['industries'], (industry) => {
-        return Industry.create({
-          id: industry.id,
-          name: industry.name,
-          domains: _.map(industry.industry_ranked_domains, (domain) => {
+      this.set('model', _.map(data['categories'], (category) => {
+        return Category.create({
+          id: category.id,
+          name: category.name,
+          domains: _.map(category.domains, (domain) => {
             return Domain.create({
               id: domain.id,
               name: domain.name,

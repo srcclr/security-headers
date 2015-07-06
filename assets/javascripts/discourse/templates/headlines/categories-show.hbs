@@ -49,17 +49,17 @@
     <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
       {{#if hideCategories}}
         {{fa-icon "plus-circle"}}
-        Show Sub Industries ({{ categoriesLength }})
+        Show Sub Categories ({{ categoriesLength }})
       {{else}}
         {{fa-icon "minus-circle"}}
-        Hide Sub Industries
+        Hide Sub Categories
       {{/if}}
     </a>
 
     {{#unless hideCategories}}
       <ul class="sub-categories-list">
         <li>
-          <li><a href="#">All Sub Industries</a></li>
+          <li><a href="#">All Sub Categories</a></li>
         </li>
 
         {{#each category in model.categories}}
