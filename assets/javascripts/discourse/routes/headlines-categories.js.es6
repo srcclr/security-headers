@@ -30,6 +30,10 @@ export default Discourse.Route.reopen({
   beforeModel() { return this.redirectIfLoginRequired(); },
 
   model() {
-    return PreloadStore.getAndRemove('categories', fetchModels).then(wrapInModels);
+    if (PreloadStore.get('categories')) {
+      return PreloadStore.get('categories').then(wrapInModels);
+    } else {
+      return fetchModels().then(wrapInModels);
+    }
   }
 })
