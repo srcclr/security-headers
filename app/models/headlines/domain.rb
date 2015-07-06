@@ -7,6 +7,7 @@ module Headlines
     has_many :categories, through: :domains_categories
 
     delegate :categories, to: :data_alexa, prefix: true
+    delegate :results, to: :scan, prefix: true
 
     def data_alexa=(value)
       self[:data_alexa] = value
@@ -15,6 +16,10 @@ module Headlines
 
     def data_alexa
       DataAlexa::Domain.new(self[:data_alexa])
+    end
+
+    def scan
+      scans.last
     end
 
     private

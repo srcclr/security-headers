@@ -3,7 +3,7 @@ import Domain from '../models/domain';
 
 function fetchModel(category_id, domain_id) {
   return () => {
-    return Discourse.ajax('/headlines/industries/' + category_id + '/domains/' + domain_id);
+    return Discourse.ajax('/headlines/categories/' + category_id + '/domains/' + domain_id);
   };
 }
 

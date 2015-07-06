@@ -11,6 +11,8 @@ module Headlines
 
     def all
       Domain.joins(:categories)
+        .select("DISTINCT ON (headlines_domains.name) headlines_domains.*")
+        .order("headlines_domains.name")
         .where(["? = ANY(headlines_categories.parents)", category.id])
     end
   end
