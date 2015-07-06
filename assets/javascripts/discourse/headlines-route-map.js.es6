@@ -1,8 +1,8 @@
 export default function() {
   this.resource('headlines', function() {
-    this.resource('industries');
-    this.resource('industry', { path: 'industries/:id' });
-    this.resource('domains', { path: 'industries/:industry_id/domains/:id' });
+    this.route('categories', { path: '/' })
+    this.route('categories-show', { path: '/categories/:id' });
+    this.route('domains', { path: '/categories/:category_id/domains/:id' });
     this.resource('scans');
   });
 }

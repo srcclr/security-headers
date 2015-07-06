@@ -1,7 +1,7 @@
-import Industry from '../models/industry';
 import Domain from '../models/domain';
+import Category from '../models/category';
 
-export default Discourse.HeadlinesController = Discourse.Controller.extend({
+export default Discourse.Controller.extend({
   needs: ['headlines'],
   chartType: 'pie',
 

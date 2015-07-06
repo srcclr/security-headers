@@ -2,16 +2,19 @@ import Domain from '../models/domain';
 
 export default Discourse.Controller.extend({
   needs: ['headlines'],
-  subIndustriesHide: true,
-  loading: false,
+  hideSubCategories: true,
 
-  ratings: Em.computed.alias('controllers.headlines.ratings'),
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
   countries: Em.computed.alias('controllers.headlines.countries'),
+  ratings: Em.computed.alias('controllers.headlines.ratings'),
 
-  hideIndustries: function() {
-    return this.get('subIndustriesHide') == true;
-  }.property('subIndustriesHide'),
+  hideCategories: Em.computed('hideSubCategories', 'categoriesLength', function() {
+    return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');
+  }),
+
+  categoriesLength: Em.computed('model.categories', function() {
+    return this.get('model.categories').length;
+  }),
 
   searchNeeded: Em.observer('country', function() {
     this.set('model.domains', []);
@@ -46,7 +49,7 @@ export default Discourse.Controller.extend({
       if (data.industry_ranked_domains.length === 0) {
         model.set("allLoaded", true);
       }
-      model.domains.addObjects(_.map(data.industry_ranked_domains, (domain) => {
+      model.domains.addObjects(_.map(data.domains, (domain) => {
         return Domain.create({
           id: domain.id,
           name: domain.name,
@@ -59,9 +62,9 @@ export default Discourse.Controller.extend({
   },
 
   actions: {
-    subIndustriesToggle: function() {
-      var state = this.get('subIndustriesHide');
-      this.set('subIndustriesHide', !state);
+    subCategoriesToggle() {
+      var state = this.get('hideSubCategories');
+      this.set('hideSubCategories', !state);
     }
   }
 })

@@ -31,5 +31,14 @@ export default Discourse.Model.extend({
     return _.map(this.get('domains'), (domain) => {
       return scoreIs(domain.get('score'));
     });
-  }.property('domains')
+  }.property('domains'),
+
+  categories: function() {
+    return [
+      { title: 'Sub Industry Name 1', id: 1 },
+      { title: 'Sub Industry Name 2', id: 2 },
+      { title: 'Sub Industry Name 3', id: 3 },
+      { title: 'Sub Industry Name 4', id: 4 }
+    ];
+  }.property()
 })

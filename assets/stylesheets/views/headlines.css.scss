@@ -89,7 +89,7 @@
   display: block;
 }
 
-.industry-card {
+.category-card {
   border: solid 1px #999;
   margin-bottom: 25px;
   min-height: 240px;
@@ -117,7 +117,7 @@
   }
 }
 
-.industries-list {
+.categories-list {
   overflow: hidden;
 
   ul {
@@ -150,7 +150,7 @@
   }
 }
 
-h3.industry-title {
+h3.category-title {
   display: inline-block;
   font-size: 24px;
   font-weight: 400;
@@ -292,11 +292,11 @@ h3.industry-title {
   margin-right: 25px;
 }
 
-.sub-industries {
+.sub-categories {
   margin: 20px 0 30px;
 }
 
-.sub-industries-toggle {
+.sub-categories-toggle {
   color: #AD841F;
   font-weight: 300;
 
@@ -305,7 +305,7 @@ h3.industry-title {
   .fa { margin-right: 5px; }
 }
 
-ul.sub-industries-list {
+ul.sub-categories-list {
   margin: 15px 0 0;
   -webkit-columns: 132px auto;
   -moz-columns: 132px auto;

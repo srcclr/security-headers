@@ -3,7 +3,7 @@ import ChartMosaic from '../../lib/chart-mosaic'
 
 export default Ember.Component.extend({
   tagName: 'canvas',
-  classNames:  ['industry-canvas'],
+  classNames:  ['category-canvas'],
   attributeBindings: ['width', 'height'],
   width: 280,
   height: 90,
