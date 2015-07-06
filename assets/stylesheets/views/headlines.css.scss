@@ -236,6 +236,12 @@ h3.category-title {
     margin-top: 10px;
     padding: 0 0 0 17px;
     position: relative;
+
+    a {
+      color: #000;
+
+      &:hover { color: #464646; }
+    }
   }
 
   i {
@@ -262,6 +268,57 @@ h3.category-title {
   color: #999;
 }
 
+.test-description {
+  h3 {
+    margin: 20px 0 10px;
+    font-size: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 20px 0;
+    padding: 0;
+
+    li {
+      padding: 0;
+      display: block;
+    }
+
+    a { color: #0088cc; }
+  }
+}
+
 .test-value {
   margin-right: 25px;
+}
+
+.sub-industries {
+  margin: 20px 0 30px;
+}
+
+.sub-industries-toggle {
+  color: #AD841F;
+  font-weight: 300;
+
+  &:hover { color: darken(#AD841F, 10%); }
+
+  .fa { margin-right: 5px; }
+}
+
+ul.sub-industries-list {
+  margin: 15px 0 0;
+  -webkit-columns: 132px auto;
+  -moz-columns: 132px auto;
+  -ms-columns: 132px auto;
+  columns: 132px auto;
+
+  li {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  a.active {
+    color: #000;
+    font-weight: bold;
+  }
 }

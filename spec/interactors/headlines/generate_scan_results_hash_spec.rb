@@ -6,15 +6,25 @@ module Headlines
     let(:x_frame_options) { SecurityHeaders::XFrameOptions.new("x-frame-options", "SAMEORIGIN") }
     let(:headers) { [x_xss_protection, x_frame_options] }
 
-    subject(:context) { described_class.call(headers: headers) }
-
     describe ".call" do
-      it { is_expected.to be_a_success }
+      describe "success for any headers" do
+        subject(:context) { described_class.call(headers: headers) }
 
-      its(:scan_results) { is_expected.to be_present }
-      its("scan_results.size") { is_expected.to eq 2 }
-      its(:scan_results) { is_expected.to have_key("x-xss-protection") }
-      its(:scan_results) { is_expected.to have_key("x-frame-options") }
+        it { is_expected.to be_a_success }
+
+        its(:scan_results) { is_expected.to be_present }
+        its("scan_results.size") { is_expected.to eq 5 }
+      end
+
+      describe "returns properly headers score values" do
+        subject(:scan_results) { described_class.call(headers: headers).scan_results }
+
+        its(["x-xss-protection"]) { is_expected.to eq 100 }
+        its(["x-frame-options"]) { is_expected.to eq 100 }
+        its(["strict-transport-security"]) { is_expected.to eq 0 }
+        its(["x-content-type-options"]) { is_expected.to eq 0 }
+        its(["content-security-policy"]) { is_expected.to eq 0 }
+      end
     end
   end
 end

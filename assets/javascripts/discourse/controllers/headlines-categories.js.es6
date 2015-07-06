@@ -1,6 +1,7 @@
 import Category from '../models/category'
 
 export default Discourse.Controller.extend({
+  needs: ['headlines'],
   chartType: 'pie',
 
   showMosaicChart: function() {
@@ -15,6 +16,8 @@ export default Discourse.Controller.extend({
                'content-security-policy'],
 
   ratings: [ 'excellent', 'bad', 'poor' ],
+
+  issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
 
   actions: {
     showMosaic: function() {
