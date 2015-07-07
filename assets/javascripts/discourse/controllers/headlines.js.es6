@@ -14,6 +14,12 @@ export default Discourse.Controller.extend({
 
   ratings: [ 'all', 'excellent', 'poor', 'bad' ],
 
+  countries: Em.computed(() => {
+    return _.map(Discourse.SiteSettings.countries.split('|'), function(country) {
+      return { name: country };
+    });
+  }),
+
   actions: {
     scanUrl() {
       this.transitionToRoute('scans', { queryParams: { url: this.get('url') } });
