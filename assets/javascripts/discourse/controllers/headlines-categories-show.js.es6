@@ -2,11 +2,11 @@ import Domain from '../models/domain';
 
 export default Discourse.Controller.extend({
   needs: ['headlines'],
+  ratings: [ 'excellent', 'poor', 'bad' ],
   hideSubCategories: true,
 
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
   countries: Em.computed.alias('controllers.headlines.countries'),
-  ratings: Em.computed.alias('controllers.headlines.ratings'),
 
   hideCategories: Em.computed('hideSubCategories', 'categoriesLength', function() {
     return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');

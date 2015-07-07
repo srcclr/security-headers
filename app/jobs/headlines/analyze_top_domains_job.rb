@@ -5,7 +5,11 @@ module Headlines
     def perform
       Domain.find_each do |domain|
         result = AnalyzeDomainHeaders.call(url: domain.name)
-        domain.scans.create(headers: result.params, results: result.scan_results) if result.success?
+        if result.success?
+          domain.scans.create(headers: result.params,
+                              results: result.scan_results,
+                              score: result.score)
+        end
       end
     end
   end

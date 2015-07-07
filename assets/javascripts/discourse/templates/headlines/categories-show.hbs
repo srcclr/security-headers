@@ -6,8 +6,8 @@
   <ul>
     {{#each rating in ratings}}
       <li>
-        <label for="r_{{rating}}">
-          <input type="checkbox" id="r_{{rating}}">
+        <label for="{{rating}}">
+          {{input type="checkbox" checked=test}}
           {{localeInterpolation 'headlines.rating' rating}}
         </label>
       </li>
