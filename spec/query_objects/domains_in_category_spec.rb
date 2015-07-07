@@ -1,19 +1,34 @@
 require "rails_helper"
+require "iso_country_codes"
 
 module Headlines
   describe DomainsInCategory do
     let(:category) { create(:category, :with_parents, :with_domains) }
     let!(:subcategory) { create(:category, :with_parents, :with_domains, category_id: category.id) }
 
-    subject(:domains) { described_class.new(category: category) }
-
     describe "#all" do
-      it "returns list of all domains for category and all child categories" do
-        expect(domains.all.to_ary.count).to eq 4
+      context "without filter options" do
+        subject(:domains) { described_class.new(category) }
+
+        it "returns list of all domains for category and all child categories" do
+          expect(domains.all.to_ary.count).to eq 4
+        end
+
+        it "responds with relationship model" do
+          expect(domains.all).to be_kind_of(ActiveRecord::Relation)
+        end
       end
 
-      it "responds with relationship model" do
-        expect(domains.all).to be_kind_of(ActiveRecord::Relation)
+      context "with filter options" do
+        let(:domain) { create(:domain, country_code: "AU") }
+
+        subject(:domains) { described_class.new(category, country: "Australia") }
+
+        before { subcategory.domains << domain }
+
+        it "returns only filtered domains" do
+          expect(domains.all.to_ary.count).to eq 1
+        end
       end
     end
   end
