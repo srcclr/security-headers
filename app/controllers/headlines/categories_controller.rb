@@ -50,7 +50,7 @@ module Headlines
     end
 
     def category_domains(category, limit: 25)
-      DomainsInCategory.new(category: category, filter_options: filter_options)
+      DomainsInCategory.new(category, filter_options)
         .includes(:scans)
         .offset(offset)
         .order("rank DESC")

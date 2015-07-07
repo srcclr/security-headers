@@ -20,7 +20,7 @@ function wrapInModels(models) {
   return _.map(models['categories'], (model) => {
     return Category.create({
       id: model.id,
-      title: model.name,
+      title: model.title,
       domains: wrapDomains(model.domains)
     });
   });

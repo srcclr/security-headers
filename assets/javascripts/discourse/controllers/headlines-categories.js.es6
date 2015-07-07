@@ -31,7 +31,7 @@ export default Discourse.Controller.extend({
       this.set('model', _.map(data['categories'], (category) => {
         return Category.create({
           id: category.id,
-          name: category.name,
+          title: category.title,
           domains: _.map(category.domains, (domain) => {
             return Domain.create({
               id: domain.id,
