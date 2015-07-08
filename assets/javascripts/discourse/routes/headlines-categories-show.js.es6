@@ -11,7 +11,8 @@ function wrapDomains(domains) {
       id: domain.id,
       name: domain.name,
       country: domain.country,
-      scanResults: domain.scan_results
+      scanResults: domain.scan_results,
+      score: domain.score
     });
   })
 }

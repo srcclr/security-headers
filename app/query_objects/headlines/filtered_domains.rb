@@ -13,10 +13,14 @@ module Headlines
     def all
       @domains = @domains.where(country_code: country_code) if filter_options[:country]
 
-      if filter_options[:score_greater_than] || filter_options[:score_less_than]
-        @domains = @domains.joins(:scans).where("headlines_scans.score >= ? OR headlines_scans.score <= ?",
-                                                filter_options[:score_greater_than] || 101,
-                                                filter_options[:score_less_than] || -1)
+      if filter_options[:score_range]
+        if filter_options[:exclusion_range]
+          @domains = @domains.joins(:scans).where.not("headlines_scans.score <@ ?::int4range",
+                                                     filter_options[:score_range])
+        else
+          @domains = @domains.joins(:scans).where("headlines_scans.score <@ ?::int4range",
+                                                 filter_options[:score_range])
+        end
       end
 
       @domains

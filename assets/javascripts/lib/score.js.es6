@@ -13,3 +13,10 @@ export function statusIs(score) {
 
   return status[scoreIs(score)];
 };
+
+export let ratings =
+  [
+    { name: 'excellent', selected: false, scoreRange: [70,100] },
+    { name: 'poor', selected: false, scoreRange: [20,69] },
+    { name: 'bad', selected: false, scoreRange: [0,19] }
+  ]
