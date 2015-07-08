@@ -1,0 +1,21 @@
+<li class="breadcrumb-item">
+  {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
+</li>
+
+{{#each parent in category.parents}}
+  <li class="breadcrumb-item">
+    {{#link-to 'headlines.categories-show' parent.id}}
+      {{ parent.title }}
+    {{/link-to}}
+  </li>
+{{/each}}
+
+{{#unless excludeSelf}}
+  <li class="breadcrumb-item">
+    {{#link-to 'headlines.categories-show' category.id}}
+      {{ category.title }}
+    {{/link-to}}
+  </li>
+{{/unless}}
+
+{{yield}}

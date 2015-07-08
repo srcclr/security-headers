@@ -1,6 +1,6 @@
 module Headlines
   class CategoriesController < ApplicationController
-    skip_before_action :redirect_to_login_if_required
+    skip_before_action :redirect_to_login_if_required, :check_xhr
 
     respond_to :html, :json
 
@@ -37,7 +37,9 @@ module Headlines
     end
 
     def category
-      @category ||= Headlines::Category.find(params[:id])
+      @category ||= CategoryWithParents.new(
+        Headlines::Category.includes(:parent, :categories).find(params[:id])
+      )
     end
 
     def category_as_json(category, options = {})
@@ -50,7 +52,7 @@ module Headlines
     end
 
     def category_domains(category, limit: 25)
-      DomainsInCategory.new(category, filter_options)
+      DomainsInCategory.new(category: category, filter_options: filter_options)
         .includes(:scans)
         .offset(offset)
         .order("rank DESC")

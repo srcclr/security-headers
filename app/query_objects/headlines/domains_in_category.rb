@@ -3,7 +3,7 @@ module Headlines
     attr_reader :category, :filter_options
     private :category, :filter_options
 
-    def initialize(category, filter_options = {})
+    def initialize(category:, filter_options: {})
       @category = category
       @filter_options = filter_options
     end

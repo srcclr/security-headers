@@ -31,8 +31,15 @@
     {{fa-icon "clock-o"}}
     {{i18n 'headlines.last_scan'}}: 17 Dec 2220
   </div>
-  {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
+
+  <section class="site-details">
+    {{#categories-breadcrumbs category=model excludeSelf=true}}
+      <li class="breadcrumb-item">
+        <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
+      </li>
+    {{/categories-breadcrumbs}}
+  </section>
+
   <ul class="compact-labels hide">
     <li>
       <span class="chart-value value-excellent">100%</span>
@@ -45,7 +52,7 @@
     </li>
   </ul>
 
-  <div class="sub-categories hide">
+  <div {{bind-attr class=":sub-categories anyCagetories::hide"}}>
     <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
       {{#if hideCategories}}
         {{fa-icon "plus-circle"}}
@@ -58,12 +65,10 @@
 
     {{#unless hideCategories}}
       <ul class="sub-categories-list">
-        <li>
-          <li><a href="#">All Sub Categories</a></li>
-        </li>
-
         {{#each category in model.categories}}
-          {{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}
+          <li>
+            {{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}
+          </li>
         {{/each}}
       </ul>
     {{/unless}}

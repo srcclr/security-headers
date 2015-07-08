@@ -2,7 +2,7 @@ module Headlines
   class DomainScanSerializer < DomainSerializer
     attributes :vulnerabilities_report
 
-    has_one :category, serializer: BaseCategorySerializer
+    has_one :category, serializer: CategoryWithParentSerializer
 
     private
 

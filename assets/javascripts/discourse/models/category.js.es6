@@ -33,12 +33,5 @@ export default Discourse.Model.extend({
     });
   }.property('domains'),
 
-  categories: function() {
-    return [
-      { title: 'Sub Category Name 1', id: 1 },
-      { title: 'Sub Category Name 2', id: 2 },
-      { title: 'Sub Category Name 3', id: 3 },
-      { title: 'Sub Category Name 4', id: 4 }
-    ];
-  }.property()
+  categories: []
 })
