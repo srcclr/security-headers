@@ -17,10 +17,12 @@ export default Discourse.Controller.extend({
     return this.get('model.categories').length;
   }),
 
-  searchNeeded: Em.observer('country', 'ratingFilter', function() {
-    this.set('model.domains', []);
-    this.set('model.allLoaded', false);
-    this.loadMore();
+  searchNeeded: Em.observer('country', 'ratings.@each.selected', function() {
+    setTimeout(() => {
+      this.set('model.domains', []);
+      this.set('model.allLoaded', false);
+      this.loadMore();
+    }, 500);
   }),
 
   countryFilter: Em.computed('country', function() {
