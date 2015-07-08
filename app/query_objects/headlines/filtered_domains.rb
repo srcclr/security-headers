@@ -11,22 +11,35 @@ module Headlines
     delegate :map, to: :all
 
     def all
-      @domains = @domains.where(country_code: country_code) if filter_options[:country]
-
-      if filter_options[:score_range]
-        if filter_options[:exclusion_range]
-          @domains = @domains.joins(:scans).where.not("headlines_scans.score <@ ?::int4range",
-                                                      filter_options[:score_range])
-        else
-          @domains = @domains.joins(:scans).where("headlines_scans.score <@ ?::int4range",
-                                                  filter_options[:score_range])
-        end
+      @domains = country_filtered_domains(@domains, country: filter_options[:country])
+      if filter_options[:exclusion_range]
+        @domains = domains_out_of_score(@domains, score_range: filter_options[:score_range])
+      else
+        @domains = domains_in_score(@domains, score_range: filter_options[:score_range])
       end
 
       @domains
     end
 
     private
+
+    def country_filtered_domains(domains, country:)
+      return domains unless country
+
+      domains.where(country_code: country_code)
+    end
+
+    def domains_out_of_score(domains, score_range:)
+      return domains unless score_range
+
+      domains.joins(:scans).where.not("headlines_scans.score <@ ?::int4range", score_range)
+    end
+
+    def domains_in_score(domains, score_range:)
+      return domains unless score_range
+
+      domains.joins(:scans).where("headlines_scans.score <@ ?::int4range", score_range)
+    end
 
     def country_code
       IsoCountryCodes.search_by_name(filter_options[:country])[0].alpha2 if filter_options[:country]
