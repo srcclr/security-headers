@@ -17,7 +17,9 @@ function wrapDomains(domains) {
 }
 
 function wrapInModels(models) {
-  return _.map(models['categories'], (model) => {
+  models = models['categories'] || models;
+
+  return _.map(models, (model) => {
     return Category.create({
       id: model.id,
       title: model.title,
@@ -31,7 +33,7 @@ export default Discourse.Route.reopen({
 
   model() {
     if (PreloadStore.get('categories')) {
-      return PreloadStore.get('categories').then(wrapInModels);
+      return wrapInModels(PreloadStore.get('categories'));
     } else {
       return fetchModels().then(wrapInModels);
     }

@@ -20,7 +20,9 @@ function wrapModel(model) {
   return Category.create({
     id: model.id,
     title: model.title,
-    domains: wrapDomains(model.domains)
+    parent: model.parent,
+    domains: wrapDomains(model.domains),
+    categories: model.categories
   });
 }
 

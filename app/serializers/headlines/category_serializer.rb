@@ -1,6 +1,8 @@
 module Headlines
   class CategorySerializer < BaseCategorySerializer
     has_many :domains, serializer: DomainSerializer
+    has_many :categories, serializer: BaseCategorySerializer
+    has_one :parent, serializer: BaseCategorySerializer
 
     private
 
