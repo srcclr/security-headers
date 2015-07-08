@@ -33,7 +33,11 @@
   </div>
 
   <section class="site-details">
-    {{categories-breadcrumbs category=model}}
+    {{#categories-breadcrumbs category=model excludeSelf=true}}
+      <li class="breadcrumb-item">
+        <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
+      </li>
+    {{/categories-breadcrumbs}}
   </section>
 
   <ul class="compact-labels hide">

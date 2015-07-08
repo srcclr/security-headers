@@ -1,6 +1,5 @@
 module Headlines
   class CategoryWithParents < SimpleDelegator
-
     def parents
       return [] if model.parents.blank?
 

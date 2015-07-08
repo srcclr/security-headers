@@ -8,7 +8,7 @@ module Headlines
 
     describe "#all" do
       context "without filter options" do
-        subject(:domains) { described_class.new(category) }
+        subject(:domains) { described_class.new(category: category) }
 
         it "returns list of all domains for category and all child categories" do
           expect(domains.all.to_ary.count).to eq 4
@@ -22,7 +22,7 @@ module Headlines
       context "with filter options" do
         let(:domain) { create(:domain, country_code: "AU") }
 
-        subject(:domains) { described_class.new(category, country: "Australia") }
+        subject(:domains) { described_class.new(category: category, filter_options: { country: "Australia" }) }
 
         before { subcategory.domains << domain }
 

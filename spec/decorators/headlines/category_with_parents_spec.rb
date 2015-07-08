@@ -1,6 +1,5 @@
 module Headlines
   describe CategoryWithParents do
-
     describe "#parents" do
       let(:category) { build_stubbed(:category, parents: parents) }
 

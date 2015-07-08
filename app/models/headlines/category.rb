@@ -6,11 +6,11 @@ module Headlines
     has_many :categories
 
     belongs_to :parent,
-               class_name: "Category",
-               foreign_key: :category_id
+      class_name: "Category",
+      foreign_key: :category_id
 
     def parents
-      read_attribute(:parents).select do |category_id|
+      self[:parents].select do |category_id|
         category_id != id
       end
     end

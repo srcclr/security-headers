@@ -1,21 +1,21 @@
-{{#if category.parent}}
-  <li class="breadcrumb-item">
-    {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
-  </li>
-
-  {{#each parent in category.parents}}
-    <li class="breadcrumb-item">
-      {{#link-to 'headlines.categories-show' parent.id}}
-        {{ parent.title }}
-      {{/link-to}}
-    </li>
-  {{/each}}
-{{else}}
-  <li class="breadcrumb-item">
-    {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  </li>
-{{/if}}
-
 <li class="breadcrumb-item">
-  <h3 class="category-title category-status-excellent">{{ category.title }}</h3>
+  {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
 </li>
+
+{{#each parent in category.parents}}
+  <li class="breadcrumb-item">
+    {{#link-to 'headlines.categories-show' parent.id}}
+      {{ parent.title }}
+    {{/link-to}}
+  </li>
+{{/each}}
+
+{{#unless excludeSelf}}
+  <li class="breadcrumb-item">
+    {{#link-to 'headlines.categories-show' category.id}}
+      {{ category.title }}
+    {{/link-to}}
+  </li>
+{{/unless}}
+
+{{yield}}

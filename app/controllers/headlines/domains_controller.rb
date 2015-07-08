@@ -28,7 +28,7 @@ module Headlines
     end
 
     def category
-      @category ||= Category.find(params[:category_id])
+      @category ||= CategoryWithParents.new(Category.find(params[:category_id]))
     end
 
     def category_domains(category)
