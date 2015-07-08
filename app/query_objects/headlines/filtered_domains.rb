@@ -16,10 +16,10 @@ module Headlines
       if filter_options[:score_range]
         if filter_options[:exclusion_range]
           @domains = @domains.joins(:scans).where.not("headlines_scans.score <@ ?::int4range",
-                                                     filter_options[:score_range])
+                                                      filter_options[:score_range])
         else
           @domains = @domains.joins(:scans).where("headlines_scans.score <@ ?::int4range",
-                                                 filter_options[:score_range])
+                                                  filter_options[:score_range])
         end
       end
 

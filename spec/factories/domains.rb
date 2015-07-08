@@ -22,5 +22,11 @@ FactoryGirl.define do
     trait :with_data_alexa do
       data_alexa { File.read(Headlines::Engine.root.join("spec/support/fixtures/alexa_data.xml")) }
     end
+
+    trait :with_scan do
+      after(:create) do |domain|
+        FactoryGirl.create(:scan, domain: domain)
+      end
+    end
   end
 end
