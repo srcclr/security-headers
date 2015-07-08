@@ -1,5 +1,6 @@
 import Category from '../models/category';
 import Domain from '../models/domain';
+import Spinner from '../mixins/headlines-conditional-spinner'
 
 function fetchModel(category_id) {
   return () => { return Discourse.ajax('/headlines/categories/' + category_id); };
@@ -26,7 +27,7 @@ function wrapModel(model) {
   });
 }
 
-export default Discourse.Route.extend({
+export default Discourse.Route.extend(Spinner, {
   model(params) {
     return PreloadStore.getAndRemove('category', fetchModel(params.id)).then(wrapModel);
   }
