@@ -1,7 +1,7 @@
 module Headlines
   class CategoryWithParents < SimpleDelegator
     def parents
-      return [] if model.parents.blank?
+      return Category.none if model.parents.blank?
 
       Category.where(id: model.parents)
     end
