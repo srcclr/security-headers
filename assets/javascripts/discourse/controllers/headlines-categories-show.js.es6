@@ -8,13 +8,8 @@ export default Discourse.Controller.extend({
   countries: Em.computed.alias('controllers.headlines.countries'),
   ratings: Em.computed.alias('controllers.headlines.ratings'),
 
-  hideCategories: Em.computed('hideSubCategories', function() {
-    return this.get('hideSubCategories');
-  }),
-
-  anyCagetories: Em.computed('categoriesLength', function() {
-    return this.get('categoriesLength') > 0;
-  }),
+  hideCategories: Em.computed.alias('hideSubCategories'),
+  anyCagetories: Em.computed.gt('categoriesLength', 0),
 
   categoriesLength: Em.computed('model.categories', function() {
     return this.get('model.categories').length;
