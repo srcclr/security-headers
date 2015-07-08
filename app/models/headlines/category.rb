@@ -8,5 +8,11 @@ module Headlines
     belongs_to :parent,
                class_name: "Category",
                foreign_key: :category_id
+
+    def parents
+      read_attribute(:parents).select do |category_id|
+        category_id != id
+      end
+    end
   end
 end

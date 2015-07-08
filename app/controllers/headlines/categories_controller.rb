@@ -37,7 +37,9 @@ module Headlines
     end
 
     def category
-      @category ||= Headlines::Category.includes(:parent, :categories).find(params[:id])
+      @category ||= CategoryWithParents.new(
+        Headlines::Category.includes(:parent, :categories).find(params[:id])
+      )
     end
 
     def category_as_json(category, options = {})

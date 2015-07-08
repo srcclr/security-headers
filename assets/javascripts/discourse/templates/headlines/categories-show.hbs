@@ -32,13 +32,10 @@
     {{i18n 'headlines.last_scan'}}: 17 Dec 2220
   </div>
 
-  {{#if model.parent}}
-    {{#link-to 'headlines.categories-show' model.parent.id class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  {{else}}
-    {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
-  {{/if}}
+  <section class="site-details">
+    {{categories-breadcrumbs category=model}}
+  </section>
 
-  <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
   <ul class="compact-labels hide">
     <li>
       <span class="chart-value value-excellent">100%</span>

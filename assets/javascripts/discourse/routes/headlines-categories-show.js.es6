@@ -12,7 +12,7 @@ function wrapDomains(domains) {
       id: domain.id,
       name: domain.name,
       country: domain.country,
-      scanResults: domain.scan_results
+      scanResults: domain.scan_results,
     });
   })
 }
@@ -23,7 +23,8 @@ function wrapModel(model) {
     title: model.title,
     parent: model.parent,
     domains: wrapDomains(model.domains),
-    categories: model.categories
+    categories: model.categories,
+    parents: model.parents
   });
 }
 
