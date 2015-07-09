@@ -108,9 +108,8 @@
         {{/each}}
       </tbody>
 
-      {{conditional-loading-spinner condition=loading}}
     </table>
-  {{else}}
-    <div>{{i18n 'headlines.no_results'}}</div>
   {{/if}}
+
+  {{conditional-loading-spinner condition=loading}}
 </section>

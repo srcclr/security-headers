@@ -12,10 +12,8 @@ module Headlines
 
     def all
       @domains = country_filtered_domains(@domains, country: filter_options[:country])
-      if filter_options[:exclusion_range]
-        @domains = domains_out_of_score(@domains, score_range: filter_options[:score_range])
-      else
-        @domains = domains_in_score(@domains, score_range: filter_options[:score_range])
+      if filter_options[:score_range]
+        @domains = filter_options[:exclusion_range] ? domains_out_of_score(@domains) : domains_in_score(@domains)
       end
 
       @domains
@@ -29,16 +27,16 @@ module Headlines
       domains.where(country_code: country_code)
     end
 
-    def domains_out_of_score(domains, score_range:)
-      return domains unless score_range
-
-      domains.joins(:scans).where.not(headlines_scans: { score: Range.new(*score_range.map(&:to_i)) })
+    def domains_out_of_score(domains)
+      domains.joins(:scans).where.not(headlines_scans: { score: numbered_score_range })
     end
 
-    def domains_in_score(domains, score_range:)
-      return domains unless score_range
+    def domains_in_score(domains)
+      domains.joins(:scans).where(headlines_scans: { score: numbered_score_range })
+    end
 
-      domains.joins(:scans).where(headlines_scans: { score: Range.new(*score_range.map(&:to_i)) })
+    def numbered_score_range
+      Range.new(*filter_options[:score_range].map(&:to_i))
     end
 
     def country_code
