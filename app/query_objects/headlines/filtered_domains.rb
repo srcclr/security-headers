@@ -32,13 +32,13 @@ module Headlines
     def domains_out_of_score(domains, score_range:)
       return domains unless score_range
 
-      domains.joins(:scans).where.not("headlines_scans.score <@ ?::int4range", score_range)
+      domains.joins(:scans).where.not(headlines_scans: { score: Range.new(*score_range.map(&:to_i)) })
     end
 
     def domains_in_score(domains, score_range:)
       return domains unless score_range
 
-      domains.joins(:scans).where("headlines_scans.score <@ ?::int4range", score_range)
+      domains.joins(:scans).where(headlines_scans: { score: Range.new(*score_range.map(&:to_i)) })
     end
 
     def country_code

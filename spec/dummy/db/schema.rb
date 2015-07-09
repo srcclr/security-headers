@@ -56,5 +56,6 @@ ActiveRecord::Schema.define(version: 20150707161226) do
     t.integer  "score",      default: 0
   end
   add_index "headlines_scans", ["domain_id"], name: "index_headlines_scans_on_domain_id", using: :btree
+  add_index "headlines_scans", ["score"], name: "index_headlines_scans_on_score", using: :btree
 
 end

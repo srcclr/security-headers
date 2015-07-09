@@ -37,22 +37,29 @@ export default Discourse.Controller.extend({
   selectedRatingsRanges: Em.computed.mapBy('selectedRatings', 'scoreRange'),
 
   ratingFilter: Em.computed('ratings.@each.selected', function() {
-    let query = "";
-
-    if (this.get('selectedRatings').length > 0) {
-      let range = _.union(_.flatten(this.get('selectedRatingsRanges'))),
-          lowerBound = _.min(range),
-          higherBound = _.max(range);
-
-      query = "&score_range=[" + lowerBound + "," + higherBound + "]";
-
-      if (lowerBound == 0 && higherBound == 100 && this.get('selectedRatings').length == 2) {
-        query = "&score_range=[" + this.get('ratings')[1].scoreRange + "]&exclusion_range=true";
-      }
+    if (this.get('selectedRatings').length <= 0) {
+      return "";
     }
 
-    return query;
+    let range = _.union(_.flatten(this.get('selectedRatingsRanges'))),
+        lowerBound = _.min(range),
+        higherBound = _.max(range);
+
+    return this.queryFromBounds(lowerBound, higherBound);
   }),
+
+  queryFromBounds(lowerBound, higherBound) {
+    let query = "";
+
+    if (lowerBound == 0 && higherBound == 100 && this.get('selectedRatings').length == 2) {
+      let poorScoreRange = this.get('ratings')[1].scoreRange;
+      lowerBound = poorScoreRange[0];
+      higherBound = poorScoreRange[1];
+      query += "&exclusion_range=true";
+    }
+
+    return query + "&score_range[]=" + lowerBound + "&score_range[]=" + higherBound;
+  },
 
   offsetFilter: Em.computed('model.domains.@each', function() {
     return "&offset=" + this.get('model.domains').length;
