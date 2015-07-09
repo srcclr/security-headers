@@ -7,6 +7,7 @@ function scanDomain(name) {
 function wrapDomain(domain) {
   return Domain.create({
     name: domain.name,
+    score: domain.score,
     scanResults: domain.scan_results
   });
 }

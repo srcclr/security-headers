@@ -13,6 +13,7 @@ function wrapDomains(domains) {
       name: domain.name,
       country: domain.country,
       scanResults: domain.scan_results,
+      score: domain.score
     });
   })
 }

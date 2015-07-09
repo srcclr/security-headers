@@ -23,12 +23,13 @@ module Headlines
     def domain_as_json
       {
         name: url,
-        scan_results: scan_results
+        score: results.score,
+        scan_results: results.scan_results
       }
     end
 
-    def scan_results
-      AnalyzeDomainHeaders.call(url: url).scan_results
+    def results
+      @results ||= AnalyzeDomainHeaders.call(url: url)
     end
 
     def domain_params

@@ -6,9 +6,9 @@
   <ul>
     {{#each rating in ratings}}
       <li>
-        <label for="r_{{rating}}">
-          <input type="checkbox" id="r_{{rating}}">
-          {{localeInterpolation 'headlines.rating' rating}}
+        <label for="r_{{rating.name}}">
+          {{input type="checkbox" checked=rating.selected}}
+          {{localeInterpolation 'headlines.rating' rating.name}}
         </label>
       </li>
     {{/each}}
@@ -108,9 +108,8 @@
         {{/each}}
       </tbody>
 
-      {{conditional-loading-spinner condition=loading}}
     </table>
-  {{else}}
-    <div>{{i18n 'headlines.no_results'}}</div>
   {{/if}}
+
+  {{conditional-loading-spinner condition=loading}}
 </section>

@@ -47,12 +47,17 @@ module Headlines
         category,
         CategorySerializer,
         root: false,
-        domains: category_domains(category, options)
+        domains: filtered_domains(category, options)
       )
     end
 
+    def filtered_domains(category, options = {})
+      FilteredDomains.new(domains: category_domains(category, options),
+                          filter_options: filter_options)
+    end
+
     def category_domains(category, limit: 25)
-      DomainsInCategory.new(category: category, filter_options: filter_options)
+      DomainsInCategory.new(category: category)
         .includes(:scans)
         .offset(offset)
         .order("rank DESC")
@@ -60,7 +65,7 @@ module Headlines
     end
 
     def filter_options
-      params.slice(:country)
+      params.slice(:country, :score_range, :exclusion_range)
     end
 
     def offset

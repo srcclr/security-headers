@@ -12,8 +12,6 @@ export default Discourse.Controller.extend({
                'x-frame-options',
                'content-security-policy'],
 
-  ratings: [ 'all', 'excellent', 'poor', 'bad' ],
-
   countries: Em.computed(() => {
     return _.map(Discourse.SiteSettings.countries.split('|'), function(country) {
       return { name: country };

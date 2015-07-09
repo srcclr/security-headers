@@ -25,6 +25,12 @@ module Headlines
         its(["x-content-type-options"]) { is_expected.to eq 0 }
         its(["content-security-policy"]) { is_expected.to eq 0 }
       end
+
+      describe "calculates domain score" do
+        subject(:score) { described_class.call(headers: headers).score }
+
+        it { is_expected.to eq 40 }
+      end
     end
   end
 end

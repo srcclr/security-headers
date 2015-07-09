@@ -1,12 +1,13 @@
 import Domain from '../models/domain';
+import { ratings } from '../../lib/score';
 
 export default Discourse.Controller.extend({
   needs: ['headlines'],
+  ratings: ratings,
   hideSubCategories: true,
 
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
   countries: Em.computed.alias('controllers.headlines.countries'),
-  ratings: Em.computed.alias('controllers.headlines.ratings'),
 
   hideCategories: Em.computed.alias('hideSubCategories'),
   anyCagetories: Em.computed.gt('categoriesLength', 0),
@@ -19,10 +20,12 @@ export default Discourse.Controller.extend({
     return this.get('model.parent.id') || this.get('model.id');
   }),
 
-  searchNeeded: Em.observer('country', function() {
-    this.set('model.domains', []);
-    this.set('model.allLoaded', false);
-    this.loadMore();
+  searchNeeded: Em.observer('country', 'ratings.@each.selected', function() {
+    setTimeout(() => {
+      this.set('model.domains', []);
+      this.set('model.allLoaded', false);
+      this.loadMore();
+    }, 500);
   }),
 
   countryFilter: Em.computed('country', function() {
@@ -33,12 +36,40 @@ export default Discourse.Controller.extend({
     return "";
   }),
 
+  selectedRatings: Em.computed.filterBy('ratings', 'selected', true),
+  selectedRatingsRanges: Em.computed.mapBy('selectedRatings', 'scoreRange'),
+
+  ratingFilter: Em.computed('ratings.@each.selected', function() {
+    if (this.get('selectedRatings').length <= 0) {
+      return "";
+    }
+
+    let range = _.union(_.flatten(this.get('selectedRatingsRanges'))),
+        lowerBound = _.min(range),
+        higherBound = _.max(range);
+
+    return this.queryFromBounds(lowerBound, higherBound);
+  }),
+
+  queryFromBounds(lowerBound, higherBound) {
+    let query = "";
+
+    if (lowerBound == 0 && higherBound == 100 && this.get('selectedRatings').length == 2) {
+      let poorScoreRange = this.get('ratings')[1].scoreRange;
+      lowerBound = poorScoreRange[0];
+      higherBound = poorScoreRange[1];
+      query += "&exclusion_range=true";
+    }
+
+    return query + "&score_range[]=" + lowerBound + "&score_range[]=" + higherBound;
+  },
+
   offsetFilter: Em.computed('model.domains.@each', function() {
     return "&offset=" + this.get('model.domains').length;
   }),
 
   searchParams() {
-    return "?" + this.get('countryFilter') + this.get('offsetFilter');
+    return "?" + this.get('countryFilter') + this.get('ratingFilter') + this.get('offsetFilter');
   },
 
   loadMore() {
@@ -57,7 +88,8 @@ export default Discourse.Controller.extend({
           id: domain.id,
           name: domain.name,
           country: domain.country,
-          scanResults: domain.scan_results
+          scanResults: domain.scan_results,
+          score: domain.score
         });
       }));
       this.set('loading', false);

@@ -13,6 +13,7 @@ function wrapDomain(domain) {
     name: domain.name,
     country: domain.country,
     scanResults: domain.scan_results,
+    score: domain.score,
     vulnerabilitiesReport: domain.vulnerabilities_report,
     category: Category.create(domain.category)
   });
