@@ -1,5 +1,6 @@
 import Category from '../models/category';
 import Domain from '../models/domain';
+import Spinner from '../mixins/headlines-conditional-spinner'
 
 function fetchModels() {
   return Discourse.ajax(Discourse.getURL("/headlines/categories"));
@@ -18,7 +19,9 @@ function wrapDomains(domains) {
 }
 
 function wrapInModels(models) {
-  return _.map(models['categories'], (model) => {
+  models = models['categories'] || models;
+
+  return _.map(models, (model) => {
     return Category.create({
       id: model.id,
       title: model.title,
@@ -27,12 +30,12 @@ function wrapInModels(models) {
   });
 }
 
-export default Discourse.Route.reopen({
+export default Discourse.Route.extend(Spinner, {
   beforeModel() { return this.redirectIfLoginRequired(); },
 
   model() {
     if (PreloadStore.get('categories')) {
-      return PreloadStore.get('categories').then(wrapInModels);
+      return wrapInModels(PreloadStore.get('categories'));
     } else {
       return fetchModels().then(wrapInModels);
     }

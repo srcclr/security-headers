@@ -9,12 +9,15 @@ export default Discourse.Controller.extend({
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
   countries: Em.computed.alias('controllers.headlines.countries'),
 
-  hideCategories: Em.computed('hideSubCategories', 'categoriesLength', function() {
-    return this.get('categoriesLength') <= 0 || this.get('hideSubCategories');
-  }),
+  hideCategories: Em.computed.alias('hideSubCategories'),
+  anyCagetories: Em.computed.gt('categoriesLength', 0),
 
   categoriesLength: Em.computed('model.categories', function() {
     return this.get('model.categories').length;
+  }),
+
+  parentCategoryId: Em.computed('model.parent.id', 'model.id', function() {
+    return this.get('model.parent.id') || this.get('model.id');
   }),
 
   searchNeeded: Em.observer('country', 'ratings.@each.selected', function() {

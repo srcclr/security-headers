@@ -15,6 +15,10 @@
     </form>
   </section>
   <div class="container row">
-    {{ outlet }}
+    {{conditional-loading-spinner condition=loading}}
+
+    <div {{bind-attr class="loading:hide"}}>
+      {{ outlet }}
+    </div>
   </div>
 </article>

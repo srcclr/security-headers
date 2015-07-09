@@ -1,15 +1,7 @@
 <section class="site-details">
-  <ul class="breadcrumb">
-    <li class="breadcrumb-item">
-    {{#link-to 'headlines'}}{{i18n 'headlines.issues.all'}}{{/link-to}}
-    </li>
-    <li class="breadcrumb-item">
-    {{#link-to 'headlines.categories-show' model.category.id}}
-    {{ model.category.title }}
-    {{/link-to}}
-    </li>
+  {{#categories-breadcrumbs category=model.category }}
     <li class="breadcrumb-item"><a href="http://{{ model.name }}">{{ model.name }}</a></li>
-  </ul>
+  {{/categories-breadcrumbs}}
 
   <h3 class="site-name">{{ model.name }}</h3>
   <div class="site-notes">
