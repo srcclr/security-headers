@@ -27,7 +27,7 @@ module Headlines
       end
 
       context "with rating filter" do
-        let(:score_range) { "[70,100]" }
+        let(:score_range) { [70, 100] }
 
         context "without exclusion range filter" do
           let(:filter_options) { { score_range: score_range } }
