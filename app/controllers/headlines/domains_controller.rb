@@ -33,14 +33,14 @@ module Headlines
 
     def category_domains(category)
       DomainsInCategory.new(category: category)
-        .includes(:scans)
+        .includes(:scan)
         .order("rank DESC")
         .limit(100)
     end
 
     def domain
       DomainsInCategory.new(category: category)
-        .includes(:scans)
+        .includes(:scan)
         .order("rank DESC")
         .find(params[:id])
     end

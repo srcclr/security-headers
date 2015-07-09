@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20150707161226) do
   create_table "headlines_categories", force: :cascade do |t|
     t.string   "title",       default: "",                    null: false
     t.string   "topic",       default: "",                    null: false
-    t.datetime "created_at",  default: '2015-07-06 16:45:58', null: false
-    t.datetime "updated_at",  default: '2015-07-06 16:45:58', null: false
+    t.datetime "created_at",  default: '2015-06-24 15:35:43', null: false
+    t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
     t.integer  "category_id"
-    t.text     "description", default: ""
+    t.text     "description", default: "",                    null: false
     t.integer  "parents",     default: [],                    null: false, array: true
   end
   add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :btree
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20150707161226) do
 
   create_table "headlines_domains_categories", force: :cascade do |t|
     t.integer  "category_id"
-    t.datetime "created_at",  default: '2015-07-06 16:45:58', null: false
-    t.datetime "updated_at",  default: '2015-07-06 16:45:58', null: false
+    t.datetime "created_at",  default: '2015-06-24 15:35:43', null: false
+    t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
     t.string   "domain_name"
   end
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
