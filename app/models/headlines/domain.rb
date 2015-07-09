@@ -3,6 +3,7 @@ module Headlines
     validates :name, presence: true
 
     has_many :scans
+    has_one :scan, -> { order("headlines_scans.id DESC") }
     has_many :domains_categories, foreign_key: :domain_name, primary_key: :name
     has_many :categories, through: :domains_categories
 
@@ -17,10 +18,6 @@ module Headlines
 
     def data_alexa
       DataAlexa::Domain.new(self[:data_alexa])
-    end
-
-    def scan
-      scans.last
     end
 
     private
