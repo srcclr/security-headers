@@ -3,6 +3,7 @@ import DomainNameFilter from '../mixins/domain-name-filter';
 import { ratings } from '../../lib/score';
 
 const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
+const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
 
 export default Discourse.Controller.extend(DomainNameFilter, {
   needs: ['headlines'],
@@ -31,12 +32,15 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     'issueTypes.@each.selected',
     'domainNameSearch',
     function() {
-      setTimeout(() => {
-        this.set('model.domains', []);
-        this.set('model.allLoaded', false);
-        this.loadMore();
-      }, 500);
-  }),
+      Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
+    }
+  ),
+
+  searchResults() {
+    this.set('model.domains', []);
+    this.set('model.allLoaded', false);
+    this.loadMore();
+  },
 
   countryFilter: Em.computed('country', function() {
     if (this.get('country')) {
