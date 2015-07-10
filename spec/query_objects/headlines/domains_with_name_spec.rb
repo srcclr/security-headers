@@ -9,7 +9,7 @@ module Headlines
     describe "#all" do
       let(:params) { {} }
 
-      subject { described_class.new(domains: Domain.all, params: params).all }
+      subject { described_class.new(domains: Domain.all, filter_options: params).all }
 
       context "when empty params value" do
         it "responds with the whole list of domains" do

@@ -3,9 +3,9 @@ module Headlines
     attr_reader :domains, :name
     private :domains, :name
 
-    def initialize(domains:, params:)
+    def initialize(domains:, filter_options:)
       @domains = domains
-      @name = params[:domain_name]
+      @name = filter_options[:domain_name]
     end
 
     def all

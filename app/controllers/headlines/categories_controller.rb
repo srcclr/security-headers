@@ -47,25 +47,32 @@ module Headlines
         category,
         CategorySerializer,
         root: false,
-        domains: filtered_domains(category, options)
+        domains: category_domains(category, options)
       )
     end
 
-    def filtered_domains(category, options = {})
-      FilteredDomains.new(domains: category_domains(category, options),
-                          filter_options: filter_options)
+    def filtered_domains(domains)
+      filtered_domains_by_name(
+        FilteredDomains.new(domains: domains, filter_options: filter_options).all
+      )
+    end
+
+    def filtered_domains_by_name(domains)
+      DomainsWithName.new(domains: domains, filter_options: filter_options).all
     end
 
     def category_domains(category, limit: 25)
-      DomainsInCategory.new(category: category)
-        .includes(:scan)
-        .offset(offset)
-        .order("rank DESC")
-        .limit(limit)
+      filtered_domains(
+        DomainsInCategory.new(category: category)
+          .includes(:scan)
+          .offset(offset)
+          .order("rank DESC")
+          .limit(limit)
+      )
     end
 
     def filter_options
-      params.slice(:country, :score_range, :exclusion_range, :issues)
+      params.slice(:country, :score_range, :exclusion_range, :issues, :domain_name)
     end
 
     def offset
