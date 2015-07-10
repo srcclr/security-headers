@@ -20,3 +20,12 @@ export let ratings =
     { name: 'poor', selected: false, scoreRange: [20,69] },
     { name: 'bad', selected: false, scoreRange: [0,19] }
   ]
+
+export let issueTypes =
+  [
+    { name: 'strict-transport-security', selected: false },
+    { name: 'x-xss-protection', selected: false },
+    { name: 'x-content-type-options', selected: false },
+    { name: 'x-frame-options', selected: false },
+    { name: 'content-security-policy', selected: false }
+  ]

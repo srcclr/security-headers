@@ -12,6 +12,7 @@ module Headlines
 
     def all
       @domains = country_filtered_domains(@domains, country: filter_options[:country])
+      @domains = issues_filtered_domains(@domains, issues: filter_options[:issues])
       if filter_options[:score_range]
         @domains = filter_options[:exclusion_range] ? domains_out_of_score(@domains) : domains_in_score(@domains)
       end
@@ -25,6 +26,12 @@ module Headlines
       return domains unless country
 
       domains.where(country_code: country_code)
+    end
+
+    def issues_filtered_domains(domains, issues:)
+      return domains unless issues
+
+      domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int < 20)" }.join("OR"))
     end
 
     def domains_out_of_score(domains)

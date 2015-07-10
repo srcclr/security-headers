@@ -32,8 +32,8 @@
       {{i18n 'headlines.tests.spying-communications.title'}}
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ spyingCommunicationsTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' spyingCommunicationsTest}}
+        <span class="value-{{ model.spyingCommunicationsTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.spyingCommunicationsTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.spying-communications.issues'}}
       </div>
@@ -43,8 +43,8 @@
       {{i18n 'headlines.tests.ensures-site.title'}}
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ ensuresSiteTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' ensuresSiteTest}}
+        <span class="value-{{ model.ensuresSiteTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.ensuresSiteTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.ensures-site.issues'}}
       </div>
@@ -54,8 +54,8 @@
       {{i18n 'headlines.tests.launch-malware.title'}}
       <div class="test-notes">
         {{i18n 'headlines.status'}}:
-        <span class="value-{{ launchMalwareTest }} test-value">
-          {{localeInterpolation 'headlines.test_result' launchMalwareTest}}
+        <span class="value-{{ model.launchMalwareTest }} test-value">
+          {{localeInterpolation 'headlines.test_result' model.launchMalwareTest}}
         </span>
         {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.launch-malware.issues'}}
       </div>

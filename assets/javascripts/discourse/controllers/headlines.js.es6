@@ -1,16 +1,21 @@
 import Domain from '../models/domain';
+import { issueTypes } from '../../lib/score';
 
 export default Discourse.Controller.extend({
   scanUrlPlaceholder: function() {
     return I18n.t('headlines.check_form.field');
   }.property(),
 
-  issueTypes: ['all',
-               'strict-transport-security',
-               'x-xss-protection',
-               'x-content-type-options',
-               'x-frame-options',
-               'content-security-policy'],
+  issueTypes: issueTypes,
+
+  issueFilter: Em.computed('issueTypes.@each.selected', function() {
+    let selectedIssues = _.filter(this.get('issueTypes'), (issue) => { return issue.selected; }),
+        query = "";
+
+    selectedIssues.forEach((issue) => { query += "&issues[]=" + issue.name });
+
+    return query;
+  }),
 
   countries: Em.computed(() => {
     return _.map(Discourse.SiteSettings.countries.split('|'), function(country) {
