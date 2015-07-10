@@ -6,9 +6,9 @@
   <ul>
     {{#each type in issueTypes}}
       <li>
-        <label for="{{type}}">
-          <input type="checkbox" id="{{type}}">
-          {{localeInterpolation 'headlines.issues' type}}
+        <label for="{{type.name}}">
+          {{input type="checkbox" checked=type.selected}}
+          {{localeInterpolation 'headlines.issues' type.name}}
         </label>
       </li>
     {{/each}}

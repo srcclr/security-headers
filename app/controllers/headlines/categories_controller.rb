@@ -65,7 +65,7 @@ module Headlines
     end
 
     def filter_options
-      params.slice(:country, :score_range, :exclusion_range)
+      params.slice(:country, :score_range, :exclusion_range, :issues)
     end
 
     def offset

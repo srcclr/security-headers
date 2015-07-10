@@ -7,6 +7,8 @@ export default Discourse.Controller.extend({
   hideSubCategories: true,
 
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
+  issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
+
   countries: Em.computed.alias('controllers.headlines.countries'),
 
   hideCategories: Em.computed.alias('hideSubCategories'),
@@ -20,7 +22,7 @@ export default Discourse.Controller.extend({
     return this.get('model.parent.id') || this.get('model.id');
   }),
 
-  searchNeeded: Em.observer('country', 'ratings.@each.selected', function() {
+  searchNeeded: Em.observer('country', 'ratings.@each.selected', 'issueTypes.@each.selected', function() {
     setTimeout(() => {
       this.set('model.domains', []);
       this.set('model.allLoaded', false);
@@ -69,7 +71,7 @@ export default Discourse.Controller.extend({
   }),
 
   searchParams() {
-    return "?" + this.get('countryFilter') + this.get('ratingFilter') + this.get('offsetFilter');
+    return "?" + this.get('countryFilter') + this.get('ratingFilter') + this.get('issueFilter') + this.get('offsetFilter');
   },
 
   loadMore() {

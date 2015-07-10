@@ -5,8 +5,10 @@ export default Discourse.Controller.extend({
   needs: ['headlines'],
   chartType: 'pie',
 
-  countries: Em.computed.alias('controllers.headlines.countries'),
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
+  issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
+
+  countries: Em.computed.alias('controllers.headlines.countries'),
 
   showMosaicChart: Em.computed('chartType', function() {
     return this.get('chartType') == 'mosaic';
@@ -21,10 +23,10 @@ export default Discourse.Controller.extend({
   }),
 
   searchParams() {
-    return "?" + this.get('countryFilter');
+    return "?" + this.get('countryFilter') + this.get('issueFilter');
   },
 
-  searchNeeded: Em.observer('country', function() {
+  searchNeeded: Em.observer('country', 'issueTypes.@each.selected', function() {
     this.set('loading', true);
 
     return Discourse.ajax(Discourse.getURL(this.searchParams())).then((data) => {
