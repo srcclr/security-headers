@@ -74,11 +74,12 @@
     {{/unless}}
   </div>
 
+  <div class="table-search">
+    {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
+    <i class="fa fa-search"></i>
+  </div>
+
   {{#if model.domains}}
-    <div class="table-search">
-      <input class="col-6" placeholder="Filter by URL" type="search">
-      <i class="fa fa-search"></i>
-    </div>
     <table class="topic-list">
       <thead>
         <tr>
