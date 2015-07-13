@@ -1,7 +1,11 @@
 import Domain from '../models/domain';
+import DomainNameFilter from '../mixins/domain-name-filter';
 import { ratings } from '../../lib/score';
 
-export default Discourse.Controller.extend({
+const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
+const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
+
+export default Discourse.Controller.extend(DomainNameFilter, {
   needs: ['headlines'],
   ratings: ratings,
   hideSubCategories: true,
@@ -22,13 +26,21 @@ export default Discourse.Controller.extend({
     return this.get('model.parent.id') || this.get('model.id');
   }),
 
-  searchNeeded: Em.observer('country', 'ratings.@each.selected', 'issueTypes.@each.selected', function() {
-    setTimeout(() => {
-      this.set('model.domains', []);
-      this.set('model.allLoaded', false);
-      this.loadMore();
-    }, 500);
-  }),
+  searchNeeded: Em.observer(
+    'country',
+    'ratings.@each.selected',
+    'issueTypes.@each.selected',
+    'domainNameSearch',
+    function() {
+      Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
+    }
+  ),
+
+  searchResults() {
+    this.set('model.domains', []);
+    this.set('model.allLoaded', false);
+    this.loadMore();
+  },
 
   countryFilter: Em.computed('country', function() {
     if (this.get('country')) {
@@ -71,7 +83,7 @@ export default Discourse.Controller.extend({
   }),
 
   searchParams() {
-    return "?" + this.get('countryFilter') + this.get('ratingFilter') + this.get('issueFilter') + this.get('offsetFilter');
+    return "?" + FILTERS.map((name) => { return this.get(name) }).join('');
   },
 
   loadMore() {
