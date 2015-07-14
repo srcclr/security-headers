@@ -19,6 +19,9 @@ class AddDomainRankedByCategory < ActiveRecord::Migration
   def domain_ranked_by_category
     Headlines::Domain
       .select("headlines_domains.*, headlines_domains_categories.category_id, #{RANK_SELECT}")
-      .joins(:domains_categories)
+      .joins(<<-SQL)
+        INNER JOIN headlines_domains_categories
+          ON headlines_domains_categories.domain_id = headlines_domains.id
+      SQL
   end
 end

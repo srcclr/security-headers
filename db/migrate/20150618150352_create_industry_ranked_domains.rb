@@ -19,6 +19,11 @@ class CreateIndustryRankedDomains < ActiveRecord::Migration
   def industry_ranked_domains
     Headlines::Domain
       .select("headlines_domains.*, headlines_categories.industry_id, #{RANK_SELECT}")
-      .joins(:categories)
+      .joins(<<-SQL)
+        INNER JOIN headlines_domains_categories
+          ON headlines_domains_categories.domain_id = headlines_domains.id
+        INNER JOIN headlines_categories
+          ON headlines_domains_categories.category_id = headlines_categories.id
+      SQL
   end
 end
