@@ -12,6 +12,8 @@ export default Discourse.Model.extend({
   testScore(headers) {
     let sum = 0;
 
+    if (!this.get('scanResults')) { return 0; }
+
     headers.forEach((header) => {
       sum += parseInt(this.get('scanResults')[header]) || 0;
     });
