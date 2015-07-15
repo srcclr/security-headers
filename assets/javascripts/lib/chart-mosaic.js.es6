@@ -1,27 +1,36 @@
-import Chart from './chart'
+function ChartMosaic(canvas, options) {
+  this.colors = ["#80cd85", "#f9c352", "#fd8365"];
+  this.options = options;
+  this.context = canvas.getContext('2d');
+  this.canvas = canvas;
 
-class ChartMosaic extends Chart {
-  afterInitialize() {
-    this.cells = this.options.cells;
-    this.defaults = { cellSize: 10, rowSize: 20, margin: 1, posX: 0 };
-  }
+  this.afterInitialize();
+}
 
-  draw() {
-    this.clear();
-    let {cellSize, rowSize, margin, posX } = this.defaults;
-    let posY = (cellSize + margin) * -1;
+ChartMosaic.prototype.clear = function() {
+  return this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
 
-    for (let i = 0; i < this.cells.length; i++) {
-      if(i % rowSize == 0) {
-        posY =+ posY + cellSize + margin;
-        posX = 0;
-      }
+ChartMosaic.prototype.afterInitialize = function() {
+  this.cells = this.options.cells;
+  this.defaults = { cellSize: 10, rowSize: 20, margin: 1, posX: 0 };
+}
 
-      this.context.fillStyle = this.colors[this.cells[i]];
-      this.context.fillRect(posX, posY, cellSize, cellSize);
+ChartMosaic.prototype.draw = function() {
+  this.clear();
+  let {cellSize, rowSize, margin, posX } = this.defaults;
+  let posY = (cellSize + margin) * -1;
 
-      posX =+ posX + cellSize + margin;
+  for (let i = 0; i < this.cells.length; i++) {
+    if(i % rowSize == 0) {
+      posY =+ posY + cellSize + margin;
+      posX = 0;
     }
+
+    this.context.fillStyle = this.colors[this.cells[i]];
+    this.context.fillRect(posX, posY, cellSize, cellSize);
+
+    posX =+ posX + cellSize + margin;
   }
 }
 
