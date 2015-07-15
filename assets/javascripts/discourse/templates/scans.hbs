@@ -2,7 +2,7 @@
   {{#link-to 'headlines.categories' class="nav-back"}}{{fa-icon "arrow-left"}} {{i18n 'headlines.back'}}{{/link-to}}
   <h3 class="site-name">{{ model.name }}</h3>
 
-  {{#if model.score}}
+  {{#if model.scanResults}}
     <div class="site-notes">
       <span class="site-status">
         <i class="fa fa-check-circle value-{{ model.status }}"/>
