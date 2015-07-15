@@ -1,4 +1,5 @@
-import Domain from '../models/domain';
+import Domain from '../models/domain'
+import Spinner from '../mixins/headlines-conditional-spinner'
 
 function scanDomain(name) {
   return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name));
@@ -12,7 +13,7 @@ function wrapDomain(domain) {
   });
 }
 
-export default Discourse.Route.extend({
+export default Discourse.Route.extend(Spinner, {
   queryParams: {
     url: {
       refreshModel: true
@@ -25,9 +26,5 @@ export default Discourse.Route.extend({
     }).then((domain) => {
       return wrapDomain(domain);
     });
-  },
-
-  setupController(controller, model) {
-    controller.set('model', model);
   }
 })
