@@ -1,8 +1,10 @@
+require "tempfile"
+
 module Headlines
   class TopMillionDomain
     attr_reader :file
 
-    def initialize(file:)
+    def initialize(file: Tempfile.new("domains"))
       @file = file
     end
 
