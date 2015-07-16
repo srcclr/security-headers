@@ -1,6 +1,5 @@
 import Category from '../models/category';
 import Domain from '../models/domain';
-import Spinner from '../mixins/headlines-conditional-spinner'
 
 function fetchModels() {
   return Discourse.ajax(Discourse.getURL("/headlines/categories"));
@@ -30,7 +29,7 @@ function wrapInModels(models) {
   });
 }
 
-export default Discourse.Route.extend(Spinner, {
+export default Discourse.Route.extend({
   beforeModel() { return this.redirectIfLoginRequired(); },
 
   model() {
