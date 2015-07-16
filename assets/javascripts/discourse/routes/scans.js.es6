@@ -1,4 +1,4 @@
-import Domain from '../models/domain';
+import Domain from '../models/domain'
 
 function scanDomain(name) {
   return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name));
@@ -25,9 +25,5 @@ export default Discourse.Route.extend({
     }).then((domain) => {
       return wrapDomain(domain);
     });
-  },
-
-  setupController(controller, model) {
-    controller.set('model', model);
   }
 })

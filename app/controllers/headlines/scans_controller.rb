@@ -17,7 +17,7 @@ module Headlines
     private
 
     def url
-      domain_params[:url].gsub(%r{^https?://}, "")
+      domain_params[:url].gsub(%r{.?https?://}i, "")
     end
 
     def domain_as_json
