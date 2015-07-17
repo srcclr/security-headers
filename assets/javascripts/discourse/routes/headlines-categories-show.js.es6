@@ -12,7 +12,7 @@ export default Discourse.Route.extend({
   beforeModel() { return this.redirectIfLoginRequired(); },
 
   model(params) {
-    return PreloadStore.getAndRemove('category', fetchModel(params.id)).then(wrapModel);
+    return PreloadStore.getAndRemove('category' + params.id, fetchModel(params.id)).then(wrapModel);
   },
 
   actions: {

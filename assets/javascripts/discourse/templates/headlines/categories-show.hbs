@@ -67,7 +67,7 @@
       <ul class="sub-categories-list">
         {{#each category in model.categories}}
           <li>
-            {{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}
+            <a {{action 'viewSubCategory' category}}>{{ category.title }}</a>
           </li>
         {{/each}}
       </ul>
@@ -98,10 +98,10 @@
         {{#each domain in model.domains}}
           <tr class="topic-list-item">
             <td class="main-link clearfix">
-              {{#link-to 'headlines.domains' model.id domain.id }}
+              <a {{action 'viewDomain' domain}}>
                 {{ domain.name }}
                 {{fa-icon "external-link"}}
-              {{/link-to}}
+              </a>
             </td>
             <td class="category">{{ domain.country }}</td>
             <td><div class="value-{{ domain.status }}">{{ domain.score }}%</div></td>

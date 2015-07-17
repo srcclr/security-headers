@@ -99,10 +99,26 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     });
   },
 
+  storeCurrentModel() {
+    let model = this.get('model');
+
+    PreloadStore.store('category' + model.id, model);
+  },
+
   actions: {
     subCategoriesToggle() {
       var state = this.get('hideSubCategories');
       this.set('hideSubCategories', !state);
+    },
+
+    viewDomain(domain) {
+      this.storeCurrentModel();
+      this.transitionToRoute('headlines.domains', this.get('model').id, domain.id);
+    },
+
+    viewSubCategory(category) {
+      this.storeCurrentModel();
+      this.transitionToRoute('headlines.categories-show', category.id)
     }
   }
 })
