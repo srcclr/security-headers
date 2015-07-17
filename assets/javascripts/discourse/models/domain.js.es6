@@ -1,6 +1,6 @@
 import { statusIs } from '../../lib/score';
 
-export default Discourse.Model.extend({
+let Domain = Discourse.Model.extend({
   spyingTestHeaders: ['strict-transport-security'],
   ensuresSiteTestHeaders: ['strict-transport-security', 'x-frame-options'],
   launchMalwareTestHeaders: ['x-xss-protection', 'x-content-type-options', 'content-security-policy'],
@@ -49,3 +49,18 @@ export default Discourse.Model.extend({
     return statusIs(this.get('launchMalwareTestScore'));
   })
 });
+
+Domain.reopenClass({
+  createFromJson(json) {
+    return this.create({
+      id: json.id,
+      name: json.name,
+      rank: json.rank,
+      country: json.country,
+      score: json.score,
+      scanResults: json.scan_results || {}
+    })
+  }
+})
+
+export default Domain;

@@ -1,6 +1,7 @@
-import { scoreIs } from '../../lib/score';
+import Domain from './domain'
+import { scoreIs } from '../../lib/score'
 
-export default Discourse.Model.extend({
+let Category = Discourse.Model.extend({
   excellent: function() {
     return this.get('scores')[0];
   }.property('scores'),
@@ -31,7 +32,23 @@ export default Discourse.Model.extend({
     return _.map(this.get('domains'), (domain) => {
       return scoreIs(domain.get('score'));
     });
-  }.property('domains'),
-
-  categories: []
+  }.property('domains')
 })
+
+
+Category.reopenClass({
+  createFromJson(json) {
+    return this.create({
+      id: json.id,
+      title: json.title,
+      parent: json.parent,
+      categories: json.categories,
+      parents: json.parents,
+      domains: _.map(json.domains, (domain) => {
+        return Domain.createFromJson(domain);
+      })
+    });
+  }
+})
+
+export default Category

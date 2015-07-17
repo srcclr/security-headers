@@ -1,35 +1,23 @@
-import Category from '../models/category';
-import Domain from '../models/domain';
+import Category from '../models/category'
 
 function fetchModel(category_id) {
-  return () => { return Discourse.ajax('/headlines/categories/' + category_id); };
-}
-
-function wrapDomains(domains) {
-  return _.map(domains, (domain) => {
-    return Domain.create({
-      id: domain.id,
-      name: domain.name,
-      country: domain.country,
-      scanResults: domain.scan_results,
-      score: domain.score
-    });
-  })
+  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories/" + category_id)); };
 }
 
 function wrapModel(model) {
-  return Category.create({
-    id: model.id,
-    title: model.title,
-    parent: model.parent,
-    domains: wrapDomains(model.domains),
-    categories: model.categories,
-    parents: model.parents
-  });
+  return Category.createFromJson(model);
 }
 
 export default Discourse.Route.extend({
+  beforeModel() { return this.redirectIfLoginRequired(); },
+
   model(params) {
     return PreloadStore.getAndRemove('category', fetchModel(params.id)).then(wrapModel);
+  },
+
+  actions: {
+    willTransition() {
+      this.set('controller.domainNameSearch', '')
+    }
   }
 })
