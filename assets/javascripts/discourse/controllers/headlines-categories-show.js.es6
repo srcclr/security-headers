@@ -14,6 +14,8 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
 
   countries: Em.computed.alias('controllers.headlines.countries'),
+  country: Em.computed.alias('controllers.headlines.country'),
+  countryFilter: Em.computed.alias('controllers.headlines.countryFilter'),
 
   hideCategories: Em.computed.alias('hideSubCategories'),
   anyCagetories: Em.computed.gt('categoriesLength', 0),
@@ -32,6 +34,7 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     'issueTypes.@each.selected',
     'domainNameSearch',
     function() {
+      PreloadStore.remove('categories');
       Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
     }
   ),
@@ -41,14 +44,6 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     this.set('model.allLoaded', false);
     this.loadMore();
   },
-
-  countryFilter: Em.computed('country', function() {
-    if (this.get('country')) {
-      return "&country=" + this.get('country');
-    }
-
-    return "";
-  }),
 
   selectedRatings: Em.computed.filterBy('ratings', 'selected', true),
   selectedRatingsRanges: Em.computed.mapBy('selectedRatings', 'scoreRange'),
@@ -98,22 +93,32 @@ export default Discourse.Controller.extend(DomainNameFilter, {
         model.set("allLoaded", true);
       }
       model.domains.addObjects(_.map(data.domains, (domain) => {
-        return Domain.create({
-          id: domain.id,
-          name: domain.name,
-          country: domain.country,
-          scanResults: domain.scan_results,
-          score: domain.score
-        });
+        return Domain.createFromJson(domain);
       }));
       this.set('loading', false);
     });
+  },
+
+  storeCurrentModel() {
+    let model = this.get('model');
+
+    PreloadStore.store('category' + model.id, model);
   },
 
   actions: {
     subCategoriesToggle() {
       var state = this.get('hideSubCategories');
       this.set('hideSubCategories', !state);
+    },
+
+    viewDomain(domain) {
+      this.storeCurrentModel();
+      this.transitionToRoute('headlines.domains', this.get('model').id, domain.id);
+    },
+
+    viewSubCategory(category) {
+      this.storeCurrentModel();
+      this.transitionToRoute('headlines.categories-show', category.id)
     }
   }
 })

@@ -23,6 +23,14 @@ export default Discourse.Controller.extend({
     });
   }),
 
+  countryFilter: Em.computed('country', function() {
+    if (this.get('country')) {
+      return "&country=" + this.get('country');
+    }
+
+    return "";
+  }),
+
   actions: {
     scanUrl() {
       this.transitionToRoute('scans', { queryParams: { url: this.get('url') } });

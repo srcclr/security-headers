@@ -1,42 +1,21 @@
-import Category from '../models/category';
-import Domain from '../models/domain';
+import Category from '../models/category'
 
 function fetchModels() {
-  return Discourse.ajax(Discourse.getURL("/headlines/categories"));
-}
-
-function wrapDomains(domains) {
-  return _.map(domains, (domain) => {
-    return Domain.create({
-      id: domain.id,
-      name: domain.name,
-      rank: domain.rank,
-      scanResults: domain.scan_results || {},
-      score: domain.score
-    });
-  });
+  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories")); };
 }
 
 function wrapInModels(models) {
   models = models['categories'] || models;
 
   return _.map(models, (model) => {
-    return Category.create({
-      id: model.id,
-      title: model.title,
-      domains: wrapDomains(model.domains)
-    });
+    return Category.createFromJson(model);
   });
 }
 
 export default Discourse.Route.extend({
   beforeModel() { return this.redirectIfLoginRequired(); },
 
-  model() {
-    if (PreloadStore.get('categories')) {
-      return wrapInModels(PreloadStore.get('categories'));
-    } else {
-      return fetchModels().then(wrapInModels);
-    }
+  model(params) {
+    return PreloadStore.getAndRemove('categories', fetchModels()).then(wrapInModels);
   }
 })

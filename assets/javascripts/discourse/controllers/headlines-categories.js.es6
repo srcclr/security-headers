@@ -1,5 +1,5 @@
-import Domain from '../models/domain';
-import Category from '../models/category';
+import Domain from '../models/domain'
+import Category from '../models/category'
 
 export default Discourse.Controller.extend({
   needs: ['headlines'],
@@ -9,41 +9,23 @@ export default Discourse.Controller.extend({
   issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
 
   countries: Em.computed.alias('controllers.headlines.countries'),
+  country: Em.computed.alias('controllers.headlines.country'),
+  countryFilter: Em.computed.alias('controllers.headlines.countryFilter'),
 
   showMosaicChart: Em.computed('chartType', function() {
     return this.get('chartType') == 'mosaic';
   }),
 
-  countryFilter: Em.computed('country', function() {
-    if (this.get('country')) {
-      return "&country=" + this.get('country');
-    }
-
-    return "";
-  }),
-
-  searchParams() {
+  searchParams: Em.computed('countryFilter', 'issueTypes', function() {
     return "?" + this.get('countryFilter') + this.get('issueFilter');
-  },
+  }),
 
   searchNeeded: Em.observer('country', 'issueTypes.@each.selected', function() {
     this.set('loading', true);
 
-    return Discourse.ajax(Discourse.getURL(this.searchParams())).then((data) => {
+    return Discourse.ajax(Discourse.getURL(this.get('searchParams'))).then((data) => {
       this.set('model', _.map(data['categories'], (category) => {
-        return Category.create({
-          id: category.id,
-          title: category.title,
-          domains: _.map(category.domains, (domain) => {
-            return Domain.create({
-              id: domain.id,
-              name: domain.name,
-              rank: domain.rank,
-              scanResults: domain.scan_results || {},
-              score: domain.score
-            });
-          })
-        });
+        return Category.createFromJson(category);
       }));
       this.set('loading', false);
     });
@@ -56,6 +38,11 @@ export default Discourse.Controller.extend({
 
     showPie() {
       this.set('chartType', 'pie');
+    },
+
+    viewAllSites(category) {
+      PreloadStore.store('categories', this.get('model'));
+      this.transitionToRoute('headlines.categories-show', category);
     }
   }
-});
+})
