@@ -1,6 +1,6 @@
-import Domain from '../models/domain';
-import DomainNameFilter from '../mixins/domain-name-filter';
-import { ratings } from '../../lib/score';
+import Domain from '../models/domain'
+import DomainNameFilter from '../mixins/domain-name-filter'
+import { ratings } from '../../lib/score'
 
 const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
 const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
@@ -34,7 +34,11 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     'issueTypes.@each.selected',
     'domainNameSearch',
     function() {
+      let preloadedCategories = _.filter(_.keys(PreloadStore.data), (key) => { return key.indexOf('category') == 0; })
+
       PreloadStore.remove('categories');
+      preloadedCategories.forEach((preloadedCategory) => { PreloadStore.remove(preloadedCategory); });
+
       Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
     }
   ),

@@ -58,7 +58,7 @@ Domain.reopenClass({
       rank: json.rank,
       country: json.country,
       score: json.score,
-      scanResults: json.scan_results || {}
+      scanResults: json.scan_results
     })
   }
 })

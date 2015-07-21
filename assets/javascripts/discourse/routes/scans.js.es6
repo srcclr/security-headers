@@ -1,15 +1,11 @@
 import Domain from '../models/domain'
 
 function scanDomain(name) {
-  return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name));
+  return () => { return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name)); };
 }
 
 function wrapDomain(domain) {
-  return Domain.create({
-    name: domain.name,
-    score: domain.score,
-    scanResults: domain.scan_results
-  });
+  return Domain.createFromJson(domain);
 }
 
 export default Discourse.Route.extend({
@@ -20,10 +16,6 @@ export default Discourse.Route.extend({
   },
 
   model(params) {
-    return PreloadStore.getAndRemove('domain_scan', () => {
-      return scanDomain(params.url);
-    }).then((domain) => {
-      return wrapDomain(domain);
-    });
+    return PreloadStore.getAndRemove('domain_scan', scanDomain(params.url)).then(wrapDomain);
   }
 })
