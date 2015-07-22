@@ -33,7 +33,13 @@ module Headlines
     end
 
     def categories_as_json
-      categories.map { |category| category_as_json(category, limit: domains_per_category) }
+      categories.map do |category|
+        category_as_json(
+          category,
+          limit: domains_per_category,
+          serializer: CategoryWithDomainsSerializer
+        )
+      end
     end
 
     def category
@@ -43,9 +49,11 @@ module Headlines
     end
 
     def category_as_json(category, options = {})
+      serializer = options.delete(:serializer) || CategorySerializer
+
       serialize_data(
         category,
-        CategorySerializer,
+        serializer,
         root: false,
         domains: category_domains(category, options)
       )
@@ -66,7 +74,7 @@ module Headlines
         DomainsInCategory.new(category: category)
           .includes(:scan)
           .offset(offset)
-          .order("rank DESC")
+          .order("rank")
           .limit(limit)
       )
     end
