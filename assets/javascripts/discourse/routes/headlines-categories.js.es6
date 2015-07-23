@@ -1,7 +1,7 @@
 import Category from '../models/category'
 
-function fetchModels() {
-  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories")); };
+function fetchModels(query) {
+  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories?" + query)); };
 }
 
 function wrapInModels(models) {
@@ -13,9 +13,10 @@ function wrapInModels(models) {
 }
 
 export default Discourse.Route.extend({
-  beforeModel() { return this.redirectIfLoginRequired(); },
-
   model(params) {
-    return PreloadStore.getAndRemove('categories', fetchModels()).then(wrapInModels);
+    let headlinesController = this.controllerFor('headlines'),
+        query = headlinesController.get('countryFilter') + headlinesController.get('issueFilter');
+
+    return PreloadStore.getAndRemove('categories', fetchModels(query)).then(wrapInModels);
   }
 })

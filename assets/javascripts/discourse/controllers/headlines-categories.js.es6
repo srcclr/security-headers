@@ -1,4 +1,3 @@
-import Domain from '../models/domain'
 import Category from '../models/category'
 
 export default Discourse.Controller.extend({
@@ -16,20 +15,23 @@ export default Discourse.Controller.extend({
     return this.get('chartType') == 'mosaic';
   }),
 
-  searchParams: Em.computed('countryFilter', 'issueTypes', function() {
+  searchParams: Em.computed('countryFilter', 'issueFilter', function() {
     return "?" + this.get('countryFilter') + this.get('issueFilter');
   }),
 
   searchNeeded: Em.observer('country', 'issueTypes.@each.selected', function() {
-    this.set('loading', true);
-
-    return Discourse.ajax(Discourse.getURL(this.get('searchParams'))).then((data) => {
-      this.set('model', _.map(data['categories'], (category) => {
-        return Category.createFromJson(category);
-      }));
-      this.set('loading', false);
-    });
+    Em.run.debounce(this, this.loadMore(), 500);
   }),
+
+  loadMore() {
+    return () => {
+      this.set('loading', true);
+      return Discourse.ajax(Discourse.getURL(this.get('searchParams'))).then((data) => {
+        this.set('model', _.map(data['categories'], (category) => { return Category.createFromJson(category); }));
+        this.set('loading', false);
+      });
+    }
+  },
 
   actions: {
     showMosaic() {
@@ -38,11 +40,6 @@ export default Discourse.Controller.extend({
 
     showPie() {
       this.set('chartType', 'pie');
-    },
-
-    viewAllSites(category) {
-      PreloadStore.store('categories', this.get('model'));
-      this.transitionToRoute('headlines.categories-show', category);
     }
   }
 })

@@ -21,9 +21,6 @@ function wrapDomain(domain) {
 
 export default Discourse.Route.extend({
   model(params) {
-    return PreloadStore.getAndRemove(
-      'domain_scan',
-      fetchModel(params.category_id, params.id)
-    ).then(wrapDomain);
+    return PreloadStore.getAndRemove('domain_scan', fetchModel(params.category_id, params.id)).then(wrapDomain);
   }
 })

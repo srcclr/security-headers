@@ -1,6 +1,6 @@
-import Domain from '../models/domain';
-import DomainNameFilter from '../mixins/domain-name-filter';
-import { ratings } from '../../lib/score';
+import Domain from '../models/domain'
+import DomainNameFilter from '../mixins/domain-name-filter'
+import { ratings } from '../../lib/score'
 
 const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
 const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
@@ -34,7 +34,6 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     'issueTypes.@each.selected',
     'domainNameSearch',
     function() {
-      PreloadStore.remove('categories');
       Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
     }
   ),
@@ -88,37 +87,19 @@ export default Discourse.Controller.extend(DomainNameFilter, {
 
     this.set('loading', true);
 
-    return Discourse.ajax(Discourse.getURL(model.id + this.searchParams())).then((data) => {
+    return Discourse.ajax(Discourse.getURL("/headlines/categories/" + model.id + this.searchParams())).then((data) => {
       if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }
-      model.domains.addObjects(_.map(data.domains, (domain) => {
-        return Domain.createFromJson(domain);
-      }));
+      model.domains.addObjects(_.map(data.domains, (domain) => { return Domain.createFromJson(domain); }));
       this.set('loading', false);
     });
-  },
-
-  storeCurrentModel() {
-    let model = this.get('model');
-
-    PreloadStore.store('category' + model.id, model);
   },
 
   actions: {
     subCategoriesToggle() {
       var state = this.get('hideSubCategories');
       this.set('hideSubCategories', !state);
-    },
-
-    viewDomain(domain) {
-      this.storeCurrentModel();
-      this.transitionToRoute('headlines.domains', this.get('model').id, domain.id);
-    },
-
-    viewSubCategory(category) {
-      this.storeCurrentModel();
-      this.transitionToRoute('headlines.categories-show', category.id)
     }
   }
 })

@@ -63,15 +63,11 @@
       {{/if}}
     </a>
 
-    {{#unless hideCategories}}
-      <ul class="sub-categories-list">
-        {{#each category in model.categories}}
-          <li>
-            <a {{action 'viewSubCategory' category}}>{{ category.title }}</a>
-          </li>
-        {{/each}}
-      </ul>
-    {{/unless}}
+    <ul {{bind-attr class=":sub-categories-list hideCategories:hide"}}>
+      {{#each category in model.categories}}
+        <li>{{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}</li>
+      {{/each}}
+    </ul>
   </div>
 
   <div class="table-search">
@@ -98,10 +94,10 @@
         {{#each domain in model.domains}}
           <tr class="topic-list-item">
             <td class="main-link clearfix">
-              <a {{action 'viewDomain' domain}}>
+              {{#link-to 'headlines.domains' model.id domain.id}}
                 {{ domain.name }}
                 {{fa-icon "external-link"}}
-              </a>
+              {{/link-to}}
             </td>
             <td class="category">{{ domain.country }}</td>
             <td><div class="value-{{ domain.status }}">{{ domain.score }}%</div></td>

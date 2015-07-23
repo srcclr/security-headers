@@ -13,7 +13,9 @@ namespace :headlines do
     SQL
 
     def domain_categories(domain_name)
-      DOMAINS_CATEGORIES % { domain_name: domain_name }
+      Headlines::Domain.connection.execute(
+        DOMAINS_CATEGORIES % { domain_name: domain_name }
+      ).values.flatten
     end
 
     desc "Refresh list of categories for each domain"
