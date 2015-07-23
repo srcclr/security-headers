@@ -19,10 +19,7 @@ export default Discourse.Route.extend({
 
   actions: {
     willTransition() {
-      let model = this.get('controller.model');
-
       this.set('controller.domainNameSearch', '');
-      PreloadStore.store('category' + model.id, model);
     }
   }
 })

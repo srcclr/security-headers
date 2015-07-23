@@ -39,17 +39,9 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   ),
 
   searchResults() {
-    this.erasePreloadStore();
     this.set('model.domains', []);
     this.set('model.allLoaded', false);
     this.loadMore();
-  },
-
-  erasePreloadStore() {
-    let preloadedCategories = _.filter(_.keys(PreloadStore.data), (key) => { return key.indexOf('category') == 0; });
-
-    preloadedCategories.push('categories');
-    preloadedCategories.forEach((preloadedCategory) => { PreloadStore.remove(preloadedCategory); });
   },
 
   selectedRatings: Em.computed.filterBy('ratings', 'selected', true),

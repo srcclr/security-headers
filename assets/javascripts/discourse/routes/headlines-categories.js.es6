@@ -18,11 +18,5 @@ export default Discourse.Route.extend({
         query = headlinesController.get('countryFilter') + headlinesController.get('issueFilter');
 
     return PreloadStore.getAndRemove('categories', fetchModels(query)).then(wrapInModels);
-  },
-
-  actions: {
-    willTransition() {
-      PreloadStore.store('categories', this.get('controller.model'));
-    }
   }
 })
