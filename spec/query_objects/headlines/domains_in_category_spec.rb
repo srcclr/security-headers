@@ -2,18 +2,20 @@ require "rails_helper"
 
 module Headlines
   describe DomainsInCategory do
-    let(:category) { create(:category, :with_parents, :with_domains) }
-    let!(:subcategory) { create(:category, :with_parents, :with_domains, category_id: category.id) }
+    let(:category) { create(:category) }
+    let!(:subcategory) { create(:category, category_id: category.id) }
 
-    subject(:domains) { described_class.new(category: category) }
+    let(:domains) { create_list(:domain, 2, parent_category_ids: [category.id, subcategory.id]) }
+
+    subject(:domains_in_category) { described_class.new(category: category) }
 
     describe "#all" do
       it "returns list of all domains for category and all child categories" do
-        expect(domains.all.to_ary.count).to eq 4
+        expect(domains_in_category.all).to eq domains
       end
 
       it "responds with relationship model" do
-        expect(domains.all).to be_kind_of(ActiveRecord::Relation)
+        expect(domains_in_category.all).to be_kind_of(ActiveRecord::Relation)
       end
     end
   end

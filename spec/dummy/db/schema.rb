@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707161226) do
+ActiveRecord::Schema.define(version: 20150722155410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,17 +26,22 @@ ActiveRecord::Schema.define(version: 20150707161226) do
     t.text     "description", default: "",                    null: false
     t.integer  "parents",     default: [],                    null: false, array: true
   end
-  add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :btree
+
+  add_index "headlines_categories", ["category_id"], name: "index_headlines_categories_on_category_id", using: :btree
+  add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :gin
 
   create_table "headlines_domains", force: :cascade do |t|
-    t.string   "name",         default: "", null: false
-    t.integer  "rank",         default: 0,  null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "country_code", default: "", null: false
+    t.string   "name",                default: "", null: false
+    t.integer  "rank",                default: 0,  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "country_code",        default: "", null: false
     t.xml      "data_alexa"
+    t.integer  "parent_category_ids", default: [], null: false, array: true
   end
+
   add_index "headlines_domains", ["name"], name: "index_headlines_domains_on_name", unique: true, using: :btree
+  add_index "headlines_domains", ["parent_category_ids"], name: "index_headlines_domains_on_parent_category_ids", using: :gin
 
   create_table "headlines_domains_categories", force: :cascade do |t|
     t.integer  "category_id"
@@ -44,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150707161226) do
     t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
     t.string   "domain_name"
   end
+
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
   add_index "headlines_domains_categories", ["domain_name"], name: "index_headlines_domains_categories_on_domain_name", using: :btree
 
@@ -55,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150707161226) do
     t.datetime "updated_at"
     t.integer  "score",      default: 0
   end
+
   add_index "headlines_scans", ["domain_id"], name: "index_headlines_scans_on_domain_id", using: :btree
   add_index "headlines_scans", ["score"], name: "index_headlines_scans_on_score", using: :btree
 
