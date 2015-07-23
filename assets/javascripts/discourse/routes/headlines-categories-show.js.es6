@@ -13,7 +13,8 @@ export default Discourse.Route.extend({
 
   model(params) {
     let headlinesController = this.controllerFor('headlines'),
-        query = headlinesController.get('countryFilter') + headlinesController.get('issueFilter');
+        controller = this.controllerFor('headlines.categories-show'),
+        query = headlinesController.get('countryFilter') + headlinesController.get('issueFilter') + controller.get('ratingFilter');
 
     return PreloadStore.getAndRemove('category' + params.id, fetchModel(params.id, query)).then(wrapModel);
   },

@@ -34,19 +34,22 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     'issueTypes.@each.selected',
     'domainNameSearch',
     function() {
-      let preloadedCategories = _.filter(_.keys(PreloadStore.data), (key) => { return key.indexOf('category') == 0; })
-
-      PreloadStore.remove('categories');
-      preloadedCategories.forEach((preloadedCategory) => { PreloadStore.remove(preloadedCategory); });
-
       Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
     }
   ),
 
   searchResults() {
+    this.erasePreloadStore();
     this.set('model.domains', []);
     this.set('model.allLoaded', false);
     this.loadMore();
+  },
+
+  erasePreloadStore() {
+    let preloadedCategories = _.filter(_.keys(PreloadStore.data), (key) => { return key.indexOf('category') == 0; });
+
+    preloadedCategories.push('categories');
+    preloadedCategories.forEach((preloadedCategory) => { PreloadStore.remove(preloadedCategory); });
   },
 
   selectedRatings: Em.computed.filterBy('ratings', 'selected', true),
@@ -92,7 +95,7 @@ export default Discourse.Controller.extend(DomainNameFilter, {
 
     this.set('loading', true);
 
-    return Discourse.ajax(Discourse.getURL(model.id + this.searchParams())).then((data) => {
+    return Discourse.ajax(Discourse.getURL("/headlines/categories/" + model.id + this.searchParams())).then((data) => {
       if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }
@@ -100,6 +103,7 @@ export default Discourse.Controller.extend(DomainNameFilter, {
         return Domain.createFromJson(domain);
       }));
       this.set('loading', false);
+      this.storeCurrentModel();
     });
   },
 
@@ -113,16 +117,6 @@ export default Discourse.Controller.extend(DomainNameFilter, {
     subCategoriesToggle() {
       var state = this.get('hideSubCategories');
       this.set('hideSubCategories', !state);
-    },
-
-    viewDomain(domain) {
-      this.storeCurrentModel();
-      this.transitionToRoute('headlines.domains', this.get('model').id, domain.id);
-    },
-
-    viewSubCategory(category) {
-      this.storeCurrentModel();
-      this.transitionToRoute('headlines.categories-show', category.id)
     }
   }
 })
