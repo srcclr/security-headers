@@ -3,7 +3,7 @@ module Headlines
     attr_reader :domains, :name
     private :domains, :name
 
-    def initialize(domains:, filter_options:)
+    def initialize(domains: Domain.none, filter_options: {})
       @domains = domains
       @name = filter_options[:domain_name]
     end

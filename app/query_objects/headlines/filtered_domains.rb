@@ -3,7 +3,7 @@ module Headlines
     attr_reader :filter_options
     private :filter_options
 
-    def initialize(domains:, filter_options:)
+    def initialize(domains: Domain.none, filter_options: {})
       @domains = domains
       @filter_options = filter_options
     end
@@ -22,13 +22,13 @@ module Headlines
 
     private
 
-    def country_filtered_domains(domains, country:)
+    def country_filtered_domains(domains, country: nil)
       return domains unless country
 
       domains.where(country_code: country_code)
     end
 
-    def issues_filtered_domains(domains, issues:)
+    def issues_filtered_domains(domains, issues: nil)
       return domains unless issues
 
       domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int < 20)" }.join("OR"))

@@ -3,7 +3,7 @@ module Headlines
     attr_reader :category
     private :category
 
-    def initialize(category:)
+    def initialize(category: nil)
       @category = category
     end
 
