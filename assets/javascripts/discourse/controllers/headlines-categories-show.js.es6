@@ -99,18 +99,9 @@ export default Discourse.Controller.extend(DomainNameFilter, {
       if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }
-      model.domains.addObjects(_.map(data.domains, (domain) => {
-        return Domain.createFromJson(domain);
-      }));
+      model.domains.addObjects(_.map(data.domains, (domain) => { return Domain.createFromJson(domain); }));
       this.set('loading', false);
-      this.storeCurrentModel();
     });
-  },
-
-  storeCurrentModel() {
-    let model = this.get('model');
-
-    PreloadStore.store('category' + model.id, model);
   },
 
   actions: {

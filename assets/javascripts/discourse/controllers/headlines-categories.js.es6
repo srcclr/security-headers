@@ -20,17 +20,18 @@ export default Discourse.Controller.extend({
   }),
 
   searchNeeded: Em.observer('country', 'issueTypes.@each.selected', function() {
-    this.set('loading', true);
+    Em.run.debounce(this, this.loadMore(), 500);
+  }),
 
-    Em.run.debounce(this, () => {
+  loadMore() {
+    return () => {
+      this.set('loading', true);
       return Discourse.ajax(Discourse.getURL(this.get('searchParams'))).then((data) => {
-        this.set('model', _.map(data['categories'], (category) => {
-          return Category.createFromJson(category);
-        }));
+        this.set('model', _.map(data['categories'], (category) => { return Category.createFromJson(category); }));
         this.set('loading', false);
       });
-    }, 500);
-  }),
+    }
+  },
 
   actions: {
     showMosaic() {
@@ -39,11 +40,6 @@ export default Discourse.Controller.extend({
 
     showPie() {
       this.set('chartType', 'pie');
-    },
-
-    viewAllSites(category) {
-      PreloadStore.store('categories', this.get('model'));
-      this.transitionToRoute('headlines.categories-show', category);
     }
   }
 })

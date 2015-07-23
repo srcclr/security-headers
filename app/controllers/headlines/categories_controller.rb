@@ -29,7 +29,7 @@ module Headlines
     private
 
     def categories
-      Headlines::Category.where(id: 3)
+      Headlines::Category.where(category_id: 1)
     end
 
     def categories_as_json

@@ -9,8 +9,6 @@ function wrapModel(model) {
 }
 
 export default Discourse.Route.extend({
-  beforeModel() { return this.redirectIfLoginRequired(); },
-
   model(params) {
     let headlinesController = this.controllerFor('headlines'),
         controller = this.controllerFor('headlines.categories-show'),
@@ -21,7 +19,10 @@ export default Discourse.Route.extend({
 
   actions: {
     willTransition() {
-      this.set('controller.domainNameSearch', '')
+      let model = this.get('controller.model');
+
+      this.set('controller.domainNameSearch', '');
+      PreloadStore.store('category' + model.id, model);
     }
   }
 })

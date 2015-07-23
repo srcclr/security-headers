@@ -55,9 +55,9 @@
                   </ul>
                 </div>
 
-                <button class="btn btn-primary" {{action 'viewAllSites' category}}>
+                {{#link-to 'headlines.categories-show' category class="btn btn-primary"}}
                   {{i18n 'headlines.view_all_sites'}}
-                </button>
+                {{/link-to}}
               </li>
             {{/if}}
           {{/each}}
