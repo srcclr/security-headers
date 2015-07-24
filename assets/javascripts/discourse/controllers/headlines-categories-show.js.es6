@@ -9,6 +9,7 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   needs: ['headlines'],
   ratings: ratings,
   hideSubCategories: true,
+  noResults: false,
 
   issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
   issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
@@ -85,14 +86,14 @@ export default Discourse.Controller.extend(DomainNameFilter, {
 
     if (model.get("allLoaded")) { return Ember.RSVP.resolve(); }
 
-    this.set('loading', true);
+    this.setProperties({ noResults: false, loading: true });
 
     return Discourse.ajax(Discourse.getURL("/headlines/categories/" + model.id + this.searchParams())).then((data) => {
       if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }
       model.domains.addObjects(_.map(data.domains, (domain) => { return Domain.createFromJson(domain); }));
-      this.set('loading', false);
+      this.setProperties({ noResults: _.isEmpty(model.domains), loading: false });
     });
   },
 

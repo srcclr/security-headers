@@ -70,12 +70,12 @@
     </ul>
   </div>
 
-  <div class="table-search">
-    {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
-    <i class="fa fa-search"></i>
-  </div>
-
   {{#if model.domains}}
+    <div class="table-search">
+      {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
+      <i class="fa fa-search"></i>
+    </div>
+
     <table class="topic-list">
       <thead>
         <tr>
@@ -106,6 +106,10 @@
       </tbody>
 
     </table>
+  {{else}}
+    {{#if noResults}}
+      <div>{{i18n 'headlines.no_results'}}</div>
+    {{/if}}
   {{/if}}
 
   {{conditional-loading-spinner condition=loading}}
