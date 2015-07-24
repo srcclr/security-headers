@@ -15,7 +15,7 @@
   </ul>
 </aside>
 {{#conditional-loading-spinner condition=loading}}
-  {{#if model}}
+  {{#unless domainsEmpty}}
     <section class="categories-list">
       <nav class="switch-controls">
         <a href="#" {{action "showMosaic"}} {{bind-attr class="showMosaicChart:active-switch"}}>
@@ -66,5 +66,5 @@
     </section>
   {{else}}
     <div>{{i18n 'headlines.no_results'}}</div>
-  {{/if}}
+  {{/unless}}
 {{/conditional-loading-spinner}}

@@ -11,6 +11,10 @@ export default Discourse.Controller.extend({
   country: Em.computed.alias('controllers.headlines.country'),
   countryFilter: Em.computed.alias('controllers.headlines.countryFilter'),
 
+  domainsEmpty: Em.computed('model.@each.domains', function() {
+    return _.every(this.get('model'), (category) => { return _.isEmpty(category.domains); });
+  }),
+
   showMosaicChart: Em.computed('chartType', function() {
     return this.get('chartType') == 'mosaic';
   }),
