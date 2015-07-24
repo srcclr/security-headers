@@ -25,7 +25,7 @@ let Category = Discourse.Model.extend({
 
     let [excellent, poor, bad] = stats;
 
-    return _.map([excellent, poor, bad], (value) => { return Math.floor(value) });
+    return _.map([excellent, poor, bad], (value) => { return Math.round(value) });
   }.property('domains'),
 
   domainScores: function() {
