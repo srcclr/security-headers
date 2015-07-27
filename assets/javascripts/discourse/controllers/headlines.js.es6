@@ -7,6 +7,7 @@ export default Discourse.Controller.extend({
   }.property(),
 
   issueTypes: issueTypes,
+  country: '',
 
   issueFilter: Em.computed('issueTypes.@each.selected', function() {
     let selectedIssues = _.filter(this.get('issueTypes'), (issue) => { return issue.selected; }),
