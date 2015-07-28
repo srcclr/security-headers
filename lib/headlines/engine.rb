@@ -2,11 +2,11 @@ module Headlines
   class Engine < ::Rails::Engine
     isolate_namespace Headlines
 
-    config.generators do |g|
-      g.test_framework :rspec, fixture: false
-      g.fixture_replacement :factory_girl, dir: "spec/factories"
-      g.assets false
-      g.helper false
+    config.generators do |generate|
+      generate.test_framework :rspec, fixture: false
+      generate.fixture_replacement :factory_girl, dir: "spec/factories"
+      generate.assets false
+      generate.helper false
     end
   end
 end

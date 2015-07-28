@@ -1,36 +1,33 @@
 module Headlines
   module SecurityHeaders
     describe StrictTransportSecurity do
-      describe "#parse" do
+      describe "#score" do
         let(:name) { "strict-transport-security" }
 
-        subject(:params) { described_class.new(name, value).params }
+        subject(:score) { described_class.new(name, value).score }
 
-        context "header with right max-age parameter" do
+        context "when header contains max-age value higher then 31536000" do
           let(:value) { "max-age=631138519" }
 
-          its([:enabled]) { is_expected.to be_truthy }
-          its([:max_age]) { is_expected.to eq "631138519" }
+          it { is_expected.to eq(1) }
+
+          context "when header includes includeSubDomains parameter" do
+            let(:value) { "max-age=631138519; includeSubDomains" }
+
+            it { is_expected.to eq(2) }
+          end
         end
 
-        context "header with zero max-age parameter" do
+        context "when header contains zero max-age value" do
           let(:value) { "max-age=0" }
 
-          its([:enabled]) { is_expected.to be_falsey }
+          it { is_expected.to eq(-1) }
         end
 
-        context "header with includeSubDomains parameter" do
-          let(:value) { "max-age=631138519; includeSubDomains" }
-
-          its([:enabled]) { is_expected.to be_truthy }
-          its([:max_age]) { is_expected.to eq "631138519" }
-          its([:includeSubDomains]) { is_expected.to be_truthy }
-        end
-
-        context "header with wrong value" do
+        context "when header has wrong value" do
           let(:value) { "wrong value" }
 
-          its([:enabled]) { is_expected.to be_falsey }
+          it { is_expected.to eq(-1) }
         end
       end
     end
