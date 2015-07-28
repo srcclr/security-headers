@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20150722155410) do
   create_table "headlines_categories", force: :cascade do |t|
     t.string   "title",       default: "",                    null: false
     t.string   "topic",       default: "",                    null: false
-    t.datetime "created_at",  default: '2015-06-24 15:35:43', null: false
-    t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
+    t.datetime "created_at",  default: '2015-07-06 16:45:58', null: false
+    t.datetime "updated_at",  default: '2015-07-06 16:45:58', null: false
     t.integer  "category_id"
-    t.text     "description", default: "",                    null: false
+    t.text     "description", default: ""
     t.integer  "parents",     default: [],                    null: false, array: true
   end
 
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 20150722155410) do
 
   create_table "headlines_domains_categories", force: :cascade do |t|
     t.integer  "category_id"
-    t.datetime "created_at",  default: '2015-06-24 15:35:43', null: false
-    t.datetime "updated_at",  default: '2015-06-24 15:35:43', null: false
+    t.datetime "created_at",  default: '2015-07-06 16:45:58', null: false
+    t.datetime "updated_at",  default: '2015-07-06 16:45:58', null: false
     t.string   "domain_name"
   end
 
