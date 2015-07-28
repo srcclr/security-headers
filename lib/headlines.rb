@@ -22,6 +22,14 @@ module Headlines
                         x-content-type-options
                         x-frame-options
                         content-security-policy)
+
+  SECURITY_HEADERS_EMPTY_SCORES = {
+    "strict-transport-security" => -1,
+    "x-xss-protection" => -1,
+    "x-content-type-options" => 0,
+    "x-frame-options" => -1,
+    "content-security-policy" => -4
+  }
 end
 
 require_relative "headlines/vulnerabilities_report"
