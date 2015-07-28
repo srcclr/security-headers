@@ -13,7 +13,7 @@ module Headlines
         it { is_expected.to be_a_success }
 
         its(:scan_results) { is_expected.to be_present }
-        its("scan_results.size") { is_expected.to eq 5 }
+        its("scan_results.size") { is_expected.to eq 6 }
       end
 
       describe "returns properly headers score values" do
