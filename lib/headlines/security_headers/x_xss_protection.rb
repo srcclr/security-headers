@@ -11,12 +11,9 @@ module Headlines
       end
 
       def score
-        if params[:enabled]
-          return 2  if params[:mode] == "block"
-          return 1
-        end
+        return -1 unless params[:enabled]
 
-        -1
+        params[:mode] == "block" ? 2 : 1
       end
     end
   end
