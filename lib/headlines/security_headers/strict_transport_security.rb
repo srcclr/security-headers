@@ -9,7 +9,15 @@ module Headlines
         }
       end
 
+      def score
+        enabled? ? score_by_subdomain : -1
+      end
+
       private
+
+      def score_by_subdomain
+        include_subdomains? ? 2 : 1
+      end
 
       def enabled?
         max_age && max_age.to_i > 0
