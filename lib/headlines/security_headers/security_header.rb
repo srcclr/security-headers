@@ -3,8 +3,6 @@ module Headlines
     class SecurityHeader
       attr_reader :name, :value
 
-      EMPTY_SCORE = 0
-
       def initialize(name, value)
         @name = name
         @value = value
