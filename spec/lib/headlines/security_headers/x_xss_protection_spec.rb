@@ -1,9 +1,9 @@
 module Headlines
   module SecurityHeaders
     describe XXssProtection do
-      describe "#parse" do
-        let(:name) { "x-xss-protection" }
+      let(:name) { "x-xss-protection" }
 
+      describe "#parse" do
         subject(:params) { described_class.new(name, value).params }
 
         describe "header with enable status" do
@@ -51,6 +51,42 @@ module Headlines
             its([:enabled]) { is_expected.to eq false }
             its([:mode]) { is_expected.to be_nil }
           end
+        end
+      end
+
+      describe "#score" do
+        subject(:score) { described_class.new(name, value).score }
+
+        context "for header with all parameters" do
+          context "with mode=block parameter" do
+            let(:value) { "1; mode=block" }
+
+            it { is_expected.to eq 2 }
+          end
+
+          context "with another mode parameter" do
+            let(:value) { "1; mode=wrong" }
+
+            it { is_expected.to eq 1 }
+          end
+        end
+
+        context "for enabled header" do
+          let(:value) { "1" }
+
+          it { is_expected.to eq 1 }
+        end
+
+        context "for disabled header" do
+          let(:value) { "0" }
+
+          it { is_expected.to eq(-1) }
+        end
+
+        context "without header" do
+          let(:value) { "" }
+
+          it { is_expected.to eq(-1) }
         end
       end
     end

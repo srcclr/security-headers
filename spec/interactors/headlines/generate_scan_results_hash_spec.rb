@@ -19,7 +19,7 @@ module Headlines
       describe "returns properly headers score values" do
         subject(:scan_results) { described_class.call(headers: headers).scan_results }
 
-        its(["x-xss-protection"]) { is_expected.to eq 100 }
+        its(["x-xss-protection"]) { is_expected.to eq 2 }
         its(["x-frame-options"]) { is_expected.to eq 100 }
         its(["strict-transport-security"]) { is_expected.to eq 0 }
         its(["x-content-type-options"]) { is_expected.to eq 0 }
@@ -29,7 +29,7 @@ module Headlines
       describe "calculates domain score" do
         subject(:score) { described_class.call(headers: headers).score }
 
-        it { is_expected.to eq 40 }
+        it { is_expected.to eq 20.4 }
       end
     end
   end

@@ -9,6 +9,15 @@ module Headlines
           end
         end
       end
+
+      def score
+        if params[:enabled]
+          return 2  if params[:mode] == "block"
+          return 1
+        end
+
+        -1
+      end
     end
   end
 end
