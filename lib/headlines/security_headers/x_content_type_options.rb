@@ -6,6 +6,10 @@ module Headlines
           results[:enabled] = value.eql?("nosniff")
         end
       end
+
+      def score
+        params[:enabled] ? 1 : 0
+      end
     end
   end
 end
