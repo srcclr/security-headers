@@ -26,6 +26,7 @@ export let issueTypes =
     { name: 'strict-transport-security', selected: false },
     { name: 'x-xss-protection', selected: false },
     { name: 'x-content-type-options', selected: false },
+    { name: 'x-download-options', selected: false },
     { name: 'x-frame-options', selected: false },
     { name: 'content-security-policy', selected: false }
   ]

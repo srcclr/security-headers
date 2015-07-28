@@ -42,6 +42,7 @@ en:
         strict-transport-security: "HSTS"
         x-xss-protection: "X-XSS"
         x-content-type-options: "X-Content-Type"
+        x-download-options: "X-Download-Options"
         x-frame-options: "X-Frame-Options"
         content-security-policy: "X-Content-Security-Options"
       check_form:
