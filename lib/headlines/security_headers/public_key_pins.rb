@@ -4,24 +4,25 @@ module Headlines
   module SecurityHeaders
     class PublicKeyPins < SecurityHeader
       def score
-        return 0 unless enabled? && max_age
-        return 1 if report_only?
-
-        include_subdomains_score + report_uri_score + 2
+        enabled? ? send("total_score_#{header_type}") : 0
       end
 
       private
 
-      def max_age
-        Regexp.last_match[1] if value =~ /max-age=(\d+)/
+      def total_score_default
+        2 + include_subdomains_score + report_uri_score
       end
 
-      def include_subdomains?
-        value.gsub(" ", "").scan(";includeSubDomains").any?
+      def total_score_report
+        1
+      end
+
+      def header_type
+        value =~ /report-only$/i ? "report" : "default"
       end
 
       def include_subdomains_score
-        include_subdomains? ? 1 : 0
+        value.gsub(" ", "").scan(";includeSubDomains").any? ? 1 : 0
       end
 
       def report_uri
@@ -33,11 +34,7 @@ module Headlines
       end
 
       def enabled?
-        value =~ /pin-sha256=.{44}/
-      end
-
-      def report_only?
-        value =~ /report-only$/i
+        (value =~ /max-age=(\d+)/) && (value =~ /pin-sha256=.{44}/)
       end
     end
   end
