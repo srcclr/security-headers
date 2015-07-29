@@ -16,6 +16,7 @@ require_relative "headlines/security_headers/x_download_options"
 require_relative "headlines/security_headers/x_permitted_cross_domain_policies"
 require_relative "headlines/security_headers/x_frame_options"
 require_relative "headlines/security_headers/x_xss_protection"
+require_relative "headlines/security_headers/public_key_pins"
 require_relative "headlines/data_alexa"
 
 module Headlines
@@ -24,6 +25,7 @@ module Headlines
                         x-content-type-options
                         x-download-options
                         x-frame-options
+                        public-key-pins
                         x-permitted-cross-domain-policies
                         content-security-policy)
 
@@ -33,6 +35,7 @@ module Headlines
     "x-content-type-options" => 0,
     "x-download-options" => 0,
     "x-frame-options" => -1,
+    "public-key-pins" => 0,
     "x-permitted-cross-domain-policies" => 0,
     "content-security-policy" => -4
   }

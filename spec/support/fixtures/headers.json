@@ -2,5 +2,6 @@
   "strict-transport-security": "max-age=631138519",
   "x-content-type-options": "nosniff",
   "x-frame-options": "sameorigin",
-  "x-xss-protection": "1; mode=block"
+  "x-xss-protection": "1; mode=block",
+  "public-key-pins-report-only": "pin-sha256='E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=';max-age=631138519"
 }

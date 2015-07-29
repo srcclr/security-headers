@@ -29,7 +29,7 @@ module Headlines
       describe "calculates domain score" do
         subject(:score) { described_class.call(headers: headers).score }
 
-        it { is_expected.to eq(-0.14) }
+        it { is_expected.to eq(-0.13) }
       end
     end
   end
