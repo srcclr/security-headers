@@ -15,6 +15,7 @@ require_relative "headlines/security_headers/x_content_type_options"
 require_relative "headlines/security_headers/x_download_options"
 require_relative "headlines/security_headers/x_frame_options"
 require_relative "headlines/security_headers/x_xss_protection"
+require_relative "headlines/security_headers/public_key_pins"
 require_relative "headlines/data_alexa"
 
 module Headlines
@@ -23,7 +24,8 @@ module Headlines
                         x-content-type-options
                         x-download-options
                         x-frame-options
-                        content-security-policy)
+                        content-security-policy
+                        public-key-pins)
 end
 
 require_relative "headlines/vulnerabilities_report"

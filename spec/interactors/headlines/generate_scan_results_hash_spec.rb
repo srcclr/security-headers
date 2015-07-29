@@ -13,7 +13,7 @@ module Headlines
         it { is_expected.to be_a_success }
 
         its(:scan_results) { is_expected.to be_present }
-        its("scan_results.size") { is_expected.to eq 6 }
+        its("scan_results.size") { is_expected.to eq 7 }
       end
 
       describe "returns properly headers score values" do
@@ -29,7 +29,7 @@ module Headlines
       describe "calculates domain score" do
         subject(:score) { described_class.call(headers: headers).score }
 
-        it { is_expected.to eq 17 }
+        it { is_expected.to eq 14.571428571428571 }
       end
     end
   end

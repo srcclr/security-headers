@@ -45,6 +45,7 @@ en:
         x-download-options: "X-Download-Options"
         x-frame-options: "X-Frame-Options"
         content-security-policy: "X-Content-Security-Options"
+        public-key-pins: "Public Key Pins"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
