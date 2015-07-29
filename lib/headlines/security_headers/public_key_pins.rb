@@ -7,10 +7,7 @@ module Headlines
         return 0 unless enabled? && max_age
         return 1 if report_only?
 
-        score = 2
-        score += 1 if include_subdomains?
-        score += 1 if report_uri =~ URI.regexp
-        score
+        include_subdomains_score + report_uri_score + 2
       end
 
       private
@@ -23,8 +20,16 @@ module Headlines
         value.gsub(" ", "").scan(";includeSubDomains").any?
       end
 
+      def include_subdomains_score
+        include_subdomains? ? 1 : 0
+      end
+
       def report_uri
         Regexp.last_match[1] if value =~ /report-uri=(.+)/
+      end
+
+      def report_uri_score
+        report_uri =~ URI.regexp ? 1 : 0
       end
 
       def enabled?
