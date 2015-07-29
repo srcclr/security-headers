@@ -28,5 +28,6 @@ export let issueTypes =
     { name: 'x-content-type-options', selected: false },
     { name: 'x-download-options', selected: false },
     { name: 'x-frame-options', selected: false },
+    { name: 'x-permitted-cross-domain-policies', selected: false },
     { name: 'content-security-policy', selected: false }
   ]
