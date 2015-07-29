@@ -1,7 +1,7 @@
 module Headlines
   module SecurityHeaders
     describe XFrameOptions do
-      describe "#parse" do
+      describe "#score" do
         let(:name) { "x-frame-options" }
         let(:site_setting) { OpenStruct.new(whitelisted_domains: "facebook.com|google.com") }
 
