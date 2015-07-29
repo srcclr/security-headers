@@ -4,7 +4,7 @@ module Headlines
 
     def call
       context.scan_results = SECURITY_HEADERS_EMPTY_SCORES.merge(scan_results)
-      context.score = score(context.scan_results.values)
+      context.score = score(context.scan_results.values).round(2)
     end
 
     private
