@@ -1,51 +1,50 @@
 module Headlines
   module SecurityHeaders
     describe XFrameOptions do
-      describe "#parse" do
+      describe "#score" do
         let(:name) { "x-frame-options" }
+        let(:site_setting) { OpenStruct.new(whitelisted_domains: "facebook.com|google.com") }
 
-        subject(:params) { described_class.new(name, value).params }
+        before do
+          stub_const("#{described_class}::SiteSetting", site_setting)
+        end
 
-        context "header with DENY value" do
+        subject(:score) { described_class.new(name, value).score }
+
+        context "when value is DENY" do
           let(:value) { "DENY" }
 
-          its([:enabled]) { is_expected.to be_truthy }
-          its([:deny]) { is_expected.to be_truthy }
+          it { is_expected.to eq(3) }
         end
 
-        context "header with SAMEORIGIN value" do
+        context "when value is SAMEORIGIN" do
           let(:value) { "SAMEORIGIN" }
 
-          its([:enabled]) { is_expected.to be_truthy }
-          its([:sameorigin]) { is_expected.to be_truthy }
+          it { is_expected.to eq(2) }
         end
 
-        context "header with ALLOW-FROM value" do
-          context "for http URI" do
-            let(:value) { "ALLOW-FROM http://example.com" }
+        context "when value is sameorigin" do
+          let(:value) { "sameorigin" }
 
-            its([:enabled]) { is_expected.to be_truthy }
-            its([:allow_from]) { is_expected.to eq "http://example.com" }
-          end
-
-          context "for https URI" do
-            let(:value) { "ALLOW-FROM https://example.com" }
-
-            its([:enabled]) { is_expected.to be_truthy }
-            its([:allow_from]) { is_expected.to eq "https://example.com" }
-          end
-
-          context "for not URI value" do
-            let(:value) { "ALLOW-FROM example.com" }
-
-            its([:enabled]) { is_expected.to be_falsey }
-          end
+          it { is_expected.to eq(2) }
         end
 
-        context "header with wrong value" do
-          let(:value) { "WRONGVALUE" }
+        context "when value is ALLOW-FROM whitelisted domain" do
+          let(:value) { "ALLOW-FROM https://facebook.com" }
 
-          its([:enabled]) { is_expected.to be_falsey }
+          it { is_expected.to eq(1) }
+        end
+
+        context "when value is ALLOW-FROM any domain" do
+          let(:value) { "ALLOW-FROM http://example.com" }
+
+          it { is_expected.to eq(0) }
+        end
+
+        context "when values is blank" do
+          let(:value) { "" }
+
+          it { is_expected.to eq(-1) }
         end
       end
     end
