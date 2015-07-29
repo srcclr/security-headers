@@ -3,6 +3,14 @@ require "uri"
 module Headlines
   module SecurityHeaders
     class PublicKeyPins < SecurityHeader
+      attr_reader :total_score_report
+      private :total_score_report
+
+      def initialize(*args)
+        @total_score_report = 1
+        super
+      end
+
       def score
         enabled? ? send("total_score_#{header_type}") : 0
       end
@@ -11,10 +19,6 @@ module Headlines
 
       def total_score_default
         2 + include_subdomains_score + report_uri_score
-      end
-
-      def total_score_report
-        1
       end
 
       def header_type
