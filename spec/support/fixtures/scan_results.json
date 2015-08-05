@@ -1,14 +1,20 @@
 [
   {
-    "x-frame-options":"10",
-    "x-xss-protection":"100",
+    "x-frame-options":"0",
+    "x-xss-protection":"2",
     "x-content-type-options":"0",
-    "content-security-policy":"50",
-    "strict-transport-security":"0"
+    "strict-transport-security":"-1",
+    "x-download-options":"0",
+    "public-key-pins":"0",
+    "x-permitted-cross-domain-policies":"0"
   },
   {
-    "x-frame-options":"100",
-    "x-xss-protection":"100",
-    "x-content-type-options":"0"
+    "x-frame-options":"3",
+    "x-xss-protection":"2",
+    "x-content-type-options":"0",
+    "strict-transport-security":"-1",
+    "x-download-options":"0",
+    "public-key-pins":"0",
+    "x-permitted-cross-domain-policies":"0"
   }
 ]

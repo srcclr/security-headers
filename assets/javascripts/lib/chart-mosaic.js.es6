@@ -1,5 +1,5 @@
 function ChartMosaic(canvas, options) {
-  this.colors = ["#80cd85", "#f9c352", "#fd8365"];
+  this.colors = ["#fd8365", "#f9c352", "#80cd85"];
   this.options = options;
   this.context = canvas.getContext('2d');
   this.canvas = canvas;

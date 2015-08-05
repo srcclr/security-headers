@@ -40,12 +40,13 @@ en:
       issues:
         all: "All"
         strict-transport-security: "HSTS"
-        x-xss-protection: "X-XSS"
-        x-content-type-options: "X-Content-Type"
+        x-xss-protection: "X-XSS-Protection"
+        x-content-type-options: "X-Content-Type-Options"
         x-download-options: "X-Download-Options"
         x-frame-options: "X-Frame-Options"
         content-security-policy: "X-Content-Security-Options"
-        public-key-pins: "Public Key Pins"
+        public-key-pins: "Public-Key-Pins"
+        x-permitted-cross-domain-policies: "X-Permitted-Cross-Domain-Policies"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
