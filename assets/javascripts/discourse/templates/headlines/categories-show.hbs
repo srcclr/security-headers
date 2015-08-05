@@ -70,12 +70,12 @@
     </ul>
   </div>
 
-  {{#if model.domains}}
-    <div class="table-search">
-      {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
-      <i class="fa fa-search"></i>
-    </div>
+  <div class="table-search">
+    {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
+    <i class="fa fa-search"></i>
+  </div>
 
+  {{#if model.domains}}
     <table class="topic-list">
       <thead>
         <tr>
@@ -100,7 +100,7 @@
               {{/link-to}}
             </td>
             <td class="category">{{ domain.country }}</td>
-            <td><div class="value-{{ domain.status }}">{{ domain.score }}%</div></td>
+            <td><div class="value-{{ domain.status }}">{{ domain.grade }}</div></td>
           </tr>
         {{/each}}
       </tbody>

@@ -23,13 +23,15 @@ module Headlines
         its(["x-frame-options"]) { is_expected.to eq(2) }
         its(["strict-transport-security"]) { is_expected.to eq(-1) }
         its(["x-content-type-options"]) { is_expected.to eq(0) }
-        its(["content-security-policy"]) { is_expected.to eq(-4) }
+        its(["x-download-options"]) { is_expected.to eq(0) }
+        its(["public-key-pins"]) { is_expected.to eq(0) }
+        its(["x-permitted-cross-domain-policies"]) { is_expected.to eq(0) }
       end
 
       describe "calculates domain score" do
         subject(:score) { described_class.call(headers: headers).score }
 
-        it { is_expected.to eq(-0.13) }
+        it { is_expected.to eq(3) }
       end
     end
   end

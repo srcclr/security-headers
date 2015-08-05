@@ -13,7 +13,11 @@ module Headlines
     private
 
     def response
-      @response ||= connection.get("/")
+      @response ||= connection.get do |req|
+        req.url "/"
+        req.options.timeout = 15
+        req.options.open_timeout = 10
+      end
     end
 
     def parse_headers

@@ -31,7 +31,7 @@ module Headlines
     def issues_filtered_domains(domains, issues: nil)
       return domains unless issues
 
-      domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int < 20)" }.join("OR"))
+      domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
     end
 
     def domains_out_of_score(domains)

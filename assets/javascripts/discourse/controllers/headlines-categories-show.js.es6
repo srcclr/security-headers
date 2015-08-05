@@ -63,7 +63,7 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   queryFromBounds(lowerBound, higherBound) {
     let query = "";
 
-    if (lowerBound == 0 && higherBound == 100 && this.get('selectedRatings').length == 2) {
+    if (lowerBound == -15 && higherBound == 15 && this.get('selectedRatings').length == 2) {
       let poorScoreRange = this.get('ratings')[1].scoreRange;
       lowerBound = poorScoreRange[0];
       higherBound = poorScoreRange[1];

@@ -1,4 +1,4 @@
-import { statusIs } from '../../lib/score';
+import { statusIs, gradeIs } from '../../lib/score';
 
 let Domain = Discourse.Model.extend({
   spyingTestHeaders: ['strict-transport-security'],
@@ -15,11 +15,15 @@ let Domain = Discourse.Model.extend({
     if (!this.get('scanResults')) { return 0; }
 
     headers.forEach((header) => {
-      sum += parseInt(this.get('scanResults')[header]) || 0;
+      sum += parseInt(this.get('scanResults')[header]);
     });
 
-    return Math.ceil((sum / headers.length) || 0);
+    return sum;
   },
+
+  grade: Em.computed(function() {
+    return gradeIs(this.get('score'));
+  }),
 
   status: Em.computed(function() {
     return statusIs(this.get('score'));

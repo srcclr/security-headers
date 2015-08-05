@@ -26,8 +26,7 @@ module Headlines
                         x-download-options
                         x-frame-options
                         public-key-pins
-                        x-permitted-cross-domain-policies
-                        content-security-policy)
+                        x-permitted-cross-domain-policies)
 
   SECURITY_HEADERS_EMPTY_SCORES = {
     "strict-transport-security" => -1,
@@ -36,8 +35,7 @@ module Headlines
     "x-download-options" => 0,
     "x-frame-options" => -1,
     "public-key-pins" => 0,
-    "x-permitted-cross-domain-policies" => 0,
-    "content-security-policy" => -4
+    "x-permitted-cross-domain-policies" => 0
   }
 end
 
