@@ -39,18 +39,6 @@
     {{/categories-breadcrumbs}}
   </section>
 
-  <ul class="compact-labels hide">
-    <li>
-      <span class="chart-value value-excellent">100%</span>
-    </li>
-    <li>
-      <span class="chart-value value-poor">100%</span>
-    </li>
-    <li>
-      <span class="chart-value value-bad">100%</span>
-    </li>
-  </ul>
-
   <div {{bind-attr class=":sub-categories anyCagetories::hide"}}>
     <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
       {{#if hideCategories}}
@@ -95,7 +83,6 @@
             <td class="main-link clearfix">
               {{#link-to 'headlines.domains' model.id domain.id}}
                 {{ domain.name }}
-                {{fa-icon "external-link"}}
               {{/link-to}}
             </td>
             <td class="category">{{ domain.country }}</td>
