@@ -21,6 +21,13 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   hideCategories: Em.computed.alias('hideSubCategories'),
   anyCagetories: Em.computed.gt('categoriesLength', 0),
 
+  lastScanDate: Em.computed('model.domains.@each', function() {
+    let domains = this.get('model.domains');
+    if (_.isEmpty(domains)) { return; }
+
+    return domains[0].get('lastScanDate');
+  }),
+
   categoriesLength: Em.computed('model.categories', function() {
     return this.get('model.categories').length;
   }),

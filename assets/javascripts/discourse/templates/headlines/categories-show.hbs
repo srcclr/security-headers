@@ -27,9 +27,9 @@
   </ul>
 </aside>
 <section class="sites-list">
-  <div class="pull-right last-scan hide">
+  <div {{bind-attr class=":pull-right :last-scan lastScanDate::hide"}}>
     {{fa-icon "clock-o"}}
-    {{i18n 'headlines.last_scan'}}: 17 Dec 2220
+    {{i18n 'headlines.last_scan'}}: {{formatted-date lastScanDate "D MMM YYYY"}}
   </div>
 
   <section class="site-details">
