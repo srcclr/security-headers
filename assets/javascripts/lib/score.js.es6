@@ -28,9 +28,10 @@ export function gradeIs(score) {
 
 export let ratings =
   [
-    { name: 'excellent', selected: false, scoreRange: [10,15] },
-    { name: 'poor', selected: false, scoreRange: [0,9] },
-    { name: 'bad', selected: false, scoreRange: [-15,-1] }
+    { name: 'A', selected: false },
+    { name: 'B', selected: false },
+    { name: 'C', selected: false },
+    { name: 'D', selected: false }
   ]
 
 export let issueTypes =

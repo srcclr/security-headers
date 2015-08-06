@@ -3,6 +3,8 @@ module Headlines
     attr_reader :filter_options
     private :filter_options
 
+    RATINGS = { "A" => [100, 10], "B" => [9, 5], "C" => [4, 0], "D" => [-1, -100] }
+
     def initialize(domains: Domain.none, filter_options: {})
       @domains = domains
       @filter_options = filter_options
@@ -13,9 +15,7 @@ module Headlines
     def all
       @domains = country_filtered_domains(@domains, country: filter_options[:country])
       @domains = issues_filtered_domains(@domains, issues: filter_options[:issues])
-      if filter_options[:score_range]
-        @domains = filter_options[:exclusion_range] ? domains_out_of_score(@domains) : domains_in_score(@domains)
-      end
+      @domains = rating_filtered_domains(@domains, ratings: filter_options[:ratings])
 
       @domains
     end
@@ -34,16 +34,14 @@ module Headlines
       domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
     end
 
-    def domains_out_of_score(domains)
-      domains.joins(:scans).where.not(headlines_scans: { score: numbered_score_range })
+    def rating_filtered_domains(domains, ratings: nil)
+      return domains unless ratings
+
+      domains.joins(:scans).where(ratings.map { |r| "(headlines_scans.score #{in_range_of(r)})" }.join("OR"))
     end
 
-    def domains_in_score(domains)
-      domains.joins(:scans).where(headlines_scans: { score: numbered_score_range })
-    end
-
-    def numbered_score_range
-      Range.new(*filter_options[:score_range].map(&:to_i))
+    def in_range_of(rating)
+      "BETWEEN #{RATINGS[rating][1]} AND #{RATINGS[rating][0]}"
     end
 
     def country_code

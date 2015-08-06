@@ -7,8 +7,7 @@
     {{#each rating in ratings}}
       <li>
         <label for="r_{{rating.name}}">
-          {{input type="checkbox" checked=rating.selected}}
-          {{localeInterpolation 'headlines.rating' rating.name}}
+          {{input type="checkbox" checked=rating.selected}} {{rating.name}}
         </label>
       </li>
     {{/each}}
