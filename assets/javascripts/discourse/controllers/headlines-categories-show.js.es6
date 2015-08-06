@@ -46,32 +46,14 @@ export default Discourse.Controller.extend(DomainNameFilter, {
   },
 
   selectedRatings: Em.computed.filterBy('ratings', 'selected', true),
-  selectedRatingsRanges: Em.computed.mapBy('selectedRatings', 'scoreRange'),
 
   ratingFilter: Em.computed('ratings.@each.selected', function() {
-    if (this.get('selectedRatings').length <= 0) {
-      return "";
-    }
+    if (this.get('selectedRatings').length <= 0) { return ""; }
 
-    let range = _.union(_.flatten(this.get('selectedRatingsRanges'))),
-        lowerBound = _.min(range),
-        higherBound = _.max(range);
+    let ratings = _.pluck(this.get('selectedRatings'), 'name');
 
-    return this.queryFromBounds(lowerBound, higherBound);
+    return "&ratings[]=" + ratings.join("&ratings[]=");
   }),
-
-  queryFromBounds(lowerBound, higherBound) {
-    let query = "";
-
-    if (lowerBound == -15 && higherBound == 15 && this.get('selectedRatings').length == 2) {
-      let poorScoreRange = this.get('ratings')[1].scoreRange;
-      lowerBound = poorScoreRange[0];
-      higherBound = poorScoreRange[1];
-      query += "&exclusion_range=true";
-    }
-
-    return query + "&score_range[]=" + lowerBound + "&score_range[]=" + higherBound;
-  },
 
   offsetFilter: Em.computed('model.domains.@each', function() {
     return "&offset=" + this.get('model.domains').length;

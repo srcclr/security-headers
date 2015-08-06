@@ -7,7 +7,8 @@
   <div class="site-notes">
     <span class="site-status">
       <i class="fa fa-check-circle value-{{ model.status }}"/>
-        {{localeInterpolation 'headlines.test_result' model.status}} - {{ model.grade }}
+        {{localeInterpolation 'headlines.test_result' model.status}} -
+        <span class="value-{{ model.grade }}">{{ model.grade }}</span>
       </span>
       <span class="site-location">
         {{fa-icon "globe"}}

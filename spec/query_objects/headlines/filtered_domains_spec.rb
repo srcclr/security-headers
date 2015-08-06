@@ -27,22 +27,10 @@ module Headlines
       end
 
       context "with rating filter" do
-        let(:score_range) { [10, 15] }
+        let(:filter_options) { { ratings: ["A"] } }
 
-        context "without exclusion range filter" do
-          let(:filter_options) { { score_range: score_range } }
-
-          it "returns only domains with score in given range" do
-            expect(filtered_domains.all.to_ary.count).to eq 1
-          end
-        end
-
-        context "with exclusion range filter" do
-          let(:filter_options) { { score_range: score_range, exclusion_range: true } }
-
-          it "returns only domains with score not in given range" do
-            expect(filtered_domains.all.to_ary.count).to eq 3
-          end
+        it "returns only domains with given grades" do
+          expect(filtered_domains.all.to_ary.count).to eq 1
         end
       end
 

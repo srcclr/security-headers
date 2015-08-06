@@ -3,6 +3,18 @@ $test-pass:
           poor #fac446 fa-minus-circle,
           bad #ff8360 fa-times-circle;
 
+$grades:
+       A #7dce82,
+       B #59caff,
+       C #fac446,
+       D #ff8360;
+
+@each $grade in $grades {
+  .value-#{nth($grade, 1)} {
+    color: nth($grade, 2);
+  }
+}
+
 @each $test in $test-pass {
   .value-#{nth($test, 1)} {
     color: nth($test, 2);

@@ -7,8 +7,7 @@
     {{#each rating in ratings}}
       <li>
         <label for="r_{{rating.name}}">
-          {{input type="checkbox" checked=rating.selected}}
-          {{localeInterpolation 'headlines.rating' rating.name}}
+          {{input type="checkbox" checked=rating.selected}} {{rating.name}}
         </label>
       </li>
     {{/each}}
@@ -100,7 +99,7 @@
               {{/link-to}}
             </td>
             <td class="category">{{ domain.country }}</td>
-            <td><div class="value-{{ domain.status }}">{{ domain.grade }}</div></td>
+            <td><div class="value-{{ domain.grade }}">{{ domain.grade }}</div></td>
           </tr>
         {{/each}}
       </tbody>
