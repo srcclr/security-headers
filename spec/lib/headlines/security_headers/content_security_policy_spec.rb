@@ -1,23 +1,151 @@
 module Headlines
   module SecurityHeaders
     describe ContentSecurityPolicy do
-      describe "#parse" do
-        let(:name) { "content-security-policy" }
+      let(:name) { "content-security-policy" }
 
-        subject(:params) { described_class.new(name, value).params }
+      describe "#score" do
+        subject(:score) { described_class.new(name, value).score }
 
-        context "header with some parameters" do
-          let(:value) { "default-src https:; font-src https: data:" }
-
-          its([:enabled]) { is_expected.to be_truthy }
-          its([:default_src]) { is_expected.to eq "https:" }
-          its([:font_src]) { is_expected.to eq "https: data:" }
-        end
-
-        context "header with empty parameters" do
+        context "with blank value" do
           let(:value) { "" }
 
-          its([:enabled]) { is_expected.to be_falsey }
+          it { is_expected.to eq(-15) }
+        end
+
+        context "with invalid directive name" do
+          let(:value) { "invalid-directive 'self';" }
+
+          it { is_expected.to eq(-15) }
+        end
+
+        context "with invalid directive value" do
+          context "with 'none' parameter" do
+            let(:value) { "default-src 'self' 'none'; connect-src 'self';" }
+
+            it { is_expected.to eq(-15) }
+          end
+
+          context "with '*' parameter" do
+            let(:value) { "default-src 'self'; connect-src '*' 'self';" }
+
+            it { is_expected.to eq(-15) }
+          end
+        end
+
+        context "with default-src equal 'none'" do
+          let(:value) { "default-src 'none';" }
+
+          it { is_expected.to eq(4) }
+        end
+
+        context "with default-src equal 'self'" do
+          let(:value) { "default-src 'self';" }
+
+          it { is_expected.to eq(4) }
+        end
+
+        context "with default-src equal '*'" do
+          let(:value) { "default-src '*';" }
+
+          it { is_expected.to eq(-2) }
+        end
+
+        context "with http: value" do
+          let(:value) { "default-src http:;" }
+
+          it { is_expected.to eq(-1) }
+        end
+
+        context "with script-src equal '*'" do
+          let(:value) { "script-src '*';" }
+
+          it { is_expected.to eq(-2) }
+        end
+
+        context "with style-src equal '*'" do
+          let(:value) { "style-src '*';" }
+
+          it { is_expected.to eq(-2) }
+        end
+
+        context "with script-src equal 'self'" do
+          let(:value) { "script-src 'self';" }
+
+          it { is_expected.to eq(1) }
+        end
+
+        context "with style-src equal 'self'" do
+          let(:value) { "style-src 'self';" }
+
+          it { is_expected.to eq(1) }
+        end
+
+        context "with script-src equal 'nonce-<some value>'" do
+          let(:value) { "script-src 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';" }
+
+          it { is_expected.to eq(2) }
+        end
+
+        context "with style-src equal 'nonce-<some value>'" do
+          let(:value) { "style-src 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';" }
+
+          it { is_expected.to eq(2) }
+        end
+
+        context "with 'unsafe-eval'" do
+          context "with 'nonce'" do
+            let(:value) { "default-src 'unsafe-eval' 'nonce';" }
+
+            it { is_expected.to eq(0) }
+          end
+
+          context "without 'nonce'" do
+            context "with default-src directive" do
+              let(:value) { "default-src 'unsafe-eval';" }
+
+              it { is_expected.to eq(-2) }
+            end
+
+            context "with script-src directive" do
+              let(:value) { "script-src 'unsafe-eval';" }
+
+              it { is_expected.to eq(-2) }
+            end
+
+            context "with style-src directive" do
+              let(:value) { "style-src 'unsafe-eval';" }
+
+              it { is_expected.to eq(-2) }
+            end
+          end
+        end
+
+        context "with 'unsafe-inline' without 'nonce'" do
+          context "with 'nonce'" do
+            let(:value) { "default-src 'unsafe-inline' 'nonce';" }
+
+            it { is_expected.to eq(0) }
+          end
+
+          context "without 'nonce'" do
+            context "with default-src directive" do
+              let(:value) { "default-src 'unsafe-inline';" }
+
+              it { is_expected.to eq(-2) }
+            end
+
+            context "with script-src directive" do
+              let(:value) { "script-src 'unsafe-inline';" }
+
+              it { is_expected.to eq(-2) }
+            end
+
+            context "with style-src directive" do
+              let(:value) { "style-src 'unsafe-inline';" }
+
+              it { is_expected.to eq(-2) }
+            end
+          end
         end
       end
     end
