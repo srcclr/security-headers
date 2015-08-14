@@ -1,0 +1,102 @@
+<aside class="headlines-filters">
+  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+  {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
+
+  <label class='filter-type' for='rating'>{{i18n 'headlines.rating.label'}}</label>
+  <ul>
+    {{#each rating in ratings}}
+      <li>
+        <label for="r_{{rating.name}}">
+          {{input type="checkbox" checked=rating.selected}} {{rating.name}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+
+  <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+  <ul>
+    {{#each type in issueTypes}}
+      <li>
+        <label for="{{type.name}}">
+          {{input type="checkbox" checked=type.selected}}
+          {{localeInterpolation 'headlines.issues' type.name}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+</aside>
+<section class="sites-list">
+  <div {{bind-attr class=":pull-right :last-scan lastScanDate::hide"}}>
+    {{fa-icon "clock-o"}}
+    {{i18n 'headlines.last_scan'}}: {{formatted-date lastScanDate "D MMM YYYY"}}
+  </div>
+
+  <section class="site-details">
+    {{#categories-breadcrumbs category=model excludeSelf=true}}
+      <li class="breadcrumb-item">
+        <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
+      </li>
+    {{/categories-breadcrumbs}}
+  </section>
+
+  <div {{bind-attr class=":sub-categories anyCagetories::hide"}}>
+    <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
+      {{#if hideCategories}}
+        {{fa-icon "plus-circle"}}
+        Show Sub Categories ({{ categoriesLength }})
+      {{else}}
+        {{fa-icon "minus-circle"}}
+        Hide Sub Categories
+      {{/if}}
+    </a>
+
+    <ul {{bind-attr class=":sub-categories-list hideCategories:hide"}}>
+      {{#each category in model.categories}}
+        <li>{{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="table-search">
+    {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
+    <i class="fa fa-search"></i>
+  </div>
+
+  {{#if model.domains}}
+    <table class="topic-list">
+      <thead>
+        <tr>
+          <th data-sort-order="default" class="default">
+            {{i18n 'headlines.url'}}
+          </th>
+          <th data-sort-order="category" class="category sortable">
+            {{i18n 'headlines.country'}}
+          </th>
+          <th data-sort-order="posters" class="posters">
+            {{i18n 'headlines.passed_tests'}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each domain in model.domains}}
+          <tr class="topic-list-item">
+            <td class="main-link clearfix">
+              {{#link-to 'headlines.domains' model.id domain.id}}
+                {{ domain.name }}
+              {{/link-to}}
+            </td>
+            <td class="category">{{ domain.country }}</td>
+            <td><div class="value-{{ domain.grade }}">{{ domain.grade }}</div></td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+  {{else}}
+    {{#if noResults}}
+      <div>{{i18n 'headlines.no_results'}}</div>
+    {{/if}}
+  {{/if}}
+
+  {{conditional-loading-spinner condition=loading}}
+</section>

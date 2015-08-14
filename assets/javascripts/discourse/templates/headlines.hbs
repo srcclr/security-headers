@@ -1,0 +1,24 @@
+<article class="static-page headlines-page">
+  <header class="container">
+    <h2 class="page-title">{{i18n 'headlines.title'}}</h2>
+    <p>
+      {{{i18n 'headlines.description'}}}
+    </p>
+  </header>
+  <section class="container">
+    <form {{action "scanUrl" on="submit"}} class="check-site">
+      <label for="scan">{{i18n 'headlines.check_form.label'}}</label>
+      {{input type="text" value=url placeholder=scanUrlPlaceholder}}
+      <button type="submit" class="btn-primary">
+        {{i18n 'headlines.check_form.action'}}
+      </button>
+    </form>
+  </section>
+  <div class="container row">
+    {{conditional-loading-spinner condition=loading}}
+
+    <div {{bind-attr class="loading:hide"}}>
+      {{ outlet }}
+    </div>
+  </div>
+</article>

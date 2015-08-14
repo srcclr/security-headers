@@ -1,0 +1,92 @@
+$test-pass:
+          excellent #87CE1F fa-check-circle,
+          poor #FADD25 fa-minus-circle,
+          bad #FF5A2A fa-times-circle;
+
+$grades:
+       A #87CE1F,
+       B #FADD25,
+       C #FFA123,
+       D #FF5A2A;
+
+@each $grade in $grades {
+  .value-#{nth($grade, 1)} {
+    color: nth($grade, 2);
+  }
+}
+
+@each $test in $test-pass {
+  .value-#{nth($test, 1)} {
+    color: nth($test, 2);
+
+    .compact-labels &,
+    .mozaic-chart-labels & {
+      @extend .#{nth($test, 3)};
+    }
+
+    &:before {
+      color: nth($test, 2);
+    }
+  }
+
+  .category-status-#{nth($test, 1)} {
+    &:before {
+      background: nth($test, 2);
+    }
+  }
+}
+
+.chart {
+  padding-top: 10px;
+  position: relative;
+
+  ul {
+    font-size: 14px;
+    font-weight: 300;
+    position: absolute;
+  }
+
+  li:not(:last-child) { margin-bottom: 4px; }
+}
+
+.chart-label {
+  display: inline-block;
+  text-align: right;
+  width: 70px;
+  padding-right: 10px;
+  color: #464646;
+}
+
+.pie-chart-labels {
+  right: 15px;
+  top: 9px;
+}
+
+.chart-value {
+  &:before {
+    margin-right: 5px;
+  }
+}
+
+.mozaic-chart-labels {
+  bottom: 5px;
+  left: 0;
+  right: 0;
+
+  li {
+    display: inline-block;
+    width: 65px;
+  }
+
+  .chart-label {
+    display: none;
+  }
+}
+
+.mozaic-chart-labels,
+.compact-labels {
+  .chart-value {
+    @extend .fa;
+    color: #464646;
+  }
+}
