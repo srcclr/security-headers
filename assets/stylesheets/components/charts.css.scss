@@ -5,9 +5,13 @@ $test-pass:
           grade-d #FF5A2A fa-times-circle;
 
 @each $test in $test-pass {
+  .label-#{nth($test, 1)},
   .value-#{nth($test, 1)} {
     color: nth($test, 2);
+    font-weight: bold;
+  }
 
+  .value-#{nth($test, 1)} {
     .compact-labels &,
     .mozaic-chart-labels & {
       @extend .#{nth($test, 3)};
@@ -34,8 +38,6 @@ $test-pass:
     font-weight: 300;
     position: absolute;
   }
-
-  li:not(:last-child) { margin-bottom: 4px; }
 }
 
 .chart-label {
@@ -52,6 +54,8 @@ $test-pass:
 }
 
 .chart-value {
+  font-weight: bold;
+
   &:before {
     margin-right: 5px;
   }
@@ -63,8 +67,9 @@ $test-pass:
   right: 0;
 
   li {
-    display: inline-block;
-    width: 65px;
+    width: 25%;
+    display: block;
+    float: left;
   }
 
   .chart-label {
