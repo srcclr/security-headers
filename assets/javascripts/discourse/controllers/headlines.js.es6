@@ -1,7 +1,7 @@
 import Domain from '../models/domain';
 import { issueTypes } from '../../lib/score';
 
-export default Discourse.Controller.extend({
+export default Em.Controller.extend({
   scanUrlPlaceholder: function() {
     return I18n.t('headlines.check_form.field');
   }.property(),
