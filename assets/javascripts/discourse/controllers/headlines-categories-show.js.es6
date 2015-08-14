@@ -5,7 +5,7 @@ import { ratings } from '../../lib/score'
 const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
 const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
 
-export default Discourse.Controller.extend(DomainNameFilter, {
+export default Em.Controller.extend(DomainNameFilter, {
   needs: ['headlines'],
   ratings: ratings,
   hideSubCategories: true,
