@@ -1,6 +1,6 @@
 import Category from '../models/category'
 
-export default Discourse.Controller.extend({
+export default Em.Controller.extend({
   needs: ['headlines'],
   chartType: 'pie',
 
