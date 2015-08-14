@@ -5,8 +5,7 @@
   {{#if model.scanResults}}
     <div class="site-notes">
       <span class="site-status">
-        <i class="fa fa-check-circle value-{{ model.status }}"/>
-        {{localeInterpolation 'headlines.test_result' model.status}} - {{ model.grade }}
+        <i class="fa fa-check-circle value-grade-{{lower-case model.status }}"/> {{ model.status }}
       </span>
     </div>
 
@@ -17,8 +16,8 @@
         {{i18n 'headlines.tests.spying-communications.title'}}
         <div class="test-notes">
           {{i18n 'headlines.status'}}:
-          <span class="value-{{ model.spyingCommunicationsTest }} test-value">
-            {{localeInterpolation 'headlines.test_result' model.spyingCommunicationsTest}}
+          <span class="value-grade-{{lower-case model.spyingCommunicationsTest }} test-value">
+            {{model.spyingCommunicationsTest}}
           </span>
           {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.spying-communications.issues'}}
         </div>
@@ -28,8 +27,8 @@
         {{i18n 'headlines.tests.ensures-site.title'}}
         <div class="test-notes">
           {{i18n 'headlines.status'}}:
-          <span class="value-{{ model.ensuresSiteTest }} test-value">
-            {{localeInterpolation 'headlines.test_result' model.ensuresSiteTest}}
+          <span class="value-grade-{{lower-case model.ensuresSiteTest }} test-value">
+            {{model.ensuresSiteTest}}
           </span>
           {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.ensures-site.issues'}}
         </div>
@@ -39,8 +38,8 @@
         {{i18n 'headlines.tests.launch-malware.title'}}
         <div class="test-notes">
           {{i18n 'headlines.status'}}:
-          <span class="value-{{ model.launchMalwareTest }} test-value">
-            {{localeInterpolation 'headlines.test_result' model.launchMalwareTest}}
+          <span class="value-grade-{{lower-case model.launchMalwareTest }} test-value">
+            {{model.launchMalwareTest}}
           </span>
           {{i18n 'headlines.issue'}}: {{i18n 'headlines.tests.launch-malware.issues'}}
         </div>
