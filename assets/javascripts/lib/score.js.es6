@@ -1,30 +1,20 @@
 export function scoreIs(score) {
   if (score < 0) {
     return 0;
-  } else if (score < 10) {
+  } else if (score < 5) {
     return 1;
+  } else if (score < 10) {
+    return 2;
   }
 
-  return 2;
+  return 3;
 };
 
 export function statusIs(score) {
-  let status = ['bad', 'poor', 'excellent'];
+  let status = ['D', 'C', 'B', 'A'];
 
   return status[scoreIs(score)];
 };
-
-export function gradeIs(score) {
-  if (score < 0) {
-    return 'D';
-  } else if (score < 5) {
-    return 'C';
-  } else if (score < 10) {
-    return 'B';
-  }
-
-  return 'A';
-}
 
 export let ratings =
   [

@@ -31,14 +31,7 @@ en:
           title: "Protects you from common vulnerabilities used to launch malware"
           issues: "X-XSS, X-Content-Type-Options and CSP"
       passed_tests: "Passed Tests"
-      rating:
-        label: "Rating"
-        all: "All"
-        excellent: "Excellent"
-        poor: "Poor"
-        bad: "Bad"
       issues:
-        all: "All"
         strict-transport-security: "HSTS"
         x-xss-protection: "X-XSS-Protection"
         x-content-type-options: "X-Content-Type-Options"
@@ -51,10 +44,6 @@ en:
         label: "Check the site"
         field: "Paste or type the URL"
         action: "Scan"
-      test_result:
-        excellent: "Excellent"
-        poor: "Poor"
-        bad: "Bad"
       chart_type:
         pie: "Pie"
         mosaic: "Mosaic"

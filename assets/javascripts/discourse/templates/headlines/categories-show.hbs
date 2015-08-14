@@ -34,7 +34,7 @@
   <section class="site-details">
     {{#categories-breadcrumbs category=model excludeSelf=true}}
       <li class="breadcrumb-item">
-        <h3 class="category-title category-status-excellent">{{ model.title }}</h3>
+        <h3 class="category-title category-status-excellent">{{model.title}}</h3>
       </li>
     {{/categories-breadcrumbs}}
   </section>
@@ -43,7 +43,7 @@
     <a class="sub-categories-toggle" href="#" {{action "subCategoriesToggle"}}>
       {{#if hideCategories}}
         {{fa-icon "plus-circle"}}
-        Show Sub Categories ({{ categoriesLength }})
+        Show Sub Categories ({{categoriesLength}})
       {{else}}
         {{fa-icon "minus-circle"}}
         Hide Sub Categories
@@ -52,7 +52,7 @@
 
     <ul {{bind-attr class=":sub-categories-list hideCategories:hide"}}>
       {{#each category in model.categories}}
-        <li>{{#link-to 'headlines.categories-show' category.id}}{{ category.title }}{{/link-to}}</li>
+        <li>{{#link-to 'headlines.categories-show' category.id}}{{category.title}}{{/link-to}}</li>
       {{/each}}
     </ul>
   </div>
@@ -69,7 +69,7 @@
           <th data-sort-order="default" class="default">
             {{i18n 'headlines.url'}}
           </th>
-          <th data-sort-order="category" class="category sortable">
+          <th data-sort-order="category" class="category">
             {{i18n 'headlines.country'}}
           </th>
           <th data-sort-order="posters" class="posters">
@@ -82,11 +82,11 @@
           <tr class="topic-list-item">
             <td class="main-link clearfix">
               {{#link-to 'headlines.domains' model.id domain.id}}
-                {{ domain.name }}
+                {{domain.name}}
               {{/link-to}}
             </td>
-            <td class="category">{{ domain.country }}</td>
-            <td><div class="value-{{ domain.grade }}">{{ domain.grade }}</div></td>
+            <td class="category">{{domain.country}}</td>
+            <td><div class="value-grade-{{lower-case domain.status }}">{{domain.status}}</div></td>
           </tr>
         {{/each}}
       </tbody>
