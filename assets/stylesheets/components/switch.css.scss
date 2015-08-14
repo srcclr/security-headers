@@ -1,0 +1,16 @@
+.switch-controls a {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 16px;
+  height: 21px;
+  line-height: 21px;
+  color: #464646;
+
+  &:visited {
+    color: #464646;
+  }
+}
+
+.active-switch {
+  background: #e7f2f8;
+}
