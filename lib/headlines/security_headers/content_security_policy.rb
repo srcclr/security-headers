@@ -11,7 +11,8 @@ module Headlines
                  javascript_nonce
                  stylesheets_nonce
                  unsafe_eval_without_nonce
-                 unsafe_inline_without_nonce)
+                 unsafe_inline_without_nonce
+                 report_only_header_in_meta)
 
       SRC_DIRECTIVES = %w(child-src
                           connect-src
@@ -27,18 +28,37 @@ module Headlines
       OTHER_DIRECTIVES = %w(base-uri form-action frame-ancestors plugin-types report-uri sandbox)
       ALL_DIRECTIVES = SRC_DIRECTIVES + OTHER_DIRECTIVES
 
+      attr_reader :body
+      private :body
+
+      def initialize(name, value, body)
+        @name = name
+        @value = value
+        @body = body
+      end
+
       def score
         valid? ? score_by_value : -15
       end
 
       private
 
-      def valid?
-        value.presence && invalid_directives? && !invalid_none_directive?
+      def generate_from_meta_tags
+        Nokogiri::HTML(body).xpath(
+          "html/head/meta[" \
+          "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
+          "= 'content-security-policy']/@content"
+        ).map do |attr|
+          attr.value + " meta-tag"
+        end
       end
 
-      def invalid_directives?
-        (directives.keys - ALL_DIRECTIVES).empty?
+      def valid?
+        value.presence && valid_directives? && !invalid_none_directive?
+      end
+
+      def valid_directives?
+        (directives.keys & ALL_DIRECTIVES).any?
       end
 
       def invalid_none_directive?
@@ -109,6 +129,15 @@ module Headlines
 
       def unsafe_inline_without_nonce
         directives.select { |k, v| in_list?(k) && v =~ /'unsafe-inline'/ && !(v =~ /'nonce'/) }.any? ? -2 : 0
+      end
+
+      def report_only_header_in_meta
+        Nokogiri::HTML(body).xpath(
+          "html/head/meta[" \
+          "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
+          "= 'content-security-policy-report-only'" \
+          "]"
+        ).any? ? -1 : 0
       end
     end
   end
