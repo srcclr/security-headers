@@ -14,9 +14,11 @@ en:
       view_all_sites: "View All Sites"
       statistic_by_sites: "Statistic by sites"
       issue: "Issue"
+      rating: "Rating"
       status: "Status"
       back: "Back"
       url: "URL"
+      all: "All"
       last_scan: "Last Scan"
       similar_urls: "% of similar urls that contain"
       tests:
