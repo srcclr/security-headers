@@ -2,20 +2,24 @@ import Domain from './domain'
 import { scoreIs } from '../../lib/score'
 
 let Category = Discourse.Model.extend({
-  bad: function() {
+  gradeD: function() {
     return this.get('scores')[0];
   }.property('scores'),
 
-  poor: function() {
+  gradeC: function() {
     return this.get('scores')[1];
   }.property('scores'),
 
-  excellent: function() {
+  gradeB: function() {
     return this.get('scores')[2];
   }.property('scores'),
 
+  gradeA: function() {
+    return this.get('scores')[3];
+  }.property('scores'),
+
   scores: function() {
-    let stats = [0, 0, 0];
+    let stats = [0, 0, 0, 0];
     let domains = this.get('domains');
     let incrementOn = (1 / domains.length) * 100;
 
@@ -23,9 +27,9 @@ let Category = Discourse.Model.extend({
       stats[scoreIs(domain.get('score'))] += incrementOn;
     });
 
-    let [bad, poor, excellent] = stats;
+    let [gradeD, gradeC, gradeB, gradeA] = stats;
 
-    return _.map([bad, poor, excellent], (value) => { return Math.round(value) });
+    return _.map([gradeD, gradeC, gradeB, gradeA], (value) => { return Math.round(value) });
   }.property('domains'),
 
   domainScores: function() {
