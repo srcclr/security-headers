@@ -1,0 +1,96 @@
+<div class="tests-section">
+  <h3>
+    HTTP headers
+    <span class="tests-overall-score">Grade:
+      <strong class="value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
+    </span>
+  </h3>
+  <table class="tests-table hide">
+    <tr>
+      <td>
+        <span class="test-title">HTTP Strict Transport Security (HSTS)</span>
+      </td>
+      <td>
+        <span class="test-value">Strict-Transport-Security: max-age=31536000</span>
+        <span class="test-value-description">HTTP Strict Transport Security is enabled</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title">X-Frame-Options</span>
+      </td>
+      <td>
+        <span class="test-value">X-Frame-Options: DENY</span>
+        <span class="test-value-description">Blocks rendering this page inside of frame, iframe, and object's. This can help prevent clickjacking attacks.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title">X-XSS-Protection</span>
+      </td>
+      <td>
+        <span class="test-value">X-XSS-Protection: 1; mode=block</span>
+        <span class="test-value-description">Blocks certain types of Cross Site Scripting attacks.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title">X-Content-Type-Options</span>
+      </td>
+      <td>
+        <span class="test-value">X-Content-Type-Options: nosniff</span>
+        <span class="test-value-description">Prevent attacks based on MIME-type confusion.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title">X-Download-Options</span>
+      </td>
+      <td>
+        <span class="test-value">X-Download-Options: noopen</span>
+        <span class="test-value-description">Disables showing the open dialog for downloaded files.</span>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="tests-section">
+  <h3>
+    CSP headers
+    <span class="tests-overall-score">Grade:
+      <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
+    </span>
+  </h3>
+  <table class="tests-table hide">
+    <tr>
+      <td>
+        <span class="test-title"><i class="fa fa-check-circle value-grade-a"></i> Uses unsafe-eval with nonce</span>
+        <span class="test-value-description">Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title"><i class="fa fa-check-circle value-grade-a"></i> Restrictive default settings</span>
+        <span class="test-value-description">The Content-Security-Policy-Report-Only settings can not be declared via meta tags. Use the HTTP header instead.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Not reporting Content Security Policy violations</span>
+        <span class="test-value-description">Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Allows scripts from any host</span>
+        <span class="test-value-description">Allowing JavaScript from any host increases the risk of Cross Site Scripting attacks. Consider using 'self' and specifically including any other necessary domains.</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Allows style sheets from any host</span>
+        <span class="test-value-description">Allowing style sheets from any host increases the risk of CSS injection attacks. Consider using 'self' and specifically including any other necessary domains.</span>
+      </td>
+    </tr>
+  </table>
+</div>
