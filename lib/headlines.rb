@@ -35,7 +35,8 @@ module Headlines
     "x-download-options" => 0,
     "x-frame-options" => -1,
     "public-key-pins" => 0,
-    "x-permitted-cross-domain-policies" => 0
+    "x-permitted-cross-domain-policies" => 0,
+    "content-security-policy" => -15
   }
 end
 

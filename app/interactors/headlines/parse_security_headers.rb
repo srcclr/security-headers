@@ -5,8 +5,7 @@ module Headlines
     def call
       context.fail! unless response.success?
 
-      context.headers = parse_headers
-      context.csp_header = parse_csp
+      context.headers = parse_headers.push(parse_csp)
     rescue Faraday::ClientError, Errno::ETIMEDOUT
       context.fail!(message: I18n.t("connection.failed", url: context.url))
     end

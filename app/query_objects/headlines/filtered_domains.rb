@@ -3,8 +3,6 @@ module Headlines
     attr_reader :filter_options
     private :filter_options
 
-    RATINGS = { "A" => [100, 10], "B" => [9, 5], "C" => [4, 0], "D" => [-1, -100] }
-
     def initialize(domains: Domain.none, filter_options: {})
       @domains = domains
       @filter_options = filter_options
@@ -37,11 +35,7 @@ module Headlines
     def rating_filtered_domains(domains, ratings: nil)
       return domains unless ratings
 
-      domains.joins(:scans).where(ratings.map { |r| "(headlines_scans.score #{in_range_of(r)})" }.join("OR"))
-    end
-
-    def in_range_of(rating)
-      "BETWEEN #{RATINGS[rating][1]} AND #{RATINGS[rating][0]}"
+      domains.joins(:scans).where(headlines_scans: { score: ratings })
     end
 
     def country_code

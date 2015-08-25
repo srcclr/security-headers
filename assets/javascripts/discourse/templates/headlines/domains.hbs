@@ -17,9 +17,11 @@
   <div class="tests-section">
     <h3>
       HTTP headers
-      <span class="tests-overall-score">Overall score: <strong class="value-grade-a">8</strong></span>
+      <span class="tests-overall-score">Grade:
+        <strong class="value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
+      </span>
     </h3>
-    <table class="tests-table">
+    <table class="tests-table hide">
       <tr>
         <td>
           <span class="test-title">HTTP Strict Transport Security (HSTS)</span>
@@ -71,9 +73,11 @@
   <div class="tests-section">
     <h3>
       CSP headers
-      <span class="tests-overall-score">Overall score: <strong class="value-grade-d">-6</strong></span>
+      <span class="tests-overall-score">Grade:
+        <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
+      </span>
     </h3>
-    <table class="tests-table">
+    <table class="tests-table hide">
       <tr>
         <td>
           <span class="test-title"><i class="fa fa-check-circle value-grade-a"></i> Uses unsafe-eval with nonce</span>

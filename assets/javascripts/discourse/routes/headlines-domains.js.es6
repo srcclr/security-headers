@@ -14,7 +14,8 @@ function wrapDomain(domain) {
     country: domain.country,
     scanResults: domain.scan_results,
     score: domain.score,
-    vulnerabilitiesReport: domain.vulnerabilities_report,
+    http_score: domain.http_score,
+    csp_score: domain.csp_score,
     category: Category.create(domain.category)
   });
 }

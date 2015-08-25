@@ -57,7 +57,7 @@ export default Em.Controller.extend(DomainNameFilter, {
   ratingFilter: Em.computed('ratings.@each.selected', function() {
     if (this.get('selectedRatings').length <= 0) { return ""; }
 
-    let ratings = _.pluck(this.get('selectedRatings'), 'name');
+    let ratings = _.pluck(this.get('selectedRatings'), 'score');
 
     return "&ratings[]=" + ratings.join("&ratings[]=");
   }),

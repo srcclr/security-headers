@@ -85,6 +85,8 @@ module Headlines
       end
 
       def from_value
+        return {} unless value
+
         value.split(";").map { |d| [d.split(" ")[0], d.split(" ")[1..-1].join(" ")] }
       end
 

@@ -15,6 +15,13 @@ module Headlines
       describe "#score" do
         subject(:score) { described_class.new(name, url, response).score }
 
+        describe "without header and csp in meta" do
+          let(:body) { "" }
+          let(:value) { nil }
+
+          it { is_expected.to eq(-15) }
+        end
+
         describe "with only header" do
           let(:body) { open_fixture("csp/empty_page.html").read }
 
