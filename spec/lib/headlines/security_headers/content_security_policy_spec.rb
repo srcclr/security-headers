@@ -8,7 +8,7 @@ module Headlines
       let(:site_setting) { OpenStruct.new(whitelisted_domains: "facebook.com|google.com") }
 
       before do
-        stub_const("#{described_class}::SiteSetting", site_setting)
+        stub_const("Headlines::SecurityHeaders::CspDirective::SiteSetting", site_setting)
         allow(response).to receive_messages(headers: headers, body: body)
       end
 
