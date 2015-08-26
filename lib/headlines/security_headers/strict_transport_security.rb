@@ -1,14 +1,6 @@
 module Headlines
   module SecurityHeaders
     class StrictTransportSecurity < SecurityHeader
-      def parse
-        {
-          max_age: max_age,
-          includeSubDomains: include_subdomains?,
-          enabled: enabled?
-        }
-      end
-
       def score
         enabled? ? score_by_subdomain : -1
       end

@@ -1,5 +1,4 @@
 import Domain from './domain'
-import { scoreIs } from '../../lib/score'
 
 let Category = Discourse.Model.extend({
   gradeD: function() {
@@ -24,7 +23,7 @@ let Category = Discourse.Model.extend({
     let incrementOn = (1 / domains.length) * 100;
 
     domains.forEach((domain) => {
-      stats[scoreIs(domain.get('score'))] += incrementOn;
+      stats[domain.get('score')] += incrementOn;
     });
 
     let [gradeD, gradeC, gradeB, gradeA] = stats;
@@ -34,7 +33,7 @@ let Category = Discourse.Model.extend({
 
   domainScores: function() {
     return _.map(this.get('domains'), (domain) => {
-      return scoreIs(domain.get('score'));
+      return domain.get('score');
     });
   }.property('domains')
 })

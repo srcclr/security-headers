@@ -1,0 +1,7 @@
+{
+  headers: {
+    "content-security-policy" => "no"
+  },
+
+  body: ""
+}

@@ -1,16 +1,91 @@
 module Headlines
   module SecurityHeaders
     class ContentSecurityPolicy < SecurityHeader
-      def parse
-        results = {}
-        value.split(";").each do |parameter|
-          key = parameter.split(" ")[0].gsub("-", "_")
-          value = parameter.split(" ")[1..-1].join(" ")
-          results[key.to_sym] = value
-        end
+      def initialize(name, url, response)
+        @name = name
+        @value = response.headers["content-security-policy"]
+        @report_only_value = response.headers["content-security-policy-report-only"]
+        @response = response
+        @url = url
+      end
 
-        results[:enabled] = results.any?
-        results
+      def score
+        valid? ? score_by_value : -15
+      end
+
+      private
+
+      def valid?
+        directives.any? && directives.all?(&:valid?)
+      end
+
+      def directives
+        @directives ||= header_directives
+        meta_directives.each do |meta_directive|
+          directive = @directives.find { |d| d.name == meta_directive.name }
+          if directive
+            directive.in_meta = true
+            directive.sources = directive.sources & meta_directive.sources
+          else
+            @directives.push(meta_directive)
+          end
+        end
+        @directives
+      end
+
+      def header_directives
+        @header_directives ||= from_value.select { |d| Headlines::CSP_DIRECTIVES.include?(d.name) }
+      end
+
+      def from_value
+        return [] unless value
+
+        value.split(";").map { |d| Headlines::SecurityHeaders::CspDirective.new(d) }
+      end
+
+      def meta_directives
+        @meta_directives ||= Nokogiri::HTML(@response.body).xpath(
+          "html/head/meta[" \
+          "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
+          "='content-security-policy']/@content"
+        ).map do |attr|
+          Headlines::SecurityHeaders::CspDirective.new(attr.value, true)
+        end
+      end
+
+      def score_by_value
+        Headlines::CSP_RULES.keys.inject(0) { |a, e| a + send(e) }
+      end
+
+      Headlines::CSP_RULES.keys.each do |rule|
+        define_method("#{rule}") do
+          directives.any? { |d| d.send("#{rule}?") } ? Headlines::CSP_RULES[rule][0] : Headlines::CSP_RULES[rule][1]
+        end
+      end
+
+      def identical_report_policy
+        directives.any? { |d| d.name == "report-uri" } || @value == @report_only_value ? 2 : -2
+      end
+
+      def report_only_header_in_meta
+        meta_report_only = Nokogiri::HTML(@response.body).xpath(
+          "html/head/meta[" \
+          "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
+          "='content-security-policy-report-only']"
+        )
+        meta_report_only.any? ? -1 : 0
+      end
+
+      def csp_in_meta_and_link_header
+        (directives.any?(&:in_meta) && @response.headers["link"]) ? -2 : 0
+      end
+
+      def csp_not_in_top_of_meta
+        (directives.any?(&:in_meta) && first_meta_tag_name == "content-security-policy") ? -2 : 0
+      end
+
+      def first_meta_tag_name
+        Nokogiri::HTML(@response.body).xpath("html/head/meta")[0].attributes.keys[0].downcase
       end
     end
   end

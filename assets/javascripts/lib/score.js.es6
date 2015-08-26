@@ -1,27 +1,15 @@
-export function scoreIs(score) {
-  if (score < 0) {
-    return 0;
-  } else if (score < 5) {
-    return 1;
-  } else if (score < 10) {
-    return 2;
-  }
+export function gradeIs(score) {
+  let grade = ["D", "C", "B", "A"];
 
-  return 3;
-};
-
-export function statusIs(score) {
-  let status = ['D', 'C', 'B', 'A'];
-
-  return status[scoreIs(score)];
-};
+  return grade[score];
+}
 
 export let ratings =
   [
-    { name: 'A', selected: false },
-    { name: 'B', selected: false },
-    { name: 'C', selected: false },
-    { name: 'D', selected: false }
+    { name: 'A', selected: false, score: 3 },
+    { name: 'B', selected: false, score: 2 },
+    { name: 'C', selected: false, score: 1 },
+    { name: 'D', selected: false, score: 0 }
   ]
 
 export let issueTypes =

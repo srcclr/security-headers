@@ -73,6 +73,7 @@ module Headlines
       filtered_domains(
         DomainsInCategory.new(category: category)
           .includes(:scan)
+          .joins(:scan)
           .offset(offset)
           .order("rank")
           .limit(limit)

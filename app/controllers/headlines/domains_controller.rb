@@ -34,6 +34,7 @@ module Headlines
     def category_domains(category)
       DomainsInCategory.new(category: category)
         .includes(:scan)
+        .joins(:scan)
         .order("rank DESC")
         .limit(100)
     end

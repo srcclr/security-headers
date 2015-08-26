@@ -5,19 +5,19 @@ module Headlines
     def call
       context.fail! unless response.success?
 
-      context.headers = parse_headers
-    rescue Faraday::ClientError
+      context.headers = parse_headers.push(parse_csp)
+    rescue Faraday::ClientError, Errno::ETIMEDOUT
       context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
     private
 
     def response
-      @response ||= connection.get do |req|
-        req.url "/"
-        req.options.timeout = 15
-        req.options.open_timeout = 10
-      end
+      @response ||= connection.get("/")
+    end
+
+    def parse_csp
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new("content-security-policy", context.url, response)
     end
 
     def parse_headers
