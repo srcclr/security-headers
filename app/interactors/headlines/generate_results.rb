@@ -6,18 +6,14 @@ module Headlines
     CSP_RATINGS = [(-100..-6), (-5..-1), (0..4), (5..100)]
 
     def call
-      context.params = headers_hash
-      context.scan_results = SECURITY_HEADERS_EMPTY_SCORES.merge(scan_results)
+      context.params = context.headers.map(&:params)
+      context.scan_results = scan_results
       context.http_score = HTTP_RATINGS.index { |r| r.include?(http_score) }
       context.csp_score = CSP_RATINGS.index { |r| r.include?(csp_score) }
       context.score = overall_score
     end
 
     private
-
-    def headers_hash
-      Hash[context.headers.map { |header| [header.name, header.params] }]
-    end
 
     def scan_results
       Hash[context.headers.map { |header| [header.name, header.score] }]
@@ -28,7 +24,7 @@ module Headlines
     end
 
     def csp_score
-      context.scan_results["content-security-policy"]
+      context.scan_results["content-security-policy"] || -15
     end
 
     def overall_score

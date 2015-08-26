@@ -8,7 +8,7 @@ module Headlines
     has_many :categories, through: :domains_categories
 
     delegate :categories, to: :data_alexa, prefix: true
-    delegate :results, to: :scan, prefix: true
+    delegate :headers, to: :scan, prefix: true
     delegate :score, :http_score, :csp_score, to: :scan
 
     def data_alexa=(value)

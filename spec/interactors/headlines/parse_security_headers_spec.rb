@@ -14,7 +14,7 @@ module Headlines
         it { is_expected.to be_a_success }
 
         it "parses security headers" do
-          expect(context.headers.size).to eq 6
+          expect(context.headers.size).to eq(SECURITY_HEADERS.size + 1)
         end
       end
 

@@ -9,15 +9,7 @@ module Headlines
       end
 
       def params
-        @params ||= parse.merge!(value: value)
-      end
-
-      def parse
-        {}
-      end
-
-      def score
-        params[:enabled] ? 100 : 0
+        { name: name, value: value, score: score }
       end
     end
   end

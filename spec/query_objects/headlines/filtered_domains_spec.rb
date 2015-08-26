@@ -38,11 +38,7 @@ module Headlines
         let(:filter_options) { { issues: ["strict-transport-security"] } }
 
         it "returns only domains with good issue score" do
-          expect(
-            filtered_domains.all.map(&:scan_results).select do |scan_result|
-              scan_result["strict-transport-security"].to_i < 0
-            end
-          ).to be_empty
+          expect(filtered_domains.all.to_ary.count).to eq 0
         end
       end
     end

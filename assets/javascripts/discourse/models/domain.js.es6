@@ -1,10 +1,6 @@
 import { gradeIs } from '../../lib/score';
 
 let Domain = Discourse.Model.extend({
-  headers: Em.computed(function() {
-    return Object.keys(this.get('scanResults'));
-  }),
-
   http_grade: Em.computed(function() {
     return gradeIs(this.get('http_score'));
   }),
@@ -28,7 +24,6 @@ Domain.reopenClass({
       score: json.score,
       http_score: json.http_score,
       csp_score: json.csp_score,
-      scanResults: json.scan_results,
       lastScanDate: json.last_scan_date
     })
   }

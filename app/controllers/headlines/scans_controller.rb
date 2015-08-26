@@ -25,8 +25,7 @@ module Headlines
         name: url,
         score: results.score,
         http_score: results.http_score,
-        csp_score: results.csp_score,
-        scan_results: results.scan_results
+        csp_score: results.csp_score
       }
     end
 
