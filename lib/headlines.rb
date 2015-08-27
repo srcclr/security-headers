@@ -27,17 +27,6 @@ module Headlines
                         public-key-pins
                         x-permitted-cross-domain-policies)
 
-  SECURITY_HEADERS_EMPTY_SCORES = {
-    "strict-transport-security" => -1,
-    "x-xss-protection" => -1,
-    "x-content-type-options" => 0,
-    "x-download-options" => 0,
-    "x-frame-options" => -1,
-    "public-key-pins" => 0,
-    "x-permitted-cross-domain-policies" => 0,
-    "content-security-policy" => -15
-  }
-
   CSP_RULES = { restrictive_default_settings: [4, 0],
                 allows_unsecured_http: [-1, 0],
                 allows_unsecured_http2: [-1, 0],
@@ -78,4 +67,3 @@ end
 
 require_relative "headlines/security_headers/csp_directive"
 require_relative "headlines/security_headers/content_security_policy"
-require_relative "headlines/vulnerabilities_report"

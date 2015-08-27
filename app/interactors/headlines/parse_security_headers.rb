@@ -25,7 +25,11 @@ module Headlines
     end
 
     def security_headers
-      formatted_headers.slice(*SECURITY_HEADERS)
+      empty_headers_hash.merge(formatted_headers.slice(*SECURITY_HEADERS))
+    end
+
+    def empty_headers_hash
+      Hash[SECURITY_HEADERS.zip(Array.new(SECURITY_HEADERS.size, ""))]
     end
 
     def formatted_headers

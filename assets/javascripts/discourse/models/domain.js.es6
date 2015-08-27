@@ -1,10 +1,7 @@
-import { gradeIs } from '../../lib/score';
+import { gradeIs } from '../../lib/score'
+import Header from './header'
 
 let Domain = Discourse.Model.extend({
-  headers: Em.computed(function() {
-    return Object.keys(this.get('scanResults'));
-  }),
-
   http_grade: Em.computed(function() {
     return gradeIs(this.get('http_score'));
   }),
@@ -16,7 +13,7 @@ let Domain = Discourse.Model.extend({
   status: Em.computed(function() {
     return gradeIs(this.get('score'));
   })
-});
+})
 
 Domain.reopenClass({
   createFromJson(json) {
@@ -28,10 +25,10 @@ Domain.reopenClass({
       score: json.score,
       http_score: json.http_score,
       csp_score: json.csp_score,
-      scanResults: json.scan_results,
-      lastScanDate: json.last_scan_date
+      lastScanDate: json.last_scan_date,
+      httpHeaders: _.map(json.http_headers, (header) => { return Header.create(header); })
     })
   }
 })
 
-export default Domain;
+export default Domain
