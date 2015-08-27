@@ -1,4 +1,4 @@
-import { gradeIs } from '../../lib/score';
+import { gradeIs } from '../../lib/score'
 
 let Domain = Discourse.Model.extend({
   http_grade: Em.computed(function() {
@@ -12,7 +12,7 @@ let Domain = Discourse.Model.extend({
   status: Em.computed(function() {
     return gradeIs(this.get('score'));
   })
-});
+})
 
 Domain.reopenClass({
   createFromJson(json) {
@@ -29,4 +29,4 @@ Domain.reopenClass({
   }
 })
 
-export default Domain;
+export default Domain

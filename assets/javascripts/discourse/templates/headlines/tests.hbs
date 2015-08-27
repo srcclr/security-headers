@@ -5,52 +5,22 @@
       <strong class="value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
     </span>
   </h3>
-  <table class="tests-table hide">
-    <tr>
-      <td>
-        <span class="test-title">HTTP Strict Transport Security (HSTS)</span>
-      </td>
-      <td>
-        <span class="test-value">Strict-Transport-Security: max-age=31536000</span>
-        <span class="test-value-description">HTTP Strict Transport Security is enabled</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title">X-Frame-Options</span>
-      </td>
-      <td>
-        <span class="test-value">X-Frame-Options: DENY</span>
-        <span class="test-value-description">Blocks rendering this page inside of frame, iframe, and object's. This can help prevent clickjacking attacks.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title">X-XSS-Protection</span>
-      </td>
-      <td>
-        <span class="test-value">X-XSS-Protection: 1; mode=block</span>
-        <span class="test-value-description">Blocks certain types of Cross Site Scripting attacks.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title">X-Content-Type-Options</span>
-      </td>
-      <td>
-        <span class="test-value">X-Content-Type-Options: nosniff</span>
-        <span class="test-value-description">Prevent attacks based on MIME-type confusion.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title">X-Download-Options</span>
-      </td>
-      <td>
-        <span class="test-value">X-Download-Options: noopen</span>
-        <span class="test-value-description">Disables showing the open dialog for downloaded files.</span>
-      </td>
-    </tr>
+  <table class="tests-table">
+    {{#each header in model.httpHeaders}}
+      <tr>
+        <td>
+          <span class="test-title">{{ header.label }}</span>
+        </td>
+        <td>
+          <span class="test-value">
+            {{ header.title }}: {{ header.value }}
+          </span>
+          <span class="test-value-description">
+            {{ header.description }}
+          </span>
+        </td>
+      </tr>
+    {{/each}}
   </table>
 </div>
 
