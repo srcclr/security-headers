@@ -1,5 +1,6 @@
 import { gradeIs } from '../../lib/score'
 import Header from './header'
+import CspTest from './csp-test'
 
 let Domain = Discourse.Model.extend({
   http_grade: Em.computed(function() {
@@ -12,6 +13,17 @@ let Domain = Discourse.Model.extend({
 
   status: Em.computed(function() {
     return gradeIs(this.get('score'));
+  }),
+
+  cspTests: Em.computed(function() {
+    return [
+      CspTest.create({ name: 'restrictive_default_settings', result: true }),
+      CspTest.create({ name: 'allows_unsecured_http', result: false }),
+      CspTest.create({ name: 'allows_unsecured_http2', result: true }),
+      CspTest.create({ name: 'permissive_default_settings', result: false }),
+      CspTest.create({ name: 'scripts_from_any_host', result: true }),
+      CspTest.create({ name: 'styles_from_any_host', result: false })
+    ];
   })
 })
 
