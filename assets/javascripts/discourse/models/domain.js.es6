@@ -1,4 +1,5 @@
 import { gradeIs } from '../../lib/score'
+import Header from './header'
 
 let Domain = Discourse.Model.extend({
   http_grade: Em.computed(function() {
@@ -24,7 +25,8 @@ Domain.reopenClass({
       score: json.score,
       http_score: json.http_score,
       csp_score: json.csp_score,
-      lastScanDate: json.last_scan_date
+      lastScanDate: json.last_scan_date,
+      httpHeaders: _.map(json.http_headers, (header) => { return Header.create(header); })
     })
   }
 })
