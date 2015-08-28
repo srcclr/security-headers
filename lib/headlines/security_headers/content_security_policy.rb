@@ -13,6 +13,10 @@ module Headlines
         valid? ? score_by_value : -15
       end
 
+      def params
+        super.merge(tests: tests)
+      end
+
       private
 
       def valid?
@@ -53,35 +57,40 @@ module Headlines
         end
       end
 
+      def tests
+        Headlines::CSP_RULES.keys.map { |t| { name: t, result: send(t) } }
+      end
+
       def score_by_value
-        Headlines::CSP_RULES.keys.inject(0) { |a, e| a + send(e) }
+        tests.sum { |t| t[:result] ? Headlines::CSP_RULES[t[:name]][0] : Headlines::CSP_RULES[t[:name]][1] }
       end
 
       Headlines::CSP_RULES.keys.each do |rule|
         define_method("#{rule}") do
-          directives.any? { |d| d.send("#{rule}?") } ? Headlines::CSP_RULES[rule][0] : Headlines::CSP_RULES[rule][1]
+          directives.any? { |d| d.send("#{rule}?") }
         end
       end
 
       def identical_report_policy
-        directives.any? { |d| d.name == "report-uri" } || @value == @report_only_value ? 2 : -2
+        return false unless @value
+
+        directives.any? { |d| d.name == "report-uri" } || @value == @report_only_value
       end
 
       def report_only_header_in_meta
-        meta_report_only = Nokogiri::HTML(@response.body).xpath(
+        Nokogiri::HTML(@response.body).xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
           "='content-security-policy-report-only']"
-        )
-        meta_report_only.any? ? -1 : 0
+        ).any?
       end
 
       def csp_in_meta_and_link_header
-        (directives.any?(&:in_meta) && @response.headers["link"]) ? -2 : 0
+        directives.any?(&:in_meta) && @response.headers["link"]
       end
 
       def csp_not_in_top_of_meta
-        (directives.any?(&:in_meta) && first_meta_tag_name == "content-security-policy") ? -2 : 0
+        directives.any?(&:in_meta) && first_meta_tag_name == "content-security-policy"
       end
 
       def first_meta_tag_name

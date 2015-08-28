@@ -26,7 +26,8 @@ module Headlines
         score: results.score,
         http_score: results.http_score,
         csp_score: results.csp_score,
-        http_headers: results.params[0..-2]
+        http_headers: results.params[0..-2],
+        csp_header: results.params.last
       }
     end
 
