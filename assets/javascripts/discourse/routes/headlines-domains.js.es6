@@ -1,6 +1,7 @@
 import Category from '../models/category';
 import Domain from '../models/domain';
 import Header from '../models/header'
+import CspTest from '../models/csp-test'
 
 function fetchModel(category_id, domain_id) {
   return () => {
@@ -17,7 +18,8 @@ function wrapDomain(domain) {
     http_score: domain.http_score,
     csp_score: domain.csp_score,
     category: Category.create(domain.category),
-    httpHeaders: _.map(domain.http_headers, (header) => { return Header.create(header); })
+    httpHeaders: _.map(domain.http_headers, (header) => { return Header.create(header); }),
+    cspTests: _.map(domain.csp_header.tests, (test) => { return CspTest.create(test); })
   });
 }
 

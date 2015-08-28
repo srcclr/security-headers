@@ -26,41 +26,22 @@
 
 <div class="tests-section">
   <h3>
-    CSP headers
+    CSP header
     <span class="tests-overall-score">Grade:
       <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
-  <table class="tests-table hide">
-    <tr>
-      <td>
-        <span class="test-title"><i class="fa fa-check-circle value-grade-a"></i> Uses unsafe-eval with nonce</span>
-        <span class="test-value-description">Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title"><i class="fa fa-check-circle value-grade-a"></i> Restrictive default settings</span>
-        <span class="test-value-description">The Content-Security-Policy-Report-Only settings can not be declared via meta tags. Use the HTTP header instead.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Not reporting Content Security Policy violations</span>
-        <span class="test-value-description">Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Allows scripts from any host</span>
-        <span class="test-value-description">Allowing JavaScript from any host increases the risk of Cross Site Scripting attacks. Consider using 'self' and specifically including any other necessary domains.</span>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="test-title"><i class="fa fa-times-circle value-grade-d"></i> Allows style sheets from any host</span>
-        <span class="test-value-description">Allowing style sheets from any host increases the risk of CSS injection attacks. Consider using 'self' and specifically including any other necessary domains.</span>
-      </td>
-    </tr>
+  <table class="tests-table">
+    {{#each test in model.cspTests}}
+      <tr>
+        <td>
+          <span class="test-title">
+            <i {{bind-attr class=":fa test.result:fa-check-circle:fa-times-circle test.result:value-grade-a:value-grade-d"}}></i>
+            {{ test.title }}
+          </span>
+          <span class="test-value-description">{{ test.description }}</span>
+        </td>
+      </tr>
+    {{/each}}
   </table>
 </div>

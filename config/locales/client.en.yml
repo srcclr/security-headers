@@ -64,6 +64,64 @@ en:
           title: "X-PERMITTED-CROSS-DOMAIN-POLICIES"
           score0: "*no description*"
           score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
+        content-security-policy:
+          restrictive_default_settings:
+            title: "Restrictive default settings"
+            description: "Using restrictive defaults and overriding them when necessary is a good practice."
+          allows_unsecured_http:
+            title: "Allows unsecured HTTP"
+            description: "Using HTTPS protects against eavesdropping and man-in-the-middle attacks. Consider switching to HTTPS."
+          allows_unsecured_http2:
+            title: "Allows unsecured HTTP"
+            description: "Using HTTPS protects against eavesdropping and man-in-the-middle attacks. Consider switching to HTTPS."
+          permissive_default_settings:
+            title: "Permissive default settings"
+            description: "Using permissive defaults can be dangerous without carefully considering other directives. It's advisable to set restrictive defaults such as 'self' and override when necessary."
+          scripts_from_any_host:
+            title: "Allows scripts from any host"
+            description: "Allowing JavaScript from any host increases the risk of Cross Site Scripting attacks. Consider using 'self' and specifically including any other necessary domains."
+          styles_from_any_host:
+            title: "Allows style sheets from any host"
+            description: "Allowing style sheets from any host increases the risk of CSS injection attacks. Consider using 'self' and specifically including any other necessary domains."
+          restrict_javascript:
+            title: "Restricts JavaScripts to self and explicitly whitelisted hosts"
+            description: "Only allowing JavaScript from self and explicitly whitelisted hosts can reduce risk of attack."
+          restrict_stylesheets:
+            title: "Restricts style sheets to self and explicitly whitelisted hosts"
+            description: "Only allowing style sheets from self and explicitly whitelisted hosts can reduce risk of attack."
+          javascript_nonce:
+            title: "Uses JavaScript nonce"
+            description: "Using a JavaScript nonce makes script injection attacks more difficult because the attacker must guess the nonce value."
+          stylesheets_nonce:
+            title: "Uses style sheet nonce"
+            description: "Using a style sheet nonce makes style sheet injection attacks more difficult because the attacker must guess the nonce value."
+          unsafe_eval_without_nonce:
+            title: "Uses unsafe-eval without nonce"
+            description: "Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce."
+          unsafe_inline_without_nonce:
+            title: "Uses unsafe-inline without nonce"
+            description: "Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce."
+          identical_report_policy:
+            title: "Reporting Content Security Policy violations"
+            description: "Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings."
+          allow_potentially_unsecure_host:
+            title: "Allows potentially insecure host"
+            description: "This domain is not known and may be insecure. Allowing resources from this domain may be risky. If the domain is controlled by the administrator, this warning can be ignored."
+          report_only_header_in_meta:
+            title: "Illegal security policy settings for <meta>"
+            description: "The Content-Security-Policy-Report-Only settings can not be declared via <meta> tags. Use the HTTP header instead."
+          frame_ancestors_in_meta:
+            title: "Illegal policy directive for <meta>"
+            description: "The frame-ancestors directive can not be declared via <meta> tag. Use the HTTP header instead."
+          sandbox_in_meta:
+            title: "Illegal policy directive for <meta>"
+            description: "The sandbox directive can not be declared via <meta> tag. Use the HTTP header instead."
+          csp_in_meta_and_link_header:
+            title: "Content-Security-Policy is defined with <meta> tags and server sends a Link HTTP header"
+            description: "Resources fetched or prefetched using the Link HTTP response header field which preceed a <meta>-delivered policy will not be blocked."
+          csp_not_in_top_of_meta:
+            title: "Content-Security-Policy is defined with <meta> tags and is not at the top of <head>"
+            description: "It is strongly encouraged to place meta elements as early in the document as possible, because policies in meta elements are not applied to content which preceeds them."
       passed_tests: "Passed Tests"
       issues:
         strict-transport-security: "HSTS"
