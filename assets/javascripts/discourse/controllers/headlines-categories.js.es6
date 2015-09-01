@@ -4,8 +4,8 @@ export default Em.Controller.extend({
   needs: ['headlines'],
   chartType: 'pie',
 
-  issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
-  issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
+  headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
+  headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
 
   countries: Em.computed.alias('controllers.headlines.countries'),
   country: Em.computed.alias('controllers.headlines.country'),
@@ -19,11 +19,11 @@ export default Em.Controller.extend({
     return this.get('chartType') == 'mosaic';
   }),
 
-  searchParams: Em.computed('countryFilter', 'issueFilter', function() {
-    return "?" + this.get('countryFilter') + this.get('issueFilter');
+  searchParams: Em.computed('countryFilter', 'headerFilter', function() {
+    return "?" + this.get('countryFilter') + this.get('headerFilter');
   }),
 
-  searchNeeded: Em.observer('country', 'issueTypes.@each.selected', function() {
+  searchNeeded: Em.observer('country', 'headerTypes.@each.selected', function() {
     Em.run.debounce(this, this.loadMore(), 500);
   }),
 

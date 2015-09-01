@@ -34,10 +34,10 @@ module Headlines
         end
       end
 
-      context "with issue filter" do
-        let(:filter_options) { { issues: ["strict-transport-security"] } }
+      context "with header filter" do
+        let(:filter_options) { { headers: ["strict-transport-security"] } }
 
-        it "returns only domains with good issue score" do
+        it "returns only domains with good header score" do
           expect(filtered_domains.all.to_ary.count).to eq 0
         end
       end

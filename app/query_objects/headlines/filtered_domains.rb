@@ -12,7 +12,7 @@ module Headlines
 
     def all
       @domains = country_filtered_domains(@domains, country: filter_options[:country])
-      @domains = issues_filtered_domains(@domains, issues: filter_options[:issues])
+      @domains = headers_filtered_domains(@domains, headers: filter_options[:headers])
       @domains = rating_filtered_domains(@domains, ratings: filter_options[:ratings])
 
       @domains
@@ -26,10 +26,10 @@ module Headlines
       domains.where(country_code: country_code)
     end
 
-    def issues_filtered_domains(domains, issues: nil)
-      return domains unless issues
+    def headers_filtered_domains(domains, headers: nil)
+      return domains unless headers
 
-      domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
+      domains.joins(:scans).where(headers.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
     end
 
     def rating_filtered_domains(domains, ratings: nil)

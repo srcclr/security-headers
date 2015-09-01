@@ -15,7 +15,7 @@ function wrapInModels(models) {
 export default Discourse.Route.extend({
   model(params) {
     let headlinesController = this.controllerFor('headlines'),
-        query = headlinesController.get('countryFilter') + headlinesController.get('issueFilter');
+        query = headlinesController.get('countryFilter') + headlinesController.get('headerFilter');
 
     return PreloadStore.getAndRemove('categories', fetchModels(query)).then(wrapInModels);
   }

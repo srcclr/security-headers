@@ -81,7 +81,7 @@ module Headlines
     end
 
     def filter_options
-      params.slice(:country, :ratings, :issues, :domain_name)
+      params.slice(:country, :ratings, :headers, :domain_name)
     end
 
     def offset
