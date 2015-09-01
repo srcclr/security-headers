@@ -6,14 +6,20 @@ module Headlines
       context.fail! unless response.success?
 
       context.headers = parse_headers.push(parse_csp)
-    rescue Faraday::ClientError, Errno::ETIMEDOUT
-      context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
     private
 
     def response
       @response ||= connection.get("/")
+    rescue Faraday::ClientError, Errno::ETIMEDOUT
+      @response = head_request
+    end
+
+    def head_request
+      @head_request = connection.head("/")
+    rescue Faraday::ClientError, Errno::ETIMEDOUT
+      context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
     def parse_csp
