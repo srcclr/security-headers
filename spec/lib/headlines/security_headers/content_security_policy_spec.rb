@@ -1,19 +1,16 @@
 module Headlines
   module SecurityHeaders
     describe ContentSecurityPolicy do
-      let(:name) { "content-security-policy" }
-      let(:response) { double("response") }
       let(:headers) { { "content-security-policy" => value } }
       let(:url) { "example.com" }
       let(:site_setting) { OpenStruct.new(whitelisted_domains: "facebook.com|google.com") }
 
       before do
         stub_const("Headlines::SecurityHeaders::CspDirective::SiteSetting", site_setting)
-        allow(response).to receive_messages(headers: headers, body: body)
       end
 
       describe "#score" do
-        subject(:score) { described_class.new(name, url, response).score }
+        subject(:score) { described_class.new(headers, body, url).score }
 
         describe "without header and csp in meta" do
           let(:body) { "" }

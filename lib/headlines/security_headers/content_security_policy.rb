@@ -1,11 +1,11 @@
 module Headlines
   module SecurityHeaders
     class ContentSecurityPolicy < SecurityHeader
-      def initialize(name, url, response)
-        @name = name
-        @value = response.headers["content-security-policy"]
-        @report_only_value = response.headers["content-security-policy-report-only"]
-        @response = response
+      def initialize(headers, body, url)
+        @name = "content-security-policy"
+        @value = headers["content-security-policy"]
+        @headers = headers
+        @body = body
         @url = url
       end
 
@@ -48,7 +48,7 @@ module Headlines
       end
 
       def meta_directives
-        @meta_directives ||= Nokogiri::HTML(@response.body).xpath(
+        Nokogiri::HTML(@body).xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
           "='content-security-policy']/@content"
@@ -62,7 +62,10 @@ module Headlines
       end
 
       def score_by_value
-        tests.sum { |t| t[:result] ? Headlines::CSP_RULES[t[:name]][0] : Headlines::CSP_RULES[t[:name]][1] }
+        tests.sum do |test|
+          scores = Headlines::CSP_RULES[test[:name]]
+          test[:result] ? scores[0] : scores[1]
+        end
       end
 
       Headlines::CSP_RULES.keys.each do |rule|
@@ -72,13 +75,13 @@ module Headlines
       end
 
       def identical_report_policy
-        return false unless @value
+        return false unless value
 
-        directives.any? { |d| d.name == "report-uri" } || @value == @report_only_value
+        directives.any? { |d| d.name == "report-uri" } || value == @headers["content-security-policy-report-only"]
       end
 
       def report_only_header_in_meta
-        Nokogiri::HTML(@response.body).xpath(
+        Nokogiri::HTML(@body).xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
           "='content-security-policy-report-only']"
@@ -86,7 +89,7 @@ module Headlines
       end
 
       def csp_in_meta_and_link_header
-        directives.any?(&:in_meta) && @response.headers["link"]
+        directives.any?(&:in_meta) && @headers["link"]
       end
 
       def csp_not_in_top_of_meta
@@ -94,7 +97,7 @@ module Headlines
       end
 
       def first_meta_tag_name
-        Nokogiri::HTML(@response.body).xpath("html/head/meta")[0].attributes.keys[0].downcase
+        Nokogiri::HTML(@body).xpath("html/head/meta")[0].attributes.keys[0].downcase
       end
     end
   end
