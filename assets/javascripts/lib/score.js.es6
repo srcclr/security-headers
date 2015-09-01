@@ -12,7 +12,7 @@ export let ratings =
     { name: 'D', selected: false, score: 0 }
   ]
 
-export let issueTypes =
+export let headerTypes =
   [
     { name: 'strict-transport-security', selected: false },
     { name: 'x-xss-protection', selected: false },
@@ -20,5 +20,6 @@ export let issueTypes =
     { name: 'x-download-options', selected: false },
     { name: 'x-frame-options', selected: false },
     { name: 'public-key-pins', selected: false },
-    { name: 'x-permitted-cross-domain-policies', selected: false }
+    { name: 'x-permitted-cross-domain-policies', selected: false },
+    { name: 'content-security-policy', selected: false }
   ]

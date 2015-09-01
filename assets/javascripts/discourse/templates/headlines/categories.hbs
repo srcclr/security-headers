@@ -2,13 +2,13 @@
   <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
   {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
 
-  <label class="filter-type" for="issue_type">{{i18n 'headlines.issue_type'}}</label>
+  <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
   <ul>
-    {{#each type in issueTypes}}
+    {{#each type in headerTypes}}
       <li>
         <label for="{{type.name}}">
           {{input type="checkbox" checked=type.selected}}
-          {{localeInterpolation 'headlines.issues' type.name}}
+          {{localeInterpolation 'headlines.headers' type.name}}
         </label>
       </li>
     {{/each}}

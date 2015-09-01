@@ -17,7 +17,7 @@ module Headlines
     end
 
     def parse_csp
-      Headlines::SecurityHeaders::ContentSecurityPolicy.new("content-security-policy", context.url, response)
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new(response.headers, response.body, context.url)
     end
 
     def parse_headers

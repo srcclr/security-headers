@@ -10,10 +10,9 @@ en:
           Also scan your site to see how you are doing.
 
       country: "Country"
-      issue_type: "Issue Type"
+      header_type: "Header Type"
       view_all_sites: "View All Sites"
       statistic_by_sites: "Statistic by sites"
-      issue: "Issue"
       rating: "Rating"
       status: "Status"
       back: "Back"
@@ -123,7 +122,7 @@ en:
             title: "Content-Security-Policy is defined with <meta> tags and is not at the top of <head>"
             description: "It is strongly encouraged to place meta elements as early in the document as possible, because policies in meta elements are not applied to content which preceeds them."
       passed_tests: "Passed Tests"
-      issues:
+      headers:
         strict-transport-security: "HSTS"
         x-xss-protection: "X-XSS-Protection"
         x-content-type-options: "X-Content-Type-Options"
@@ -132,6 +131,7 @@ en:
         content-security-policy: "X-Content-Security-Options"
         public-key-pins: "Public-Key-Pins"
         x-permitted-cross-domain-policies: "X-Permitted-Cross-Domain-Policies"
+        content-security-policy: "Content-Security-Policy"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
