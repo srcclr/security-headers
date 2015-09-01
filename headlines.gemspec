@@ -22,10 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency "faraday", "~> 0.9.1"
   s.add_dependency "faraday_middleware", "~> 0.9.0"
   s.add_dependency "rubyzip", ">= 1.0.0"
-  s.add_dependency "rails", "~> 4.2"
+  s.add_dependency "rails", "= 4.1.13"
   s.add_dependency "upsert", ">= 2.1"
   s.add_dependency "nokogiri", ">= 1.5"
-  s.add_dependency "responders", ">= 2.1"
   s.add_development_dependency "active_model_serializers", ">= 0.9"
 
   s.add_development_dependency "rspec-rails"
