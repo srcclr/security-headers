@@ -62,10 +62,7 @@ module Headlines
       end
 
       def score_by_value
-        tests.sum do |test|
-          scores = Headlines::CSP_RULES[test[:name]]
-          test[:result] ? scores[0] : scores[1]
-        end
+        tests.sum { |test| test[:result] ? Headlines::CSP_RULES[test[:name]] : 0 }
       end
 
       Headlines::CSP_RULES.keys.each do |rule|
@@ -78,6 +75,10 @@ module Headlines
         return false unless value
 
         directives.any? { |d| d.name == "report-uri" } || value == @headers["content-security-policy-report-only"]
+      end
+
+      def no_identical_report_policy
+        !identical_report_policy
       end
 
       def report_only_header_in_meta

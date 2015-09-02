@@ -100,6 +100,9 @@ en:
           identical_report_policy:
             title: "Reporting Content Security Policy violations"
             description: "Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings."
+          no_identical_report_policy:
+            title: "Not reporting Content Security Policy violations"
+            description: "Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings."
           allow_potentially_unsecure_host:
             title: "Allows potentially insecure host"
             description: "This domain is not known and may be insecure. Allowing resources from this domain may be risky. If the domain is controlled by the administrator, this warning can be ignored."
