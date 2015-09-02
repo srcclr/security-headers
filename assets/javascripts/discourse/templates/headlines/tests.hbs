@@ -36,15 +36,17 @@
   </span>
   <table class="tests-table">
     {{#each test in model.cspHeader.tests}}
-      <tr>
-        <td>
-          <span class="test-title">
-            <i {{bind-attr class=":fa test.result:fa-check-circle:fa-times-circle test.result:value-grade-a:value-grade-d"}}></i>
-            {{ test.title }}
-          </span>
-          <span class="test-value-description">{{ test.description }}</span>
-        </td>
-      </tr>
+      {{#if test.isApplicable}}
+        <tr>
+          <td>
+            <span class="test-title">
+              <i {{bind-attr class=":fa test.icon"}}></i>
+              {{ test.title }}
+            </span>
+            <span class="test-value-description">{{ test.description }}</span>
+          </td>
+        </tr>
+      {{/if}}
     {{/each}}
   </table>
 </div>

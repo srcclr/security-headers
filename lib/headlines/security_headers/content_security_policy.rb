@@ -10,7 +10,7 @@ module Headlines
       end
 
       def score
-        valid? ? score_by_value : -15
+        valid? ? tests.sum { |t| t[:score] } : -15
       end
 
       def params
@@ -58,11 +58,12 @@ module Headlines
       end
 
       def tests
-        Headlines::CSP_RULES.keys.map { |t| { name: t, result: send(t) } }
-      end
-
-      def score_by_value
-        tests.sum { |test| test[:result] ? Headlines::CSP_RULES[test[:name]] : 0 }
+        Headlines::CSP_RULES.keys.map do |test|
+          {
+            name: test,
+            score: send(test) ? Headlines::CSP_RULES[test] : 0
+          }
+        end
       end
 
       Headlines::CSP_RULES.keys.each do |rule|

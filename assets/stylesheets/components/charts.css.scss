@@ -84,3 +84,17 @@ $test-pass:
     color: #464646;
   }
 }
+
+.tests-table {
+  .fa-check-circle {
+    color: #87CE1F
+  }
+
+  .fa-times-circle {
+    color: #FF5A2A
+  }
+
+  .fa-minus-circle {
+    color: #FADD25
+  }
+}
