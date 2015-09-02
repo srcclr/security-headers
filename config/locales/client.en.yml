@@ -64,6 +64,7 @@ en:
           score0: "*no description*"
           score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
         content-security-policy:
+          title: "CONTENT-SECURITY-POLICY"
           restrictive_default_settings:
             title: "Restrictive default settings"
             description: "Using restrictive defaults and overriding them when necessary is a good practice."

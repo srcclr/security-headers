@@ -1,6 +1,4 @@
 import { gradeIs } from '../../lib/score'
-import Header from './header'
-import CspTest from './csp-test'
 
 let Domain = Discourse.Model.extend({
   http_grade: Em.computed(function() {

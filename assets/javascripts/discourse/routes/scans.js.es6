@@ -1,6 +1,7 @@
 import Domain from '../models/domain'
 import Header from '../models/header'
 import CspTest from '../models/csp-test'
+import CspHeader from '../models/csp-header'
 
 function scanDomain(name) {
   return () => { return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name)); };
@@ -13,7 +14,7 @@ function wrapDomain(domain) {
     http_score: domain.http_score,
     csp_score: domain.csp_score,
     httpHeaders: _.map(domain.http_headers, (header) => { return Header.create(header); }),
-    cspTests: _.map(domain.csp_header.tests, (test) => { return CspTest.create(test); })
+    cspHeader: CspHeader.createFromJson(domain.csp_header)
   });
 }
 

@@ -31,8 +31,11 @@
       <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
+  <span class="test-value">
+    {{i18n "headlines.tests.content-security-policy.title"}}: {{ model.cspHeader.value }}
+  </span>
   <table class="tests-table">
-    {{#each test in model.cspTests}}
+    {{#each test in model.cspHeader.tests}}
       <tr>
         <td>
           <span class="test-title">
