@@ -72,13 +72,25 @@ module Headlines
         end
       end
 
+      def no_csp_header
+        directives.empty?
+      end
+
+      def invalid_csp_header
+        return false if no_csp_header
+
+        !valid?
+      end
+
       def identical_report_policy
-        return false unless value
+        return false unless valid?
 
         directives.any? { |d| d.name == "report-uri" } || value == @headers["content-security-policy-report-only"]
       end
 
       def no_identical_report_policy
+        return false unless valid?
+
         !identical_report_policy
       end
 

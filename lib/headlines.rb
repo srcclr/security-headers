@@ -27,7 +27,9 @@ module Headlines
                         public-key-pins
                         x-permitted-cross-domain-policies)
 
-  CSP_RULES = { restrictive_default_settings: 4,
+  CSP_RULES = { no_csp_header: -15,
+                invalid_csp_header: -15,
+                restrictive_default_settings: 4,
                 allows_unsecured_http: -1,
                 permissive_default_settings: -2,
                 scripts_from_any_host: -2,
