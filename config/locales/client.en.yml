@@ -70,9 +70,6 @@ en:
           allows_unsecured_http:
             title: "Allows unsecured HTTP"
             description: "Using HTTPS protects against eavesdropping and man-in-the-middle attacks. Consider switching to HTTPS."
-          allows_unsecured_http2:
-            title: "Allows unsecured HTTP"
-            description: "Using HTTPS protects against eavesdropping and man-in-the-middle attacks. Consider switching to HTTPS."
           permissive_default_settings:
             title: "Permissive default settings"
             description: "Using permissive defaults can be dangerous without carefully considering other directives. It's advisable to set restrictive defaults such as 'self' and override when necessary."

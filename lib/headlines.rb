@@ -29,7 +29,6 @@ module Headlines
 
   CSP_RULES = { restrictive_default_settings: [4, 0],
                 allows_unsecured_http: [-1, 0],
-                allows_unsecured_http2: [-1, 0],
                 permissive_default_settings: [-2, 0],
                 scripts_from_any_host: [-2, 0],
                 styles_from_any_host: [-2, 0],

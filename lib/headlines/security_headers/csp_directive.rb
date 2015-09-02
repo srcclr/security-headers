@@ -48,16 +48,8 @@ module Headlines
         sources.select { |s| s.include?(".") && !s.start_with?("https://") }.any?
       end
 
-      def https_value?
-        sources.include?("https:")
-      end
-
       def allows_unsecured_http?
-        sources.include?("http:")
-      end
-
-      def allows_unsecured_http2?
-        http_domain_name? && !https_value?
+        sources.include?("http:") || (http_domain_name? && !sources.include?("https:"))
       end
 
       def restrictive_default_settings?
