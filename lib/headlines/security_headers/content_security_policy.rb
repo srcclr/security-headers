@@ -3,7 +3,7 @@ module Headlines
     class ContentSecurityPolicy < SecurityHeader
       def initialize(headers, body, url)
         @name = "content-security-policy"
-        @value = headers["content-security-policy"]
+        @value = headers["content-security-policy"] || ""
         @headers = headers
         @body = body
         @url = url
@@ -42,8 +42,6 @@ module Headlines
       end
 
       def from_value
-        return [] unless value
-
         value.split(";").map { |d| Headlines::SecurityHeaders::CspDirective.new(d) }
       end
 
@@ -61,40 +59,34 @@ module Headlines
         Headlines::CSP_RULES.keys.map do |test|
           {
             name: test,
-            score: send(test) ? Headlines::CSP_RULES[test] : 0
+            score: send("#{test}?") ? Headlines::CSP_RULES[test] : 0
           }
         end
       end
 
       Headlines::CSP_RULES.keys.each do |rule|
-        define_method("#{rule}") do
+        define_method("#{rule}?") do
           directives.any? { |d| d.send("#{rule}?") }
         end
       end
 
-      def no_csp_header
+      def no_csp_header?
         directives.empty?
       end
 
-      def invalid_csp_header
-        return false if no_csp_header
-
-        !valid?
+      def invalid_csp_header?
+        directives.any?(&:invalid?)
       end
 
-      def identical_report_policy
-        return false unless valid?
-
+      def identical_report_policy?
         directives.any? { |d| d.name == "report-uri" } || value == @headers["content-security-policy-report-only"]
       end
 
-      def no_identical_report_policy
-        return false unless valid?
-
-        !identical_report_policy
+      def no_identical_report_policy?
+        valid? && !identical_report_policy?
       end
 
-      def report_only_header_in_meta
+      def report_only_header_in_meta?
         Nokogiri::HTML(@body).xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
@@ -102,11 +94,11 @@ module Headlines
         ).any?
       end
 
-      def csp_in_meta_and_link_header
+      def csp_in_meta_and_link_header?
         directives.any?(&:in_meta) && @headers["link"]
       end
 
-      def csp_not_in_top_of_meta
+      def csp_not_in_top_of_meta?
         directives.any?(&:in_meta) && first_meta_tag_name == "content-security-policy"
       end
 
