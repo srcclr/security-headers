@@ -27,25 +27,27 @@ module Headlines
                         public-key-pins
                         x-permitted-cross-domain-policies)
 
-  CSP_RULES = { restrictive_default_settings: [4, 0],
-                allows_unsecured_http: [-1, 0],
-                allows_unsecured_http2: [-1, 0],
-                permissive_default_settings: [-2, 0],
-                scripts_from_any_host: [-2, 0],
-                styles_from_any_host: [-2, 0],
-                restrict_javascript: [1, 0],
-                restrict_stylesheets: [1, 0],
-                javascript_nonce: [2, 0],
-                stylesheets_nonce: [2, 0],
-                unsafe_eval_without_nonce: [-2, 0],
-                unsafe_inline_without_nonce: [-2, 0],
-                identical_report_policy: [2, -2],
-                allow_potentially_unsecure_host: [0, 0],
-                report_only_header_in_meta: [-1, 0],
-                frame_ancestors_in_meta: [-1, 0],
-                sandbox_in_meta: [-1, 0],
-                csp_in_meta_and_link_header: [-2, 0],
-                csp_not_in_top_of_meta: [-2, 0] }
+  CSP_RULES = { no_csp_header: -15,
+                invalid_csp_header: -15,
+                restrictive_default_settings: 4,
+                allows_unsecured_http: -1,
+                permissive_default_settings: -2,
+                scripts_from_any_host: -2,
+                styles_from_any_host: -2,
+                restrict_javascript: 1,
+                restrict_stylesheets: 1,
+                javascript_nonce: 2,
+                stylesheets_nonce: 2,
+                unsafe_eval_without_nonce: -2,
+                unsafe_inline_without_nonce: -2,
+                identical_report_policy: 2,
+                no_identical_report_policy: -2,
+                allow_potentially_unsecure_host: 0,
+                report_only_header_in_meta: -1,
+                frame_ancestors_in_meta: -1,
+                sandbox_in_meta: -1,
+                csp_in_meta_and_link_header: -2,
+                csp_not_in_top_of_meta: -2 }
 
   CSP_DIRECTIVES = %w(child-src
                       connect-src

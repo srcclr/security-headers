@@ -44,20 +44,8 @@ module Headlines
         !invalid?
       end
 
-      def http_domain_name?
-        sources.select { |s| s.include?(".") && !s.start_with?("https://") }.any?
-      end
-
-      def https_value?
-        sources.include?("https:")
-      end
-
       def allows_unsecured_http?
-        sources.include?("http:")
-      end
-
-      def allows_unsecured_http2?
-        http_domain_name? && !https_value?
+        sources.include?("http:") || (http_domain_name? && !sources.include?("https:"))
       end
 
       def restrictive_default_settings?
@@ -104,16 +92,22 @@ module Headlines
         in_list?(name) && (sources_hosts - SiteSetting.whitelisted_domains.split("|")).any?
       end
 
-      def in_list?(name)
-        %w(default-src script-src style-src).include?(name)
-      end
-
       def frame_ancestors_in_meta?
         name == "frame-ancestors" && in_meta
       end
 
       def sandbox_in_meta?
         name == "sandbox" && in_meta
+      end
+
+      private
+
+      def in_list?(name)
+        %w(default-src script-src style-src).include?(name)
+      end
+
+      def http_domain_name?
+        sources.select { |s| s.include?(".") && !s.start_with?("https://") }.any?
       end
     end
   end

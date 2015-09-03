@@ -233,7 +233,7 @@ module Headlines
               context "with http protocol declaration" do
                 let(:value) { "default-src 'self'; style-src http: */example.com" }
 
-                it { is_expected.to eq(0) }
+                it { is_expected.to eq(1) }
               end
 
               context "with https protocol declaration" do

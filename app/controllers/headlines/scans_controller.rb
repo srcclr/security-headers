@@ -21,18 +21,23 @@ module Headlines
     end
 
     def domain_as_json
+      { name: url }.merge(scan_results)
+    end
+
+    def scan_results
+      return {} unless result.success?
+
       {
-        name: url,
-        score: results.score,
-        http_score: results.http_score,
-        csp_score: results.csp_score,
-        http_headers: results.params[0..-2],
-        csp_header: results.params.last
+        score: result.score,
+        http_score: result.http_score,
+        csp_score: result.csp_score,
+        http_headers: result.params[0..-2],
+        csp_header: result.params.last
       }
     end
 
-    def results
-      @results ||= AnalyzeDomainHeaders.call(url: url)
+    def result
+      @result ||= AnalyzeDomainHeaders.call(url: url)
     end
 
     def domain_params
