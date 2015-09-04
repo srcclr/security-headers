@@ -7,7 +7,7 @@ module Headlines
     let!(:scan) { create :scan, score: 3 }
     let!(:searchable_domain) { create(:domain, country_code: "AU", scans: [scan]) }
 
-    subject(:filtered_domains) { described_class.new(domains: Domain.all, filter_options: filter_options) }
+    subject(:filtered_domains) { described_class.new(domains: Domain.joins(:scans), filter_options: filter_options) }
 
     describe "#call" do
       context "without any filter" do

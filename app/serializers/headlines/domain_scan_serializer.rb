@@ -17,9 +17,5 @@ module Headlines
     def category
       options[:category]
     end
-
-    def domains
-      options[:domains] || []
-    end
   end
 end
