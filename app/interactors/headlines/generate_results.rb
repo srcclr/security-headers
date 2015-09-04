@@ -24,11 +24,11 @@ module Headlines
     end
 
     def csp_score
-      context.scan_results["content-security-policy"] || -15
+      context.scan_results["content-security-policy"] || CSP_RULES[:no_csp_header]
     end
 
     def overall_score
-      context.http_score >= context.csp_score ? context.http_score : context.csp_score
+      [context.http_score, context.csp_score].max
     end
   end
 end

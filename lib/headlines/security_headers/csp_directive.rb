@@ -49,35 +49,35 @@ module Headlines
       end
 
       def restrictive_default_settings?
-        name == "default-src" && value =~ /^('none'|'self')$/
+        name == "default-src" && value =~ /\A('none'|'self')\z/
       end
 
       def permissive_default_settings?
-        name == "default-src" && value =~ /^'\*'$/
+        name == "default-src" && value =~ /\A'\*'\z/
       end
 
       def scripts_from_any_host?
-        name == "script-src" && value =~ /^'\*'$/
+        name == "script-src" && value =~ /\A'\*'\z/
       end
 
       def styles_from_any_host?
-        name == "style-src" && value =~ /^'\*'$/
+        name == "style-src" && value =~ /\A'\*'\z/
       end
 
       def restrict_javascript?
-        name == "script-src" && value =~ /^'self'$/
+        name == "script-src" && value =~ /\A'self'\z/
       end
 
       def restrict_stylesheets?
-        name == "style-src" && value =~ /^'self'$/
+        name == "style-src" && value =~ /\A'self'\z/
       end
 
       def javascript_nonce?
-        name == "script-src" && value =~ /^'nonce-/
+        name == "script-src" && value =~ /\A'nonce-/
       end
 
       def stylesheets_nonce?
-        name == "style-src" && value =~ /^'nonce-/
+        name == "style-src" && value =~ /\A'nonce-/
       end
 
       def unsafe_eval_without_nonce?

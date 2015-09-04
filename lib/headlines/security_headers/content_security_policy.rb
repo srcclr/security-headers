@@ -10,7 +10,7 @@ module Headlines
       end
 
       def score
-        valid? ? tests.sum { |t| t[:score] } : -15
+        valid? ? tests.sum { |t| t[:score] } : CSP_RULES[:no_csp_header]
       end
 
       def params
