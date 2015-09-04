@@ -1,0 +1,52 @@
+<div class="tests-section">
+  <h3>
+    HTTP headers
+    <span class="tests-overall-score">Grade:
+      <strong class="value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
+    </span>
+  </h3>
+  <table class="tests-table">
+    {{#each header in model.httpHeaders}}
+      <tr>
+        <td>
+          <span class="test-title">{{ header.label }}</span>
+        </td>
+        <td>
+          <span class="test-value">
+            {{ header.title }}: {{ header.value }}
+          </span>
+          <span class="test-value-description">
+            {{ header.description }}
+          </span>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+</div>
+
+<div class="tests-section">
+  <h3>
+    CSP header
+    <span class="tests-overall-score">Grade:
+      <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
+    </span>
+  </h3>
+  <span class="test-value">
+    {{i18n "headlines.tests.content-security-policy.title"}}: {{ model.cspHeader.value }}
+  </span>
+  <table class="tests-table">
+    {{#each test in model.cspHeader.tests}}
+      {{#if test.isApplicable}}
+        <tr>
+          <td>
+            <span class="test-title">
+              <i {{bind-attr class=":fa test.icon"}}></i>
+              {{ test.title }}
+            </span>
+            <span class="test-value-description">{{ test.description }}</span>
+          </td>
+        </tr>
+      {{/if}}
+    {{/each}}
+  </table>
+</div>

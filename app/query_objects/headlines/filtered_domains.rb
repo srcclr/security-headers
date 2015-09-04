@@ -3,8 +3,6 @@ module Headlines
     attr_reader :filter_options
     private :filter_options
 
-    RATINGS = { "A" => [100, 10], "B" => [9, 5], "C" => [4, 0], "D" => [-1, -100] }
-
     def initialize(domains: Domain.none, filter_options: {})
       @domains = domains
       @filter_options = filter_options
@@ -14,7 +12,7 @@ module Headlines
 
     def all
       @domains = country_filtered_domains(@domains, country: filter_options[:country])
-      @domains = issues_filtered_domains(@domains, issues: filter_options[:issues])
+      @domains = headers_filtered_domains(@domains, headers: filter_options[:headers])
       @domains = rating_filtered_domains(@domains, ratings: filter_options[:ratings])
 
       @domains
@@ -28,20 +26,16 @@ module Headlines
       domains.where(country_code: country_code)
     end
 
-    def issues_filtered_domains(domains, issues: nil)
-      return domains unless issues
+    def headers_filtered_domains(domains, headers: nil)
+      return domains unless headers
 
-      domains.joins(:scans).where(issues.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
+      domains.joins(:scans).where(headers.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
     end
 
     def rating_filtered_domains(domains, ratings: nil)
       return domains unless ratings
 
-      domains.joins(:scans).where(ratings.map { |r| "(headlines_scans.score #{in_range_of(r)})" }.join("OR"))
-    end
-
-    def in_range_of(rating)
-      "BETWEEN #{RATINGS[rating][1]} AND #{RATINGS[rating][0]}"
+      domains.joins(:scans).where(headlines_scans: { score: ratings })
     end
 
     def country_code

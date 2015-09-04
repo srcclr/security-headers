@@ -1,19 +1,19 @@
 import Domain from '../models/domain';
-import { issueTypes } from '../../lib/score';
+import { headerTypes } from '../../lib/score';
 
 export default Em.Controller.extend({
   scanUrlPlaceholder: function() {
     return I18n.t('headlines.check_form.field');
   }.property(),
 
-  issueTypes: issueTypes,
+  headerTypes: headerTypes,
   country: '',
 
-  issueFilter: Em.computed('issueTypes.@each.selected', function() {
-    let selectedIssues = _.filter(this.get('issueTypes'), (issue) => { return issue.selected; }),
+  headerFilter: Em.computed('headerTypes.@each.selected', function() {
+    let selectedHeaders = _.filter(this.get('headerTypes'), (header) => { return header.selected; }),
         query = "";
 
-    selectedIssues.forEach((issue) => { query += "&issues[]=" + issue.name });
+    selectedHeaders.forEach((header) => { query += "&headers[]=" + header.name });
 
     return query;
   }),

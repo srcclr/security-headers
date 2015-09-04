@@ -1,54 +1,20 @@
-import { statusIs } from '../../lib/score';
+import { gradeIs } from '../../lib/score'
+import Header from './header'
+import CspHeader from './csp-header'
 
 let Domain = Discourse.Model.extend({
-  spyingTestHeaders: ['strict-transport-security'],
-  ensuresSiteTestHeaders: ['strict-transport-security', 'x-frame-options'],
-  launchMalwareTestHeaders: ['x-xss-protection', 'x-content-type-options', 'content-security-policy'],
-
-  headers: Em.computed(function() {
-    return Object.keys(this.get('scanResults'));
+  http_grade: Em.computed(function() {
+    return gradeIs(this.get('http_score'));
   }),
 
-  testScore(headers) {
-    let sum = 0;
-
-    if (!this.get('scanResults')) { return 0; }
-
-    headers.forEach((header) => {
-      sum += parseInt(this.get('scanResults')[header]);
-    });
-
-    return sum;
-  },
+  csp_grade: Em.computed(function() {
+    return gradeIs(this.get('csp_score'));
+  }),
 
   status: Em.computed(function() {
-    return statusIs(this.get('score'));
-  }),
-
-  spyingTestScore: Em.computed(function() {
-    return this.testScore(this.get('spyingTestHeaders'));
-  }),
-
-  ensuresSiteTestScore: Em.computed(function() {
-    return this.testScore(this.get('ensuresSiteTestHeaders'));
-  }),
-
-  launchMalwareTestScore: Em.computed(function() {
-    return this.testScore(this.get('launchMalwareTestHeaders'));
-  }),
-
-  spyingCommunicationsTest: Em.computed(function() {
-    return statusIs(this.get('spyingTestScore'));
-  }),
-
-  ensuresSiteTest: Em.computed(function() {
-    return statusIs(this.get('ensuresSiteTestScore'));
-  }),
-
-  launchMalwareTest: Em.computed(function() {
-    return statusIs(this.get('launchMalwareTestScore'));
+    return gradeIs(this.get('score'));
   })
-});
+})
 
 Domain.reopenClass({
   createFromJson(json) {
@@ -58,10 +24,13 @@ Domain.reopenClass({
       rank: json.rank,
       country: json.country,
       score: json.score,
-      scanResults: json.scan_results,
-      lastScanDate: json.last_scan_date
+      http_score: json.http_score,
+      csp_score: json.csp_score,
+      lastScanDate: json.last_scan_date,
+      httpHeaders: _.map(json.http_headers, (header) => { return Header.create(header); }),
+      cspHeader: CspHeader.createFromJson(json.csp_header || {})
     })
   }
 })
 
-export default Domain;
+export default Domain

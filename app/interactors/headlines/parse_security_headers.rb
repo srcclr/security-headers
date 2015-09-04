@@ -5,19 +5,25 @@ module Headlines
     def call
       context.fail! unless response.success?
 
-      context.headers = parse_headers
-    rescue Faraday::ClientError
-      context.fail!(message: I18n.t("connection.failed", url: context.url))
+      context.headers = parse_headers.push(parse_csp)
     end
 
     private
 
     def response
-      @response ||= connection.get do |req|
-        req.url "/"
-        req.options.timeout = 15
-        req.options.open_timeout = 10
-      end
+      @response ||= connection.get("/")
+    rescue Faraday::ClientError, Errno::ETIMEDOUT
+      @response = head_request
+    end
+
+    def head_request
+      @head_request = connection.head("/")
+    rescue Faraday::ClientError, Errno::ETIMEDOUT
+      context.fail!(message: I18n.t("connection.failed", url: context.url))
+    end
+
+    def parse_csp
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new(response.headers, response.body, context.url)
     end
 
     def parse_headers
@@ -25,7 +31,11 @@ module Headlines
     end
 
     def security_headers
-      formatted_headers.slice(*SECURITY_HEADERS)
+      empty_headers_hash.merge(formatted_headers.slice(*SECURITY_HEADERS))
+    end
+
+    def empty_headers_hash
+      Hash[SECURITY_HEADERS.zip(Array.new(SECURITY_HEADERS.size, ""))]
     end
 
     def formatted_headers

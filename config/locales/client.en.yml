@@ -10,28 +10,126 @@ en:
           Also scan your site to see how you are doing.
 
       country: "Country"
-      issue_type: "Issue Type"
+      header_type: "Header Type"
       view_all_sites: "View All Sites"
       statistic_by_sites: "Statistic by sites"
-      issue: "Issue"
+      rating: "Rating"
       status: "Status"
       back: "Back"
       url: "URL"
+      all: "All"
       last_scan: "Last Scan"
       similar_urls: "% of similar urls that contain"
       tests:
-        title: "Tests"
-        spying-communications:
-          title: "Stops others from spying or modifying your communications"
-          issues: "HSTS"
-        ensures-site:
-          title: "Ensures you're talking to who you think you are"
-          issues: "HSTS and X-Frame-Options"
-        launch-malware:
-          title: "Protects you from common vulnerabilities used to launch malware"
-          issues: "X-XSS, X-Content-Type-Options and CSP"
+        strict-transport-security:
+          label: "Strict-Transport-Security (HSTS)"
+          title: "STRICT-TRANSPORT-SECURITY"
+          score-1: "HTTP Strict Transport Security disabled"
+          score1: "HTTP Strict Transport Security is enabled"
+          score2: "HTTP Strict Transport Security is enabled with sub-domains"
+        x-xss-protection:
+          label: "X-Xss-Protection"
+          title: "X-XSS-PROTECTION"
+          score-1: "Disabled blocking of Cross Site Scripting attacks."
+          score1: "Limited blocking of certain types of Cross Site Scripting attacks."
+          score2: "Blocks certain types of Cross Site Scripting attacks."
+        x-content-type-options:
+          label: "X-Content-Type-Options"
+          title: "X-CONTENT-TYPE-OPTIONS"
+          score0: "*no description*"
+          score1: "Prevent attacks based on MIME-type confusion."
+        x-download-options:
+          label: "X-Download-Options"
+          title: "X-DOWNLOAD-OPTIONS"
+          score0: "*no description*"
+          score1: "Disables showing the open dialog for downloaded files."
+        x-frame-options:
+          label: "X-Frame-Options"
+          title: "X-FRAME-OPTIONS"
+          score-1: "Does not use X-Frame-Options. This can increase the risk of a clickjacking attack."
+          score1: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on a whitelisted domain."
+          score2: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on the same origin."
+          score3: "Blocks rendering this page inside of <frame>, <iframe>, and <object>'s. This can help prevent clickjacking attacks."
+        public-key-pins:
+          label: "Public-Key-Pins"
+          title: "PUBLIC-KEY-PINS"
+          score0: "*no description*"
+          score1: "Uses Report-Only header"
+          score2: "Uses Public-Key-Pins header"
+          score3: "Includes report-uri in Public-Key-Pins header"
+          score4: "Includes sub-domains in Public-Key-Pins header"
+        x-permitted-cross-domain-policies:
+          label: "X-Permitted-Cross-Domain-Policies"
+          title: "X-PERMITTED-CROSS-DOMAIN-POLICIES"
+          score0: "*no description*"
+          score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
+        content-security-policy:
+          title: "CONTENT-SECURITY-POLICY"
+          no_csp_header:
+            title: "No Content-Security-Policy"
+            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross Site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
+          invalid_csp_header:
+            title: "Invalid Content-Security-Policy"
+            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross Site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
+          restrictive_default_settings:
+            title: "Restrictive default settings"
+            description: "Using restrictive defaults and overriding them when necessary is a good practice."
+          allows_unsecured_http:
+            title: "Allows unsecured HTTP"
+            description: "Using HTTPS protects against eavesdropping and man-in-the-middle attacks. Consider switching to HTTPS."
+          permissive_default_settings:
+            title: "Permissive default settings"
+            description: "Using permissive defaults can be dangerous without carefully considering other directives. It's advisable to set restrictive defaults such as 'self' and override when necessary."
+          scripts_from_any_host:
+            title: "Allows scripts from any host"
+            description: "Allowing JavaScript from any host increases the risk of Cross Site Scripting attacks. Consider using 'self' and specifically including any other necessary domains."
+          styles_from_any_host:
+            title: "Allows style sheets from any host"
+            description: "Allowing style sheets from any host increases the risk of CSS injection attacks. Consider using 'self' and specifically including any other necessary domains."
+          restrict_javascript:
+            title: "Restricts JavaScripts to self and explicitly whitelisted hosts"
+            description: "Only allowing JavaScript from self and explicitly whitelisted hosts can reduce risk of attack."
+          restrict_stylesheets:
+            title: "Restricts style sheets to self and explicitly whitelisted hosts"
+            description: "Only allowing style sheets from self and explicitly whitelisted hosts can reduce risk of attack."
+          javascript_nonce:
+            title: "Uses JavaScript nonce"
+            description: "Using a JavaScript nonce makes script injection attacks more difficult because the attacker must guess the nonce value."
+          stylesheets_nonce:
+            title: "Uses style sheet nonce"
+            description: "Using a style sheet nonce makes style sheet injection attacks more difficult because the attacker must guess the nonce value."
+          unsafe_eval_without_nonce:
+            title: "Uses unsafe-eval without nonce"
+            description: "Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce."
+          unsafe_inline_without_nonce:
+            title: "Uses unsafe-inline without nonce"
+            description: "Allowing unsafe-eval can increase risk of various types of attacks. Consider adding a nonce which makes injecting malicious code more difficult as an attacker would need to guess the nonce."
+          identical_report_policy:
+            title: "Reporting Content Security Policy violations"
+            description: "Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings."
+          no_identical_report_policy:
+            title: "Not reporting Content Security Policy violations"
+            description: "Reporting Content Security Policy violations helps identify failed exploit attempts or misconfigured Content Security Policy settings."
+          allow_potentially_unsecure_host:
+            title: "Allows potentially insecure host"
+            description: "This domain is not known and may be insecure. Allowing resources from this domain may be risky. If the domain is controlled by the administrator, this warning can be ignored."
+          report_only_header_in_meta:
+            title: "Illegal security policy settings for <meta>"
+            description: "The Content-Security-Policy-Report-Only settings can not be declared via <meta> tags. Use the HTTP header instead."
+          frame_ancestors_in_meta:
+            title: "Illegal policy directive for <meta>"
+            description: "The frame-ancestors directive can not be declared via <meta> tag. Use the HTTP header instead."
+          sandbox_in_meta:
+            title: "Illegal policy directive for <meta>"
+            description: "The sandbox directive can not be declared via <meta> tag. Use the HTTP header instead."
+          csp_in_meta_and_link_header:
+            title: "Content-Security-Policy is defined with <meta> tags and server sends a Link HTTP header"
+            description: "Resources fetched or prefetched using the Link HTTP response header field which preceed a <meta>-delivered policy will not be blocked."
+          csp_not_in_top_of_meta:
+            title: "Content-Security-Policy is defined with <meta> tags and is not at the top of <head>"
+            description: "It is strongly encouraged to place meta elements as early in the document as possible, because policies in meta elements are not applied to content which preceeds them."
       passed_tests: "Passed Tests"
-      issues:
+      headers:
         strict-transport-security: "HSTS"
         x-xss-protection: "X-XSS-Protection"
         x-content-type-options: "X-Content-Type-Options"
@@ -40,6 +138,7 @@ en:
         content-security-policy: "X-Content-Security-Options"
         public-key-pins: "Public-Key-Pins"
         x-permitted-cross-domain-policies: "X-Permitted-Cross-Domain-Policies"
+        content-security-policy: "Content-Security-Policy"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722155410) do
+ActiveRecord::Schema.define(version: 20150824151647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20150722155410) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "score",      default: 0
+    t.integer  "http_score", default: 0
+    t.integer  "csp_score",  default: 0
   end
 
   add_index "headlines_scans", ["domain_id"], name: "index_headlines_scans_on_domain_id", using: :btree

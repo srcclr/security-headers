@@ -1,10 +1,18 @@
 module Headlines
   class DomainScanSerializer < DomainSerializer
-    attributes :vulnerabilities_report
+    attributes :http_headers, :csp_header
 
     has_one :category, serializer: CategoryWithParentSerializer
 
     private
+
+    def http_headers
+      object.scan_headers[0..-2]
+    end
+
+    def csp_header
+      object.scan_headers.last
+    end
 
     def category
       options[:category]
@@ -12,10 +20,6 @@ module Headlines
 
     def domains
       options[:domains] || []
-    end
-
-    def vulnerabilities_report
-      VulnerabilitiesReport.new(domains.map(&:scan_results)).report
     end
   end
 end

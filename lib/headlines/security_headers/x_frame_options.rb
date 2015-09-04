@@ -2,7 +2,7 @@ module Headlines
   module SecurityHeaders
     class XFrameOptions < SecurityHeader
       SCORES = { deny: 3,  sameorigin: 2 }
-      ALLOW_FROM_REGEXP = %r{^allow-from https?://(?<domain>.+)$}
+      ALLOW_FROM_REGEXP = %r{\Aallow-from https?://(?<domain>.+)\z}
 
       def score
         value.presence ? score_by_value : -1

@@ -2,6 +2,6 @@ module Headlines
   class AnalyzeDomainHeaders
     include Interactor::Organizer
 
-    organize ParseSecurityHeaders, GenerateHeadersParamsHash, GenerateScanResultsHash
+    organize ParseSecurityHeaders, GenerateResults
   end
 end

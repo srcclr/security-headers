@@ -2,7 +2,7 @@ import Domain from '../models/domain'
 import DomainNameFilter from '../mixins/domain-name-filter'
 import { ratings } from '../../lib/score'
 
-const FILTERS = ['countryFilter', 'ratingFilter', 'issueFilter', 'offsetFilter', 'domainNameFilter']
+const FILTERS = ['countryFilter', 'ratingFilter', 'headerFilter', 'offsetFilter', 'domainNameFilter']
 const TIME_TO_WAIT_BEFORE_UPDATE_RESULTS = 500;
 
 export default Em.Controller.extend(DomainNameFilter, {
@@ -11,8 +11,8 @@ export default Em.Controller.extend(DomainNameFilter, {
   hideSubCategories: true,
   noResults: false,
 
-  issueTypes: Em.computed.alias('controllers.headlines.issueTypes'),
-  issueFilter: Em.computed.alias('controllers.headlines.issueFilter'),
+  headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
+  headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
 
   countries: Em.computed.alias('controllers.headlines.countries'),
   country: Em.computed.alias('controllers.headlines.country'),
@@ -39,7 +39,7 @@ export default Em.Controller.extend(DomainNameFilter, {
   searchNeeded: Em.observer(
     'country',
     'ratings.@each.selected',
-    'issueTypes.@each.selected',
+    'headerTypes.@each.selected',
     'domainNameSearch',
     function() {
       Em.run.debounce(this, this.searchResults, TIME_TO_WAIT_BEFORE_UPDATE_RESULTS);
@@ -57,7 +57,7 @@ export default Em.Controller.extend(DomainNameFilter, {
   ratingFilter: Em.computed('ratings.@each.selected', function() {
     if (this.get('selectedRatings').length <= 0) { return ""; }
 
-    let ratings = _.pluck(this.get('selectedRatings'), 'name');
+    let ratings = _.pluck(this.get('selectedRatings'), 'score');
 
     return "&ratings[]=" + ratings.join("&ratings[]=");
   }),
