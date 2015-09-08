@@ -35,13 +35,20 @@ namespace :headlines do
     result = Headlines::AnalyzeDomainHeaders.call(url: domain.name)
 
     if result.success?
-      domain.scans.create!(headers: result.params,
-                           results: result.scan_results,
-                           score: result.score,
-                           http_score: result.http_score,
-                           csp_score: result.csp_score)
+      domain.build_last_scan(scan_params(result).merge(domain_id: domain.id))
+      domain.save!
     end
 
     result
+  end
+
+  def scan_params(result)
+    {
+      headers: result.params,
+      results: result.scan_results,
+      score: result.score,
+      http_score: result.http_score,
+      csp_score: result.csp_score
+    }
   end
 end

@@ -3,13 +3,13 @@ module Headlines
     validates :name, presence: true
 
     has_many :scans
-    has_one :scan, -> { order(id: :desc) }
+    belongs_to :last_scan, class_name: "Scan"
     has_many :domains_categories, foreign_key: :domain_name, primary_key: :name
     has_many :categories, through: :domains_categories
 
     delegate :categories, to: :data_alexa, prefix: true
-    delegate :headers, to: :scan, prefix: true
-    delegate :score, :http_score, :csp_score, to: :scan
+    delegate :headers, to: :last_scan, prefix: true
+    delegate :score, :http_score, :csp_score, to: :last_scan
 
     def data_alexa=(value)
       self[:data_alexa] = value

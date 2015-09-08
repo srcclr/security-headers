@@ -72,9 +72,8 @@ module Headlines
     def category_domains(category, limit: 25)
       filtered_domains(
         DomainsInCategory.new(category: category)
-          .includes(:scans)
-          .joins(:scans)
-          .where("headlines_scans.id = (SELECT MAX(headlines_scans.id) FROM headlines_scans WHERE headlines_scans.domain_id = headlines_domains.id)")
+          .includes(:last_scan)
+          .joins(:last_scan)
           .offset(offset)
           .order(:rank)
           .limit(limit)

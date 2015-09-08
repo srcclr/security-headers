@@ -13,7 +13,7 @@ module Headlines
     end
 
     def last_scan_date
-      object.scan.created_at
+      object.last_scan.created_at
     end
   end
 end

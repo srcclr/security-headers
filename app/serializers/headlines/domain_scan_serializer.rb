@@ -7,11 +7,11 @@ module Headlines
     private
 
     def http_headers
-      object.scan_headers[0..-2]
+      object.last_scan_headers[0..-2]
     end
 
     def csp_header
-      object.scan_headers.last
+      object.last_scan_headers.last
     end
 
     def category
