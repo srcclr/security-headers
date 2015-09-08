@@ -29,13 +29,13 @@ module Headlines
     def headers_filtered_domains(domains, headers: nil)
       return domains unless headers
 
-      domains.joins(:scans).where(headers.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
+      domains.where(headers.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
     end
 
     def rating_filtered_domains(domains, ratings: nil)
       return domains unless ratings
 
-      domains.joins(:scans).where(headlines_scans: { score: ratings })
+      domains.where(headlines_scans: { score: ratings })
     end
 
     def country_code

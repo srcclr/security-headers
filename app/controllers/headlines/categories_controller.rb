@@ -72,10 +72,10 @@ module Headlines
     def category_domains(category, limit: 25)
       filtered_domains(
         DomainsInCategory.new(category: category)
-          .includes(:scan)
-          .joins(:scan)
+          .includes(:last_scan)
+          .joins(:last_scan)
           .offset(offset)
-          .order("rank")
+          .order(:rank)
           .limit(limit)
       )
     end
