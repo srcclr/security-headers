@@ -9,7 +9,7 @@ module Headlines
       context.params = { headers: headers,
                          http_headers: headers[0..-2],
                          csp_header: headers.last,
-                         scan_results: scan_results,
+                         results: scan_results,
                          score: overall_score,
                          http_score: http_score,
                          csp_score: csp_score }
