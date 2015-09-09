@@ -27,13 +27,7 @@ module Headlines
     def scan_results
       return {} unless result.success?
 
-      {
-        score: result.score,
-        http_score: result.http_score,
-        csp_score: result.csp_score,
-        http_headers: result.params[0..-2],
-        csp_header: result.params.last
-      }
+      result[:params].slice(:score, :http_score, :csp_score, :http_headers, :csp_header)
     end
 
     def result

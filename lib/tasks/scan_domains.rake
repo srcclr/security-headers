@@ -43,12 +43,6 @@ namespace :headlines do
   end
 
   def scan_params(result)
-    {
-      headers: result.params,
-      results: result.scan_results,
-      score: result.score,
-      http_score: result.http_score,
-      csp_score: result.csp_score
-    }
+    result[:params].slice(:headers, :results, :score, :http_score, :csp_score)
   end
 end

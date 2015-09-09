@@ -6,29 +6,37 @@ module Headlines
     CSP_RATINGS = [(-100..-6), (-5..-1), (0..4), (5..100)]
 
     def call
-      context.params = context.headers.map(&:params)
-      context.scan_results = scan_results
-      context.http_score = HTTP_RATINGS.index { |r| r.include?(http_score) }
-      context.csp_score = CSP_RATINGS.index { |r| r.include?(csp_score) }
-      context.score = overall_score
+      context.params = { headers: headers,
+                         http_headers: headers[0..-2],
+                         csp_header: headers.last,
+                         scan_results: scan_results,
+                         score: overall_score,
+                         http_score: http_score,
+                         csp_score: csp_score }
     end
 
     private
 
+    def headers
+      @headers ||= context.headers.map(&:params)
+    end
+
     def scan_results
-      Hash[context.headers.map { |header| [header.name, header.score] }]
+      @scan_results ||= Hash[context.headers.map { |header| [header.name, header.score] }]
     end
 
     def http_score
-      context.scan_results.slice(*SECURITY_HEADERS).values.sum
+      score = scan_results.slice(*SECURITY_HEADERS).values.sum
+      HTTP_RATINGS.index { |r| r.include?(score) }
     end
 
     def csp_score
-      context.scan_results["content-security-policy"] || CSP_RULES[:no_csp_header]
+      score = scan_results["content-security-policy"] || CSP_RULES[:no_csp_header]
+      CSP_RATINGS.index { |r| r.include?(score) }
     end
 
     def overall_score
-      [context.http_score, context.csp_score].max
+      [http_score, csp_score].max
     end
   end
 end
