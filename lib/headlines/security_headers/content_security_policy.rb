@@ -27,13 +27,9 @@ module Headlines
         @directives ||= header_directives
         meta_directives.each do |meta_directive|
           directive = @directives.find { |d| d.name == meta_directive.name }
-          if directive
-            directive.in_meta = true
-            directive.sources = directive.sources & meta_directive.sources
-          else
-            @directives.push(meta_directive)
-          end
+          directive ? directive.merge(meta_directive) : @directives.push(meta_directive)
         end
+
         @directives
       end
 

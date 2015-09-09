@@ -100,6 +100,11 @@ module Headlines
         name == "sandbox" && in_meta
       end
 
+      def merge(directive)
+        self.in_meta = in_meta || directive.in_meta
+        self.sources = sources & directive.sources
+      end
+
       private
 
       def in_list?(name)
