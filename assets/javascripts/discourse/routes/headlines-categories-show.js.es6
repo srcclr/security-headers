@@ -17,6 +17,11 @@ export default Discourse.Route.extend({
     return PreloadStore.getAndRemove('category', fetchModel(params.id, query)).then(wrapModel);
   },
 
+  setupController(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('showFooter', true);
+  },
+
   actions: {
     willTransition() {
       this.set('controller.domainNameSearch', '');
