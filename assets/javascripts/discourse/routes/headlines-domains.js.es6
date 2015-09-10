@@ -26,5 +26,10 @@ function wrapDomain(domain) {
 export default Discourse.Route.extend({
   model(params) {
     return PreloadStore.getAndRemove('domain_scan', fetchModel(params.category_id, params.id)).then(wrapDomain);
+  },
+
+  setupController(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('showFooter', true);
   }
 })

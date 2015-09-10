@@ -17,5 +17,10 @@ export default Discourse.Route.extend({
 
   model(params) {
     return PreloadStore.getAndRemove('domain_scan', scanDomain(params.url)).then(wrapDomain);
+  },
+
+  setupController(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('showFooter', true);
   }
 })
