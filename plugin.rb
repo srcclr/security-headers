@@ -1,7 +1,7 @@
 # name: headlines
 # about: Security vulnerabilities scanner
 # version: 0.0.1
-# author: Securonauts
+# author: SourceClear
 
 gem("interactor", "3.1.0")
 gem("interactor-rails", "2.0.1", require_name: "interactor/rails")
@@ -18,5 +18,5 @@ register_asset("stylesheets/views/headlines.css.scss")
 require(File.expand_path("../lib/headlines", __FILE__))
 
 Discourse::Application.routes.append do
-  mount Headlines::Engine, at: "/headlines"
+  mount Headlines::Engine, at: "/projects/security-headers"
 end

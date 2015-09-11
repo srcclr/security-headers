@@ -1,7 +1,7 @@
 import Category from '../models/category'
 
 function fetchModel(category_id, query) {
-  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories/" + category_id + "?" + query)); };
+  return () => { return Discourse.ajax(Discourse.getURL("/projects/security-headers/categories/" + category_id + "?" + query)); };
 }
 
 function wrapModel(model) {
