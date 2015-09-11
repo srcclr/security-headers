@@ -5,7 +5,7 @@ import CspHeader from '../models/csp-header'
 
 function fetchModel(category_id, domain_id) {
   return () => {
-    return Discourse.ajax('/headlines/categories/' + category_id + '/domains/' + domain_id);
+    return Discourse.ajax('/projects/security-headers/categories/' + category_id + '/domains/' + domain_id);
   };
 }
 

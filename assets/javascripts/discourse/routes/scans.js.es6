@@ -1,7 +1,7 @@
 import Domain from '../models/domain'
 
 function scanDomain(name) {
-  return () => { return Discourse.ajax(Discourse.getURL('/headlines/scans?url=' + name)); };
+  return () => { return Discourse.ajax(Discourse.getURL('/projects/security-headers/scans?url=' + name)); };
 }
 
 function wrapDomain(domain) {
