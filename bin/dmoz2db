@@ -2,27 +2,45 @@
 
 DMOZ_DIR=/tmp/dbmoz2db
 DMOZ_LIB=https://github.com/fs/dmoz2db
+DMOZ_DBNAME=dmoz
+DISCOURSE_DBNAME=discourse
 
 if ! which pip > /dev/null; then
-  wget https://bootstrap.pypa.io/get-pip.py /tmp/get-pip.py
+  wget https://bootstrap.pypa.io/get-pip.py -P /tmp
   python /tmp/get-pip.py
 fi
 
-pip install sqlalchemy;
+sudo apt-get install libpq-dev python-dev
+pip install sqlalchemy --upgrade
+pip install psycopg2 --upgrade
 
-if [ ! -f DMOZ_DIR ]; then
-  git clone https://github.com/fs/dmoz2db DMOZ_DIR
-end
+if [ ! -f $DMOZ_DIR ]; then
+  git clone https://github.com/fs/dmoz2db $DMOZ_DIR
+fi
 
-cd DMOZ_DIR
+cd $DMOZ_DIR
 
-wget http://rdf.dmoz.org/rdf/content.rdf.u8.gz src/content.rdf.u8.gz
+wget http://rdf.dmoz.org/rdf/content.rdf.u8.gz -P src/
 gunzip src/content.rdf.u8.gz
 
-wget http://rdf.dmoz.org/rdf/content.rdf.u8.gz src/structure.rdf.u8.gz
+wget http://rdf.dmoz.org/rdf/structure.rdf.u8.gz -P src/
 gunzip src/structure.rdf.u8.gz
 
-cd src
-python dbmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
+su - postgres <<EOF
+cd $DMOZ_DIR/src
+createdb $DMOZ_DBNAME
+python dmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
+psql $DMOZ_DBNAME < normalize.sql
+pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > dmoz_categories.sql
+EOF
+
+su - discourse <<EOF
+cd $DMOZ_DIR/src
+psql $DISCOURSE_DBNAME < dmoz_categories.sql
+EOF
+
+su - postgres -c "dropdb $DMOZ_DBNAME"
+
 rm structure.rdf.u8
 rm content.rdf.u8
+rm /tmp/get-pip.py
