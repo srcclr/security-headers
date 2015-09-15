@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+DMOZ_DIR=/tmp/dbmoz2db
+DMOZ_LIB=https://github.com/fs/dmoz2db
+
+if ! which pip > /dev/null; then
+  wget https://bootstrap.pypa.io/get-pip.py /tmp/get-pip.py
+  python /tmp/get-pip.py
+fi
+
+pip install sqlalchemy;
+
+if [ ! -f DMOZ_DIR ]; then
+  git clone https://github.com/fs/dmoz2db DMOZ_DIR
+end
+
+cd DMOZ_DIR
+
+wget http://rdf.dmoz.org/rdf/content.rdf.u8.gz src/content.rdf.u8.gz
+gunzip src/content.rdf.u8.gz
+
+wget http://rdf.dmoz.org/rdf/content.rdf.u8.gz src/structure.rdf.u8.gz
+gunzip src/structure.rdf.u8.gz
+
+cd src
+python dbmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
+rm structure.rdf.u8
+rm content.rdf.u8
