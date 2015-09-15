@@ -7,7 +7,7 @@ module Headlines
       @category = category
     end
 
-    delegate :count, :limit, :includes, :joins, :order, to: :all
+    delegate :count, :limit, :includes, :joins, :offset, :find, :order, to: :all
 
     def all
       Domain.where("headlines_domains.parent_category_ids && ARRAY[?]", category.id)

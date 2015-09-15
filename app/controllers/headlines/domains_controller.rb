@@ -22,28 +22,16 @@ module Headlines
         domain,
         DomainScanSerializer,
         root: false,
-        category: category,
-        domains: category_domains(category)
+        category: category
       )
     end
 
     def category
-      @category ||= CategoryWithParents.new(Category.find(params[:category_id]))
-    end
-
-    def category_domains(category)
-      DomainsInCategory.new(category: category)
-        .includes(:scan)
-        .joins(:scan)
-        .order("rank DESC")
-        .limit(100)
+      @category ||= CategoryWithParents.new(Headlines::Category.find(params[:category_id]))
     end
 
     def domain
-      DomainsInCategory.new(category: category)
-        .includes(:scan)
-        .order("rank DESC")
-        .find(params[:id])
+      DomainsInCategory.new(category: category).find(params[:id])
     end
   end
 end

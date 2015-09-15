@@ -12,23 +12,29 @@ module Headlines
 
         it { is_expected.to be_a_success }
 
-        its(:scan_results) { is_expected.to be_present }
-        its("scan_results.size") { is_expected.to eq(2)  }
-        its(:params) { is_expected.to be_present }
-        its("params.size") { is_expected.to eq 2 }
+        it "return hash with parameters" do
+          expect(context.params).to be_present
+          expect(context.params.size).to eq(7)
+        end
       end
 
       describe "returns properly headers score values" do
-        subject(:scan_results) { described_class.call(headers: headers).scan_results }
+        subject(:scan_results) { described_class.call(headers: headers).params[:scan_results] }
 
-        its(["x-xss-protection"]) { is_expected.to eq(2) }
-        its(["x-frame-options"]) { is_expected.to eq(2) }
+        it "returns scores for given headers" do
+          expect(scan_results["x-xss-protection"]).to eq(2)
+          expect(scan_results["x-frame-options"]).to eq(2)
+        end
       end
 
       describe "calculates domain score" do
-        subject(:score) { described_class.call(headers: headers).score }
+        subject(:params) { described_class.call(headers: headers).params }
 
-        it { is_expected.to eq(1) }
+        it "returns domain scores" do
+          expect(params[:http_score]).to eq(1)
+          expect(params[:csp_score]).to eq(0)
+          expect(params[:score]).to eq(1)
+        end
       end
     end
   end

@@ -1,7 +1,7 @@
 import Category from '../models/category'
 
 function fetchModel(category_id, query) {
-  return () => { return Discourse.ajax(Discourse.getURL("/headlines/categories/" + category_id + "?" + query)); };
+  return () => { return Discourse.ajax(Discourse.getURL("/projects/security-headers/categories/" + category_id + "?" + query)); };
 }
 
 function wrapModel(model) {
@@ -15,6 +15,11 @@ export default Discourse.Route.extend({
         query = headlinesController.get('countryFilter') + headlinesController.get('headerFilter') + controller.get('ratingFilter');
 
     return PreloadStore.getAndRemove('category', fetchModel(params.id, query)).then(wrapModel);
+  },
+
+  setupController(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('showFooter', true);
   },
 
   actions: {

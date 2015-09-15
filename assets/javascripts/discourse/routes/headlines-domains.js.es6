@@ -5,7 +5,7 @@ import CspHeader from '../models/csp-header'
 
 function fetchModel(category_id, domain_id) {
   return () => {
-    return Discourse.ajax('/headlines/categories/' + category_id + '/domains/' + domain_id);
+    return Discourse.ajax('/projects/security-headers/categories/' + category_id + '/domains/' + domain_id);
   };
 }
 
@@ -26,5 +26,10 @@ function wrapDomain(domain) {
 export default Discourse.Route.extend({
   model(params) {
     return PreloadStore.getAndRemove('domain_scan', fetchModel(params.category_id, params.id)).then(wrapDomain);
+  },
+
+  setupController(controller, model) {
+    controller.set('model', model);
+    this.controllerFor('application').set('showFooter', true);
   }
 })
