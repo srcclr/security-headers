@@ -15,7 +15,7 @@ pip install sqlalchemy --upgrade
 pip install psycopg2 --upgrade
 
 if [ ! -f $DMOZ_DIR ]; then
-  git clone https://github.com/fs/dmoz2db $DMOZ_DIR
+  git clone -b update-conf https://github.com/fs/dmoz2db $DMOZ_DIR
 fi
 
 cd $DMOZ_DIR
@@ -31,16 +31,22 @@ cd $DMOZ_DIR/src
 createdb $DMOZ_DBNAME
 python dmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
 psql $DMOZ_DBNAME < normalize.sql
-pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > dmoz_categories.sql
 EOF
+echo 'Parse complete!'
+
+sudo -u postgres -i pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > dmoz_categories.sql
+echo 'Dump complete!'
 
 su - discourse <<EOF
 cd $DMOZ_DIR/src
 psql $DISCOURSE_DBNAME < dmoz_categories.sql
 EOF
+echo 'Restore domplete!'
 
 su - postgres -c "dropdb $DMOZ_DBNAME"
+echo 'Dropped dmoz db'
 
 rm structure.rdf.u8
 rm content.rdf.u8
 rm /tmp/get-pip.py
+rm -rf $DMOZ_DIR
