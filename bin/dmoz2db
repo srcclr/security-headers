@@ -50,3 +50,6 @@ rm structure.rdf.u8
 rm content.rdf.u8
 rm /tmp/get-pip.py
 rm -rf $DMOZ_DIR
+
+echo '---> Parse DMOZ data complete!'
+exit 0
