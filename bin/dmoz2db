@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-DMOZ_DIR=/tmp/dbmoz2db
+DMOZ_DIR=/tmp/dmoz2db
 DMOZ_LIB=https://github.com/fs/dmoz2db
 DMOZ_DBNAME=dmoz
 DISCOURSE_DBNAME=discourse
