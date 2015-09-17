@@ -28,6 +28,7 @@ gunzip src/structure.rdf.u8.gz
 
 su - postgres <<EOF
 cd $DMOZ_DIR/src
+dropdb $DMOZ_DBNAME
 createdb $DMOZ_DBNAME
 python dmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
 psql $DMOZ_DBNAME < normalize.sql
