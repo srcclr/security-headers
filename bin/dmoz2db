@@ -32,19 +32,21 @@ createdb $DMOZ_DBNAME
 python dmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
 psql $DMOZ_DBNAME < normalize.sql
 EOF
-echo 'Parse complete!'
+echo '---> Parse complete!'
 
 sudo -u postgres -i pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > $DMOZ_DIR/src/dmoz_categories.sql
 echo 'Dump complete!'
 
 su - discourse <<EOF
 cd $DMOZ_DIR/src
+psql -c 'DELETE from headlines_domains_categories;'
+psql -c 'DELETE from headlines_categories;'
 psql $DISCOURSE_DBNAME < dmoz_categories.sql
 EOF
-echo 'Restore domplete!'
+echo '---> Restore complete!'
 
 su - postgres -c "dropdb $DMOZ_DBNAME"
-echo 'Dropped dmoz db'
+echo '---> Dropped dmoz db'
 
 rm /tmp/get-pip.py
 rm -rf $DMOZ_DIR
