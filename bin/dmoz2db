@@ -10,12 +10,12 @@ if ! which pip > /dev/null; then
   python /tmp/get-pip.py
 fi
 
-sudo apt-get install libpq-dev python-dev
+sudo apt-get install -y libpq-dev python-dev
 pip install sqlalchemy --upgrade
 pip install psycopg2 --upgrade
 
 if [ ! -f $DMOZ_DIR ]; then
-  git clone -b update-conf https://github.com/fs/dmoz2db $DMOZ_DIR
+  git clone https://github.com/fs/dmoz2db $DMOZ_DIR
 fi
 
 cd $DMOZ_DIR
@@ -28,26 +28,27 @@ gunzip src/structure.rdf.u8.gz
 
 su - postgres <<EOF
 cd $DMOZ_DIR/src
+dropdb $DMOZ_DBNAME
 createdb $DMOZ_DBNAME
 python dmoz2db.py -s structure.rdf.u8 -c content.rdf.u8
 psql $DMOZ_DBNAME < normalize.sql
 EOF
-echo 'Parse complete!'
+echo '---> Parse complete!'
 
-sudo -u postgres -i pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > dmoz_categories.sql
+sudo -u postgres -i pg_dump --table headlines_domains_categories --table headlines_categories --data-only dmoz > $DMOZ_DIR/src/dmoz_categories.sql
 echo 'Dump complete!'
 
 su - discourse <<EOF
 cd $DMOZ_DIR/src
+psql -c 'DELETE from headlines_domains_categories;'
+psql -c 'DELETE from headlines_categories;'
 psql $DISCOURSE_DBNAME < dmoz_categories.sql
 EOF
-echo 'Restore domplete!'
+echo '---> Restore complete!'
 
 su - postgres -c "dropdb $DMOZ_DBNAME"
-echo 'Dropped dmoz db'
+echo '---> Dropped dmoz db'
 
-rm structure.rdf.u8
-rm content.rdf.u8
 rm /tmp/get-pip.py
 rm -rf $DMOZ_DIR
 
