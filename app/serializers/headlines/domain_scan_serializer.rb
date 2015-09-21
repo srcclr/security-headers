@@ -7,7 +7,7 @@ module Headlines
     private
 
     def http_headers
-      object.last_scan_headers[0..-2]
+      sorted_headers(object.last_scan_headers[0..-2])
     end
 
     def csp_header
@@ -16,6 +16,12 @@ module Headlines
 
     def category
       options[:category]
+    end
+
+    private
+
+    def sorted_headers(headers)
+      headers.sort { |h1, h2| SECURITY_HEADERS.index(h1["name"]) <=> SECURITY_HEADERS.index(h2["name"]) }
     end
   end
 end

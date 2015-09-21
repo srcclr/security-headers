@@ -23,36 +23,36 @@ en:
       header_missing: "Missing"
       tests:
         strict-transport-security:
-          label: "Strict-Transport-Security (HSTS)"
+          label: "HTTP Strict Transport Security (HSTS)"
           title: "Strict-Transport-Security"
           score-1: "HTTP Strict Transport Security disabled"
           score1: "HTTP Strict Transport Security is enabled"
           score2: "HTTP Strict Transport Security is enabled with sub-domains"
         x-xss-protection:
-          label: "X-Xss-Protection"
+          label: "Cross-site Scripting (XSS)"
           title: "X-Xss-Protection"
           score-1: "Disabled blocking of Cross Site Scripting attacks."
           score1: "Limited blocking of certain types of Cross Site Scripting attacks."
           score2: "Blocks certain types of Cross Site Scripting attacks."
         x-content-type-options:
-          label: "X-Content-Type-Options"
+          label: "MIME type security"
           title: "X-Content-Type-Options"
           score0: "*no description*"
           score1: "Prevent attacks based on MIME-type confusion."
         x-download-options:
-          label: "X-Download-Options"
+          label: "Force save downloads"
           title: "X-Download-Options"
           score0: "*no description*"
           score1: "Disables showing the open dialog for downloaded files."
         x-frame-options:
-          label: "X-Frame-Options"
+          label: "Set framing policy"
           title: "X-Frame-Options"
           score-1: "This can increase the risk of a clickjacking attack."
           score1: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on a whitelisted domain."
           score2: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on the same origin."
           score3: "Blocks rendering this page inside of <frame>, <iframe>, and <object>'s. This can help prevent clickjacking attacks."
         public-key-pins:
-          label: "Public-Key-Pins"
+          label: "HTTP Public Key Pinning (HPKP)"
           title: "Public-Key-Pins"
           score0: "*no description*"
           score1: "Uses Report-Only header"
@@ -60,7 +60,7 @@ en:
           score3: "Includes report-uri in Public-Key-Pins header"
           score4: "Includes sub-domains in Public-Key-Pins header"
         x-permitted-cross-domain-policies:
-          label: "X-Permitted-Cross-Domain-Policies"
+          label: "Cross domain configuration"
           title: "X-Permitted-Cross-Domain-Policies"
           score0: "*no description*"
           score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
