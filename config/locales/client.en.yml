@@ -140,6 +140,15 @@ en:
         public-key-pins: "Public-Key-Pins"
         x-permitted-cross-domain-policies: "X-Permitted-Cross-Domain-Policies"
         content-security-policy: "Content-Security-Policy"
+      friendly_headers:
+        strict-transport-security: "HTTP Strict Transport Security (HSTS)"
+        x-xss-protection: "Cross-site Scripting (XSS) protection"
+        x-content-type-options: "MIME type security "
+        x-download-options: "Force save downloads"
+        x-frame-options: "Set framing policy"
+        public-key-pins: "HTTP Public Key Pinning (HPKP)"
+        x-permitted-cross-domain-policies: "Cross domain configuration"
+        content-security-policy: "Content Security Policy"
       check_form:
         label: "Check the site"
         field: "Paste or type the URL"
