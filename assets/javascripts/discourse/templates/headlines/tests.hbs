@@ -9,7 +9,10 @@
     {{#each header in model.httpHeaders}}
       <tr>
         <td>
-          <span class="test-title">{{ header.label }}</span>
+          <span class="test-title">
+            <i {{bind-attr class=":fa header.icon"}}></i>
+            {{ header.label }}
+          </span>
         </td>
         <td>
           {{#if header.scoreZero}}
