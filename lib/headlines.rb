@@ -42,7 +42,7 @@ module Headlines
                 unsafe_eval_without_nonce: -2,
                 unsafe_inline_without_nonce: -2,
                 identical_report_policy: 2,
-                no_identical_report_policy: -2,
+                no_identical_report_policy: 0,
                 allow_potentially_unsecure_host: 0,
                 report_only_header_in_meta: -1,
                 frame_ancestors_in_meta: -1,
