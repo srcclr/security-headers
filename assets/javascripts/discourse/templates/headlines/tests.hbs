@@ -49,9 +49,14 @@
       <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
-  <span class="test-value">
-    {{i18n "headlines.tests.content-security-policy.title"}}: {{ model.cspHeader.value }}
+  <span class="test-value csp-directives">
+    {{i18n "headlines.tests.content-security-policy.title"}}:
   </span>
+  {{#each directive in model.cspHeader.directives}}
+    <span class="test-value csp-directives">
+      {{ directive }}
+    </span>
+  {{/each}}
   <table class="tests-table">
     {{#each test in model.cspHeader.tests}}
       {{#if test.isApplicable}}
