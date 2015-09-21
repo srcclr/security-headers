@@ -24,36 +24,36 @@ en:
       tests:
         strict-transport-security:
           label: "Strict-Transport-Security (HSTS)"
-          title: "STRICT-TRANSPORT-SECURITY"
+          title: "Strict-Transport-Security"
           score-1: "HTTP Strict Transport Security disabled"
           score1: "HTTP Strict Transport Security is enabled"
           score2: "HTTP Strict Transport Security is enabled with sub-domains"
         x-xss-protection:
           label: "X-Xss-Protection"
-          title: "X-XSS-PROTECTION"
+          title: "X-Xss-Protection"
           score-1: "Disabled blocking of Cross Site Scripting attacks."
           score1: "Limited blocking of certain types of Cross Site Scripting attacks."
           score2: "Blocks certain types of Cross Site Scripting attacks."
         x-content-type-options:
           label: "X-Content-Type-Options"
-          title: "X-CONTENT-TYPE-OPTIONS"
+          title: "X-Content-Type-Options"
           score0: "*no description*"
           score1: "Prevent attacks based on MIME-type confusion."
         x-download-options:
           label: "X-Download-Options"
-          title: "X-DOWNLOAD-OPTIONS"
+          title: "X-Download-Options"
           score0: "*no description*"
           score1: "Disables showing the open dialog for downloaded files."
         x-frame-options:
           label: "X-Frame-Options"
-          title: "X-FRAME-OPTIONS"
+          title: "X-Frame-Options"
           score-1: "This can increase the risk of a clickjacking attack."
           score1: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on a whitelisted domain."
           score2: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on the same origin."
           score3: "Blocks rendering this page inside of <frame>, <iframe>, and <object>'s. This can help prevent clickjacking attacks."
         public-key-pins:
           label: "Public-Key-Pins"
-          title: "PUBLIC-KEY-PINS"
+          title: "Public-Key-Pins"
           score0: "*no description*"
           score1: "Uses Report-Only header"
           score2: "Uses Public-Key-Pins header"
@@ -61,11 +61,11 @@ en:
           score4: "Includes sub-domains in Public-Key-Pins header"
         x-permitted-cross-domain-policies:
           label: "X-Permitted-Cross-Domain-Policies"
-          title: "X-PERMITTED-CROSS-DOMAIN-POLICIES"
+          title: "X-Permitted-Cross-Domain-Policies"
           score0: "*no description*"
           score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
         content-security-policy:
-          title: "CONTENT-SECURITY-POLICY"
+          title: "Content-Security-Policy"
           no_csp_header:
             title: "No Content-Security-Policy"
             description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross Site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
