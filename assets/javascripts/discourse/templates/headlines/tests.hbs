@@ -12,12 +12,27 @@
           <span class="test-title">{{ header.label }}</span>
         </td>
         <td>
-          <span class="test-value">
-            {{ header.title }}: {{ header.value }}
-          </span>
-          <span class="test-value-description">
-            {{ header.description }}
-          </span>
+          {{#if header.scoreZero}}
+            <span class="test-value">
+              {{ header.missingTitle }}
+            </span>
+          {{else}}
+            {{#if header.scoreNegative}}
+              <span class="test-value">
+                {{ header.missingTitle }}
+              </span>
+              <span class="test-value-description">
+                {{ header.description }}
+              </span>
+            {{else}}
+              <span class="test-value">
+                {{ header.title }}: {{ header.value }}
+              </span>
+              <span class="test-value-description">
+                {{ header.description }}
+              </span>
+            {{/if}}
+          {{/if}}
         </td>
       </tr>
     {{/each}}

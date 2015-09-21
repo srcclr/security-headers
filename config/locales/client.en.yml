@@ -20,6 +20,7 @@ en:
       all: "All"
       last_scan: "Last Scan"
       similar_urls: "% of similar urls that contain"
+      header_missing: "Missing"
       tests:
         strict-transport-security:
           label: "Strict-Transport-Security (HSTS)"
@@ -46,7 +47,7 @@ en:
         x-frame-options:
           label: "X-Frame-Options"
           title: "X-FRAME-OPTIONS"
-          score-1: "Does not use X-Frame-Options. This can increase the risk of a clickjacking attack."
+          score-1: "This can increase the risk of a clickjacking attack."
           score1: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on a whitelisted domain."
           score2: "Only renders this page inside of a <frame>, <iframe>, or <object> if it's on the same origin."
           score3: "Blocks rendering this page inside of <frame>, <iframe>, and <object>'s. This can help prevent clickjacking attacks."
