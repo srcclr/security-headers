@@ -4,6 +4,16 @@ export function gradeIs(score) {
   return grade[score];
 }
 
+export function iconForScore(score) {
+  if (score > 0) {
+    return 'fa-check-circle';
+  } else if (score < 0) {
+    return 'fa-times-circle';
+  }
+
+  return 'fa-minus-circle';
+}
+
 export let ratings =
   [
     { name: 'A', selected: false, score: 3 },
