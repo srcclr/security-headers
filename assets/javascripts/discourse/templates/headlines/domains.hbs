@@ -6,12 +6,14 @@
   <h3 class="site-name">{{ model.name }}</h3>
   <div class="site-notes">
     <span class="site-status">
-      <i class="fa fa-check-circle value-grade-{{lower-case model.status }}" />
       <span class="value-grade-{{lower-case model.status }}">{{ model.status }}</span>
     </span>
-    <span class="site-location">
-      {{fa-icon "globe"}} {{ model.country }}
-    </span>
+    <span class="site-overall-grade-label">(Overall Grade)</span>
+    <div class="site-location">
+      <span class="site-location">
+        {{fa-icon "globe"}} {{ model.country }}
+      </span>
+    </div>
   </div>
 
   {{partial "headlines/tests"}}
