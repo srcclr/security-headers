@@ -8,7 +8,7 @@
       <li>
         <label for="{{type.name}}">
           {{input type="checkbox" checked=type.selected}}
-          {{localeInterpolation 'headlines.headers' type.name}}
+          {{localeInterpolation 'headlines.friendly_headers' type.name}}
         </label>
       </li>
     {{/each}}
@@ -63,7 +63,7 @@
                   </ul>
                 </div>
 
-                {{#link-to 'headlines.categories-show' category.id class="btn btn-primary"}}
+                {{#link-to 'headlines.categories-show' category.id class="btn--full btn--primary"}}
                   {{i18n 'headlines.view_all_sites'}}
                 {{/link-to}}
               </li>

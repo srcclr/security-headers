@@ -45,8 +45,7 @@
 }
 
 .headlines-filters {
-  width: 190px;
-  margin-right: 35px;
+  width: 260px;
   float: left;
 
   .select2-container {
@@ -91,11 +90,10 @@
 
 .category-card {
   border: solid 1px #999;
-  margin-bottom: 25px;
   min-height: 220px;
   float: left;
-  width: 30%;
-  margin-left: 3%;
+  width: 241px;
+  margin: 0 0 13px 13px;
   box-sizing: border-box;
   padding: 10px;
 
@@ -110,10 +108,8 @@
     font-size: 14px;
   }
 
-  .btn-primary {
-    width: 100%;
-    box-sizing: border-box;
-    line-height: 26px;
+  .btn--primary {
+    color: #fff !important;
   }
 }
 
@@ -134,9 +130,8 @@
 }
 
 .sites-list {
-  padding-left: 30px;
   float: left;
-  width: 75%;
+  width: 70%;
 
   .fa-external-link {
     color: #1483b8;
@@ -268,6 +263,10 @@ h3.category-title {
       display: block;
       float: right;
       font-size: 14px;
+
+      .headers-grade {
+        font-size: 20px;
+      }
     }
   }
 }
@@ -309,7 +308,16 @@ h3.category-title {
   margin-bottom: 20px;
 
   .site-status {
-    margin-right: 25px;
+    font-size: 36px;
+  }
+
+  .site-location {
+    font-size: 24px;
+    padding-top: 15px;
+  }
+
+  .site-overall-grade-label {
+    vertical-align: 6px;
   }
 }
 
@@ -340,6 +348,10 @@ h3.category-title {
 
 .test-value {
   margin-right: 25px;
+}
+
+.csp-directives {
+  display: block;
 }
 
 .sub-categories {

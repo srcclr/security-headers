@@ -21,11 +21,12 @@ require_relative "headlines/data_alexa"
 module Headlines
   SECURITY_HEADERS = %w(strict-transport-security
                         x-xss-protection
-                        x-content-type-options
-                        x-download-options
                         x-frame-options
                         public-key-pins
-                        x-permitted-cross-domain-policies)
+                        x-permitted-cross-domain-policies
+                        x-content-type-options
+                        x-download-options
+                        )
 
   CSP_RULES = { no_csp_header: -15,
                 invalid_csp_header: -15,
@@ -41,7 +42,7 @@ module Headlines
                 unsafe_eval_without_nonce: -2,
                 unsafe_inline_without_nonce: -2,
                 identical_report_policy: 2,
-                no_identical_report_policy: -2,
+                no_identical_report_policy: 0,
                 allow_potentially_unsecure_host: 0,
                 report_only_header_in_meta: -1,
                 frame_ancestors_in_meta: -1,

@@ -1,3 +1,5 @@
+import { iconForScore } from '../../lib/score'
+
 let CspTest = Discourse.Model.extend({
   title: Em.computed(function() {
     return I18n.t("headlines.tests.content-security-policy." + this.get('name') + ".title");
@@ -13,14 +15,7 @@ let CspTest = Discourse.Model.extend({
 
   icon: Em.computed(function() {
     let score = this.get('score');
-
-    if (score > 0) {
-      return 'fa-check-circle';
-    } else if (score < 0) {
-      return 'fa-times-circle';
-    }
-
-    return 'fa-minus-circle';
+    return iconForScore(score);
   })
 })
 

@@ -2,22 +2,40 @@
   <h3>
     HTTP headers
     <span class="tests-overall-score">Grade:
-      <strong class="value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
+      <strong class="headers-grade value-grade-{{lower-case model.http_grade}}">{{ model.http_grade }}</strong>
     </span>
   </h3>
   <table class="tests-table">
     {{#each header in model.httpHeaders}}
       <tr>
         <td>
-          <span class="test-title">{{ header.label }}</span>
+          <span class="test-title">
+            <i {{bind-attr class=":fa header.icon"}}></i>
+            {{ header.label }}
+          </span>
         </td>
         <td>
-          <span class="test-value">
-            {{ header.title }}: {{ header.value }}
-          </span>
-          <span class="test-value-description">
-            {{ header.description }}
-          </span>
+          {{#if header.scoreZero}}
+            <span class="test-value">
+              {{ header.missingTitle }}
+            </span>
+          {{else}}
+            {{#if header.scoreNegative}}
+              <span class="test-value">
+                {{ header.missingTitle }}
+              </span>
+              <span class="test-value-description">
+                {{ header.description }}
+              </span>
+            {{else}}
+              <span class="test-value">
+                {{ header.title }}: {{ header.value }}
+              </span>
+              <span class="test-value-description">
+                {{ header.description }}
+              </span>
+            {{/if}}
+          {{/if}}
         </td>
       </tr>
     {{/each}}
@@ -28,12 +46,17 @@
   <h3>
     CSP header
     <span class="tests-overall-score">Grade:
-      <strong class="value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
+      <strong class="headers-grade value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
-  <span class="test-value">
-    {{i18n "headlines.tests.content-security-policy.title"}}: {{ model.cspHeader.value }}
+  <span class="test-value csp-directives">
+    {{i18n "headlines.tests.content-security-policy.title"}}:
   </span>
+  {{#each directive in model.cspHeader.directives}}
+    <span class="test-value csp-directives">
+      {{ directive }}
+    </span>
+  {{/each}}
   <table class="tests-table">
     {{#each test in model.cspHeader.tests}}
       {{#if test.isApplicable}}
