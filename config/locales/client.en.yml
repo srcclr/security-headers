@@ -30,7 +30,7 @@ en:
           score2: "HTTP Strict Transport Security is enabled with sub-domains"
         x-xss-protection:
           label: "Cross-site Scripting (XSS)"
-          title: "X-Xss-Protection"
+          title: "X-XSS-Protection"
           score-1: "Disabled blocking of Cross Site Scripting attacks."
           score1: "Limited blocking of certain types of Cross Site Scripting attacks."
           score2: "Blocks certain types of Cross Site Scripting attacks."
