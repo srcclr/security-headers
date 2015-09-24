@@ -18,5 +18,5 @@ register_asset("stylesheets/views/headlines.css.scss")
 require(File.expand_path("../lib/headlines", __FILE__))
 
 Discourse::Application.routes.append do
-  mount Headlines::Engine, at: "/projects/security-headers"
+  mount Headlines::Engine, at: "/security-headers"
 end
