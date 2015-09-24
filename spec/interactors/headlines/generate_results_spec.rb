@@ -19,7 +19,7 @@ module Headlines
       end
 
       describe "returns properly headers score values" do
-        subject(:scan_results) { described_class.call(headers: headers).params[:scan_results] }
+        subject(:scan_results) { described_class.call(headers: headers).params[:results] }
 
         it "returns scores for given headers" do
           expect(scan_results["x-xss-protection"]).to eq(2)
