@@ -17,19 +17,19 @@ module Headlines
         context "with at least one valid directive" do
           let(:value) { "default-src 'self'; invalid-directive 'self';" }
 
-          it { is_expected.to eq(2) }
+          it { is_expected.to eq(4) }
         end
 
         context "with default-src equal 'none'" do
           let(:value) { "default-src 'none';" }
 
-          it { is_expected.to eq(2) }
+          it { is_expected.to eq(4) }
         end
 
         context "with default-src equal 'self'" do
           let(:value) { "default-src 'self';" }
 
-          it { is_expected.to eq(2) }
+          it { is_expected.to eq(4) }
         end
 
         context "with report-uri directive" do
@@ -61,7 +61,7 @@ module Headlines
             end
 
             context "without report-uri directive" do
-              it { is_expected.to eq(2) }
+              it { is_expected.to eq(4) }
             end
 
             context "with report-uri directive" do
@@ -75,25 +75,25 @@ module Headlines
         context "with script-src equal 'self'" do
           let(:value) { "script-src 'self';" }
 
-          it { is_expected.to eq(-1) }
+          it { is_expected.to eq(1) }
         end
 
         context "with style-src equal 'self'" do
           let(:value) { "style-src 'self';" }
 
-          it { is_expected.to eq(-1) }
+          it { is_expected.to eq(1) }
         end
 
         context "with script-src equal 'nonce-<some value>'" do
           let(:value) { "script-src 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';" }
 
-          it { is_expected.to eq(0) }
+          it { is_expected.to eq(2) }
         end
 
         context "with style-src equal 'nonce-<some value>'" do
           let(:value) { "style-src 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';" }
 
-          it { is_expected.to eq(0) }
+          it { is_expected.to eq(2) }
         end
       end
     end

@@ -17,45 +17,45 @@ module Headlines
         context "with default-src equal '*'" do
           let(:value) { "default-src '*';" }
 
-          it { is_expected.to eq(-4) }
+          it { is_expected.to eq(-2) }
         end
 
         context "with script-src equal '*'" do
           let(:value) { "script-src '*';" }
 
-          it { is_expected.to eq(-4) }
+          it { is_expected.to eq(-2) }
         end
 
         context "with style-src equal '*'" do
           let(:value) { "style-src '*';" }
 
-          it { is_expected.to eq(-4) }
+          it { is_expected.to eq(-2) }
         end
 
         context "with 'unsafe-eval'" do
           context "with 'nonce'" do
             let(:value) { "default-src 'unsafe-eval' 'nonce';" }
 
-            it { is_expected.to eq(-2) }
+            it { is_expected.to eq(0) }
           end
 
           context "without 'nonce'" do
             context "with default-src directive" do
               let(:value) { "default-src 'unsafe-eval';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
 
             context "with script-src directive" do
               let(:value) { "script-src 'unsafe-eval';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
 
             context "with style-src directive" do
               let(:value) { "style-src 'unsafe-eval';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
           end
         end
@@ -64,26 +64,26 @@ module Headlines
           context "with 'nonce'" do
             let(:value) { "default-src 'unsafe-inline' 'nonce';" }
 
-            it { is_expected.to eq(-2) }
+            it { is_expected.to eq(0) }
           end
 
           context "without 'nonce'" do
             context "with default-src directive" do
               let(:value) { "default-src 'unsafe-inline';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
 
             context "with script-src directive" do
               let(:value) { "script-src 'unsafe-inline';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
 
             context "with style-src directive" do
               let(:value) { "style-src 'unsafe-inline';" }
 
-              it { is_expected.to eq(-4) }
+              it { is_expected.to eq(-2) }
             end
           end
         end

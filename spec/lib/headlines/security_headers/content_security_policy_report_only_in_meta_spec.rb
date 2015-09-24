@@ -23,7 +23,7 @@ module Headlines
         context "with valid header value" do
           let(:value) { "default-src 'self';" }
 
-          it { is_expected.to eq(1) }
+          it { is_expected.to eq(3) }
         end
 
         context "with invalid header value" do
