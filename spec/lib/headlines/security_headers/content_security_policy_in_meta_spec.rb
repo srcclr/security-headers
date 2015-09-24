@@ -17,26 +17,26 @@ module Headlines
         context "with empty header" do
           let(:value) { "" }
 
-          it { is_expected.to eq(0) }
+          it { is_expected.to eq(2) }
         end
 
         context "with valid header value" do
           let(:value) { "script-src http:;" }
 
-          it { is_expected.to eq(-1) }
+          it { is_expected.to eq(1) }
         end
 
         context "with invalid header value" do
           let(:value) { "invalid-directive 'self';" }
 
-          it { is_expected.to eq(0) }
+          it { is_expected.to eq(2) }
         end
 
         context "with Link header" do
           let(:headers) { { "content-security-policy" => value, "link" => "some header value" } }
           let(:value) { "script-src http:;" }
 
-          it { is_expected.to eq(-3) }
+          it { is_expected.to eq(-1) }
         end
       end
     end
