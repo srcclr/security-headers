@@ -158,4 +158,4 @@ en:
         mosaic: "Mosaic"
       test: "TESTS"
       no_results: "No results"
-      country_select_prompt: "Please Select Country"
+      country_select_prompt: "All Countries"
