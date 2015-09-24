@@ -29,7 +29,14 @@ module Headlines
     def headers_filtered_domains(domains, headers: nil)
       return domains unless headers
 
-      domains.where(headers.map { |i| "((headlines_scans.results -> '#{i}')::int > 0)" }.join("AND"))
+      headers_join = headers.each_with_index.map do |header, i|
+        %Q(
+          INNER JOIN json_array_elements(headlines_scans.headers) AS header_#{i}
+          ON header_#{i}->>'name' = '#{header}' AND header_#{i}->>'value' != ''
+        )
+      end.join(' ')
+
+      domains.joins(headers_join)
     end
 
     def rating_filtered_domains(domains, ratings: nil)
