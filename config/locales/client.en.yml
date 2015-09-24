@@ -129,7 +129,7 @@ en:
           csp_not_in_top_of_meta:
             title: "Content-Security-Policy is defined with <meta> tags and is not at the top of <head>"
             description: "It is strongly encouraged to place meta elements as early in the document as possible, because policies in meta elements are not applied to content which preceeds them."
-      passed_tests: "Passed Tests"
+      passed_tests: "Grade"
       headers:
         strict-transport-security: "HSTS"
         x-xss-protection: "X-XSS-Protection"
