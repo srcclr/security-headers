@@ -8,7 +8,7 @@
   <table class="tests-table">
     {{#each header in model.httpHeaders}}
       <tr>
-        <td>
+        <td class="headers-name">
           <span class="test-title">
             <i {{bind-attr class=":fa header.icon"}}></i>
             {{ header.label }}
@@ -44,19 +44,36 @@
 
 <div class="tests-section">
   <h3>
-    CSP header
+    CSP headers
     <span class="tests-overall-score">Grade:
       <strong class="headers-grade value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
-  <span class="test-value csp-directives">
-    {{i18n "headlines.tests.content-security-policy.title"}}:
-  </span>
-  {{#each directive in model.cspHeader.directives}}
-    <span class="test-value csp-directives">
-      {{ directive }}
-    </span>
-  {{/each}}
+
+  {{#if model.cspHeader.directives.length}}
+    <div class="panel panel--info mt">
+      <div class="panel__heading">{{i18n "headlines.tests.content-security-policy.title"}}</div>
+      <div class="panel__body">
+        <table class="tests-table">
+          {{#each directive in model.cspHeader.directives}}
+            <tr>
+              <td class="headers-name">
+                <span class="test-title">
+                  {{ directive.name }}
+                </span>
+              </td>
+              <td>
+                <span class="test-value">
+                  {{ directive.value }}
+                </span>
+              </td>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+    </div>
+  {{/if}}
+
   <table class="tests-table">
     {{#each test in model.cspHeader.tests}}
       {{#if test.isApplicable}}

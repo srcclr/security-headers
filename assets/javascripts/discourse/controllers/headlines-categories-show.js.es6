@@ -77,7 +77,7 @@ export default Em.Controller.extend(DomainNameFilter, {
 
     this.setProperties({ noResults: false, loading: true });
 
-    return Discourse.ajax(Discourse.getURL("/projects/security-headers/categories/" + model.id + this.searchParams())).then((data) => {
+    return Discourse.ajax(Discourse.getURL("/security-headers/categories/" + model.id + this.searchParams())).then((data) => {
       if (data.domains.length === 0) {
         model.set("allLoaded", true);
       }

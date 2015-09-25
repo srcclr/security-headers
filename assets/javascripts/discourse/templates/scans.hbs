@@ -8,6 +8,14 @@
         <span class="value-grade-{{lower-case model.status }}">{{ model.status }}</span>
       </span>
       <span class="site-overall-grade-label">(Overall Grade)</span>
+      <a
+        href="https://twitter.com/share?url=https%3A%2F%2Fopenx.srcclr.io%2Fsecurity-headers%2Fscans?url={{model.name}}&amp;text={{model.name}}%20scored%20{{model.status}}%20grade%20on%20security%20headers%20@srcclr"
+        target="_blank"
+        title="Share on Twitter"
+        class="btn-primary pull--right mt-">
+        {{fa-icon "twitter" modifier="lg"}}
+        Tweet
+      </a>
     </div>
     {{partial "headlines/tests"}}
   {{else}}
