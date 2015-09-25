@@ -7,7 +7,10 @@ CspHeader.reopenClass({
     return this.create({
       name: json.name,
       value: json.value,
-      directives: json.value && json.value.split('; '),
+      directives: json.value && _.map(json.value.split('; '), (directive) => {
+        let [name, value] = directive.split(/\s(.+)/);
+        return {name, value}
+      }),
       score: json.score,
       tests: _.map(json.tests, (test) => { return CspTest.create(test) })
     })
