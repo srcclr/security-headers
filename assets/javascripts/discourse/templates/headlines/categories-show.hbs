@@ -2,17 +2,6 @@
   <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
   {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
 
-  <label class='filter-type' for='rating'>{{i18n 'headlines.rating'}}</label>
-  <ul>
-    {{#each rating in ratings}}
-      <li>
-        <label for="r_{{rating.name}}">
-          {{input type="checkbox" checked=rating.selected}} {{rating.name}}
-        </label>
-      </li>
-    {{/each}}
-  </ul>
-
   <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
   <ul>
     {{#each type in headerTypes}}
@@ -57,9 +46,23 @@
     </ul>
   </div>
 
-  <div class="table-search">
-    {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
-    <i class="fa fa-search"></i>
+  <div class="grid mb">
+    <div class="grid__item col-1-2">
+      {{search-domain classNames="col-6" resultValue=domainNameSearch placeholder="Filter by URL"}}
+      <i class="fa fa-search"></i>
+    </div>
+    <div class="grid__item col-1-2 text--right">
+      <label class="inline-block mr--" for="rating">Filter by grades</label>
+      <ul class="list--unstyled inline-block">
+        {{#each rating in ratings}}
+          <li class="inline-block">
+            <label {{bind-attr class="rating.selected:btn--primary:btn"}}>
+              {{input type="checkbox" class="hidden" checked=rating.selected}} {{rating.name}}
+            </label>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
   </div>
 
   {{#if model.domains}}
