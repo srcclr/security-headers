@@ -271,26 +271,25 @@ h3.category-title {
   }
 }
 
-.headers-name {
-  width: 300px;
-}
-
 .tests-table {
   width: 100%;
 
   tr {
     border-bottom: 1px solid darken(#e7f2f8, 10%);
 
-    &:hover {
-      background: #e7f2f8;
-    }
+    &:hover { background: #e7f2f8; }
 
+    &:last-child { border: 0; }
   }
 
   td {
-    // vertical-align: top;
-
     padding: 5px 0;
+
+    &.headers-name {
+      white-space: nowrap;
+      max-width: 50%;
+      padding-right: 20px;
+    }
 
     .test-value {
       margin: 0;
