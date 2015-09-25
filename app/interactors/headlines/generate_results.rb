@@ -3,7 +3,7 @@ module Headlines
     include Interactor
 
     HTTP_RATINGS = [(-100..-3), (-2..2), (3..7), (8..100)]
-    CSP_RATINGS = [(-100..-6), (-5.-2), (-1..2), (3..100)]
+    CSP_RATINGS = [(-100..-6), (-5..-2), (-1..2), (3..100)]
 
     def call
       context.params = { headers: headers,
