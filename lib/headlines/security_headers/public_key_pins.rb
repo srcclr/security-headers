@@ -18,7 +18,7 @@ module Headlines
       private
 
       def total_score_default
-        2 + include_subdomains_score + report_uri_score
+        1 + include_subdomains_score + report_uri_score
       end
 
       def header_type
