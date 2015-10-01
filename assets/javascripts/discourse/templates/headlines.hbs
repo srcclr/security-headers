@@ -8,11 +8,9 @@
       </button>
     </form>
   </section>
-  <div class="container row">
-    {{conditional-loading-spinner condition=loading}}
-
-    <div {{bind-attr class="loading:hide"}}>
+  {{#conditional-loading-spinner condition=loading}}
+    <div class="container row">
       {{ outlet }}
     </div>
-  </div>
+  {{/conditional-loading-spinner}}
 </article>
