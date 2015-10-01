@@ -31,9 +31,9 @@ en:
         x-xss-protection:
           label: "Cross-site Scripting (XSS)"
           title: "X-XSS-Protection"
-          score-1: "Disabled blocking of Cross Site Scripting attacks."
-          score1: "Limited blocking of certain types of Cross Site Scripting attacks."
-          score2: "Blocks certain types of Cross Site Scripting attacks."
+          score-1: "Disabled blocking of Cross-site Scripting attacks."
+          score1: "Limited blocking of certain types of Cross-site Scripting attacks."
+          score2: "Blocks certain types of Cross-site Scripting attacks."
         x-content-type-options:
           label: "MIME type security"
           title: "X-Content-Type-Options"
@@ -68,10 +68,10 @@ en:
           title: "Content-Security-Policy"
           no_csp_header:
             title: "No Content-Security-Policy"
-            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross Site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
+            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross-site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
           invalid_csp_header:
             title: "Invalid Content-Security-Policy"
-            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross Site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
+            description: "Using Content Security Policy adds an extra layer of security that helps to detect and prevent attacks like Cross-site Scripting (XSS) and data injection. These attacks may lead to site defacement, data theft, account compromise, and distribution of malware."
           restrictive_default_settings:
             title: "Restrictive default settings"
             description: "Using restrictive defaults and overriding them when necessary is a good practice."
@@ -83,7 +83,7 @@ en:
             description: "Using permissive defaults can be dangerous without carefully considering other directives. It's advisable to set restrictive defaults such as 'self' and override when necessary."
           scripts_from_any_host:
             title: "Allows scripts from any host"
-            description: "Allowing JavaScript from any host increases the risk of Cross Site Scripting attacks. Consider using 'self' and specifically including any other necessary domains."
+            description: "Allowing JavaScript from any host increases the risk of Cross-site Scripting attacks. Consider using 'self' and specifically including any other necessary domains."
           styles_from_any_host:
             title: "Allows style sheets from any host"
             description: "Allowing style sheets from any host increases the risk of CSS injection attacks. Consider using 'self' and specifically including any other necessary domains."
