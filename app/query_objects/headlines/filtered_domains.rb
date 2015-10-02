@@ -30,11 +30,11 @@ module Headlines
       return domains unless headers
 
       headers_join = headers.each_with_index.map do |header, i|
-        %Q(
+        %(
           INNER JOIN json_array_elements(headlines_scans.headers) AS header_#{i}
           ON header_#{i}->>'name' = '#{header}' AND header_#{i}->>'value' != ''
         )
-      end.join(' ')
+      end.join(" ")
 
       domains.joins(headers_join)
     end
