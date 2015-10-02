@@ -42,38 +42,38 @@ module Headlines
         context "when header has only max-age option" do
           let(:value) { "#{pin_key}#{max_age}" }
 
-          it { is_expected.to eq 2 }
+          it { is_expected.to eq 1 }
         end
 
         context "when header has max-age and includeSubDomains option" do
           let(:value) { "#{pin_key}#{max_age}includeSubDomains" }
 
-          it { is_expected.to eq 3 }
+          it { is_expected.to eq 2 }
         end
 
         context "when header has max-age and report-uri options" do
           let(:value) { "#{pin_key}#{max_age}#{report_uri}" }
 
-          it { is_expected.to eq 3 }
+          it { is_expected.to eq 2 }
         end
 
         context "when header has all options" do
           let(:value) { "#{pin_key}#{max_age}#{report_uri}includeSubDomains;" }
 
-          it { is_expected.to eq 4 }
+          it { is_expected.to eq 3 }
         end
 
         context "when header has report-uri option" do
           context "with invalid url" do
             let(:value) { "#{pin_key}#{max_age}report-uri=invalid_domain" }
 
-            it { is_expected.to eq 2 }
+            it { is_expected.to eq 1 }
           end
 
           context "with valid url" do
             let(:value) { "#{pin_key}#{max_age}#{report_uri}" }
 
-            it { is_expected.to eq 3 }
+            it { is_expected.to eq 2 }
           end
         end
       end

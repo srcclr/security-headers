@@ -33,7 +33,7 @@ module Headlines
         it "returns domain scores" do
           expect(params[:http_score]).to eq(2)
           expect(params[:csp_score]).to eq(0)
-          expect(params[:score]).to eq(1)
+          expect(params[:score]).to eq(2)
         end
       end
     end

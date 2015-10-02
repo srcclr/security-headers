@@ -25,8 +25,7 @@ module Headlines
                         public-key-pins
                         x-permitted-cross-domain-policies
                         x-content-type-options
-                        x-download-options
-                        )
+                        x-download-options)
 
   CSP_RULES = { no_csp_header: -15,
                 invalid_csp_header: -15,
