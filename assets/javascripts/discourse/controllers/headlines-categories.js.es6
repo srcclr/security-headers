@@ -2,7 +2,7 @@ import Category from '../models/category'
 
 export default Em.Controller.extend({
   needs: ['headlines'],
-  chartType: 'pie',
+  chartType: 'mosaic',
 
   headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
   headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
