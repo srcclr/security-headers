@@ -12,13 +12,13 @@ module Headlines
 
     def response
       @response ||= connection.get("/")
-    rescue Faraday::ClientError, Errno::ETIMEDOUT
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT
       @response = head_request
     end
 
     def head_request
       @head_request = connection.head("/")
-    rescue Faraday::ClientError, Errno::ETIMEDOUT
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT
       context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
