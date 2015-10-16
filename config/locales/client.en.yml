@@ -37,7 +37,7 @@ en:
         x-content-type-options:
           label: "MIME type security"
           title: "X-Content-Type-Options"
-          score0: "Attacks based on MIME-type confusion are not blocked"
+          score0: "Attacks based on MIME-type confusion are not blocked."
           score1: "Attacks based on MIME-type confusion are prevented."
         x-download-options:
           label: "Force save downloads"
