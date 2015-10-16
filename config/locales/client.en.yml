@@ -25,7 +25,7 @@ en:
         strict-transport-security:
           label: "HTTP Strict Transport Security (HSTS)"
           title: "Strict-Transport-Security"
-          score-1: "HTTP Strict Transport Security disabled."
+          score-1: "HTTP Strict Transport Security is disabled."
           score1: "HTTP Strict Transport Security is enabled but not set for sub-domains."
           score2: "HTTP Strict Transport Security is enabled with sub-domains."
         x-xss-protection:
