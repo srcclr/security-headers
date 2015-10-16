@@ -75,7 +75,7 @@
           <th data-sort-order="category" class="category">
             {{i18n 'headlines.country'}}
           </th>
-          <th data-sort-order="posters" class="posters">
+          <th data-sort-order="posters" class="grades">
             {{i18n 'headlines.passed_tests'}}
           </th>
         </tr>
@@ -89,7 +89,7 @@
               {{/link-to}}
             </td>
             <td class="category">{{domain.country}}</td>
-            <td><div class="value-grade-{{lower-case domain.status }}">{{domain.status}}</div></td>
+            <td><div class="value-grade-{{lower-case domain.status}} text--right">{{domain.status}}</div></td>
           </tr>
         {{/each}}
       </tbody>
