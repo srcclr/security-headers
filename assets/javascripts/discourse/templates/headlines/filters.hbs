@@ -1,0 +1,18 @@
+<aside class="headlines-filters">
+  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+  {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
+
+  <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
+  <ul>
+    {{#each type in headerTypes}}
+      <li>
+        <label for="{{type.name}}">
+          {{input type="checkbox" checked=type.selected}}
+          {{localeInterpolation 'headlines.friendly_headers' type.name}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+  <br/>
+  <p>{{#link-to "discovery.parentCategory" "security-headers"}}Discuss this project{{/link-to}}</p>
+</aside>

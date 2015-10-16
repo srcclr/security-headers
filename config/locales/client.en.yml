@@ -25,7 +25,7 @@ en:
         strict-transport-security:
           label: "HTTP Strict Transport Security (HSTS)"
           title: "Strict-Transport-Security"
-          score-1: "HTTP Strict Transport Security disabled"
+          score-1: "HTTP Strict Transport Security is disabled"
           score1: "HTTP Strict Transport Security is enabled"
           score2: "HTTP Strict Transport Security is enabled with sub-domains"
         x-xss-protection:
@@ -37,12 +37,12 @@ en:
         x-content-type-options:
           label: "MIME Type Security"
           title: "X-Content-Type-Options"
-          score0: "*no description*"
+          score0: "MIME Type Security is disabled"
           score1: "Prevent attacks based on MIME-type confusion."
         x-download-options:
           label: "Force Save Downloads"
           title: "X-Download-Options"
-          score0: "*no description*"
+          score0: "Force Save Downloads is disabled"
           score1: "Disables showing the open dialog for downloaded files."
         x-frame-options:
           label: "Set Framing Policy"
@@ -54,7 +54,7 @@ en:
         public-key-pins:
           label: "HTTP Public Key Pinning (HPKP)"
           title: "Public-Key-Pins"
-          score0: "*no description*"
+          score0: "HTTP Public Key Pinning is disabled"
           score1: "Uses Report-Only header"
           score2: "Uses Public-Key-Pins header"
           score3: "Includes report-uri in Public-Key-Pins header"
@@ -62,7 +62,7 @@ en:
         x-permitted-cross-domain-policies:
           label: "Cross Domain Configuration"
           title: "X-Permitted-Cross-Domain-Policies"
-          score0: "*no description*"
+          score0: "Cross Domain Configuration is disabled"
           score1: "Adobe Flash and PDF files must use the policy described in crossdomain.xml at the root of the website."
         content-security-policy:
           title: "Content-Security-Policy"
@@ -150,7 +150,6 @@ en:
         x-permitted-cross-domain-policies: "Cross Domain Configuration"
         content-security-policy: "Content Security Policy"
       check_form:
-        label: "Check the site"
         field: "Paste or type the URL"
         action: "Scan"
       chart_type:
