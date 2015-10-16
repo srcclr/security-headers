@@ -5,11 +5,11 @@ function fetchModels(query) {
 }
 
 function wrapInModels(models) {
-  models = models['categories'] || models;
-
-  return _.map(models, (model) => {
-    return Category.createFromJson(model);
-  });
+  return {
+    domainsScanned: models.domains_scanned,
+    lastScan: models.last_scan,
+    categories: _.map(models['categories'], (model) => { return Category.createFromJson(model); })
+  }
 }
 
 export default Discourse.Route.extend({
