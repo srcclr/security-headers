@@ -2,7 +2,7 @@
 
 ## Description
 
-Security related HTTP headers can be used to prevent cetrain kinds of web based attacks and provide an easy way for web developers to increase the security of their application. This project is a discourse plugin that can scan and grade security related HTTP headers set on a website. Our goal is to raise awareness on the lack of usage of security headers and provide developers an easy way to check the headers set on their own site.
+Security related HTTP headers can be used to prevent cetrain kinds of web based attacks and provide an easy way for web developers to increase the security of their application. This project is a discourse plugin for our [community site](https://open.srcclr.com) that can scan and grade security related HTTP headers set on a website. Our goal is to raise awareness on the lack of usage of security headers and provide developers an easy way to check the headers set on their own site.
 
 We currently support and scan for the following headers:
 - HTTP Strict Transport Security (HSTS)
