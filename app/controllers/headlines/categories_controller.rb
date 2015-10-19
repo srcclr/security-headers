@@ -6,10 +6,10 @@ module Headlines
 
     def index
       respond_to do |format|
-        format.json { render(json: categories_as_json) }
+        format.json { render(json: root_categories_with_stats) }
 
         format.html do
-          store_preloaded("categories", MultiJson.dump(categories_as_json))
+          store_preloaded("categories", MultiJson.dump(root_categories_with_stats))
           render "default/empty"
         end
       end
@@ -30,6 +30,14 @@ module Headlines
 
     def categories
       Headlines::Category.where(category_id: 1)
+    end
+
+    def root_categories_with_stats
+      {
+        domains_scanned: Headlines::Domain.where.not(last_scan_id: nil).count,
+        last_scan: Headlines::Scan.last.created_at,
+        categories: categories_as_json
+      }
     end
 
     def categories_as_json

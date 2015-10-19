@@ -6,6 +6,7 @@ module Headlines
 
     before do
       create(:category, :with_domains)
+      create(:scan)
     end
 
     subject(:get_categories) { get("/headlines/categories.json", params) && response }

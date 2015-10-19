@@ -1,4 +1,11 @@
-{{partial "headlines/filters"}}
+<aside class="headlines-filters">
+  {{partial 'headlines/filters'}}
+
+  <br/>
+  <p>Domains scanned: <b>{{model.domainsScanned}}</b></p>
+  <p>Last scan: <b>{{formatted-date model.lastScan "D MMM YYYY"}}</b></p>
+  <p>{{#link-to "discovery.parentCategory" "security-headers"}}Discuss this project{{/link-to}}</p>
+</aside>
 
 {{#conditional-loading-spinner condition=loading}}
   {{#unless domainsEmpty}}
@@ -15,7 +22,7 @@
       </nav>
       <div>
         <ul>
-          {{#each category in model}}
+          {{#each category in model.categories}}
             {{#if category.domains}}
               <li class="category-card">
                 <h3>{{category.title}}</h3>
