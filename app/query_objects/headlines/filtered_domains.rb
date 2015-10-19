@@ -46,7 +46,12 @@ module Headlines
     end
 
     def country_code
-      IsoCountryCodes.search_by_name(filter_options[:country])[0].alpha2 if filter_options[:country]
+      country = sanitize_country(filter_options[:country])
+      IsoCountryCodes.search_by_name(country)[0].alpha2 if country
+    end
+
+    def sanitize_country(country)
+      country.to_s == "United Kingdom" ? "United Kingdom of Great Britain and Northern Ireland" : country
     end
   end
 end
