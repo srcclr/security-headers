@@ -88,7 +88,7 @@
                 {{domain.name}}
               {{/link-to}}
             </td>
-            <td class="category">{{domain.country}}</td>
+            <td class="category">{{sanitizeCountry domain.country}}</td>
             <td><div class="value-grade-{{lower-case domain.status}} text--right">{{domain.status}}</div></td>
           </tr>
         {{/each}}
