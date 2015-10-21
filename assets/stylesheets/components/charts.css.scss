@@ -12,11 +12,6 @@ $test-pass:
   }
 
   .value-#{nth($test, 1)} {
-    .compact-labels &,
-    .mozaic-chart-labels & {
-      @extend .#{nth($test, 3)};
-    }
-
     &:before {
       color: nth($test, 2);
     }
@@ -41,7 +36,6 @@ $test-pass:
 }
 
 .chart-label {
-  display: inline-block;
   text-align: right;
   width: 70px;
   padding-right: 10px;
@@ -70,18 +64,6 @@ $test-pass:
     width: 25%;
     display: block;
     float: left;
-  }
-
-  .chart-label {
-    display: none;
-  }
-}
-
-.mozaic-chart-labels,
-.compact-labels {
-  .chart-value {
-    @extend .fa;
-    color: #464646;
   }
 }
 
