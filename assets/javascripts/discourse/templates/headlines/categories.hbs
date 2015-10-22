@@ -1,19 +1,12 @@
 <aside class="headlines-filters">
-  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
-  {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
+  {{partial 'headlines/filters'}}
 
-  <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
-  <ul>
-    {{#each type in headerTypes}}
-      <li>
-        <label for="{{type.name}}">
-          {{input type="checkbox" checked=type.selected}}
-          {{localeInterpolation 'headlines.friendly_headers' type.name}}
-        </label>
-      </li>
-    {{/each}}
-  </ul>
+  <br/>
+  <p>Domains scanned: <b>{{model.domainsScanned}}</b></p>
+  <p>Last scan: <b>{{formatted-date model.lastScan "D MMM YYYY"}}</b></p>
+  <p>{{#link-to "discovery.parentCategory" "security-headers"}}Discuss this project{{/link-to}}</p>
 </aside>
+
 {{#conditional-loading-spinner condition=loading}}
   {{#unless domainsEmpty}}
     <section class="categories-list">
@@ -29,7 +22,7 @@
       </nav>
       <div>
         <ul>
-          {{#each category in model}}
+          {{#each category in model.categories}}
             {{#if category.domains}}
               <li class="category-card">
                 <h3>{{category.title}}</h3>
@@ -42,22 +35,18 @@
                   <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
                     <li>
                       <span class="chart-label">A</span>
-                      <span class="chart-value value-grade-a"></span>
                       <span class="label-grade-a">{{category.gradeA}}</span>
                     </li>
                     <li>
                       <span class="chart-label">B</span>
-                      <span class="chart-value value-grade-b"></span>
                       <span class="label-grade-b">{{category.gradeB}}</span>
                     </li>
                     <li>
                       <span class="chart-label">C</span>
-                      <span class="chart-value value-grade-c"></span>
                       <span class="label-grade-c">{{category.gradeC}}</span>
                     </li>
                     <li>
                       <span class="chart-label">D</span>
-                      <span class="chart-value value-grade-d"></span>
                       <span class="label-grade-d">{{category.gradeD}}</span>
                     </li>
                   </ul>

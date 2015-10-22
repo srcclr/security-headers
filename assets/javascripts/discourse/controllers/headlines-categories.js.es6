@@ -2,7 +2,7 @@ import Category from '../models/category'
 
 export default Em.Controller.extend({
   needs: ['headlines'],
-  chartType: 'pie',
+  chartType: 'mosaic',
 
   headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
   headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
@@ -11,8 +11,8 @@ export default Em.Controller.extend({
   country: Em.computed.alias('controllers.headlines.country'),
   countryFilter: Em.computed.alias('controllers.headlines.countryFilter'),
 
-  domainsEmpty: Em.computed('model.@each.domains', function() {
-    return _.every(this.get('model'), (category) => { return _.isEmpty(category.domains); });
+  domainsEmpty: Em.computed('model.categories.@each.domains', function() {
+    return _.every(this.get('model.categories'), (category) => { return _.isEmpty(category.domains); });
   }),
 
   showMosaicChart: Em.computed('chartType', function() {
@@ -31,7 +31,7 @@ export default Em.Controller.extend({
     return () => {
       this.set('loading', true);
       return Discourse.ajax(Discourse.getURL(this.get('searchParams'))).then((data) => {
-        this.set('model', _.map(data['categories'], (category) => { return Category.createFromJson(category); }));
+        this.set('model.categories', _.map(data['categories'], (category) => { return Category.createFromJson(category); }));
         this.set('loading', false);
       });
     }

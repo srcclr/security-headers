@@ -9,15 +9,15 @@
     {{#each header in model.httpHeaders}}
       <tr>
         <td class="headers-name">
-          <span class="test-title">
-            <i {{bind-attr class=":fa header.icon"}}></i>
-            {{ header.label }}
-          </span>
+          <span class="test-title">{{ header.label }}</span>
         </td>
         <td>
           {{#if header.scoreZero}}
             <span class="test-value">
               {{ header.missingTitle }}
+            </span>
+            <span class="test-value-description">
+              {{ header.description }}
             </span>
           {{else}}
             {{#if header.scoreNegative}}
@@ -37,6 +37,7 @@
             {{/if}}
           {{/if}}
         </td>
+        <td><i {{bind-attr class=":fa header.icon"}}></i></td>
       </tr>
     {{/each}}
   </table>
@@ -79,12 +80,10 @@
       {{#if test.isApplicable}}
         <tr>
           <td>
-            <span class="test-title">
-              <i {{bind-attr class=":fa test.icon"}}></i>
-              {{ test.title }}
-            </span>
+            <span class="test-title">{{ test.title }}</span>
             <span class="test-value-description">{{ test.description }}</span>
           </td>
+          <td><i {{bind-attr class=":fa test.icon"}}></i></td>
         </tr>
       {{/if}}
     {{/each}}

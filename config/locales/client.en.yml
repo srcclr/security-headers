@@ -35,17 +35,17 @@ en:
           score1: "Limited blocking of certain types of Cross-Site Scripting attacks is enabled."
           score2: "Certain types of Cross-Site Scripting attacks are blocked."
         x-content-type-options:
-          label: "MIME type security"
+          label: "MIME Type Security"
           title: "X-Content-Type-Options"
           score0: "Attacks based on MIME-type confusion are not blocked."
           score1: "Attacks based on MIME-type confusion are prevented."
         x-download-options:
-          label: "Force save downloads"
+          label: "Force Save Downloads"
           title: "X-Download-Options"
           score0: "Showing the open dialog for downloaded files is enabled."
           score1: "Showing the open dialog for downloaded files is disabled."
         x-frame-options:
-          label: "Set framing policy"
+          label: "Set Framing Policy"
           title: "X-Frame-Options"
           score-1: "This page can be rendered inside a <frame>, <iframe>, or <object> on any domain. This can increase the risk of a clickjacking attack."
           score1: "This page can only be rendered inside a <frame>, <iframe>, or <object> on a whitelisted domain."
@@ -60,7 +60,7 @@ en:
           score3: "HPKP is enabled with report-uri. MITM attacks with forged cerfificates are prevented."
           score4: "HPKP is enabled with sub-domains. MITM attacks with forged cerfificates are prevented."
         x-permitted-cross-domain-policies:
-          label: "Cross domain configuration"
+          label: "Cross Domain Configuration"
           title: "X-Permitted-Cross-Domain-Policies"
           score0: "Cross domain configuration for Adobe Flash and PDF files is disabled."
           score1: "Adobe Flash and PDF files use the policy described in crossdomain.xml at the root of the website."
@@ -142,15 +142,14 @@ en:
         content-security-policy: "Content-Security-Policy"
       friendly_headers:
         strict-transport-security: "HTTP Strict Transport Security (HSTS)"
-        x-xss-protection: "Cross-Site Scripting (XSS) protection"
-        x-content-type-options: "MIME type security "
-        x-download-options: "Force save downloads"
-        x-frame-options: "Set framing policy"
+        x-xss-protection: "Cross-Site Scripting (XSS) Protection"
+        x-content-type-options: "MIME Type Security "
+        x-download-options: "Force Save Downloads"
+        x-frame-options: "Set Framing Policy"
         public-key-pins: "HTTP Public Key Pinning (HPKP)"
-        x-permitted-cross-domain-policies: "Cross domain configuration"
+        x-permitted-cross-domain-policies: "Cross Domain Configuration"
         content-security-policy: "Content Security Policy"
       check_form:
-        label: "Check the site"
         field: "Paste or type the URL"
         action: "Scan"
       chart_type:

@@ -1,19 +1,7 @@
 <aside class="headlines-filters">
-  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
-  {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
-
-  <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
-  <ul>
-    {{#each type in headerTypes}}
-      <li>
-        <label for="{{type.name}}">
-          {{input type="checkbox" checked=type.selected}}
-          {{localeInterpolation 'headlines.friendly_headers' type.name}}
-        </label>
-      </li>
-    {{/each}}
-  </ul>
+  {{partial 'headlines/filters'}}
 </aside>
+
 <section class="sites-list">
   <div {{bind-attr class=":pull-right :last-scan lastScanDate::hide"}}>
     {{fa-icon "clock-o"}}
@@ -75,7 +63,7 @@
           <th data-sort-order="category" class="category">
             {{i18n 'headlines.country'}}
           </th>
-          <th data-sort-order="posters" class="posters">
+          <th data-sort-order="posters" class="grades">
             {{i18n 'headlines.passed_tests'}}
           </th>
         </tr>
@@ -88,8 +76,8 @@
                 {{domain.name}}
               {{/link-to}}
             </td>
-            <td class="category">{{domain.country}}</td>
-            <td><div class="value-grade-{{lower-case domain.status }}">{{domain.status}}</div></td>
+            <td class="category">{{sanitizeCountry domain.country}}</td>
+            <td><div class="value-grade-{{lower-case domain.status}} text--right">{{domain.status}}</div></td>
           </tr>
         {{/each}}
       </tbody>
