@@ -52,26 +52,14 @@
   </h3>
 
   {{#if model.cspHeader.directives.length}}
-    <div class="panel panel--info mt">
-      <div class="panel__heading">{{i18n "headlines.tests.content-security-policy.title"}}</div>
-      <div class="panel__body">
-        <table class="tests-table">
-          {{#each directive in model.cspHeader.directives}}
-            <tr>
-              <td class="headers-name">
-                <span class="test-title">
-                  {{ directive.name }}
-                </span>
-              </td>
-              <td>
-                <span class="test-value">
-                  {{ directive.value }}
-                </span>
-              </td>
-            </tr>
-          {{/each}}
-        </table>
-      </div>
+    <div class="mt mb">
+      <ul class="directives-list m0 p0 list-style--none font--12">
+        {{#each directive in model.cspHeader.directives}}
+          <li class="mb-">
+            {{ directive.name }} {{ directive.value }};
+          </li>
+        {{/each}}
+      </ul>
     </div>
   {{/if}}
 
