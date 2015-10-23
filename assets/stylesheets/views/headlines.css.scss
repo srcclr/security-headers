@@ -37,7 +37,7 @@
     position: absolute;
     font-size: 18px;
     right: 20px;
-    bottom: 30px;
+    bottom: 20px;
     width: 135px;
     padding: 5px 15px;
     text-align: center;
@@ -302,6 +302,10 @@ h3.category-title {
       font-size: 12px;
     }
   }
+}
+
+.directives-list  {
+  font-family: monospace, monospace;
 }
 
 .site-notes {

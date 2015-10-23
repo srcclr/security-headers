@@ -45,37 +45,31 @@
 
 <div class="tests-section">
   <h3>
-    CSP headers
+    CSP header
     <span class="tests-overall-score">Grade:
       <strong class="headers-grade value-grade-{{lower-case model.csp_grade}}">{{ model.csp_grade }}</strong>
     </span>
   </h3>
 
-  {{#if model.cspHeader.directives.length}}
-    <div class="panel panel--info mt">
-      <div class="panel__heading">{{i18n "headlines.tests.content-security-policy.title"}}</div>
-      <div class="panel__body">
-        <table class="tests-table">
-          {{#each directive in model.cspHeader.directives}}
-            <tr>
-              <td class="headers-name">
-                <span class="test-title">
-                  {{ directive.name }}
-                </span>
-              </td>
-              <td>
-                <span class="test-value">
-                  {{ directive.value }}
-                </span>
-              </td>
-            </tr>
-          {{/each}}
-        </table>
-      </div>
-    </div>
-  {{/if}}
-
   <table class="tests-table">
+    {{#if model.cspHeader.directives.length}}
+      <tr>
+         <td class="headers-name">
+          <span class="test-title mb-">Content-Security-Policy:</span>
+
+          <ul class="ml0 pl0">
+            {{#each directive in model.cspHeader.directives}}
+              <li class="test-value-description">
+                {{ directive.name }} {{ directive.value }};
+              </li>
+            {{/each}}
+          </ul>
+        </td>
+
+        <td/>
+      </tr>
+    {{/if}}
+
     {{#each test in model.cspHeader.tests}}
       {{#if test.isApplicable}}
         <tr>
