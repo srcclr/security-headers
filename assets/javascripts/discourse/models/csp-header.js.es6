@@ -4,7 +4,6 @@ let CspHeader = Discourse.Model.extend({ })
 
 CspHeader.reopenClass({
   createFromJson(json) {
-    console.log(json.value);
     return this.create({
       name: json.name,
       value: json.value,
