@@ -54,19 +54,16 @@
   <table class="tests-table">
     {{#if model.cspHeader.directives.length}}
       <tr>
-         <td class="headers-name">
+         <td class="pt- pb-" colspan="2">
           <span class="test-title mb-">Content-Security-Policy:</span>
-
           <ul class="ml0 pl0">
             {{#each directive in model.cspHeader.directives}}
               <li class="test-value-description">
-                {{ directive.name }} {{ directive.value }};
+                {{ directive }};
               </li>
             {{/each}}
           </ul>
         </td>
-
-        <td/>
       </tr>
     {{/if}}
 
