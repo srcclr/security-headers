@@ -35,7 +35,7 @@ module Headlines
     def root_categories_with_stats
       {
         domains_scanned: Headlines::Domain.where.not(last_scan_id: nil).count,
-        last_scan: Headlines::Scan.last.created_at,
+        last_scan: Headlines::Scan.last.try(:created_at),
         categories: categories_as_json
       }
     end
