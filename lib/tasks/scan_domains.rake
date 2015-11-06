@@ -36,7 +36,8 @@ namespace :headlines do
 
     unless scan.success?
       failure_logger.info("#{index}. #{scan.url}")
-      failure_logger.info("  #{scan.errors}")
+      failure_logger.info("  Status: #{scan.status}") if scan.status.present?
+      failure_logger.info("  Errors: #{scan.errors}") if scan.errors.present?
     end
   end
 

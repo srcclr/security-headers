@@ -3,7 +3,10 @@ module Headlines
     include Interactor
 
     def call
-      context.fail! unless response.success?
+      unless response.success?
+        context.status = response.status
+        context.fail!
+      end
 
       context.headers = parse_headers.push(parse_csp)
     end
