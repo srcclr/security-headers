@@ -5,6 +5,7 @@ module Headlines
     def call
       context.fail! unless response.success?
 
+      context.scheme = response.env.url.scheme
       context.headers = parse_headers.push(parse_csp)
     end
 
@@ -35,7 +36,9 @@ module Headlines
     end
 
     def empty_headers_hash
-      Hash[SECURITY_HEADERS.zip(Array.new(SECURITY_HEADERS.size, ""))]
+      headers = SECURITY_HEADERS
+      headers -= ["strict-transport-security"] if context.scheme == "http"
+      Hash[headers.zip(Array.new(headers.size, ""))]
     end
 
     def formatted_headers
@@ -49,7 +52,7 @@ module Headlines
     end
 
     def connection
-      Faraday.new(url: "http://#{context.url}", headers: request_headers, ssl: { verify: false }) do |builder|
+      Faraday.new(url: "http://#{context.url}", headers: request_headers) do |builder|
         builder.request :url_encoded
         builder.response :logger
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
