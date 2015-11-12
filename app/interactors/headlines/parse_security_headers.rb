@@ -5,7 +5,7 @@ module Headlines
     def call
       context.fail! unless response.success?
 
-      context.scheme = response.env.url.scheme
+      context.ssl_enabled = response.env.url.scheme == "https"
       context.headers = parse_headers.push(parse_csp)
     end
 
@@ -36,9 +36,7 @@ module Headlines
     end
 
     def empty_headers_hash
-      headers = SECURITY_HEADERS
-      headers -= ["strict-transport-security"] if context.scheme == "http"
-      Hash[headers.zip(Array.new(headers.size, ""))]
+      Hash[SECURITY_HEADERS.zip(Array.new(SECURITY_HEADERS.size, ""))]
     end
 
     def formatted_headers

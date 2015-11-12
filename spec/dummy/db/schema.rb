@@ -11,33 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908134102) do
+ActiveRecord::Schema.define(version: 20151112154946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "headlines_categories", force: true do |t|
-    t.string   "title",       limit: nil, default: "",                    null: false
-    t.string   "topic",       limit: nil, default: "",                    null: false
-    t.datetime "created_at",              default: '2015-07-06 16:45:58', null: false
-    t.datetime "updated_at",              default: '2015-07-06 16:45:58', null: false
+    t.string   "title",       default: "",                    null: false
+    t.string   "topic",       default: "",                    null: false
+    t.datetime "created_at",  default: '2015-11-12 15:51:22', null: false
+    t.datetime "updated_at",  default: '2015-11-12 15:51:22', null: false
     t.integer  "category_id"
-    t.text     "description",             default: ""
-    t.integer  "parents",                 default: [],                    null: false, array: true
+    t.text     "description", default: ""
+    t.integer  "parents",     default: [],                    null: false, array: true
   end
 
   add_index "headlines_categories", ["category_id"], name: "index_headlines_categories_on_category_id", using: :btree
   add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :gin
 
   create_table "headlines_domains", force: true do |t|
-    t.string   "name",                limit: nil, default: "", null: false
-    t.integer  "rank",                            default: 0,  null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "country_code",        limit: nil, default: "", null: false
+    t.string   "name",                default: "", null: false
+    t.integer  "rank",                default: 0,  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "country_code",        default: "", null: false
     t.xml      "data_alexa"
-    t.integer  "parent_category_ids",             default: [], null: false, array: true
+    t.integer  "parent_category_ids", default: [], null: false, array: true
     t.integer  "last_scan_id"
   end
 
@@ -47,23 +47,24 @@ ActiveRecord::Schema.define(version: 20150908134102) do
 
   create_table "headlines_domains_categories", force: true do |t|
     t.integer  "category_id"
-    t.datetime "created_at",              default: '2015-07-06 16:45:58', null: false
-    t.datetime "updated_at",              default: '2015-07-06 16:45:58', null: false
-    t.string   "domain_name", limit: nil
+    t.datetime "created_at",  default: '2015-11-12 15:51:22', null: false
+    t.datetime "updated_at",  default: '2015-11-12 15:51:22', null: false
+    t.string   "domain_name"
   end
 
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
   add_index "headlines_domains_categories", ["domain_name"], name: "index_headlines_domains_categories_on_domain_name", using: :btree
 
   create_table "headlines_scans", force: true do |t|
-    t.json     "headers",    default: {}, null: false
-    t.hstore   "results",    default: {}, null: false
+    t.json     "headers",     default: {}, null: false
+    t.hstore   "results",     default: {}, null: false
     t.integer  "domain_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "score",      default: 0
-    t.integer  "http_score", default: 0
-    t.integer  "csp_score",  default: 0
+    t.integer  "score",       default: 0
+    t.integer  "http_score",  default: 0
+    t.integer  "csp_score",   default: 0
+    t.boolean  "ssl_enabled"
   end
 
   add_index "headlines_scans", ["domain_id"], name: "index_headlines_scans_on_domain_id", using: :btree

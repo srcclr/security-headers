@@ -1,6 +1,8 @@
 import { iconForScore } from '../../lib/score'
 
 let Header = Discourse.Model.extend({
+  isHsts: Em.computed.equal("name", "strict-transport-security"),
+
   label: Em.computed(function() {
     return I18n.t("headlines.tests." + this.get('name') + ".label");
   }),
@@ -17,12 +19,8 @@ let Header = Discourse.Model.extend({
     return I18n.t("headlines.tests." + this.get('name') + ".score" + this.get('score'));
   }),
 
-  scoreZero: Em.computed(function() {
-    return this.get('score') === 0;
-  }),
-
-  scoreNegative: Em.computed(function() {
-    return this.get('score') === -1;
+  scorePositive: Em.computed(function() {
+    return this.get('score') > 0;
   }),
 
   icon: Em.computed(function() {

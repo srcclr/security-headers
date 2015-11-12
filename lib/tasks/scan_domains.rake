@@ -35,7 +35,7 @@ namespace :headlines do
     result = Headlines::AnalyzeDomainHeaders.call(url: domain.name)
 
     if result.success?
-      domain.build_last_scan(scan_params(result).merge(domain_id: domain.id))
+      domain.build_last_scan(scan_params(result).merge(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
       domain.save!
     end
 
