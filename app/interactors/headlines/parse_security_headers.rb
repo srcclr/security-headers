@@ -8,6 +8,7 @@ module Headlines
         context.fail!
       end
 
+      context.ssl_enabled = response.env.url.scheme == "https"
       context.headers = parse_headers.push(parse_csp)
     end
 
@@ -53,7 +54,7 @@ module Headlines
     end
 
     def connection
-      Faraday.new(url: "http://#{context.url}", headers: request_headers, ssl: { verify: false }) do |builder|
+      Faraday.new(url: "http://#{context.url}", headers: request_headers) do |builder|
         builder.request :url_encoded
         builder.response :logger
         builder.use FaradayMiddleware::FollowRedirects, limit: 10

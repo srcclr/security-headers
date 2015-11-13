@@ -22,7 +22,9 @@ module Headlines
     end
 
     def scan_results
-      @scan_results ||= Hash[context.headers.map { |header| [header.name, header.score] }]
+      @scan_results ||= Hash[context.headers.map { |h| [h.name, h.score] }]
+      @scan_results["strict-transport-security"] = -1 unless context.ssl_enabled
+      @scan_results
     end
 
     def http_score

@@ -9,7 +9,7 @@ module Headlines
 
     delegate :categories, to: :data_alexa, prefix: true
     delegate :headers, to: :last_scan, prefix: true
-    delegate :score, :http_score, :csp_score, to: :last_scan
+    delegate :score, :http_score, :csp_score, :ssl_enabled, to: :last_scan
 
     def data_alexa=(value)
       self[:data_alexa] = value

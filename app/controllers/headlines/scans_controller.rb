@@ -16,12 +16,12 @@ module Headlines
 
     private
 
-    def url
-      domain_params[:url].gsub(%r{.?https?://}i, "")
+    def domain_as_json
+      { name: url, ssl_enabled: result.ssl_enabled }.merge(scan_results)
     end
 
-    def domain_as_json
-      { name: url }.merge(scan_results)
+    def url
+      domain_params[:url].gsub(%r{.?https?://}i, "")
     end
 
     def scan_results
