@@ -15,7 +15,7 @@ module Headlines
       end
 
       def score_by_allow_from
-        whitelisted_domain? ? 1 : 0
+        whitelisted_domain? ? 1 : -1
       end
 
       def allow_from_domain
