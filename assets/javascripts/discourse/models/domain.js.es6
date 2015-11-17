@@ -23,6 +23,7 @@ Domain.reopenClass({
       name: json.name,
       rank: json.rank,
       country: json.country,
+      sslEnabled: json.ssl_enabled,
       score: json.score,
       http_score: json.http_score,
       csp_score: json.csp_score,

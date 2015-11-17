@@ -19,23 +19,33 @@ namespace :headlines do
     limit = domains.last.id
 
     logger = Logger.new(Rails.root.join("log/scan_domains_#{index}_#{limit}.log"))
+    failure_logger = Logger.new(Rails.root.join("log/scan_domains_failure_#{Time.now.strftime('%F')}.log"))
 
     domains.each do |domain|
-      log_scan_result(scan: scan_domain(domain), index: index, limit: limit, logger: logger)
+      log_scan_result(
+        scan: scan_domain(domain), index: index, limit: limit, logger: logger, failure_logger: failure_logger
+      )
+
       index += 1
     end
   end
 
-  def log_scan_result(logger: nil, index: nil, limit: nil, scan: nil)
+  def log_scan_result(logger: nil, failure_logger: nil, index: nil, limit: nil, scan: nil)
     result = scan.success? ? "succesfully" : "not succesfully"
     logger.info("[#{index} / #{limit}] The domain #{scan.url} has been scanned #{result}\n")
+
+    unless scan.success?
+      failure_logger.info("#{index}. #{scan.url}")
+      failure_logger.info("  Status: #{scan.status}") if scan.status.present?
+      failure_logger.info("  Errors: #{scan.errors}") if scan.errors.present?
+    end
   end
 
   def scan_domain(domain)
     result = Headlines::AnalyzeDomainHeaders.call(url: domain.name)
 
     if result.success?
-      domain.build_last_scan(scan_params(result).merge(domain_id: domain.id))
+      domain.build_last_scan(scan_params(result).merge(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
       domain.save!
     end
 

@@ -1,6 +1,6 @@
 module Headlines
   class DomainSerializer < ActiveModel::Serializer
-    attributes :id, :name, :rank, :country, :score, :http_score, :csp_score, :last_scan_date
+    attributes :id, :name, :rank, :country, :ssl_enabled, :score, :http_score, :csp_score, :last_scan_date
 
     private
 

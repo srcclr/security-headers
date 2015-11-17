@@ -3,8 +3,12 @@ module Headlines
     include Interactor
 
     def call
-      context.fail! unless response.success?
+      unless response.success?
+        context.status = response.status
+        context.fail!
+      end
 
+      context.ssl_enabled = response.env.url.scheme == "https"
       context.headers = parse_headers.push(parse_csp)
     end
 
@@ -18,7 +22,8 @@ module Headlines
 
     def head_request
       @head_request = connection.head("/")
-    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT => exception
+      context.errors = exception.inspect
       context.fail!(message: I18n.t("connection.failed", url: context.url))
     end
 
@@ -49,12 +54,19 @@ module Headlines
     end
 
     def connection
-      Faraday.new(url: "http://#{context.url}", headers: { accept_encoding: "none" }) do |builder|
+      Faraday.new(url: "http://#{context.url}", headers: request_headers) do |builder|
         builder.request :url_encoded
         builder.response :logger
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
         builder.adapter Faraday.default_adapter
       end
+    end
+
+    def request_headers
+      {
+        accept_encoding: "none",
+        user_agent: "Mozilla/5.0 AppleWebKit/537.36 Chrome/46.0.2490.71 Safari/537.36 Firefox/41.0"
+      }
     end
   end
 end
