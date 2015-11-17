@@ -19,7 +19,7 @@ namespace :headlines do
     limit = domains.last.id
 
     logger = Logger.new(Rails.root.join("log/scan_domains_#{index}_#{limit}.log"))
-    failure_logger = Logger.new(Rails.root.join("log/scan_domains_failure_#{Time.now.strftime('%F')}.log"))
+    failure_logger = Logger.new(Rails.root.join("log/scan_domains_failure_#{Time.zone.now.strftime('%F')}.log"))
 
     domains.each do |domain|
       log_scan_result(
@@ -34,11 +34,11 @@ namespace :headlines do
     result = scan.success? ? "succesfully" : "not succesfully"
     logger.info("[#{index} / #{limit}] The domain #{scan.url} has been scanned #{result}\n")
 
-    unless scan.success?
-      failure_logger.info("#{index}. #{scan.url}")
-      failure_logger.info("  Status: #{scan.status}") if scan.status.present?
-      failure_logger.info("  Errors: #{scan.errors}") if scan.errors.present?
-    end
+    return if scan.success?
+
+    failure_logger.info("#{index}. #{scan.url}")
+    failure_logger.info("  Status: #{scan.status}") if scan.status.present?
+    failure_logger.info("  Errors: #{scan.errors}") if scan.errors.present?
   end
 
   def scan_domain(domain)
