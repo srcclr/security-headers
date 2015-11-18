@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "= 4.1.13"
   s.add_dependency "upsert", ">= 2.1"
   s.add_dependency "nokogiri", ">= 1.5"
-  s.add_dependency "rspec_api_documentation", "4.6.0"
 
   s.add_development_dependency "active_model_serializers", ">= 0.9"
   s.add_development_dependency "rspec-rails"
