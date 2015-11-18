@@ -1,9 +1,7 @@
 module Api
   module V1
     module Domains
-      class ScansController < ActionController::Base
-        respond_to :json
-
+      class ScansController < Api::V1::BaseController
         def create
           render json: scan_as_json, root: false
         end
@@ -20,7 +18,13 @@ module Api
 
         def headers
           headers = scan_result[:params].slice(:http_headers, :csp_header)
-          headers[:http_headers]
+          headers = headers[:http_headers] << headers[:csp_header].slice(:name, :value, :score)
+
+          headers = headers.map do |header|
+            [header[:name], { value: header[:value], score: header[:score] }]
+          end
+
+          Hash[headers]
         end
       end
     end
