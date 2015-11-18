@@ -3,14 +3,14 @@ module Api
     module Domains
       class ScansController < Api::V1::BaseController
         def create
-          render json: scan_as_json, root: false
+          if scan_result.success?
+            render json: headers, root: false
+          else
+            head :unprocessable_entity
+          end
         end
 
         private
-
-        def scan_as_json
-          scan_result.success? ? headers : {}
-        end
 
         def scan_result
           @scan_result ||= Headlines::AnalyzeDomainHeaders.call(url: params[:url])
