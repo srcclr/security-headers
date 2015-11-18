@@ -7,3 +7,13 @@ Headlines::Engine.routes.draw do
 
   root to: "categories#index"
 end
+
+Rails.application.routes.draw do
+  namespace :api, defaults: { format: "json" } do
+    namespace :v1 do
+      namespace :domains do
+        post "scan", to: "scans#create"
+      end
+    end
+  end
+end
