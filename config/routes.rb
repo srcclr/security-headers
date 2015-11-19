@@ -5,15 +5,12 @@ Headlines::Engine.routes.draw do
 
   resource :scans, only: %i(show)
 
-  root to: "categories#index"
-end
-
-Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
-      namespace :domains do
-        post "scan", to: "scans#create"
-      end
+      get "scan", to: "scans#create"
+      post "scan", to: "scans#create"
     end
   end
+
+  root to: "categories#index"
 end
