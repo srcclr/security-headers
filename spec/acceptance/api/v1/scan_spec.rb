@@ -1,13 +1,13 @@
 require "rails_helper"
 
-describe "/api/v1/domains/scan", type: :request do
+describe "/api/v1/scan", type: :request do
   let(:params) { { url: url } }
   let(:url) { "github.com" }
 
   before do
     stub_request(:get, "http://#{url}/").to_return(domain_response)
 
-    post "/api/v1/domains/scan", params
+    post "/headlines/api/v1/scan", params
   end
 
   context "Successful scan" do

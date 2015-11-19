@@ -1,7 +1,7 @@
-module Api
-  module V1
-    module Domains
-      class ScansController < Api::V1::BaseController
+module Headlines
+  module Api
+    module V1
+      class ScansController < BaseController
         def create
           if scan_result.success?
             render json: headers, root: false
