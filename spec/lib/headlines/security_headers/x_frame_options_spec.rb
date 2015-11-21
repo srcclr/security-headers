@@ -38,7 +38,7 @@ module Headlines
         context "when value is ALLOW-FROM any domain" do
           let(:value) { "ALLOW-FROM http://example.com" }
 
-          it { is_expected.to eq(0) }
+          it { is_expected.to eq(-1) }
         end
 
         context "when values is blank" do

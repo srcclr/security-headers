@@ -16,7 +16,7 @@ module Headlines
       end
 
       def include_subdomains?
-        value.gsub(" ", "").scan(";includeSubDomains").any?
+        value.gsub(" ", "").downcase.scan(";includesubdomains").any?
       end
 
       def max_age

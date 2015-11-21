@@ -25,11 +25,12 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "= 4.1.13"
   s.add_dependency "upsert", ">= 2.1"
   s.add_dependency "nokogiri", ">= 1.5"
-  s.add_development_dependency "active_model_serializers", ">= 0.9"
 
+  s.add_development_dependency "active_model_serializers", ">= 0.9"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "byebug"
+  s.add_development_dependency "pry-byebug"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "pg"
   s.add_development_dependency "rubocop"

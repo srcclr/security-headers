@@ -12,7 +12,7 @@ module Headlines
           it { is_expected.to eq(1) }
 
           context "when header includes includeSubDomains parameter" do
-            let(:value) { "max-age=631138519; includeSubDomains" }
+            let(:value) { "max-age=631138519; includeSubdomains" }
 
             it { is_expected.to eq(2) }
           end
