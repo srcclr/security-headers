@@ -6,7 +6,7 @@ namespace :headlines do
 
     pids = []
 
-    Headlines::Domain.find_in_batches(batch_size: 2500) do |domains|
+    Headlines::Domain.find_in_batches(batch_size: 2_500) do |domains|
       pids.push(fork { scan_domains(domains: domains) })
     end
 
