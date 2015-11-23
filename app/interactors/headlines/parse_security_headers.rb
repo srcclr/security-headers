@@ -28,7 +28,7 @@ module Headlines
     end
 
     def parse_csp
-      Headlines::SecurityHeaders::ContentSecurityPolicy.new(response.headers, response.body, context.url)
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new(sanitized_headers, response.body, context.url)
     end
 
     def parse_headers
@@ -44,9 +44,15 @@ module Headlines
     end
 
     def formatted_headers
-      return response.headers unless response.headers["public-key-pins-report-only"]
+      return sanitized_headers unless sanitized_headers["public-key-pins-report-only"]
 
-      response.headers.merge("public-key-pins" => "#{response.headers['public-key-pins-report-only']};report-only")
+      sanitized_headers.merge("public-key-pins" => "#{sanitized_headers['public-key-pins-report-only']};report-only")
+    end
+
+    def sanitized_headers
+      @sanitized_headers ||= Hash[
+        response.headers.map { |k, v| [k, v.force_encoding('iso8859-1').encode('utf-8')] }
+      ]
     end
 
     def headers_to_analyze
