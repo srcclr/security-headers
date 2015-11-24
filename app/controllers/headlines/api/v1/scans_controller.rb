@@ -20,18 +20,10 @@ module Headlines
           headers = scan_result[:params][:headers]
 
           headers = headers.map do |header|
-            [header[:name], { value: header[:value], rating: rating(header[:score], header[:name]) }]
+            [header[:name], { value: header[:value], rating: header[:rating] }]
           end
 
           Hash[headers]
-        end
-
-        def rating(score, header_name)
-          if header_name == "content-security-policy"
-            Headlines::Ratings::CspHeaderCalculator.new(score).call
-          else
-            Headlines::Ratings::HttpHeaderCalculator.new(score).call
-          end
         end
       end
     end

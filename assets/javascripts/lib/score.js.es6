@@ -14,6 +14,16 @@ export function iconForScore(score) {
   return 'fa-minus-circle';
 }
 
+export function iconForRating(rating) {
+  if (rating == "OK") {
+    return 'fa-check-circle';
+  } else if (rating == "ERROR") {
+    return 'fa-times-circle';
+  }
+
+  return 'fa-minus-circle';
+}
+
 export let ratings =
   [
     { name: 'A', selected: false, score: 3 },

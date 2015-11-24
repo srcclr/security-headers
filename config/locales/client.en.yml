@@ -64,6 +64,22 @@ en:
           title: "X-Permitted-Cross-Domain-Policies"
           score0: "Cross domain configuration for Adobe Flash and PDF files is disabled."
           score1: "Adobe Flash and PDF files use the policy described in crossdomain.xml at the root of the website."
+        x-powered-by:
+          label: "X Powered By"
+          title: "X-Powered-By"
+          score0: "Not setting this header prevents unnecessary information about server configuration from being disclosed."
+          score1: "Setting this header may reveal unnecessary information about server configuration."
+        server:
+          label: "Server"
+          title: "Server"
+          score0: "Not setting this header prevents unnecessary information about server configuration from being disclosed."
+          score1: "Setting this header may reveal unnecessary information about server configuration."
+        content-type:
+          label: "Content Type"
+          title: "Content-Type"
+          score0: "Please specify the content type and character set in the response header."
+          score1: "Please ensure that the character set matches with the content type."
+          score2: "Setting content type and character set prevents against content sniffing and character set mismatch."
         content-security-policy:
           title: "Content-Security-Policy"
           no_csp_header:

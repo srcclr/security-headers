@@ -36,17 +36,21 @@ module Headlines
     end
 
     def security_headers
-      empty_headers_hash.merge(formatted_headers.slice(*SECURITY_HEADERS))
+      empty_headers_hash.merge(formatted_headers.slice(*headers_to_analyze))
     end
 
     def empty_headers_hash
-      Hash[SECURITY_HEADERS.zip(Array.new(SECURITY_HEADERS.size, ""))]
+      Hash[headers_to_analyze.zip(Array.new(headers_to_analyze.size, ""))]
     end
 
     def formatted_headers
       return response.headers unless response.headers["public-key-pins-report-only"]
 
       response.headers.merge("public-key-pins" => "#{response.headers['public-key-pins-report-only']};report-only")
+    end
+
+    def headers_to_analyze
+      SECURITY_HEADERS + OTHER_HEADERS
     end
 
     def header_class(header)
