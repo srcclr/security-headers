@@ -51,7 +51,7 @@ module Headlines
 
     def sanitized_headers
       @sanitized_headers ||= Hash[
-        response.headers.map { |k, v| [k, v.force_encoding('iso8859-1').encode('utf-8')] }
+        response.headers.map { |k, v| [k, v.force_encoding("iso8859-1").encode("utf-8")] }
       ]
     end
 

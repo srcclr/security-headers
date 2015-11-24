@@ -26,13 +26,13 @@ module Headlines
       end
 
       def log_scan_result(index, result)
-        logger.info("[#{index} / #{@domains.last.id}] Domain #{result.url} scan result: #{result.success? ? "success" : "failure"}")
+        scan_result = result.success? ? "success" : "failure"
+        logger.info("[#{index} / #{@domains.last.id}] Domain #{result.url} scan result: #{scan_result}")
+        return if result.success?
 
-        if result.failure?
-          failure_logger.info("#{index}. #{result.url}")
-          failure_logger.info("  Status: #{result.status}") if result.status.present?
-          failure_logger.info("  Errors: #{result.errors}") if result.errors.present?
-        end
+        failure_logger.info("#{index}. #{result.url}")
+        failure_logger.info("  Status: #{result.status}") if result.status.present?
+        failure_logger.info("  Errors: #{result.errors}") if result.errors.present?
       end
 
       def logger
