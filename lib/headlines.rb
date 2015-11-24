@@ -8,9 +8,6 @@ require "upsert"
 require "active_model_serializers"
 require "nokogiri"
 require_relative "headlines/domains_archive"
-require_relative "headlines/ratings/base_calculator"
-require_relative "headlines/ratings/csp_header_calculator"
-require_relative "headlines/ratings/http_header_calculator"
 require_relative "headlines/security_headers/security_header"
 require_relative "headlines/security_headers/strict_transport_security"
 require_relative "headlines/security_headers/x_content_type_options"
@@ -19,6 +16,9 @@ require_relative "headlines/security_headers/x_permitted_cross_domain_policies"
 require_relative "headlines/security_headers/x_frame_options"
 require_relative "headlines/security_headers/x_xss_protection"
 require_relative "headlines/security_headers/public_key_pins"
+require_relative "headlines/security_headers/x_powered_by"
+require_relative "headlines/security_headers/server"
+require_relative "headlines/security_headers/content_type"
 require_relative "headlines/data_alexa"
 
 module Headlines
@@ -29,6 +29,10 @@ module Headlines
                         x-permitted-cross-domain-policies
                         x-content-type-options
                         x-download-options)
+
+  OTHER_HEADERS = %w(x-powered-by
+                     server
+                     content-type)
 
   CSP_RULES = { no_csp_header: -15,
                 invalid_csp_header: -15,

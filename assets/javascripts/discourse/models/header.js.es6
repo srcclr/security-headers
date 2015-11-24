@@ -1,4 +1,4 @@
-import { iconForScore } from '../../lib/score'
+import { iconForRating } from '../../lib/score'
 
 let Header = Discourse.Model.extend({
   isHsts: Em.computed.equal("name", "strict-transport-security"),
@@ -8,7 +8,7 @@ let Header = Discourse.Model.extend({
   }),
 
   title: Em.computed(function() {
-    return I18n.t("headlines.tests." + this.get('name') + ".title");
+    return I18n.t("headlines.tests." + this.get('name') + ".title") + ": " + this.get("value");
   }),
 
   missingTitle: Em.computed(function() {
@@ -24,8 +24,8 @@ let Header = Discourse.Model.extend({
   }),
 
   icon: Em.computed(function() {
-    let score = this.get('score');
-    return iconForScore(score);
+    let rating = this.get('rating');
+    return iconForRating(rating);
   })
 })
 
