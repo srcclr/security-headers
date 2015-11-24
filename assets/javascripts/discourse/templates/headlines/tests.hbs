@@ -13,7 +13,7 @@
         </td>
         <td>
           {{#if header.scorePositive}}
-            <span class="test-value">{{ header.title }}</span>
+            <span class="test-value">{{ header.title }}: {{ header.value }}</span>
             <span class="test-value-description">{{ header.description }}</span>
           {{else}}
             {{#if header.isHsts}}
@@ -27,7 +27,7 @@
                 </span>
               {{/if}}
             {{else}}
-              <span class="test-value">{{ header.title }}</span>
+              <span class="test-value">{{ header.missingTitle }}</span>
               <span class="test-value-description">{{ header.description }}</span>
             {{/if}}
           {{/if}}
