@@ -21,7 +21,11 @@ module Headlines
     private
 
     def sorted_headers(headers)
-      headers.sort { |h1, h2| SECURITY_HEADERS.index(h1["name"]) <=> SECURITY_HEADERS.index(h2["name"]) }
+      headers.sort { |h1, h2| all_headers.index(h1["name"]) <=> all_headers.index(h2["name"]) }
+    end
+
+    def all_headers
+      SECURITY_HEADERS + OTHER_HEADERS
     end
   end
 end
