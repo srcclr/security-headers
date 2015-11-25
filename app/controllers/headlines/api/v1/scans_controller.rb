@@ -4,7 +4,7 @@ module Headlines
       class ScansController < BaseController
         def create
           if scan_result.success?
-            render json: headers, root: false
+            render json: JSON.pretty_generate(headers), root: false
           else
             head :unprocessable_entity
           end

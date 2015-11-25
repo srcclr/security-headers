@@ -43,7 +43,7 @@ describe "/api/v1/scan", type: :request do
 
       it "return scanned headers with rating" do
         expect(response.status).to eq(200)
-        expect(response.body).to eq(scan_result.to_json)
+        expect(JSON.parse(response.body)).to eq(scan_result)
       end
     end
 
