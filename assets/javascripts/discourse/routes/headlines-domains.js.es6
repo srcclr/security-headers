@@ -14,7 +14,7 @@ function wrapDomain(domain) {
     id: domain.id,
     name: domain.name,
     country: domain.country,
-    sslEnabled: domain.sslEnabled,
+    sslEnabled: domain.ssl_enabled,
     score: domain.score,
     http_score: domain.http_score,
     csp_score: domain.csp_score,
