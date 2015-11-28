@@ -101,6 +101,14 @@ module Headlines
       def first_meta_tag_name
         Nokogiri::HTML(@body).xpath("html/head/meta")[0].attributes.keys[0].downcase
       end
+
+      def ok?
+        score == 3
+      end
+
+      def warn?
+        score == 2
+      end
     end
   end
 end

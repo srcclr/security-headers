@@ -19,7 +19,8 @@ describe "/api/v1/scan", type: :request do
           headers: {
             "x-xss-protection" => "1; mode=block",
             "public-key-pins" => "max-age=300; includeSubDomains",
-            "x-content-type-options" => "nosniff"
+            "x-content-type-options" => "nosniff",
+            "content-type" => "text/html;charset=utf-8"
           }
         }
       end
@@ -33,13 +34,16 @@ describe "/api/v1/scan", type: :request do
           "x-permitted-cross-domain-policies" => { "value" => "", "rating" => "WARN" },
           "x-content-type-options" => { "value" => "nosniff", "rating" => "OK" },
           "x-download-options" => { "value" => "", "rating" => "WARN" },
+          "x-powered-by" => { "value" => "", "rating" => "OK" },
+          "server" => { "value" => "", "rating" => "OK" },
+          "content-type" => { "value" => "text/html;charset=utf-8", "rating" => "OK" },
           "content-security-policy" => { "value" => "", "rating" => "ERROR" }
         }
       end
 
       it "return scanned headers with rating" do
         expect(response.status).to eq(200)
-        expect(response.body).to eq(scan_result.to_json)
+        expect(JSON.parse(response.body)).to eq(scan_result)
       end
     end
 

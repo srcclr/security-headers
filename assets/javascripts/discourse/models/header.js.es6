@@ -1,4 +1,4 @@
-import { iconForScore } from '../../lib/score'
+import { iconForScore, iconForRating } from '../../lib/score'
 
 let Header = Discourse.Model.extend({
   isHsts: Em.computed.equal("name", "strict-transport-security"),
@@ -24,8 +24,14 @@ let Header = Discourse.Model.extend({
   }),
 
   icon: Em.computed(function() {
-    let score = this.get('score');
-    return iconForScore(score);
+    let rating = this.get('rating'),
+        score = this.get('score');
+
+    if (rating != undefined) {
+      return iconForRating(rating);
+    } else {
+      return iconForScore(score);
+    }
   })
 })
 

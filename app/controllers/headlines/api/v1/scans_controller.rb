@@ -4,7 +4,7 @@ module Headlines
       class ScansController < BaseController
         def create
           if scan_result.success?
-            render json: headers, root: false
+            render json: JSON.pretty_generate(headers), root: false
           else
             head :unprocessable_entity
           end
@@ -20,18 +20,10 @@ module Headlines
           headers = scan_result[:params][:headers]
 
           headers = headers.map do |header|
-            [header[:name], { value: header[:value], rating: rating(header[:score], header[:name]) }]
+            [header[:name], { value: header[:value], rating: header[:rating] }]
           end
 
           Hash[headers]
-        end
-
-        def rating(score, header_name)
-          if header_name == "content-security-policy"
-            Headlines::Ratings::CspHeaderCalculator.new(score).call
-          else
-            Headlines::Ratings::HttpHeaderCalculator.new(score).call
-          end
         end
       end
     end

@@ -4,7 +4,8 @@ module Headlines
   describe GenerateResults do
     let(:x_xss_protection) { SecurityHeaders::XXssProtection.new("x-xss-protection", "1; mode=block") }
     let(:x_frame_options) { SecurityHeaders::XFrameOptions.new("x-frame-options", "SAMEORIGIN") }
-    let(:headers) { [x_xss_protection, x_frame_options] }
+    let(:content_type) { SecurityHeaders::ContentType.new("content-type", "text/html;charset=utf-8") }
+    let(:headers) { [x_xss_protection, x_frame_options, content_type] }
 
     describe ".call" do
       describe "success for any headers" do
@@ -24,6 +25,7 @@ module Headlines
         it "returns scores for given headers" do
           expect(scan_results["x-xss-protection"]).to eq(2)
           expect(scan_results["x-frame-options"]).to eq(2)
+          expect(scan_results["content-type"]).to eq(2)
         end
       end
 
