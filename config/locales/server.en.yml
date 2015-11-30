@@ -1,0 +1,6 @@
+en:
+  errors:
+    general: "No results."
+    faraday:
+      connectionfailed: "Connection error."
+      sslerror: "SSL error."

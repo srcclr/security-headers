@@ -25,7 +25,7 @@ module Headlines
     end
 
     def scan_results
-      return {} unless result.success?
+      return { error: result.message } unless result.success?
 
       result[:params].slice(:score, :http_score, :csp_score, :http_headers, :csp_header)
     end
