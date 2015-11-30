@@ -28,6 +28,7 @@ Domain.reopenClass({
       http_score: json.http_score,
       csp_score: json.csp_score,
       lastScanDate: json.last_scan_date,
+      error: json.error,
       httpHeaders: _.map(json.http_headers, (header) => { return Header.create(header); }),
       cspHeader: CspHeader.createFromJson(json.csp_header || {})
     })

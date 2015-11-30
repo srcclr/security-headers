@@ -25,6 +25,6 @@
     </div>
     {{partial "headlines/tests"}}
   {{else}}
-    <div>{{i18n 'headlines.no_results'}}</div>
+    <div>{{ model.error }}</div>
   {{/if}}
 </section>

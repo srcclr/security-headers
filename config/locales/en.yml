@@ -1,3 +1,0 @@
-en:
-  connection:
-    failed: "Couldn't connect to site: %{url}."
