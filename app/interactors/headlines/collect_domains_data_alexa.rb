@@ -5,6 +5,7 @@ module Headlines
     def call
       context.domains.each do |domain|
         domain.data_alexa = data_alexa(domain)
+        context.progressbar.increment
       end
     end
 

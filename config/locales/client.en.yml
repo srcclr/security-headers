@@ -173,3 +173,8 @@ en:
         mosaic: "Mosaic"
       test: "TESTS"
       country_select_prompt: "All Countries"
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          security_headers: "Security Headers Plugin"
