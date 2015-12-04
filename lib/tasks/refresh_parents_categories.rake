@@ -2,6 +2,8 @@ namespace :headlines do
   namespace :categories do
     desc "Refresh list of parents for each category"
     task refresh_parents: :environment do
+      puts "Collect parent categories for each category"
+
       Headlines::Category.connection.execute(<<-SQL)
         WITH RECURSIVE nodes (id, parents) AS (
           SELECT id, ARRAY[id]
