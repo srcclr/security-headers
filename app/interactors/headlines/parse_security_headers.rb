@@ -5,7 +5,7 @@ module Headlines
     def call
       unless response.success?
         context.status = response.status
-        context.fail!
+        context.fail!(message: I18n.t("errors.general"))
       end
 
       context.ssl_enabled = response.env.url.scheme == "https"
@@ -15,16 +15,17 @@ module Headlines
     private
 
     def response
-      @response ||= connection.get("/")
-    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT
+      @response ||= connection.get
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError
       @response = head_request
     end
 
     def head_request
-      @head_request = connection.head("/")
-    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT => exception
+      @head_request = connection.head
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError => exception
       context.errors = exception.inspect
-      context.fail!(message: I18n.t("connection.failed", url: context.url))
+      error_i18n = exception.class.to_s.gsub("::", ".").downcase
+      context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
     end
 
     def parse_csp

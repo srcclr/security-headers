@@ -23,7 +23,23 @@ module Headlines
 
         it { is_expected.to be_a_failure }
 
-        its(:message) { is_expected.to eq "Couldn't connect to site: google.com." }
+        its(:message) { is_expected.to eq "Connection error." }
+      end
+
+      context "with ssl certificate error" do
+        before { stub_request(:any, "google.com").to_raise(Faraday::SSLError) }
+
+        it { is_expected.to be_a_failure }
+
+        its(:message) { is_expected.to eq "SSL error." }
+      end
+
+      context "with another error" do
+        before { stub_request(:any, "google.com").to_raise(URI::InvalidURIError) }
+
+        it { is_expected.to be_a_failure }
+
+        its(:message) { is_expected.to eq "No results." }
       end
 
       context "with server error status" do
