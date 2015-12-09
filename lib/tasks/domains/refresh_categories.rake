@@ -20,15 +20,18 @@ namespace :headlines do
 
     desc "Refresh list of categories for each domain"
     task refresh_categories: :environment do
+      puts "Collect categories for each domain"
       Headlines::Domain.connection.execute(<<-SQL)
         DROP AGGREGATE IF EXISTS array_accum(anyarray);
         CREATE AGGREGATE array_accum(anyarray)
         (sfunc = array_cat, stype = anyarray, initcond = '{}');
       SQL
 
+      progressbar = ProgressBar.create(total: Headlines::Domain.count, format: "%a %e %P% Processed: %c from %C")
       Headlines::Domain.find_each do |domain|
         domain.update_attributes(parent_category_ids: domain_categories(domain.name))
         Rails.logger.info("Domain categories: #{domain.name} completed.")
+        progressbar.increment
       end
 
       Headlines::Domain.connection.execute("DROP AGGREGATE IF EXISTS array_accum(anyarray)")

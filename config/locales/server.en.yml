@@ -1,4 +1,6 @@
 en:
+  site_settings:
+    scan_domain_count: "Domains count to scan from alexa top list"
   errors:
     general: "No results."
     faraday:
