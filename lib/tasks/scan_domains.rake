@@ -5,8 +5,6 @@ namespace :headlines do
     Thread.current[:do_not_perfom_twice] = true
     pids = []
 
-    puts "Scan domains"
-
     Headlines::Domain.find_in_batches(batch_size: 2_500) do |domains|
       pids.push(fork { Headlines::ScanDomains::Runner.new(domains).call })
     end

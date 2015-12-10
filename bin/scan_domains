@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+cd /var/www/discourse
+
+RAILS_ENV=production
+
+echo '---> Scan domains started!'
+
+su discourse -c 'bundle exec rake headlines:scan_domains'
+
+echo '---> Scan domains completed!'
