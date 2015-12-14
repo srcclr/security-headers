@@ -45,8 +45,6 @@
 }
 
 .headlines-filters {
-  width: 230px;
-  float: left;
   font-size: 13px;
 
   .select2-container {
@@ -74,6 +72,11 @@
   li {
     margin: 0;
     padding: 0 0 5px;
+
+    @media screen and (max-width: 1023px) {
+      float: left;
+      width: 50%;
+    }
   }
 
   input {
@@ -89,14 +92,38 @@
   display: block;
 }
 
+.filters-toggle {
+  display: none;
+
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+}
+
+.filters-container {
+  display: block;
+
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+}
+
+.additional-info-container {
+  @media screen and (max-width: 1023px) {
+    text-align: center;
+  }
+}
+
 .category-card {
-  border: solid 1px #999;
-  min-height: 220px;
   float: left;
-  width: 230px;
   margin: 0 0 13px 13px;
-  box-sizing: border-box;
+  border: solid 1px $color--black;
   padding: 10px;
+  box-sizing: border-box;
+
+  -webkit-flex: 1 0 230px;
+  -ms-flex: 1 0 230px;
+  flex: 1 0 230px;
 
   h3 {
     font-size: 18px;
@@ -118,10 +145,19 @@
   overflow: hidden;
 
   ul {
-    overflow: hidden;
-    list-style-type: none;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
     margin: 0;
     padding: 0;
+    overflow: hidden;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    list-style-type: none;
   }
 
   nav {
