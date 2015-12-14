@@ -86,7 +86,7 @@
     margin: 0;
     padding: 0 0 5px;
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (min-width: 480px) and (max-width: 1023px) {
       float: left;
       width: 50%;
     }
@@ -118,12 +118,6 @@
 
   @media screen and (max-width: 1023px) {
     display: none;
-  }
-}
-
-.additional-info-container {
-  @media screen and (max-width: 1023px) {
-    text-align: center;
   }
 }
 
