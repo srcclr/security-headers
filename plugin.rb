@@ -11,6 +11,7 @@ gem("rubyzip", "1.1.7", require_name: "zip")
 gem("upsert", "2.1.0")
 gem("ruby-progressbar", "1.7.5")
 
+register_asset("stylesheets/base/variables.css.scss")
 register_asset("stylesheets/components/breadcrumb.css.scss")
 register_asset("stylesheets/components/charts.css.scss")
 register_asset("stylesheets/components/switch.css.scss")

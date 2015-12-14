@@ -1,14 +1,19 @@
-<label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
-{{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
-
-<label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
-<ul>
-  {{#each type in headerTypes}}
-    <li>
-      <label for="{{type.name}}">
-        {{input type="checkbox" checked=type.selected}}
-        {{localeInterpolation 'headlines.friendly_headers' type.name}}
-      </label>
-    </li>
-  {{/each}}
-</ul>
+<a class="btn filters-toggle" {{action "toggleFilters"}}>
+  Filters
+  <i class="sci sci__arrow--dropdown"></i>
+</a>
+<div {{bind-attr class=":filters-container :collapse isFiltersExpanded:in"}}>
+  <label class="filter-type" for="country">{{i18n 'headlines.country'}}</label>
+  {{combo-box valueAttribute="name" content=countries value=country none="headlines.country_select_prompt"}}
+  <label class="filter-type" for="header_type">{{i18n 'headlines.header_type'}}</label>
+  <ul class="clearfix">
+    {{#each type in headerTypes}}
+      <li>
+        <label for="{{type.name}}">
+          {{input type="checkbox" checked=type.selected}}
+          {{localeInterpolation 'headlines.friendly_headers' type.name}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+</div>

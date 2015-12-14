@@ -1,4 +1,4 @@
-<article class="static-page headlines-page">
+<div class="static-page headlines-page">
   <section class="container">
     <form {{action "scanUrl" on="submit"}} class="check-site">
       {{input type="text" class="m0" value=url placeholder=scanUrlPlaceholder}}
@@ -12,4 +12,4 @@
       {{ outlet }}
     </div>
   {{/conditional-loading-spinner}}
-</article>
+</div>

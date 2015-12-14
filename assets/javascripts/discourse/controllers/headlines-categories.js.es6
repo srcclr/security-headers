@@ -3,6 +3,7 @@ import Category from '../models/category'
 export default Em.Controller.extend({
   needs: ['headlines'],
   chartType: 'mosaic',
+  isFiltersExpanded: false,
 
   headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
   headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
@@ -44,6 +45,10 @@ export default Em.Controller.extend({
 
     showPie() {
       this.set('chartType', 'pie');
+    },
+
+    toggleFilters() {
+      this.toggleProperty('isFiltersExpanded');
     }
   }
 })
