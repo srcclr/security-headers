@@ -12,7 +12,12 @@
   padding: 20px;
   margin: 40px 0;
   position: relative;
-  padding-right: 170px;
+  padding-right: 120px;
+
+  @media screen and (max-width: 1023px) {
+    padding: 10px;
+    padding-right: 100px;
+  }
 
   label {
     text-transform: uppercase;
@@ -23,11 +28,15 @@
     min-height: 50px;
     border-radius: 3px;
     box-sizing: border-box;
+    font-size: 16px;
+
+    @media screen and (max-width: 1023px) {
+      font-size: 14px;
+    }
   }
 
   input[type="text"] {
     width: 100%;
-    font-size: 16px;
     padding: 5px 15px;
     border: solid 1px #999;
     box-shadow: none;
@@ -35,12 +44,16 @@
 
   button {
     position: absolute;
-    font-size: 18px;
     right: 20px;
     bottom: 20px;
-    width: 135px;
+    width: 80px;
     padding: 5px 15px;
     text-align: center;
+
+    @media screen and (max-width: 1023px) {
+      right: 10px;
+      bottom: 10px;
+    }
   }
 }
 
@@ -311,6 +324,10 @@ h3.category-title {
 .tests-table {
   width: 100%;
 
+  @media screen and (max-width: 1023px) {
+    font-size: 12px;
+  }
+
   tr {
     border-bottom: 1px solid darken(#e7f2f8, 10%);
 
@@ -323,9 +340,13 @@ h3.category-title {
     padding: 5px 0;
 
     &.headers-name {
-      white-space: nowrap;
-      max-width: 50%;
       padding-right: 20px;
+      max-width: 50%;
+      white-space: nowrap;
+
+      @media screen and (max-width: 1023px) {
+        white-space: normal;
+      }
     }
 
     .test-value {
@@ -362,6 +383,10 @@ h3.category-title {
   .site-overall-grade-label {
     vertical-align: 6px;
     font-size: 18px;
+
+    @media screen and (max-width: 779px) {
+      display: none;
+    }
   }
 }
 
