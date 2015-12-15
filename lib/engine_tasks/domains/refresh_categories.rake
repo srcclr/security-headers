@@ -2,14 +2,10 @@ namespace :headlines do
   namespace :domains do
     DOMAINS_CATEGORIES = <<-SQL
       SELECT DISTINCT unnest(array_accum(parents)) parents
-        FROM headlines_categories,
-        LATERAL (
-          SELECT domain_name, category_id AS id
-            FROM headlines_domains_categories
-            WHERE domain_name = '%{domain_name}'
-        ) categories
-        WHERE headlines_categories.parents && ARRAY[categories.id]
-        GROUP BY categories.domain_name;
+      FROM headlines_categories
+      INNER JOIN headlines_domains_categories
+      ON headlines_categories.id = headlines_domains_categories.category_id
+      WHERE headlines_domains_categories.domain_name = '%{domain_name}';
     SQL
 
     def domain_categories(domain_name)
