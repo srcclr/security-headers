@@ -9,9 +9,19 @@ namespace :headlines do
     SQL
 
     def domain_categories(domain_name)
-      Headlines::Domain.connection.execute(
+      categories = Headlines::Domain.connection.execute(
         DOMAINS_CATEGORIES % { domain_name: domain_name }
       ).values.flatten
+
+      categories.empty? ? [default_category.id] : categories
+    end
+
+    def default_category
+      @default_category ||= Headlines::Category.find_or_create_by(
+        title: "Uncategorized",
+        topic: "Top/Uncategorized",
+        category_id: 1
+      )
     end
 
     desc "Refresh list of categories for each domain"
