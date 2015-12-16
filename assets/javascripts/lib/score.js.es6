@@ -41,5 +41,8 @@ export let headerTypes =
     { name: 'x-permitted-cross-domain-policies', selected: false },
     { name: 'x-content-type-options', selected: false },
     { name: 'x-download-options', selected: false },
-    { name: 'content-security-policy', selected: false }
+    { name: 'content-security-policy', selected: false },
+    { name: 'x-powered-by', selected: false },
+    { name: 'server', selected: false },
+    { name: 'content-type', selected: false }
   ]
