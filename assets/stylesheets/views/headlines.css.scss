@@ -122,15 +122,9 @@
 }
 
 .category-card {
-  float: left;
-  margin: 0 0 13px 13px;
+
   border: solid 1px $color--black;
   padding: 10px;
-  box-sizing: border-box;
-
-  -webkit-flex: 1 0 230px;
-  -ms-flex: 1 0 230px;
-  flex: 1 0 230px;
 
   h3 {
     font-size: 18px;
@@ -152,19 +146,30 @@
   overflow: hidden;
 
   ul {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-
     margin: 0;
     padding: 0;
     overflow: hidden;
-
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-
     list-style-type: none;
+  }
+
+  .category-card-list {
+    margin: 0 0 0 -10px;
+  }
+
+  .category-card-container {
+    float: left;
+    padding: 0 0 10px 10px;
+    box-sizing: border-box;
+
+    width: 33.3%;
+
+    @media screen and (max-width: 779px) {
+      width: 50%;
+    }
+
+    @media screen and (max-width: 479px) {
+      width: 100%;
+    }
   }
 
   nav {
@@ -174,9 +179,6 @@
 }
 
 .sites-list {
-  float: left;
-  width: 70%;
-
   .fa-external-link {
     color: #1483b8;
     vertical-align: middle;

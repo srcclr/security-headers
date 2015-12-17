@@ -10,6 +10,7 @@ export default Em.Controller.extend(DomainNameFilter, {
   ratings: ratings,
   hideSubCategories: true,
   noResults: false,
+  isFiltersExpanded: false,
 
   headerTypes: Em.computed.alias('controllers.headlines.headerTypes'),
   headerFilter: Em.computed.alias('controllers.headlines.headerFilter'),
@@ -90,6 +91,10 @@ export default Em.Controller.extend(DomainNameFilter, {
     subCategoriesToggle() {
       var state = this.get('hideSubCategories');
       this.set('hideSubCategories', !state);
+    },
+
+    toggleFilters() {
+      this.toggleProperty('isFiltersExpanded');
     }
   }
 })
