@@ -24,48 +24,50 @@
             </a>
           </nav>
           <div>
-            <ul>
+            <ul class="category-card-list">
               {{#each category in model.categories}}
                 {{#if category.domains}}
-                  <li class="category-card">
-                    <h3>{{category.title}}</h3>
+                  <li class="category-card-container">
+                    <div class="category-card">
+                      <h3>{{category.title}}</h3>
 
-                    <p>{{i18n 'headlines.statistic_by_sites'}}</p>
+                      <p>{{i18n 'headlines.statistic_by_sites'}}</p>
 
-                    <div class="chart">
-                      {{category-chart model=category type=chartType}}
+                      <div class="chart">
+                        {{category-chart model=category type=chartType}}
 
-                      <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
-                        <li>
-                          <span class="chart-label">A</span>
-                          <span class="label-grade-a">{{category.gradeA}}</span>
-                        </li>
-                        <li>
-                          <span class="chart-label">B</span>
-                          <span class="label-grade-b">{{category.gradeB}}</span>
-                        </li>
-                        <li>
-                          <span class="chart-label">C</span>
-                          <span class="label-grade-c">{{category.gradeC}}</span>
-                        </li>
-                        <li>
-                          <span class="chart-label">D</span>
-                          <span class="label-grade-d">{{category.gradeD}}</span>
-                        </li>
-                      </ul>
+                        <ul {{bind-attr class="showMosaicChart:mozaic-chart-labels:pie-chart-labels"}}>
+                          <li>
+                            <span class="chart-label">A</span>
+                            <span class="label-grade-a">{{category.gradeA}}</span>
+                          </li>
+                          <li>
+                            <span class="chart-label">B</span>
+                            <span class="label-grade-b">{{category.gradeB}}</span>
+                          </li>
+                          <li>
+                            <span class="chart-label">C</span>
+                            <span class="label-grade-c">{{category.gradeC}}</span>
+                          </li>
+                          <li>
+                            <span class="chart-label">D</span>
+                            <span class="label-grade-d">{{category.gradeD}}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {{#link-to 'headlines.categories-show' category.id class="btn--full btn--primary" }}
+                        {{i18n 'headlines.view_all_sites'}}
+                      {{/link-to}}
                     </div>
-
-                    {{#link-to 'headlines.categories-show' category.id class="btn--full btn--primary"}}
-                      {{i18n 'headlines.view_all_sites'}}
-                    {{/link-to}}
                   </li>
                 {{/if}}
               {{/each}}
             </ul>
           </div>
         </section>
-      {{else}}
-        <div>{{i18n 'headlines.no_results'}}</div>
+        {{else}}
+          <div>{{i18n 'headlines.no_results'}}</div>
       {{/unless}}
     {{/conditional-loading-spinner}}
   </div>
