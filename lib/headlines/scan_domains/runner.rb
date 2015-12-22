@@ -11,19 +11,27 @@ module Headlines
       def call
         Headlines::Domain.find_in_batches(batch_size: batch_size) do |domains|
           domains.each do |domain|
-            scan_domain(domain)
+            begin
+              scan_domain(domain)
+              raise "error"
+            rescue StandardError => exception
+              failure_logger.info("#{domain.id}. #{domain.name}:")
+              failure_logger.info("  Unhandled exception: #{exception}")
+            end
 
-            @progressbar.increment
+            progressbar.increment
           end
 
-          break if @progressbar.progress >= @total_count
+          break if progressbar.progress >= total_count
         end
       end
 
       private
 
+      attr_reader :total_count, :progressbar
+
       def batch_size
-        [DEFAULT_BATCH_SIZE, @total_count].min
+        [DEFAULT_BATCH_SIZE, total_count].min
       end
 
       def scan_domain(domain)
@@ -42,7 +50,7 @@ module Headlines
 
       def log_scan_result(index, result)
         scan_result = result.success? ? "success" : "failure"
-        logger.info("[#{index} / #{@total_count}] Domain #{result.url} scan result: #{scan_result}")
+        logger.info("[#{index} / #{total_count}] Domain #{result.url} scan result: #{scan_result}")
         return if result.success?
 
         failure_logger.info("#{index}. #{result.url}")

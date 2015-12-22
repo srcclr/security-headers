@@ -83,7 +83,7 @@ module Headlines
 
     def request_options
       {
-        timeout: 15,
+        timeout: 10,
         open_timeout: 5
       }
     end
