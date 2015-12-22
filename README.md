@@ -12,6 +12,9 @@ We currently support and scan for the following headers:
 - Cross Domain Configuration
 - MIME Type Security
 - Force Save Downloads
+- X Powered By
+- Server
+- Content Type
 - Content Security Policy
 
 In addtion, we have also analyzed and graded Alexa top 1 million sites. You can browse the entire dataset online based on different categories. We also support basic filtering and slicing of data.
