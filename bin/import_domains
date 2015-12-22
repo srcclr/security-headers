@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+cd /var/www/discourse
+
+RAILS_ENV=production
+
+echo '---> Import domains started!'
+
+su discourse -c 'bundle exec rake headlines:refresh_domains'
+
+echo '---> Refresh domains completed!'
+
+su discourse -c 'bundle exec rake headlines:domains:refresh_categories'
+
+echo '---> Refresh domains categories completed!'

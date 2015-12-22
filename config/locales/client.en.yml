@@ -165,6 +165,9 @@ en:
         public-key-pins: "HTTP Public Key Pinning (HPKP)"
         x-permitted-cross-domain-policies: "Cross Domain Configuration"
         content-security-policy: "Content Security Policy"
+        x-powered-by: "X-Powered-By"
+        server: "Server"
+        content-type: "Content-Type"
       check_form:
         field: "Paste or type the URL"
         action: "Scan"
@@ -172,4 +175,10 @@ en:
         pie: "Pie"
         mosaic: "Mosaic"
       test: "TESTS"
+      no_results: "No results"
       country_select_prompt: "All Countries"
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          security_headers: "Security Headers Plugin"

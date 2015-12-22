@@ -2,5 +2,6 @@
 
 cd $(dirname "$0")
 
-sh dmoz2db
-sh rake_tasks
+sh import_categories
+sh import_domains
+sh scan_domains

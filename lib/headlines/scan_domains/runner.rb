@@ -6,7 +6,10 @@ module Headlines
       end
 
       def call
-        @domains.each { |domain| scan_domain(domain) }
+        @domains.each do |domain|
+          scan_domain(domain)
+          print "."
+        end
       end
 
       private

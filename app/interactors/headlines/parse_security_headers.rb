@@ -67,7 +67,6 @@ module Headlines
     def connection
       Faraday.new(url: "http://#{context.url}", headers: request_headers) do |builder|
         builder.request :url_encoded
-        builder.response :logger
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
         builder.adapter Faraday.default_adapter
       end

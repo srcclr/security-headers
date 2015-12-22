@@ -12,7 +12,12 @@
   padding: 20px;
   margin: 40px 0;
   position: relative;
-  padding-right: 170px;
+  padding-right: 120px;
+
+  @media screen and (max-width: 1023px) {
+    padding: 10px;
+    padding-right: 100px;
+  }
 
   label {
     text-transform: uppercase;
@@ -23,11 +28,15 @@
     min-height: 50px;
     border-radius: 3px;
     box-sizing: border-box;
+    font-size: 16px;
+
+    @media screen and (max-width: 1023px) {
+      font-size: 14px;
+    }
   }
 
   input[type="text"] {
     width: 100%;
-    font-size: 16px;
     padding: 5px 15px;
     border: solid 1px #999;
     box-shadow: none;
@@ -35,18 +44,20 @@
 
   button {
     position: absolute;
-    font-size: 18px;
     right: 20px;
     bottom: 20px;
-    width: 135px;
+    width: 80px;
     padding: 5px 15px;
     text-align: center;
+
+    @media screen and (max-width: 1023px) {
+      right: 10px;
+      bottom: 10px;
+    }
   }
 }
 
 .headlines-filters {
-  width: 230px;
-  float: left;
   font-size: 13px;
 
   .select2-container {
@@ -74,6 +85,11 @@
   li {
     margin: 0;
     padding: 0 0 5px;
+
+    @media screen and (min-width: 480px) and (max-width: 1023px) {
+      float: left;
+      width: 50%;
+    }
   }
 
   input {
@@ -89,13 +105,25 @@
   display: block;
 }
 
+.filters-toggle {
+  display: none;
+
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+}
+
+.filters-container {
+  display: block;
+
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+}
+
 .category-card {
-  border: solid 1px #999;
-  min-height: 220px;
-  float: left;
-  width: 230px;
-  margin: 0 0 13px 13px;
-  box-sizing: border-box;
+
+  border: solid 1px $color--black;
   padding: 10px;
 
   h3 {
@@ -118,10 +146,30 @@
   overflow: hidden;
 
   ul {
-    overflow: hidden;
-    list-style-type: none;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+  }
+
+  .category-card-list {
+    margin: 0 0 0 -10px;
+  }
+
+  .category-card-container {
+    float: left;
+    padding: 0 0 10px 10px;
+    box-sizing: border-box;
+
+    width: 33.3%;
+
+    @media screen and (max-width: 779px) {
+      width: 50%;
+    }
+
+    @media screen and (max-width: 479px) {
+      width: 100%;
+    }
   }
 
   nav {
@@ -131,9 +179,6 @@
 }
 
 .sites-list {
-  float: left;
-  width: 70%;
-
   .fa-external-link {
     color: #1483b8;
     vertical-align: middle;
@@ -275,6 +320,10 @@ h3.category-title {
 .tests-table {
   width: 100%;
 
+  @media screen and (max-width: 1023px) {
+    font-size: 12px;
+  }
+
   tr {
     border-bottom: 1px solid darken(#e7f2f8, 10%);
 
@@ -287,9 +336,13 @@ h3.category-title {
     padding: 5px 0;
 
     &.headers-name {
-      white-space: nowrap;
-      max-width: 50%;
       padding-right: 20px;
+      max-width: 50%;
+      white-space: nowrap;
+
+      @media screen and (max-width: 1023px) {
+        white-space: normal;
+      }
     }
 
     .test-value {
@@ -326,6 +379,10 @@ h3.category-title {
   .site-overall-grade-label {
     vertical-align: 6px;
     font-size: 18px;
+
+    @media screen and (max-width: 779px) {
+      display: none;
+    }
   }
 }
 

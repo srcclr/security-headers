@@ -5,6 +5,8 @@ DMOZ_LIB=https://github.com/fs/dmoz2db
 DMOZ_DBNAME=dmoz
 DISCOURSE_DBNAME=discourse
 
+echo '---> Import categories started!'
+
 if ! which pip > /dev/null; then
   wget https://bootstrap.pypa.io/get-pip.py -P /tmp
   python /tmp/get-pip.py
@@ -53,4 +55,10 @@ rm /tmp/get-pip.py
 rm -rf $DMOZ_DIR
 
 echo '---> Parse DMOZ data complete!'
+
+cd /var/www/discourse
+su discourse -c 'bundle exec rake headlines:categories:refresh_parents'
+
+echo '---> Refresh categories parents completed!'
+
 exit 0

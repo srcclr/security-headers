@@ -8,5 +8,7 @@ module Headlines
       generate.assets false
       generate.helper false
     end
+
+    paths["lib/tasks"] << "lib/engine_tasks"
   end
 end
