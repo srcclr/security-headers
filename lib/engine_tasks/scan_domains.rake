@@ -1,22 +1,17 @@
 namespace :headlines do
-  PROCESS_COUNT = 8
-  DEFAULT_BATCH = 2_500
-
-  def batch_size
-    [Headlines::Domain.count.fdiv(PROCESS_COUNT).ceil, DEFAULT_BATCH].max
-  end
+  DEFAULT_DOMAINS_COUNT = 10_000
 
   desc "Scan existing domains for security vulnerabilities"
   task scan_domains: :environment do
-    next if Thread.current[:do_not_perfom_twice]
-    Thread.current[:do_not_perfom_twice] = true
-    pids = []
+    Headlines::ScanDomains::Runner.new(total_count, progressbar).call
+  end
 
-    Headlines::Domain.find_in_batches(batch_size: batch_size) do |domains|
-      pids.push(fork { Headlines::ScanDomains::Runner.new(domains).call })
-    end
+  def total_count
+    # SiteSetting.scan_domain_count || DEFAULT_DOMAINS_COUNT
+    1_000
+  end
 
-    trap("SIGINT") { pids.each { |pid| Process.kill("SIGINT", pid) } }
-    pids.each { |pid| Process.waitpid2(pid) }
+  def progressbar
+    ProgressBar.create(total: total_count, format: "%a %e %P% Processed: %c from %C")
   end
 end
