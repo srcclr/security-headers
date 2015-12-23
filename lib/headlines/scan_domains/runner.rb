@@ -13,7 +13,6 @@ module Headlines
           domains.each do |domain|
             begin
               scan_domain(domain)
-              raise "error"
             rescue StandardError => exception
               failure_logger.info("#{domain.id}. #{domain.name}:")
               failure_logger.info("  Unhandled exception: #{exception}")
