@@ -3,18 +3,20 @@ module Headlines
     include Interactor
 
     def call
-      unless response.success?
+      unless response.success? || response_ok?
         context.status = response.status
         context.fail!(message: I18n.t("errors.general"))
       end
 
-      context.ssl_enabled = response.env.url.scheme == "https"
+      context.ssl_enabled = response_scheme == "https"
       context.headers = parse_headers.push(parse_csp)
     end
 
     private
 
     def response
+      return context.response if context.response.present?
+
       @response ||= connection.get
     rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError
       @response = head_request
@@ -28,6 +30,18 @@ module Headlines
       context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
     end
 
+    def response_scheme
+      if response.try(:env).present?
+        response.env.url.scheme
+      else
+        URI(response.effective_url).scheme
+      end
+    end
+
+    def response_ok?
+      response.try(:code).present? ? response.try(:code) == 200 : true
+    end
+
     def parse_csp
       Headlines::SecurityHeaders::ContentSecurityPolicy.new(sanitized_headers, response.body, context.url)
     end
@@ -37,7 +51,7 @@ module Headlines
     end
 
     def security_headers
-      empty_headers_hash.merge(formatted_headers.slice(*headers_to_analyze))
+      empty_headers_hash.merge!(formatted_headers.slice(*headers_to_analyze))
     end
 
     def empty_headers_hash
@@ -47,12 +61,12 @@ module Headlines
     def formatted_headers
       return sanitized_headers unless sanitized_headers["public-key-pins-report-only"]
 
-      sanitized_headers.merge("public-key-pins" => "#{sanitized_headers['public-key-pins-report-only']};report-only")
+      sanitized_headers.merge!("public-key-pins" => "#{sanitized_headers['public-key-pins-report-only']};report-only")
     end
 
     def sanitized_headers
       @sanitized_headers ||= Hash[
-        response.headers.map { |k, v| [k, v.force_encoding("iso8859-1").encode("utf-8")] }
+        response.headers.map { |k, v| [k, v.is_a?(String) ? v.force_encoding("iso8859-1").encode("utf-8") : v] }
       ]
     end
 
@@ -83,8 +97,8 @@ module Headlines
 
     def request_options
       {
-        timeout: 10,
-        open_timeout: 5
+        timeout: 30,
+        open_timeout: 10
       }
     end
   end

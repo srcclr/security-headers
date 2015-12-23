@@ -21,6 +21,7 @@ require_relative "headlines/security_headers/x_powered_by"
 require_relative "headlines/security_headers/server"
 require_relative "headlines/security_headers/content_type"
 require_relative "headlines/data_alexa"
+require_relative "typhoeus/easy_factory"
 
 module Headlines
   SECURITY_HEADERS = %w(strict-transport-security
