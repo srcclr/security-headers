@@ -9,6 +9,10 @@ module Headlines
       it "updates country_code" do
         expect { update_data_alexa }.to change { domain.country_code }.to("IN")
       end
+
+      it "updates refresh_data_alexa flag" do
+        expect { update_data_alexa }.to change { domain.refresh_data_alexa }.to(false)
+      end
     end
   end
 end

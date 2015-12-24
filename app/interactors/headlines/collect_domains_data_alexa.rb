@@ -3,9 +3,8 @@ module Headlines
     include Interactor
 
     def call
-      context.domains.each do |domain|
-        domain.data_alexa = data_alexa(domain)
-        context.progressbar.increment
+      context.domains.find_each do |domain|
+        domain.update(data_alexa: data_alexa(domain))
       end
     end
 
