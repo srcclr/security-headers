@@ -2,9 +2,10 @@
   display: inline-block;
 
   &:after {
-    content: "/";
     margin: 0 5px;
     color: #999;
+    font-size: 15px;
+    content: "/";
   }
 
   &:last-child {
@@ -15,6 +16,10 @@
     &:after {
       display: none;
     }
+  }
+
+  a {
+    font-size: 15px;
   }
 }
 
