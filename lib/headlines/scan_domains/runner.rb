@@ -1,4 +1,3 @@
-require "typhoeus"
 require "concurrent"
 
 module Headlines

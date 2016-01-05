@@ -3,43 +3,23 @@ module Headlines
     include Interactor
 
     def call
-      unless response.success? || response_ok?
+      unless response.success?
         context.status = response.status
         context.fail!(message: I18n.t("errors.general"))
       end
 
-      context.ssl_enabled = response_scheme == "https"
+      context.ssl_enabled = response.env.url.scheme == "https"
       context.headers = parse_headers.push(parse_csp)
     end
 
     private
 
     def response
-      return context.response if context.response.present?
-
       @response ||= connection.get
-    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError
-      @response = head_request
-    end
-
-    def head_request
-      @head_request = connection.head
     rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError => exception
       context.errors = exception.inspect
       error_i18n = exception.class.to_s.gsub("::", ".").downcase
       context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
-    end
-
-    def response_scheme
-      if response.try(:env).present?
-        response.env.url.scheme
-      else
-        URI(response.effective_url).scheme
-      end
-    end
-
-    def response_ok?
-      response.try(:code).present? ? response.try(:code) == 200 : true
     end
 
     def parse_csp

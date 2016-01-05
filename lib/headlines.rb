@@ -1,12 +1,5 @@
 require_relative "headlines/engine"
 require_relative "headlines/top_million_domain"
-require "faraday"
-require "faraday_middleware"
-require "zip"
-require "interactor/rails"
-require "upsert"
-require "active_model_serializers"
-require "nokogiri"
 require_relative "headlines/domains_archive"
 require_relative "headlines/scan_domains/runner"
 require_relative "headlines/scan_domains/scanner"
@@ -22,7 +15,14 @@ require_relative "headlines/security_headers/x_powered_by"
 require_relative "headlines/security_headers/server"
 require_relative "headlines/security_headers/content_type"
 require_relative "headlines/data_alexa"
-require_relative "typhoeus/easy_factory"
+require "faraday"
+require "faraday_middleware"
+require "zip"
+require "interactor/rails"
+require "upsert"
+require "active_model_serializers"
+require "nokogiri"
+
 
 module Headlines
   SECURITY_HEADERS = %w(strict-transport-security
