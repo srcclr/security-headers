@@ -1,5 +1,3 @@
-require 'faraday/encoding'
-
 module Headlines
   class ParseSecurityHeaders
     include Interactor
@@ -31,7 +29,11 @@ module Headlines
     end
 
     def parse_csp
-      Headlines::SecurityHeaders::ContentSecurityPolicy.new(sanitized_headers, response.body, context.url)
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new(
+        sanitized_headers,
+        response.body.to_s.force_encoding("iso8859-1").encode("utf-8"),
+        context.url
+      )
     end
 
     def parse_headers
@@ -69,7 +71,6 @@ module Headlines
     def connection
       Faraday.new(url: "http://#{context.url}", headers: header_options, request: request_options) do |builder|
         builder.request :url_encoded
-        builder.response :encoding
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
         builder.adapter Faraday.default_adapter
       end
