@@ -1,3 +1,5 @@
+require 'faraday/encoding'
+
 module Headlines
   class ParseSecurityHeaders
     include Interactor
@@ -16,8 +18,14 @@ module Headlines
 
     def response
       @response ||= connection.get
+    rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError
+      @response = head_request
+    end
+
+    def head_request
+      @head_request = connection.head
     rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError => exception
-      context.errors = exception.inspect
+      context.errors = exception.cause.inspect
       error_i18n = exception.class.to_s.gsub("::", ".").downcase
       context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
     end
@@ -46,7 +54,7 @@ module Headlines
 
     def sanitized_headers
       @sanitized_headers ||= Hash[
-        response.headers.map { |k, v| [k, v.is_a?(String) ? v.force_encoding("iso8859-1").encode("utf-8") : v] }
+        response.headers.map { |k, v| [k, v.force_encoding("iso8859-1").encode("utf-8")] }
       ]
     end
 
@@ -61,6 +69,7 @@ module Headlines
     def connection
       Faraday.new(url: "http://#{context.url}", headers: header_options, request: request_options) do |builder|
         builder.request :url_encoded
+        builder.response :encoding
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
         builder.adapter Faraday.default_adapter
       end
@@ -77,8 +86,8 @@ module Headlines
 
     def request_options
       {
-        timeout: 30,
-        open_timeout: 10
+        timeout: 15,
+        open_timeout: 5
       }
     end
   end

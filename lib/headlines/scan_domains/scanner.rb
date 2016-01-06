@@ -1,3 +1,8 @@
+require_relative './../../../app/interactors/headlines/parse_security_headers'
+require_relative './../../../app/interactors/headlines/generate_results'
+require_relative './../../../app/interactors/headlines/analyze_domain_headers'
+require_relative './../../../app/models/headlines/scan'
+
 module Headlines
   module ScanDomains
     class Scanner
