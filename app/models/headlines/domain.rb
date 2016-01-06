@@ -18,7 +18,7 @@ module Headlines
     end
 
     def data_alexa
-      DataAlexa::Domain.new(self[:data_alexa])
+      DataAlexa::Parser.new(self[:data_alexa])
     end
 
     private

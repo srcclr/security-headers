@@ -1,5 +1,4 @@
-require_relative "data_alexa/category"
-require_relative "data_alexa/domain"
+require_relative "data_alexa/parser"
 
 module Headlines
   class DataAlexa
@@ -12,10 +11,14 @@ module Headlines
     end
 
     def xml
-      Faraday.get(url).body
+      response.body
     end
 
     private
+
+    def response
+      @response ||= Faraday.get(url)
+    end
 
     def url
       "#{URL}&url=#{domain}"

@@ -16,7 +16,7 @@ module Headlines
     end
 
     def slice_attributes(domain, curret_time: Time.zone.now)
-      domain.attributes.slice(:rank).merge(
+      domain.attributes.slice("rank").merge(
         refresh_data_alexa: true,
         created_at: curret_time,
         updated_at: curret_time
