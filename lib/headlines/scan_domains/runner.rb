@@ -25,7 +25,11 @@ module Headlines
       private
 
       def batch_size
-        @batch_size ||= [DEFAULT_BATCH_SIZE, total_count].min
+        @batch_size ||= [default_batch_size, total_count].min
+      end
+
+      def default_batch_size
+        SiteSetting.scan_proccess_count || DEFAULT_BATCH_SIZE
       end
 
       def scan_domains(domains)
