@@ -2,6 +2,9 @@ security_headers:
   scan_domain_count:
     client: true
     default: 10000
+  scan_proccess_count:
+    client: true
+    default: 50
 uncategorized:
   countries:
     client: true
