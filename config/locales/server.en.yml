@@ -1,6 +1,7 @@
 en:
   site_settings:
     scan_domain_count: "Domains count to scan from alexa top list"
+    scan_proccess_count: "Parallel scan proccess count"
   errors:
     general: "No results."
     faraday:
