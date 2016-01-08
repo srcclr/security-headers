@@ -5,9 +5,13 @@ module Headlines
     class Runner
       DEFAULT_BATCH_SIZE = 50
 
+      attr_reader :total_count, :progressbar, :logger
+      private :total_count, :progressbar, :logger
+
       def initialize(total_count, progressbar)
         @total_count = total_count
         @progressbar = progressbar
+        @logger = Headlines::ScanDomains::ResultsLogger.new
       end
 
       def call
@@ -20,39 +24,45 @@ module Headlines
 
       private
 
-      attr_reader :total_count, :progressbar
-
       def batch_size
         @batch_size ||= [DEFAULT_BATCH_SIZE, total_count].min
       end
 
       def scan_domains(domains)
-        results = []
-
-        domains.each do |domain|
-          scanner = Headlines::ScanDomains::Scanner.new(domain)
-          results << scanner.async.scan!
+        results = domains.map do |domain|
+          Headlines::ScanDomains::Scanner.new(domain).async.scan!
         end
 
         while results.any?
-          results.delete_if do |r|
-            if r.rejected?
-              failure_logger.info("#{r.value.try(:effective_url)}: Failure reason: #{r.reason}")
+          results.delete_if do |result|
+            if result.complete?
+              progressbar.increment
+
+              result.fulfilled? ? save_result(result.value) : logger.log_failure(result)
             end
 
-            !r.pending?
+            !result.pending?
           end
 
           sleep(1)
         end
-
-        progressbar.progress += domains.size
       rescue StandardError => exception
-        failure_logger.info("Unhandled exception: #{exception}")
+        logger.log_exception(exception)
       end
 
-      def failure_logger
-        @failure_logger ||= Logger.new(Rails.root.join("log/scan_domains_failure.log"))
+      def save_result(result)
+        domain = result.domain
+
+        if result.success?
+          domain.build_last_scan(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
+          domain.save!
+        end
+
+        logger.log_scan_result(domain, result)
+      end
+
+      def scan_params(result)
+        result[:params].slice(:headers, :results, :score, :http_score, :csp_score)
       end
     end
   end
