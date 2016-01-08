@@ -3,6 +3,7 @@
 # version: 0.0.1
 # author: SourceClear
 
+gem("concurrent-ruby", "1.0.0", require_name: "concurrent")
 gem("interactor", "3.1.0")
 gem("interactor-rails", "2.0.1", require_name: "interactor/rails")
 gem("iso_country_codes", "0.7.1")

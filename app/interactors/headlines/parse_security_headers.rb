@@ -23,13 +23,17 @@ module Headlines
     def head_request
       @head_request = connection.head
     rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError => exception
-      context.errors = exception.inspect
+      context.errors = exception.cause.inspect
       error_i18n = exception.class.to_s.gsub("::", ".").downcase
       context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
     end
 
     def parse_csp
-      Headlines::SecurityHeaders::ContentSecurityPolicy.new(sanitized_headers, response.body, context.url)
+      Headlines::SecurityHeaders::ContentSecurityPolicy.new(
+        sanitized_headers,
+        response.body.to_s.force_encoding("iso8859-1").encode("utf-8"),
+        context.url
+      )
     end
 
     def parse_headers
@@ -37,7 +41,7 @@ module Headlines
     end
 
     def security_headers
-      empty_headers_hash.merge(formatted_headers.slice(*headers_to_analyze))
+      empty_headers_hash.merge!(formatted_headers.slice(*headers_to_analyze))
     end
 
     def empty_headers_hash
@@ -47,7 +51,7 @@ module Headlines
     def formatted_headers
       return sanitized_headers unless sanitized_headers["public-key-pins-report-only"]
 
-      sanitized_headers.merge("public-key-pins" => "#{sanitized_headers['public-key-pins-report-only']};report-only")
+      sanitized_headers.merge!("public-key-pins" => "#{sanitized_headers['public-key-pins-report-only']};report-only")
     end
 
     def sanitized_headers
@@ -83,7 +87,7 @@ module Headlines
 
     def request_options
       {
-        timeout: 10,
+        timeout: 15,
         open_timeout: 5
       }
     end

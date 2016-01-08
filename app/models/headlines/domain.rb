@@ -21,6 +21,10 @@ module Headlines
       DataAlexa::Parser.new(self[:data_alexa])
     end
 
+    def label
+      "#{id}. #{name}"
+    end
+
     private
 
     def update_country_code
