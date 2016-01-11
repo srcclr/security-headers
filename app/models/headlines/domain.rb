@@ -14,10 +14,11 @@ module Headlines
     def data_alexa=(value)
       self[:data_alexa] = value
       update_country_code
+      update_data_alexa_flag
     end
 
     def data_alexa
-      DataAlexa::Domain.new(self[:data_alexa])
+      DataAlexa::Parser.new(self[:data_alexa])
     end
 
     def label
@@ -28,6 +29,10 @@ module Headlines
 
     def update_country_code
       self[:country_code] = data_alexa.country_code
+    end
+
+    def update_data_alexa_flag
+      self[:refresh_data_alexa] = self[:country_code].empty?
     end
   end
 end

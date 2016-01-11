@@ -3,9 +3,11 @@ require "rails_helper"
 module Headlines
   describe UpsertDomains do
     let(:domains) { [build_stubbed(:domain, :with_data_alexa, name: "google.com")] }
+    let(:progressbar) { double("progressbar") }
 
     before do
-      described_class.call(domains: domains)
+      allow(progressbar).to receive(:increment)
+      described_class.call(progressbar: progressbar, domains: domains)
     end
 
     describe ".call" do

@@ -11,34 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112154946) do
+ActiveRecord::Schema.define(version: 20151224125033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "headlines_categories", force: true do |t|
-    t.string   "title",       limit: nil, default: "",                    null: false
-    t.string   "topic",       limit: nil, default: "",                    null: false
-    t.datetime "created_at",              default: '2015-08-10 14:49:48', null: false
-    t.datetime "updated_at",              default: '2015-08-10 14:49:48', null: false
+    t.string   "title",       default: "",                    null: false
+    t.string   "topic",       default: "",                    null: false
+    t.datetime "created_at",  default: '2015-11-12 15:51:22', null: false
+    t.datetime "updated_at",  default: '2015-11-12 15:51:22', null: false
     t.integer  "category_id"
-    t.text     "description",             default: ""
-    t.integer  "parents",                 default: [],                    null: false, array: true
+    t.text     "description", default: ""
+    t.integer  "parents",     default: [],                    null: false, array: true
   end
 
   add_index "headlines_categories", ["category_id"], name: "index_headlines_categories_on_category_id", using: :btree
   add_index "headlines_categories", ["parents"], name: "index_headlines_categories_on_parents", using: :gin
 
   create_table "headlines_domains", force: true do |t|
-    t.string   "name",                limit: nil, default: "", null: false
-    t.integer  "rank",                            default: 0,  null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "country_code",        limit: nil, default: "", null: false
+    t.string   "name",                default: "",   null: false
+    t.integer  "rank",                default: 0,    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "country_code",        default: "",   null: false
     t.xml      "data_alexa"
-    t.integer  "parent_category_ids",             default: [], null: false, array: true
+    t.integer  "parent_category_ids", default: [],   null: false, array: true
     t.integer  "last_scan_id"
+    t.boolean  "refresh_data_alexa",  default: true
   end
 
   add_index "headlines_domains", ["last_scan_id"], name: "index_headlines_domains_on_last_scan_id", using: :btree
@@ -47,9 +48,9 @@ ActiveRecord::Schema.define(version: 20151112154946) do
 
   create_table "headlines_domains_categories", force: true do |t|
     t.integer  "category_id"
-    t.datetime "created_at",              default: '2015-08-10 14:49:48', null: false
-    t.datetime "updated_at",              default: '2015-08-10 14:49:48', null: false
-    t.string   "domain_name", limit: nil
+    t.datetime "created_at",  default: '2015-11-12 15:51:22', null: false
+    t.datetime "updated_at",  default: '2015-11-12 15:51:22', null: false
+    t.string   "domain_name"
   end
 
   add_index "headlines_domains_categories", ["category_id"], name: "index_headlines_domains_categories_on_category_id", using: :btree
