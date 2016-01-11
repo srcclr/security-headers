@@ -4,7 +4,7 @@ module Jobs
       every 30.minutes
 
       def execute(_args)
-        domains.find_each do |domain|
+        domains.each do |domain|
           data_alexa = ::Headlines::DataAlexa.new(domain.name).xml
 
           break if request_limit?(data_alexa)
