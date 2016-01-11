@@ -21,7 +21,7 @@ module Headlines
       end
 
       def log_failure(result)
-        failure_logger.info("#{result.value.try(:effective_url)}: Failure reason: #{result.reason}")
+        failure_logger.info("#{result.value.url}: Failure reason: #{result.reason}")
       end
 
       private
