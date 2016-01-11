@@ -23,7 +23,7 @@ module Headlines
     def head_request
       @head_request = connection.head
     rescue Faraday::ClientError, URI::InvalidURIError, Errno::ETIMEDOUT, Faraday::SSLError => exception
-      context.errors = exception.inspect
+      context.errors = "#{exception.inspect} #{exception.message}"
       error_i18n = exception.class.to_s.gsub("::", ".").downcase
       context.fail!(message: I18n.t("errors.#{error_i18n}", default: I18n.t("errors.general")))
     end
