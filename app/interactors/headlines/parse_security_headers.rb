@@ -72,7 +72,7 @@ module Headlines
       Faraday.new(url: "http://#{context.url}", headers: header_options, request: request_options) do |builder|
         builder.request :url_encoded
         builder.use FaradayMiddleware::FollowRedirects, limit: 10
-        builder.adapter Faraday.default_adapter
+        builder.adapter :net_http_persistent
       end
     end
 
