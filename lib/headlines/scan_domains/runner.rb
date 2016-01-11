@@ -34,17 +34,17 @@ module Headlines
 
       def scan_domains(domains)
         results = domains.map do |domain|
-          Headlines::ScanDomains::Scanner.new(domain).async.scan!
+          [domain, Headlines::ScanDomains::Scanner.new(domain).async.scan!]
         end
 
         while results.any?
-          results.delete_if do |result|
+          results.delete_if do |domain_with_result|
+            result = domain_with_result[1]
             if result.complete?
               progressbar.increment
 
-              result.fulfilled? ? save_result(result.value) : logger.log_failure(result)
+              result.fulfilled? ? save_result(result.value) : logger.log_failure(*domain_with_result)
             end
-
             !result.pending?
           end
 

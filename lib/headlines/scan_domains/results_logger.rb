@@ -20,8 +20,8 @@ module Headlines
         failure_logger.info("Unhandled exception: #{exception}")
       end
 
-      def log_failure(result)
-        failure_logger.info("#{result.value.url}: Failure reason: #{result.reason}")
+      def log_failure(domain, result)
+        failure_logger.info("#{domain.label}: Failure reason: #{result.reason}")
       end
 
       private
