@@ -4,7 +4,7 @@ security_headers:
     default: 10000
   scan_proccess_count:
     client: true
-    default: 50
+    default: 8
 uncategorized:
   countries:
     client: true
