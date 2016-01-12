@@ -20,12 +20,12 @@ module Headlines
 
         results = process_count.times.map do |n|
           current_batch_size = (n == process_count - 1 ? total_count - batch_size * n : batch_size)
-          Headlines::ScanDomains::Scanner.new(batch_size * (n + 1), current_batch_size, progress_hash).async.scan!
+          Headlines::ScanDomains::Scanner.new(batch_size * n, current_batch_size, progress_hash).async.scan!
         end
 
         while results.any?
           results.delete_if do |result|
-            logger.log_exception(result.reason) if result.rejected?
+            logger.log_exception(result.reason) unless result.fulfilled? || result.pending?
 
             !result.pending?
           end

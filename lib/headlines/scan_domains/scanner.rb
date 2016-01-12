@@ -40,7 +40,12 @@ module Headlines
       def save_result(domain, result)
         if result.success?
           new_scan = domain.create_last_scan!(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
-          domain.update!(last_scan_id: new_scan.id)
+          if domain.update!(last_scan_id: new_scan.id)
+            @logger.log_db("[SUCCESS] Domain id: #{domain.id}\tScan id: #{new_scan.id}")
+            binding.pry if domain.reload.last_scan_id.nil?
+          else
+            @logger.log_db("[FAIL] Domain id: #{domain.id}\tScan id: #{new_scan.id}")
+          end
         end
 
         @logger.log_scan_result(domain, result)
