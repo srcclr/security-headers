@@ -24,7 +24,9 @@ module Headlines
       end
 
       def directives
-        @directives ||= header_directives
+        return @directives if @directives.present?
+
+        @directives = header_directives
         meta_directives.each do |meta_directive|
           directive = @directives.find { |d| d.name == meta_directive.name }
           directive ? directive.merge(meta_directive) : @directives.push(meta_directive)
@@ -42,7 +44,7 @@ module Headlines
       end
 
       def meta_directives
-        Nokogiri::HTML(@body).xpath(
+        nokogiri_body.xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
           "='content-security-policy']/@content"
@@ -52,7 +54,7 @@ module Headlines
       end
 
       def tests
-        Headlines::CSP_RULES.keys.map do |test|
+        @tests ||=  Headlines::CSP_RULES.keys.map do |test|
           {
             name: test,
             score: send("#{test}?") ? Headlines::CSP_RULES[test] : 0
@@ -83,7 +85,7 @@ module Headlines
       end
 
       def report_only_header_in_meta?
-        Nokogiri::HTML(@body).xpath(
+        nokogiri_body.xpath(
           "html/head/meta[" \
           "translate(@http-equiv, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" \
           "='content-security-policy-report-only']"
@@ -99,7 +101,11 @@ module Headlines
       end
 
       def first_meta_tag_name
-        Nokogiri::HTML(@body).xpath("html/head/meta")[0].attributes.keys[0].downcase
+        nokogiri_body.xpath("html/head/meta")[0].attributes.keys[0].downcase
+      end
+
+      def nokogiri_body
+        @nokogiri_body ||= Nokogiri::HTML(@body)
       end
 
       def ok?

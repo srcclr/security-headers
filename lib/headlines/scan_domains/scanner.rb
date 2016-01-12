@@ -11,6 +11,7 @@ module Headlines
       private :domain
 
       def initialize(domain)
+        super()
         @domain = domain
       end
 
