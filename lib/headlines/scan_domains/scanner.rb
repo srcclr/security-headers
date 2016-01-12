@@ -10,9 +10,6 @@ module Headlines
 
       DEFAULT_CHUNK_SIZE = 100.freeze
 
-      attr_reader :domain, :logger
-      private :domain, :logger
-
       def initialize(offset, total, progress_hash)
         super()
         @offset = offset
@@ -23,26 +20,30 @@ module Headlines
       end
 
       def scan!
-        begin
-          Headlines::Domain.offset(@offset).limit(DEFAULT_CHUNK_SIZE).each do |domain|
+        while @processed < @total
+          Headlines::Domain.order(:id).offset(@offset).limit(chunk_size).each do |domain|
             result = AnalyzeDomainHeaders.call(domain: domain)
-            save_result(result)
-            @progress_hash[:progress] += 1
-          end
+            save_result(domain, result)
 
-          @processed += DEFAULT_CHUNK_SIZE
-        end while @processed < @total
+            @progress_hash[:progress] += 1
+            @processed += 1
+          end
+        end
       end
 
-      def save_result(result)
-        domain = result.domain
+      private
 
+      def chunk_size
+        [DEFAULT_CHUNK_SIZE, @total - @processed].min
+      end
+
+      def save_result(domain, result)
         if result.success?
-          domain.build_last_scan(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
-          domain.save!
+          new_scan = domain.create_last_scan!(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
+          domain.update!(last_scan_id: new_scan.id)
         end
 
-        logger.log_scan_result(domain, result)
+        @logger.log_scan_result(domain, result)
       end
 
       def scan_params(result)

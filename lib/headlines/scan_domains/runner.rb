@@ -3,7 +3,7 @@ require "concurrent"
 module Headlines
   module ScanDomains
     class Runner
-      DEFAULT_PROCESS_COUNT = 8
+      DEFAULT_PROCESS_COUNT = 8.freeze
 
       attr_reader :total_count, :progressbar, :logger
       private :total_count, :progressbar, :logger
@@ -19,7 +19,8 @@ module Headlines
         progress_hash[:progress] = 0
 
         results = process_count.times.map do |n|
-          Headlines::ScanDomains::Scanner.new(batch_size * (n + 1), batch_size, progress_hash).async.scan!
+          current_batch_size = (n == process_count - 1 ? total_count - batch_size * n : batch_size)
+          Headlines::ScanDomains::Scanner.new(batch_size * (n + 1), current_batch_size, progress_hash).async.scan!
         end
 
         while results.any?
