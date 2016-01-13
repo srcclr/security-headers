@@ -1,0 +1,65 @@
+<div class="container mb">
+  <h3 class="mb">Security Headers Email Notifications</h3>
+
+  <div class="mb">
+    {{#if addMode}}
+      {{partial "shared/add-favourite-domain-form"}}
+    {{else}}
+      {{d-button action="addDomain" icon="plus" label="headlines.add_domain" class="btn--primary"}}
+    {{/if}}
+  </div>
+
+  <table class="domains-list-table mb">
+    <thead>
+      <tr>
+        <th class="w--25">Domain Name</th>
+        <th class="w--25">Notifications</th>
+        <th class="w--5"></th>
+      </tr>
+    </thead>
+
+    {{#each domain in model itemController="favourite-domain"}}
+      <tr>
+        <td>{{domain.model.name}}</td>
+        <td>
+          <button {{action "setNotificationType" "never"}} {{bind-attr class=":disabled :btn--xs domain.model.isNever:btn--default:btn"}}>Never</button>
+          <button {{action "setNotificationType" "daily"}} {{bind-attr class=":disabled :btn--xs domain.model.isDaily:btn--default:btn"}}>Daily</button>
+          <button {{action "setNotificationType" "weekly"}} {{bind-attr class=":disabled :btn--xs domain.model.isWeekly:btn--default:btn"}}>Weekly</button>
+          <button {{action "setNotificationType" "monthly"}} {{bind-attr class=":disabled :btn--xs domain.model.isMonthly:btn--default:btn"}}>Monthly</button>
+        </td>
+        <td>{{d-button action="destroy" icon="trash-o"}}</td>
+      </tr>
+    {{/each}}
+  </table>
+
+  {{#if model.friend_domains}}
+    <table class="domains-list-table mb">
+      <thead>
+        <tr>
+        <th class="w--25">Shared Domain Name</th>
+        <th class="w--45">Domain URL</th>
+        <th class="w--25">Notifications</th>
+        <th class="w--5"></th>
+        </tr>
+      </thead>
+
+      {{#each domain in model.friend_domains itemController="domain"}}
+        <tr>
+          <td>
+            {{#link-to 'domain' domain.model.id}}{{domain.model.name}}{{/link-to}}
+          </td>
+          <td>
+            <a href="{{domain.model.url}}" target="_blank">{{domain.model.url}}</a>
+          </td>
+          <td>
+            <button {{action "setNotificationType" "never"}} {{bind-attr class=":btn--xs domain.model.isNever:btn--default:btn"}}>Never</button>
+            <button {{action "setNotificationType" "daily"}} {{bind-attr class=":btn--xs domain.model.isDaily:btn--default:btn"}}>Daily</button>
+            <button {{action "setNotificationType" "weekly"}} {{bind-attr class=":btn--xs domain.model.isWeekly:btn--default:btn"}}>Weekly</button>
+            <button {{action "setNotificationType" "monthly"}} {{bind-attr class=":btn--xs domain.model.isMonthly:btn--default:btn"}}>Monthly</button>
+          </td>
+          <td/>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+</div>
