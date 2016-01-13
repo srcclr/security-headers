@@ -21,7 +21,7 @@ module Headlines
 
       def scan!
         while @processed < @total
-          Headlines::Domain.order(:id).offset(@offset).limit(chunk_size).each do |domain|
+          Headlines::Domain.order(:id).offset(@offset + @processed).limit(chunk_size).each do |domain|
             result = AnalyzeDomainHeaders.call(domain: domain)
             save_result(domain, result)
 
@@ -39,13 +39,8 @@ module Headlines
 
       def save_result(domain, result)
         if result.success?
-          new_scan = domain.create_last_scan!(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
-          if domain.update!(last_scan_id: new_scan.id)
-            @logger.log_db("[SUCCESS] Domain id: #{domain.id}\tScan id: #{new_scan.id}")
-            binding.pry if domain.reload.last_scan_id.nil?
-          else
-            @logger.log_db("[FAIL] Domain id: #{domain.id}\tScan id: #{new_scan.id}")
-          end
+          domain.build_last_scan(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
+          domain.save!
         end
 
         @logger.log_scan_result(domain, result)

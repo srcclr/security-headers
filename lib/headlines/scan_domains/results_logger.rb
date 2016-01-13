@@ -7,7 +7,6 @@ module Headlines
       def initialize
         @logger = Logger.new(Rails.root.join("log/scan_domains.log"))
         @failure_logger = Logger.new(Rails.root.join("log/scan_domains_failure.log"))
-        @db_logger = Logger.new(Rails.root.join("log/scan_domains_db.log"))
       end
 
       def log_scan_result(domain, result)
@@ -23,10 +22,6 @@ module Headlines
 
       def log_failure(domain, result)
         failure_logger.info("#{domain.label}: Failure reason: #{result.reason}")
-      end
-
-      def log_db(msg)
-        @db_logger.info(msg)
       end
 
       private
