@@ -26,8 +26,13 @@ module Headlines
         while @processed < @total
           Headlines::Domain.order(:id).offset(@offset + @processed).limit(chunk_size).each do |domain|
             @logger.log_process(domain.id)
-            result = AnalyzeDomainHeaders.call(domain: domain)
-            save_result(domain, result)
+
+            begin
+              result = AnalyzeDomainHeaders.call(domain: domain)
+              save_result(domain, result)
+            rescue StandardError => e
+              @logger.log_exception("Analyze/save failed: #{e}")
+            end
 
             @progress_hash[:progress] += 1
             @processed += 1
@@ -44,11 +49,7 @@ module Headlines
       def save_result(domain, result)
         if result.success?
           domain.build_last_scan(scan_params(result).merge!(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
-          begin
-            domain.save!
-          rescue StandardError => e
-            @logger.log_exception("Scan save failed: #{e}")
-          end
+          domain.save!
         end
 
         @logger.log_scan_result(domain, result)
