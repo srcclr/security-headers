@@ -20,7 +20,7 @@ module Headlines
 
         results = process_count.times.map do |n|
           current_batch_size = (n == process_count - 1 ? total_count - batch_size * n : batch_size)
-          Headlines::ScanDomains::Scanner.new(batch_size * n, current_batch_size, progress_hash).async.scan!
+          Headlines::ScanDomains::Scanner.new(batch_size * n, current_batch_size, progress_hash, n).async.scan!
         end
 
         while results.any?
@@ -29,6 +29,7 @@ module Headlines
 
             !result.pending?
           end
+
           progressbar.progress = progress_hash[:progress]
           sleep(5)
         end

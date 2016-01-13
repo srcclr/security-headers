@@ -1,12 +1,13 @@
 module Headlines
   module ScanDomains
     class ResultsLogger
-      attr_reader :logger, :failure_logger
-      private :logger, :failure_logger
+      attr_reader :logger, :failure_logger, :process_logger
+      private :logger, :failure_logger, :process_logger
 
-      def initialize
+      def initialize(process_num = nil)
         @logger = Logger.new(Rails.root.join("log/scan_domains.log"))
         @failure_logger = Logger.new(Rails.root.join("log/scan_domains_failure.log"))
+        @process_logger = Logger.new(Rails.root.join("log/scan_domains_process_#{process_num.to_i}.log"))
       end
 
       def log_scan_result(domain, result)
@@ -22,6 +23,10 @@ module Headlines
 
       def log_failure(domain, result)
         failure_logger.info("#{domain.label}: Failure reason: #{result.reason}")
+      end
+
+      def log_process(msg)
+        process_logger.info(msg)
       end
 
       private
