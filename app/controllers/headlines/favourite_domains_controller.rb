@@ -17,7 +17,7 @@ module Headlines
     end
 
     def create
-      favourite_domain = FavouriteDomain.find_or_create_by!(name: favourite_domain_params[:name])
+      favourite_domain = FavouriteDomain.find_or_create_by!(url: favourite_domain_params[:url])
       notification = current_user.favourite_domain_notifications.create!(favourite_domain: favourite_domain)
       render json: favourite_domain
     end
@@ -48,11 +48,11 @@ module Headlines
     end
 
     def favourite_domains
-      current_user.favourite_domains
+      @favourite_domains ||= current_user.favourite_domains
     end
 
     def favourite_domain_params
-      params.require(:favourite_domain).permit(:name)
+      params.require(:favourite_domain).permit(:url)
     end
   end
 end

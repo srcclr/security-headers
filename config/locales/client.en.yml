@@ -177,7 +177,7 @@ en:
       test: "TESTS"
       no_results: "No results"
       country_select_prompt: "All Countries"
-      add_domain: "Add new domain notification"
+      add_domain: "Add new domain"
   admin_js:
     admin:
       site_settings:

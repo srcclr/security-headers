@@ -4,7 +4,9 @@ Headlines::Engine.routes.draw do
   end
 
   resource :scans, only: %i(show)
-  resources :favourite_domains, only: %i(index create destroy)
+  resources :favourite_domains, only: %i(index create destroy) do
+    resource :email_notifications, only: :update
+  end
   get "favourite-domains" => "favourite_domains#index"
 
   namespace :api, defaults: { format: "json" } do

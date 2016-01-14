@@ -11,7 +11,7 @@ export default Ember.Controller.extend(BufferedContent, {
     },
 
     save() {
-      let attrs = this.get("buffered").getProperties("name");
+      let attrs = this.get("buffered").getProperties("url");
 
       return Discourse.ajax("/security-headers/favourite_domains", {
         type: "POST",
