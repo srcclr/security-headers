@@ -21,6 +21,7 @@ register_asset("stylesheets/views/headlines.css.scss")
 require(File.expand_path("../lib/headlines", __FILE__))
 
 after_initialize do
+  require(File.expand_path("../app/models/user", __FILE__))
   require(File.expand_path("../app/jobs/headlines/scheduled/collect_domains_country", __FILE__))
 end
 
