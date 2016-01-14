@@ -28,10 +28,6 @@ module Headlines
 
     private
 
-    def categories
-      Headlines::Category.where(category_id: 1)
-    end
-
     def root_categories_with_stats
       {
         domains_scanned: Headlines::Domain.where.not(last_scan_id: nil).count,
@@ -41,13 +37,19 @@ module Headlines
     end
 
     def categories_as_json
-      categories.map do |category|
+      serialized_categories = categories.map do |category|
         category_as_json(
           category,
           limit: domains_per_category,
           serializer: CategoryWithDomainsSerializer
         )
       end
+
+      serialized_categories.sort! { |a, b| b[:total_domain_count] <=> a[:total_domain_count] }
+    end
+
+    def categories
+      Headlines::Category.where(category_id: 1)
     end
 
     def category
@@ -58,13 +60,23 @@ module Headlines
 
     def category_as_json(category, options = {})
       serializer = options.delete(:serializer) || CategorySerializer
+      category_domains = filtered_domains(domains_with_scans(category))
 
       serialize_data(
         category,
         serializer,
         root: false,
-        domains: category_domains(category, options)
+        total_domain_count: category_domains.count(:id),
+        domains: category_domains.limit(options[:limit] || 25)
       )
+    end
+
+    def domains_with_scans(category)
+      DomainsInCategory.new(category: category)
+        .includes(:last_scan)
+        .joins(:last_scan)
+        .offset(offset)
+        .order(:rank)
     end
 
     def filtered_domains(domains)
@@ -75,17 +87,6 @@ module Headlines
 
     def filtered_domains_by_name(domains)
       DomainsWithName.new(domains: domains, filter_options: filter_options).all
-    end
-
-    def category_domains(category, limit: 25)
-      filtered_domains(
-        DomainsInCategory.new(category: category)
-          .includes(:last_scan)
-          .joins(:last_scan)
-          .offset(offset)
-          .order(:rank)
-          .limit(limit)
-      )
     end
 
     def filter_options
