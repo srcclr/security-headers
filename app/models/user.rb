@@ -1,7 +1,7 @@
 User.class_eval do
-  has_many :favourite_domains,
+  has_many :favorite_domains,
            -> { order(:url) },
-           through: :favourite_domain_notifications,
-           class_name: "Headlines::FavouriteDomain"
-  has_many :favourite_domain_notifications, class_name: "Headlines::EmailNotification"
+           through: :favorite_domain_notifications,
+           class_name: "Headlines::FavoriteDomain"
+  has_many :favorite_domain_notifications, class_name: "Headlines::EmailNotification"
 end

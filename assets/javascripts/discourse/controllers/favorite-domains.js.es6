@@ -1,4 +1,4 @@
-import FavouriteDomain from "../models/favourite-domain";
+import FavoriteDomain from "../models/favorite-domain";
 import BufferedContent from "discourse/mixins/buffered-content";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
@@ -13,11 +13,11 @@ export default Ember.Controller.extend(BufferedContent, {
     save() {
       let attrs = this.get("buffered").getProperties("url");
 
-      return Discourse.ajax("/security-headers/favourite_domains", {
+      return Discourse.ajax("/security-headers/favorite_domains", {
         type: "POST",
-        data: { favourite_domain: attrs }
+        data: { favorite_domain: attrs }
       }).then((result) => {
-        this.get("model").pushObject(FavouriteDomain.createFromJson(result.favourite_domain));
+        this.get("model").pushObject(FavoriteDomain.createFromJson(result.favorite_domain));
         this.set("addMode", false);
         this.commitBuffer();
       }).catch(popupAjaxError);

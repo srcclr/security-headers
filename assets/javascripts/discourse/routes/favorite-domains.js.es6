@@ -1,14 +1,14 @@
-import FavouriteDomain from "../models/favourite-domain";
+import FavoriteDomain from "../models/favorite-domain";
 import RedirectIfNotLoggedIn from "../mixins/redirect-if-not-logged-in";
 
 export default Discourse.Route.extend(RedirectIfNotLoggedIn, {
   redirect() { return this.redirectIfNotLoggedIn("/projects/security-headers"); },
 
   model() {
-    return PreloadStore.getAndRemove('favourite_domains', () => {
-      return Discourse.ajax(Discourse.getURL("/security-headers/favourite_domains"));
+    return PreloadStore.getAndRemove('favorite_domains', () => {
+      return Discourse.ajax(Discourse.getURL("/security-headers/favorite_domains"));
     }).then((data) => {
-      return FavouriteDomain.createList(data.favourite_domains);
+      return FavoriteDomain.createList(data.favorite_domains);
     });
   },
 

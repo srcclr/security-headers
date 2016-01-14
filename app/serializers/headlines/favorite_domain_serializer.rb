@@ -1,5 +1,5 @@
 module Headlines
-  class FavouriteDomainSerializer < ActiveModel::Serializer
+  class FavoriteDomainSerializer < ActiveModel::Serializer
     attributes :id, :url, :notification_type
 
     private

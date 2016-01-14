@@ -3,7 +3,7 @@
 
   <div class="mb">
     {{#if addMode}}
-      {{partial "shared/add-favourite-domain-form"}}
+      {{partial "shared/add-favorite-domain-form"}}
     {{else}}
       {{d-button action="addDomain" icon="plus" label="headlines.add_domain" class="btn--primary"}}
     {{/if}}
@@ -19,7 +19,7 @@
         </tr>
       </thead>
 
-      {{#each domain in model itemController="favourite-domain"}}
+      {{#each domain in model itemController="favorite-domain"}}
         <tr>
           <td>
             <a href="http://{{domain.model.url}}" target="_blank">{{domain.model.url}}</a>

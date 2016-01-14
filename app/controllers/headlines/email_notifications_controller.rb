@@ -15,8 +15,8 @@ module Headlines
 
     def email_notification
       @email_notification ||= current_user
-                              .favourite_domain_notifications
-                              .find_by(favourite_domain_id: params[:favourite_domain_id])
+                              .favorite_domain_notifications
+                              .find_by(favorite_domain_id: params[:favorite_domain_id])
     end
   end
 end

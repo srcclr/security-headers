@@ -1,6 +1,6 @@
-let FavouriteDomain = Discourse.Model.extend({
+let FavoriteDomain = Discourse.Model.extend({
   baseUrl: Em.computed("id", function() {
-    return "/security-headers/favourite_domains/" + this.get("id");
+    return "/security-headers/favorite_domains/" + this.get("id");
   }),
 
   destroy() {
@@ -12,11 +12,10 @@ let FavouriteDomain = Discourse.Model.extend({
   }
 });
 
-FavouriteDomain.reopenClass({
+FavoriteDomain.reopenClass({
   createFromJson(json) {
     return this.create({
       id: json.id,
-      name: json.name,
       url: json.url,
       notificationType: json.notification_type
     });
@@ -27,4 +26,4 @@ FavouriteDomain.reopenClass({
   }
 });
 
-export default FavouriteDomain;
+export default FavoriteDomain;
