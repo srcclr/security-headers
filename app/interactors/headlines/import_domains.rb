@@ -2,6 +2,6 @@ module Headlines
   class ImportDomains
     include Interactor::Organizer
 
-    organize ReadDomains, CollectDomainsDataAlexa, UpsertDomains
+    organize ReadDomains, UpsertDomains
   end
 end

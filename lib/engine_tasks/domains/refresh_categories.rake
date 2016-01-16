@@ -18,6 +18,7 @@ namespace :headlines do
 
     def default_category
       @default_category ||= Headlines::Category.find_or_create_by(
+        id: Headlines::Category.order(id: :desc).first.id.to_i + 1,
         title: "Uncategorized",
         topic: "Top/Uncategorized",
         category_id: 1

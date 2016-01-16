@@ -29,7 +29,7 @@ en:
           score1: "HTTP Strict Transport Security is enabled but not set for sub-domains."
           score2: "HTTP Strict Transport Security is enabled with sub-domains."
         x-xss-protection:
-          label: "Cross-Site Scripting (XSS)"
+          label: "Cross-Site Scripting (XSS) Protection"
           title: "X-XSS-Protection"
           score-1: "Blocking of Cross-Site Scripting attacks is disabled."
           score1: "Limited blocking of certain types of Cross-Site Scripting attacks is enabled."
@@ -165,9 +165,9 @@ en:
         public-key-pins: "HTTP Public Key Pinning (HPKP)"
         x-permitted-cross-domain-policies: "Cross Domain Configuration"
         content-security-policy: "Content Security Policy"
-        x-powered-by: "X-Powered-By"
+        x-powered-by: "X Powered By"
         server: "Server"
-        content-type: "Content-Type"
+        content-type: "Content Type"
       check_form:
         field: "Paste or type the URL"
         action: "Scan"
@@ -177,6 +177,7 @@ en:
       test: "TESTS"
       no_results: "No results"
       country_select_prompt: "All Countries"
+      add_domain: "Add new domain"
   admin_js:
     admin:
       site_settings:

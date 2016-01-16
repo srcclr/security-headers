@@ -3,6 +3,7 @@
 # version: 0.0.1
 # author: SourceClear
 
+gem("concurrent-ruby", "1.0.0", require_name: "concurrent")
 gem("interactor", "3.1.0")
 gem("interactor-rails", "2.0.1", require_name: "interactor/rails")
 gem("iso_country_codes", "0.7.1")
@@ -18,6 +19,11 @@ register_asset("stylesheets/components/switch.css.scss")
 register_asset("stylesheets/views/headlines.css.scss")
 
 require(File.expand_path("../lib/headlines", __FILE__))
+
+after_initialize do
+  require(File.expand_path("../app/models/user", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/scheduled/collect_domains_country", __FILE__))
+end
 
 Discourse::Application.routes.append do
   mount Headlines::Engine, at: "/security-headers"

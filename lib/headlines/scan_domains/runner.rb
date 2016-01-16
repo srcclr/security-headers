@@ -1,49 +1,50 @@
+require "concurrent"
+
 module Headlines
   module ScanDomains
     class Runner
-      def initialize(domains)
-        @domains = domains
+      DEFAULT_PROCESS_COUNT = 8.freeze
+
+      attr_reader :total_count, :progressbar, :logger
+      private :total_count, :progressbar, :logger
+
+      def initialize(total_count, progressbar)
+        @total_count = total_count
+        @progressbar = progressbar
+        @logger = Headlines::ScanDomains::ResultsLogger.new
       end
 
       def call
-        @domains.each do |domain|
-          scan_domain(domain)
-          print "."
+        progress_hash = Concurrent::Map.new
+        progress_hash[:progress] = 0
+
+        results = process_count.times.map do |n|
+          current_batch_size = (n == process_count - 1 ? total_count - batch_size * n : batch_size)
+          Headlines::ScanDomains::Scanner.new(batch_size * n, current_batch_size, progress_hash, n).async.scan!
         end
+
+        while results.any?
+          results.delete_if do |result|
+            logger.log_exception(result.reason) unless result.fulfilled? || result.pending?
+
+            !result.pending?
+          end
+
+          progressbar.progress = progress_hash[:progress]
+          sleep(5)
+        end
+      rescue StandardError => exception
+        logger.log_exception(exception)
       end
 
       private
 
-      def scan_domain(domain)
-        result = Headlines::AnalyzeDomainHeaders.call(url: domain.name)
-        if result.success?
-          domain.build_last_scan(scan_params(result).merge(domain_id: domain.id, ssl_enabled: result.ssl_enabled))
-          domain.save!
-        end
-
-        log_scan_result(domain.id, result)
+      def batch_size
+        @batch_size ||= total_count.fdiv(process_count).ceil
       end
 
-      def scan_params(result)
-        result[:params].slice(:headers, :results, :score, :http_score, :csp_score)
-      end
-
-      def log_scan_result(index, result)
-        scan_result = result.success? ? "success" : "failure"
-        logger.info("[#{index} / #{@domains.last.id}] Domain #{result.url} scan result: #{scan_result}")
-        return if result.success?
-
-        failure_logger.info("#{index}. #{result.url}")
-        failure_logger.info("  Status: #{result.status}") if result.status.present?
-        failure_logger.info("  Errors: #{result.errors}") if result.errors.present?
-      end
-
-      def logger
-        @logger ||= Logger.new(Rails.root.join("log/scan_domains_#{@domains.first.id}_#{@domains.last.id}.log"))
-      end
-
-      def failure_logger
-        @failure_logger ||= Logger.new(Rails.root.join("log/scan_domains_failure.log"))
+      def process_count
+        @process_count ||= SiteSetting.scan_proccess_count || DEFAULT_PROCESS_COUNT
       end
     end
   end
