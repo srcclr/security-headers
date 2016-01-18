@@ -23,6 +23,12 @@ require(File.expand_path("../lib/headlines", __FILE__))
 after_initialize do
   require(File.expand_path("../app/models/user", __FILE__))
   require(File.expand_path("../app/jobs/headlines/scheduled/collect_domains_country", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/scheduled/scan_favorite_domains/base", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/scheduled/scan_favorite_domains/daily", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/scheduled/scan_favorite_domains/weekly", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/scheduled/scan_favorite_domains/monthly", __FILE__))
+  require(File.expand_path("../app/jobs/headlines/regular/scan_domain", __FILE__))
+  require(File.expand_path("../app/mailers/security_headers_report_mailer", __FILE__))
 end
 
 Discourse::Application.routes.append do

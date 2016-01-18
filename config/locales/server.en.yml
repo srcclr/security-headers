@@ -7,3 +7,5 @@ en:
     faraday:
       connectionfailed: "Connection error."
       sslerror: "SSL error."
+  security_headers_report:
+    subject_template: "Security Headers Report"
