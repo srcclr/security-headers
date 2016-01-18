@@ -5,5 +5,5 @@ export default function() {
     this.route("domains", { path: "/categories/:category_id/domains/:id" });
     this.resource("scans");
   });
-  this.route("favorite-domains", { path: "security-headers/favorite-domains" });
+  this.route("favorite-domains", { path: "security-headers/my-sites" });
 }
