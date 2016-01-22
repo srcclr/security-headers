@@ -3,7 +3,7 @@
     {{partial 'headlines/filters'}}
 
     <div class="mv additional-info-container">
-      <p>Domains scanned: <b>{{model.domainsScanned}}</b></p>
+      <p>Sites scanned: <b>{{model.domainsScanned}}</b></p>
       <p>Last scan: <b>{{formatted-date model.lastScan "D MMM YYYY"}}</b></p>
       <p>{{#link-to "discovery.parentCategory" "security-headers"}}Discuss this project{{/link-to}}</p>
       {{#if currentUser}}
