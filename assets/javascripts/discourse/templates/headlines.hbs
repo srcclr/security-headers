@@ -1,4 +1,10 @@
 <div class="static-page headlines-page">
+  {{#if currentUser}}
+    <section class="container">
+      <span>{{#link-to "headlines.categories"}}Alexa Top Sites{{/link-to}}</span>
+      <span>{{#link-to "headlines.favorite-domains"}}My Sites{{/link-to}}</span>
+    </section>
+  {{/if}}
   <section class="container">
     <form {{action "scanUrl" on="submit"}} class="check-site">
       {{input type="text" class="m0" value=url placeholder=scanUrlPlaceholder}}
