@@ -6,6 +6,8 @@ class SecurityHeadersReportMailer < ActionMailer::Base
   attr_reader :user, :scan_result
   private :user, :scan_result
 
+  delegate :url, :email_params, to: :scan_result
+
   def report(user, scan_result)
     @user = user
     @scan_result = scan_result
@@ -21,7 +23,13 @@ class SecurityHeadersReportMailer < ActionMailer::Base
       format: :html,
       locals: {
         username: user.username,
-        scan_result: scan_result
+        base_url: Discourse.base_url,
+        url: url,
+        status: email_params[:status],
+        http_grade: email_params[:http_grade],
+        http_headers: email_params[:http_headers],
+        csp_grade: email_params[:csp_grade],
+        csp_header: email_params[:csp_header]
       }
     )
   end

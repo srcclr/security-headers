@@ -1192,8 +1192,8 @@
                       <td class="wrapper last">
                         <table class="twelve columns">
                           <tr>
-                            <td class="six sub-columns site-name"><%= scan_result.url %></td>
-                            <td class="six sub-columns site-grade"> <span class="site-grade--label">(Overall grade)</span><span class="site-grade--value grade-<%= scan_result.email_params[:status].downcase %>"><%= scan_result.email_params[:status] %></span></td>
+                            <td class="six sub-columns site-name"><%= url %></td>
+                            <td class="six sub-columns site-grade"> <span class="site-grade--label">(Overall grade)</span><span class="site-grade--value grade-<%= status.downcase %>"><%= status %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>
@@ -1214,7 +1214,7 @@
                             <td class="six sub-columns test-section-name">
                               <h3 class="h3">HTTP headers</h3>
                             </td>
-                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= scan_result.email_params[:http_grade].downcase %>"><%= scan_result.email_params[:http_grade] %></span></td>
+                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= http_grade.downcase %>"><%= http_grade %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>
@@ -1225,7 +1225,7 @@
               </tr>
               <tr>
                 <td class="tests-table">
-                  <%- scan_result.email_params[:http_headers].each do |header| %>
+                  <%- http_headers.each do |header| %>
                     <table class="row">
                       <tr>
                         <td class="wrapper">
@@ -1264,7 +1264,7 @@
                             <td class="six sub-columns test-section-name">
                               <h3 class="h3">CSP header</h3>
                             </td>
-                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= scan_result.email_params[:csp_grade].downcase %>"><%= scan_result.email_params[:csp_grade] %></span></td>
+                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= csp_grade.downcase %>"><%= csp_grade %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>
@@ -1275,7 +1275,7 @@
               </tr>
               <tr>
                 <td class="tests-table">
-                  <%- if scan_result.email_params[:csp_header][:directives].present? %>
+                  <%- if csp_header[:directives].present? %>
                     <table class="row">
                       <tr>
                         <td class="wrapper last">
@@ -1283,7 +1283,7 @@
                             <tr>
                               <td>
                                 <p class="test-value">Content-Security-Policy:</p>
-                                <%- scan_result.email_params[:csp_header][:directives].each do |directive| %>
+                                <%- csp_header[:directives].each do |directive| %>
                                   <p class="test-value-description"><%= directive %></p>
                                 <% end %>
                               </td>
@@ -1294,7 +1294,7 @@
                       </tr>
                     </table>
                   <% end %>
-                  <%- scan_result.email_params[:csp_header][:tests].each do |test| %>
+                  <%- csp_header[:tests].each do |test| %>
                     <%- if test[:applicable?] %>
                       <table class="row">
                         <tr>
@@ -1324,7 +1324,7 @@
                       <td class="wrapper last">
                         <table class="twelve columns">
                           <tr>
-                            <td>You received this email because you have turned on notifications from <a href="https://open.srcclr.com/projects/security-headers">Security Headers Tool</a>. If you wish to unsubscribe or update your notification settings, please click <a href="https://open.srcclr.com/security-headers/my-sites">here</a>.</td>
+                            <td>You received this email because you have turned on notifications from <a href="<%= base_url %>/projects/security-headers">Security Headers Tool</a>. If you wish to unsubscribe or update your notification settings, please click <a href="<%= base_url %>/security-headers/my-sites">here</a>.</td>
                             <td class="expander"></td>
                           </tr>
                         </table>

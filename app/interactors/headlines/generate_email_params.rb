@@ -10,27 +10,15 @@ module Headlines
       return unless for_email
 
       context.email_params = {
-        status: GRADES[score],
-        http_grade: GRADES[http_score],
-        csp_grade: GRADES[csp_score],
+        status: GRADES[params[:score]],
+        http_grade: GRADES[params[:http_score]],
+        csp_grade: GRADES[params[:csp_score]],
         http_headers: http_headers,
         csp_header: csp_header
       }
     end
 
     private
-
-    def score
-      params[:score]
-    end
-
-    def http_score
-      params[:http_score]
-    end
-
-    def csp_score
-      params[:csp_score]
-    end
 
     def http_headers
       params[:http_headers].map do |header|
