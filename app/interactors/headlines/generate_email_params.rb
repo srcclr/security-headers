@@ -35,21 +35,11 @@ module Headlines
     def http_headers
       params[:http_headers].map do |header|
         {
-          status: header_status(header),
+          status: status_by_rating(header[:rating]),
           label: header_label(header),
           title: header_title(header),
           description: header_description(header)
         }
-      end
-    end
-
-    def header_status(header)
-      if header[:rating] == "OK"
-        "status-success"
-      elsif header[:rating] == "ERROR"
-        "status-danger"
-      else
-        "status-warning"
       end
     end
 
@@ -91,6 +81,7 @@ module Headlines
       params[:csp_header][:tests].map do |test|
         {
           applicable?: applicable?(test),
+          status: status_by_score(test[:score]),
           title: csp_test_title(test),
           description: csp_test_description(test)
         }
@@ -107,6 +98,26 @@ module Headlines
 
     def csp_test_description(test)
       I18n.t("js.headlines.tests.content-security-policy.#{test[:name]}.description")
+    end
+
+    def status_by_score(score)
+      if score > 0
+        'status-success'
+      elsif score < 0
+        'status-danger'
+      else
+        'status-warning'
+      end
+    end
+
+    def status_by_rating(rating)
+      if rating == "OK"
+        "status-success"
+      elsif rating == "ERROR"
+        "status-danger"
+      else
+        "status-warning"
+      end
     end
   end
 end
