@@ -20,7 +20,7 @@ class SecurityHeadersReportMailer < ActionMailer::Base
       format: :html,
       locals: {
         username: user.username,
-        domain_url: scan_result.url
+        scan_result: scan_result
       }
     )
   end
