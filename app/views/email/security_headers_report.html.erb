@@ -7,16 +7,20 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400"/>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Share+Tech+Mono"/>
     <style>
-      .status-success {
-        color: #97d700;
+      .status-success, .grade-a {
+        color: #87ce1f;
       }
 
-      .status-warning {
-        background: #ffb81c;
+      .status-warning, .grade-b {
+        color: #fadd25;
       }
 
-      .status-danger {
-        background: #ff0000;
+      .grade-c {
+        color: #ffa123;
+      }
+
+      .status-danger, .grade-d {
+        color: #ff5a2a;
       }
 
       .site-info {
@@ -1189,7 +1193,7 @@
                         <table class="twelve columns">
                           <tr>
                             <td class="six sub-columns site-name"><%= scan_result.url %></td>
-                            <td class="six sub-columns site-grade"> <span class="site-grade--label">(Overall grade)</span><span class="site-grade--value status-success"><%= scan_result.email_params[:status] %></span></td>
+                            <td class="six sub-columns site-grade"> <span class="site-grade--label">(Overall grade)</span><span class="site-grade--value grade-<%= scan_result.email_params[:status].downcase %>"><%= scan_result.email_params[:status] %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>
@@ -1210,7 +1214,7 @@
                             <td class="six sub-columns test-section-name">
                               <h3 class="h3">HTTP headers</h3>
                             </td>
-                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value status-success"><%= scan_result.email_params[:http_grade] %></span></td>
+                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= scan_result.email_params[:http_grade].downcase %>"><%= scan_result.email_params[:http_grade] %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>
@@ -1236,7 +1240,7 @@
                           <table class="eight columns">
                             <tr>
                               <td>
-                                <span class="test-value status-success"><%= header[:title] %></span>
+                                <span class="test-value <%= header[:status] %>"><%= header[:title] %></span>
                                 <span class="test-value-description"><%= header[:description] %></span>
                               </td>
                               <td class="expander"></td>
@@ -1260,7 +1264,7 @@
                             <td class="six sub-columns test-section-name">
                               <h3 class="h3">CSP header</h3>
                             </td>
-                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value status-success"><%= scan_result.email_params[:csp_grade] %></span></td>
+                            <td class="six sub-columns site-grade"><span class="site-grade--label">Grade:</span><span class="site-grade--value grade-<%= scan_result.email_params[:csp_grade].downcase %>"><%= scan_result.email_params[:csp_grade] %></span></td>
                             <td class="expander"></td>
                           </tr>
                         </table>

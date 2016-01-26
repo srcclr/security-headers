@@ -35,10 +35,21 @@ module Headlines
     def http_headers
       params[:http_headers].map do |header|
         {
+          status: header_status(header),
           label: header_label(header),
           title: header_title(header),
           description: header_description(header)
         }
+      end
+    end
+
+    def header_status(header)
+      if header[:rating] == "OK"
+        "status-success"
+      elsif header[:rating] == "ERROR"
+        "status-danger"
+      else
+        "status-warning"
       end
     end
 
