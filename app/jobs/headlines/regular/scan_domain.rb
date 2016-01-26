@@ -4,7 +4,7 @@ module Jobs
       def execute(args)
         @notification_type = args[:notification_type]
         @domain = ::Headlines::FavoriteDomain.find(args[:domain_id])
-        scan_result = ::Headlines::AnalyzeDomainHeaders.call(url: @domain.url)
+        scan_result = ::Headlines::AnalyzeDomainHeaders.call(url: @domain.url, for_email: true)
         users.find_each do |user|
           send_report(user, scan_result)
         end

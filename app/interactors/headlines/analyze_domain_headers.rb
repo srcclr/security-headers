@@ -4,7 +4,7 @@ module Headlines
 
     before :set_url
 
-    organize ParseSecurityHeaders, GenerateResults
+    organize ParseSecurityHeaders, GenerateResults, GenerateEmailParams
 
     private
 
