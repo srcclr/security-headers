@@ -4,6 +4,7 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default Ember.Controller.extend(BufferedContent, {
   addMode: false,
+  needs: ['login'],
 
   actions: {
     addDomain() {
@@ -26,6 +27,10 @@ export default Ember.Controller.extend(BufferedContent, {
     cancel() {
       this.rollbackBuffer();
       this.set("addMode", false);
+    },
+
+    externalLogin: function(provider) {
+      this.get('controllers.login').send('externalLogin', provider);
     }
   }
-})
+});

@@ -34,5 +34,8 @@
     </table>
   {{/if}}
 {{else}}
-  <span>Log in for My Sites.</span>
+  <div class="text--center">
+    {{login-buttons action="externalLogin" class="inline-block" id="login-buttons-security-headers"}}
+    to continue
+  </div>
 {{/if}}
