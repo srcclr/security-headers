@@ -1,9 +1,6 @@
 import FavoriteDomain from "../models/favorite-domain";
-import RedirectIfNotLoggedIn from "../mixins/redirect-if-not-logged-in";
 
-export default Discourse.Route.extend(RedirectIfNotLoggedIn, {
-  redirect() { return this.redirectIfNotLoggedIn("/projects/security-headers"); },
-
+export default Discourse.Route.extend({
   model() {
     return PreloadStore.getAndRemove('favorite_domains', () => {
       return Discourse.ajax(Discourse.getURL("/security-headers/favorite_domains"));

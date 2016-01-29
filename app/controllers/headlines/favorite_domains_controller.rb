@@ -1,7 +1,7 @@
 module Headlines
   class FavoriteDomainsController < ApplicationController
     skip_before_action :redirect_to_login_if_required
-    before_action :ensure_logged_in
+    before_action :ensure_logged_in, only: %i(create destroy)
 
     respond_to :html, :json
 
@@ -48,7 +48,9 @@ module Headlines
     end
 
     def favorite_domains
-      @favorite_domains ||= current_user.favorite_domains
+      return FavoriteDomain.none unless current_user
+
+      current_user.favorite_domains
     end
 
     def favorite_domain_params
