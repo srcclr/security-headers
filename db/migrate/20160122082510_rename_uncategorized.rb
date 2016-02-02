@@ -7,7 +7,7 @@ class RenameUncategorized < ActiveRecord::Migration
       title: "Miscellaneous",
       topic: "Top/Miscellaneous",
       category_id: 1
-    )
+    ) if category
   end
 
   def down
@@ -16,6 +16,6 @@ class RenameUncategorized < ActiveRecord::Migration
       title: "Uncategorized",
       topic: "Top/Uncategorized",
       category_id: 1
-    )
+    ) if category
   end
 end
