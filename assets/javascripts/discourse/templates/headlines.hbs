@@ -1,5 +1,19 @@
 <div class="static-page headlines-page">
   <section class="container">
+    <ul class="nav nav--tabs p0">
+      {{#link-to "headlines.categories" tagName="li" class="navbar__item" href=false}}
+        <a class="navbar__link" {{bind-attr href="view.href"}}>
+          Alexa Top Sites
+        </a>
+      {{/link-to}}
+      {{#link-to "headlines.favorite-domains" tagName="li" class="navbar__item" href=false}}
+        <a class="navbar__link" {{bind-attr href="view.href"}}>
+          My Sites
+        </a>
+      {{/link-to}}
+    </ul>
+  </section>
+  <section class="container">
     <form {{action "scanUrl" on="submit"}} class="check-site">
       {{input type="text" class="m0" value=url placeholder=scanUrlPlaceholder}}
       <button type="submit" class="btn-primary">

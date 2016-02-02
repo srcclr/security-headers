@@ -1,5 +1,6 @@
 require_relative './../../../app/interactors/headlines/parse_security_headers'
 require_relative './../../../app/interactors/headlines/generate_results'
+require_relative './../../../app/interactors/headlines/generate_email_params'
 require_relative './../../../app/interactors/headlines/analyze_domain_headers'
 require_relative './../../../app/models/headlines/domain'
 require_relative './../../../app/models/headlines/scan'

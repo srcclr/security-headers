@@ -4,6 +4,8 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default Ember.Controller.extend(BufferedContent, {
   addMode: false,
+  needs: ['login'],
+  githubLoginMethod: Em.get('Discourse.LoginMethod.all').findBy('name', 'github'),
 
   actions: {
     addDomain() {
@@ -26,6 +28,10 @@ export default Ember.Controller.extend(BufferedContent, {
     cancel() {
       this.rollbackBuffer();
       this.set("addMode", false);
+    },
+
+    login() {
+      this.get('controllers.login').send('externalLogin', this.githubLoginMethod);
     }
   }
-})
+});

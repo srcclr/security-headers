@@ -4,6 +4,6 @@ export default function() {
     this.route("categories-show", { path: "/categories/:id" });
     this.route("domains", { path: "/categories/:category_id/domains/:id" });
     this.resource("scans");
+    this.route("favorite-domains", { path: "/my-sites" });
   });
-  this.route("favorite-domains", { path: "security-headers/favorite-domains" });
 }

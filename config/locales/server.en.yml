@@ -1,9 +1,11 @@
 en:
   site_settings:
-    scan_domain_count: "Domains count to scan from alexa top list"
+    scan_domain_count: "Sites count to scan from alexa top list"
     scan_proccess_count: "Parallel scan proccess count"
   errors:
     general: "No results."
     faraday:
       connectionfailed: "Connection error."
       sslerror: "SSL error."
+  security_headers_report:
+    subject_template: "Security Headers Report"

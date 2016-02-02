@@ -1,6 +1,4 @@
-<div class="container mb">
-  <h3 class="mb">Security Headers Email Notifications</h3>
-
+{{#if currentUser}}
   <div class="mb">
     {{#if addMode}}
       {{partial "shared/add-favorite-domain-form"}}
@@ -13,13 +11,13 @@
     <table class="domains-list-table mb">
       <thead>
         <tr>
-          <th class="w--45">Domain URL</th>
+          <th class="w--45">Site URL</th>
           <th class="w--25">Notifications</th>
           <th class="w--5"></th>
         </tr>
       </thead>
 
-      {{#each domain in model itemController="favorite-domain"}}
+      {{#each domain in model itemController="headlines-favorite-domain"}}
         <tr>
           <td>
             <a href="http://{{domain.model.url}}" target="_blank">{{domain.model.url}}</a>
@@ -35,4 +33,8 @@
       {{/each}}
     </table>
   {{/if}}
-</div>
+{{else}}
+  <div class="text--center">
+    Please <a href="#" class="color--primary" {{action "login"}}>log in</a> to add your sites and receive scan reports over email
+  </div>
+{{/if}}
